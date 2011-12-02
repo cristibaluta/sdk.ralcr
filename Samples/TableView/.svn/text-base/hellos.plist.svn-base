@@ -1,0 +1,2404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>a</key>
+	<array>
+		<string>Abaza*Russia**Mysh bzi*1</string>
+		<string>Abaza*Russia**Umsh bzi*1</string>
+		<string>Abé*Côte d&apos;Ivoire**Bomé*1</string>
+		<string>Abé*Côte d&apos;Ivoire**Eli o*0</string>
+		<string>Abkhaz*Georgia**Mshybzia*0</string>
+		<string>Abkhaz*Georgia**Mshybziakua*0</string>
+		<string>Abkhaz*Georgia*to a man*Bziara ubaant*0</string>
+		<string>Abkhaz*Georgia*to a woman*Bziara bbant*0</string>
+		<string>Abenaki*Maine USA, Montreal Canada**Kwai*0</string>
+		<string>Abenaki*Maine USA, Montreal Canada**Kwai kwai*0</string>
+		<string>Abron*Ghana, Cote d&apos;Ivoire**Akwaaba*1</string>
+		<string>Acateco*San Miguel Acatán Guatemala**Hanik&apos;*1</string>
+		<string>Aceh*Sumatra**Saleum*1</string>
+		<string>Aceh*Sumatra**Assalamoe aleikoem*0</string>
+		<string>Achareta*South Asia**&apos;O*0</string>
+		<string>Achareta*South Asia**&apos;E*0</string>
+		<string>Achí*Baja Verapaz Guatemala*to man*Xla, ta*0</string>
+		<string>Achí*Baja Verapaz Guatemalal*to woman*Xla, nan*0</string>
+		<string>Acholi*Uganda, Sudan**Moreme*0</string>
+		<string>Acholi*Uganda, Sudan**Morembe*0</string>
+		<string>Achuar*Peru**Wiña jai*0</string>
+		<string>Achuar*Peru, Ecuador**Wiñamek*0</string>
+		<string>Achuar*Ecuador**Pujamik?*0</string>
+		<string>Acjachemem*San Juan Capistrano Calif. USA**Mija*0</string>
+		<string>Acjachemem*San Juan Capistrano Calif. USA**Miiya*0</string>
+		<string>Adyghe*Middle East**Fasapshi*0</string>
+		<string>Adyghe*NW Caucasus**Fesapshi*0</string>
+		<string>Adyghe*NW Caucasus**Wimafa shoo*0</string>
+		<string>Afar*Ethiopia, Eritrea, Djibouti**Mahisse*0</string>
+		<string>Afrikaans*Southern Africa**Goeie dag*0</string>
+		<string>Afrikaans*Southern Africa**Hallo*0</string>
+		<string>Aguacateco*Huehuetenango Guatemala*to man*Tzu ta&apos;*0</string>
+		<string>Aguacateco*Huehueten. Guatemala*to woman*Tzu na&apos;*0</string>
+		<string>Aguaruna*Peru**Ayú*0</string>
+		<string>Aguaruna*Peru*to a person who is arriving*Minámek?*0</string>
+		<string>Aguaruna*Peru*answer by a person arriving*Minájai*0</string>
+		<string>Ainu - Chitose dialect*Japan*after absense*person&apos;s name...he*0</string>
+		<string>Ainu - Saru dialect*Japan**Irankarapte*0</string>
+		<string>Ainu*Japan**Irankaratte*0</string>
+		<string>Akha*China, Southeast Asia**U du tah ma*0</string>
+		<string>Akha*China, Southeast Asia*answer*U du tah ma de*0</string>
+		<string>Aklanon*Philippines**Kumasta*0</string>
+		<string>Alabamu*Texas USA**Chíkmàa*0</string>
+		<string>Alabamu*Texas USA**Chisáhmín*0</string>
+		<string>Alabamu*Texas USA*response*Chisáhmina*0</string>
+		<string>Alabamu*Texas USA*response*Chakáanobi*0</string>
+		<string>Alabamu*Texas USA*old*Boso*0</string>
+		<string>Albanian*Albania, Yugoslavia**Tungjatjeta*0</string>
+		<string>Albanian*Albania, Yugoslavia**Allo*0</string>
+		<string>Alekano*Papua New Guinea**Ambo*0</string>
+		<string>Alsatian*France**Bùschùr*0</string>
+		<string>Altai*Russia**Ezender*0</string>
+		<string>Altai*Russia**Yakshï ba?*0</string>
+		<string>Alur*Uganda, Congo-Kinshasha**Morembe*0</string>
+		<string>Amahuaca*Peru**Sharaa ra*0</string>
+		<string>Amarakaeri*Peru**Ijtiaki*0</string>
+		<string>Amarakaeri*Peru**&apos;Urubada*0</string>
+		<string>Amele*Papua New Guinea**Feele bahic*0</string>
+		<string>Amharic*Ethiopia, Israel, Egypt**Teanastëllën*0</string>
+		<string>Amharic*Ethiopia, Israel, Egypt*informal*Tadiyaas*0</string>
+		<string>Amharic*Ethiopia, Israel, Egypt*informal*Selam*0</string>
+		<string>Amis*Taiwan**Nga&apos;aiho*0</string>
+		<string>Amis*Taiwan**Nga&apos;ay ho ko miso*0</string>
+		<string>Amungme*Indonesia**Amole*0</string>
+		<string>Amuzgo*Mexico**Xmandyu*0</string>
+		<string>Anglo-Saxon*England**God dæg*0</string>
+		<string>Antaisaka*Madagascar**Salama*0</string>
+		<string>Antanosy*Madagascar**Salama*0</string>
+		<string>Apache*Arizona USA*Jicarilla*Dáazho*0</string>
+		<string>Apache*Arizona USA*Jicarilla*Daanzho*0</string>
+		<string>Apache*Arizona USA**Dad&apos;atay*0</string>
+		<string>Apache*Arizona USA**Ya&apos;atay*0</string>
+		<string>Apache*Arizona USA**Yatasay*0</string>
+		<string>Apache*Arizona USA*not usually used*Dagot&apos;ee*0</string>
+		<string>Apalai*Brazil**Moino*0</string>
+		<string>Apinagé*Brazil**Négalinio*0</string>
+		<string>Apsaaloke*Montana USA**Kahé*0</string>
+		<string>Apurucayali*Peru**Kitaitirivi*0</string>
+		<string>Arabic*North Africa, Middle East**Marhaba*0</string>
+		<string>Arabic*North Africa, Mid. East*response*Marhabtayn*0</string>
+		<string>Arabic*North Africa, Middle East**Ahalan*0</string>
+		<string>Arabic*North Africa, Mid. East*response*Ahalayn*0</string>
+		<string>Arabic*North Africa, Middle East**Es salaam aleikom*0</string>
+		<string>Arabic**response to A salaam aleikom*Wa aleikom es salaam*0</string>
+		<string>Arabic*North Africa, Middle East**Salaam*0</string>
+		<string>Arabic*North Africa**Ahlen*0</string>
+		<string>Arabic*North Africa**Ahlan*0</string>
+		<string>Arabic*North Africa*response to Ahlan*Ahlayn*0</string>
+		<string>Arabic*Algeria*informal*Labass*0</string>
+		<string>Arabic*Egypt**Ahlan wa sahlan*0</string>
+		<string>Arabic*Egypt*answer by male*Ahlan bik*0</string>
+		<string>Arabic*Egypt*answer by female*Ahlan biki*0</string>
+		<string>Arabic*Egypt*answer by group*Ahlan bikum*0</string>
+		<string>Arabic*Egypt*informal*Sa&apos;ida*0</string>
+		<string>Arabic*Iraq*informal*Halaw*0</string>
+		<string>Arabic*Kuwait*informal*Gowwa*0</string>
+		<string>Arabic*Morocco**Ahlen*0</string>
+		<string>Arabic*Morocco**Ssalamu &apos;lekum*0</string>
+		<string>Arabic*Morocco**Labas*0</string>
+		<string>Arabunna*Australia**Arru*0</string>
+		<string>Arabunna*Australia**Arru anpa*0</string>
+		<string>Aragonese*Aragon Spain**Ola*0</string>
+		<string>Aragonese*Aragon Spain**Salú*0</string>
+		<string>Aranda*Australia**Kelemwarre*0</string>
+		<string>Arberesh*Hora e Arbereshevet Italy**Mirdita*0</string>
+		<string>Ardhamagadhi*India**Jai jinendra*0</string>
+		<string>Arikara*United States**Tashgasha*0</string>
+		<string>Ariti*Brazil*Kaxiniti*Uzalauáká*0</string>
+		<string>Ariti*Brazil*Kozarini*Kamataú*0</string>
+		<string>Ariti*Brazil*Uaimare*Uerauka*0</string>
+		<string>Armenian*Armenia, Russia, Middle East**Voghdzuyin*0</string>
+		<string>Armenian*Armenia*informal*Parev*0</string>
+		<string>Armenian*Armenia*Eastern*Barev dzez*0</string>
+		<string>Armenian*Armenia*informal*Barev*0</string>
+		<string>Aromunian*Greece, Balkans**Bunã dzua*0</string>
+		<string>Arrernte*Australia**Werte*0</string>
+		<string>Arrernte*Australia**Werte marda*0</string>
+		<string>Asante*Ghana**Maakyé *0</string>
+		<string>Asante*Ghana*reply*Yaa*0</string>
+		<string>Ashaninka*Peru**Aviro*0</string>
+		<string>Ashaninka*Peru**Avirón*0</string>
+		<string>Ashaninka*Peru*response*Narové*0</string>
+		<string>Ashéninka*Peru**Kitaitirivi*0</string>
+		<string>Assamese*India, Bangladesh**Namaskaara*0</string>
+		<string>Assyrian*Middle East*Eastern Assyrian*Shlama*0</string>
+		<string>Assyrian*Middle East*Western Assyrian*Shlomo*0</string>
+		<string>Assyrian*Middle East*said by male*Shlama alukh*0</string>
+		<string>Assyrian*Middle East*said by female*Shlama alakh*0</string>
+		<string>Assyrian*Middle East*said by male*Shlama umukh*0</string>
+		<string>Assyrian*Middle East*said by female*Shlama umakh*0</string>
+		<string>Assyrian*Middle East**Shlama ilakh*0</string>
+		<string>Assyrian*Middle East**Shlama amkhon*0</string>
+		<string>Assyrian*Middle East**Shlama lokhon*0</string>
+		<string>Assyrian*Middle East*Eastern Assyrian*Shlama &apos;lokhun*0</string>
+		<string>Assyrian*Middle East*Western Assyrian*Shlomo &apos;laykun*0</string>
+		<string>Assyrian*Middle East*plural*Shlama alokhun*0</string>
+		<string>Assyrian*Iraq**Shlama alakhun*0</string>
+		<string>Asturian*Spain**Bonos díes*0</string>
+		<string>Asturian*Spain**Bon día*0</string>
+		<string>Asturian*Spain**Hola*0</string>
+		<string>Atayal*Taiwan**Lokah su*0</string>
+		<string>Ateso*Uganda**Yoga*0</string>
+		<string>Ateso*Uganda*answer*Yoga noi*0</string>
+		<string>Ateso*Uganda*to a person who is working*Yoga aswam*0</string>
+		<string>Ateso*Uganda*to a person who is working*Eyalama aswam*0</string>
+		<string>Ateso*Uganda*answer by a working person*Ebo nakonda*0</string>
+		<string>Atikamekw*Montreal and Quebec Canada**Kwei*0</string>
+		<string>Atuona*Marquesas Islands**Ka oha*0</string>
+		<string>Awabakal*Australia**Ella*0</string>
+		<string>Awabakal*Australia**Alla*0</string>
+		<string>Awabakal*Australia**Wau*0</string>
+		<string>Aymará*Bolivia, Peru, Chile**Kamisaraki?*0</string>
+		<string>Aymará*Bolivia, Peru, Chile**Kamisaki?*0</string>
+		<string>Aymará*Bolivia, Peru, Chile*answer*Waliki*0</string>
+		<string>Aymará*Bolivia, Peru, Chile*informal*Laphi*0</string>
+		<string>Aymará*Bolivia, Peru, Chile*good day*Aski churatam*0</string>
+		<string>Aymará*Bolivia, Peru, Chile*old, to man*Askiru churata tatay*0</string>
+		<string>Aymará*Bolivia, Peru, Chile*old to woman*Askiru churata mamay*0</string>
+		<string>Azerbaijani*Azerbaijan, Iran**Salam*0</string>
+		<string>Azerbaijani*Azerbaijan, Iran**Salam ælæyküm*0</string>
+		<string>Azerbaijani*Azerbaijan, Iran*reply*ælæyküm salam*0</string>
+		<string>Azerbaijani*Azerbaijan, Iran**Nahardansonia xeyir*0</string>
+	</array>
+	<key>b</key>
+	<array>
+		<string>Bafia*Mbam Cameroon**Wayumbe*0</string>
+		<string>Bagesu*Central Africa**Watulire?*0</string>
+		<string>Bagesu*Central Africa*answer*Natulire nili mlahi*0</string>
+		<string>Bajawa*Indonesia*&apos;where are you going&apos;*Male de?*0</string>
+		<string>Bakitara*Central Africa*morning*Oirwota?*0</string>
+		<string>Bakitara*Central Africa*answer*Ndabanta*0</string>
+		<string>Bakitara*Central Africa*after absense*Mirembe*0</string>
+		<string>Bakweri*Cameroon*morning*O wusi*0</string>
+		<string>Balanta*Guinea-Bissau**Abala, lite utchole*0</string>
+		<string>Balinese*Bali**Om swastyastu*0</string>
+		<string>Balinese*Bali*reply*Om shanti shanti shanti*0</string>
+		<string>Balti*India, Pakistan**Yang chi halyo?*0</string>
+		<string>Balti*India, Pakistan*answer*Lyakhmo*0</string>
+		<string>Bambara*Mali**I ni bara*0</string>
+		<string>Bambara*Mali*to several people*Aw ni bara*0</string>
+		<string>Bambara*Mali*to person at a market*I ni dogo*0</string>
+		<string>Bambara*Mali*to several people at market*Aw ni dogo*0</string>
+		<string>Bambara*Mali**I ni ce*0</string>
+		<string>Bambara*Mali*to several people*Aw ni ce*0</string>
+		<string>Bambara*Mali**Ebede*0</string>
+		<string>Banaban*Kiribati**Tiabo*0</string>
+		<string>Baniua*Brazil**Pauari-ecuápe*0</string>
+		<string>Baoula*Cote d&apos;Ivoire**Akwaba*0</string>
+		<string>Bariba*Benin, Nigeria**Ka weru*0</string>
+		<string>Bashkir*Russia**Kheyerle irte*0</string>
+		<string>Bashkir*Russia**Khaumykhyghyz*0</string>
+		<string>Bashkir*Russia*informal*Selem*0</string>
+		<string>Basque*Spain, France**Kaixo*0</string>
+		<string>Basque*Spain, France*informal*Eup*0</string>
+		<string>Basque*Spain, France*informal*Epa*0</string>
+		<string>Basque*Spain, France*informal*Iepa*0</string>
+		<string>Basque*Spain, France*informal*Aupa*0</string>
+		<string>Basque*Spain, France*after long absense*Aspaldiko*0</string>
+		<string>Basque*Spain, France*after long absense*Kaixo aspaldiko*0</string>
+		<string>Basque-Icelandic Pidgin*Iceland**Ungetorre*0</string>
+		<string>Batak*Indonesia, Sumatra, Philippines**Horas*0</string>
+		<string>Batak*Indonesia, Sumatra, Philippines**Horas bah*0</string>
+		<string>Batak Karo*Indonesia, Sumatra**Mejuah-juah*0</string>
+		<string>Batak Pakpak*Indonesia, Sumatra**Njuah-juah*0</string>
+		<string>Batak Pakpak*Indonesia, Sumatra**Njuah-njuah*0</string>
+		<string>Batak Simalungun*Indonesia, Sumatra**Horos*0</string>
+		<string>Batak Toba*Indonesia, Sumatra**Horas*0</string>
+		<string>Bella Coola*United States**Yaw*0</string>
+		<string>Bellonese*Solomon Islands**Gaoi*0</string>
+		<string>Bellonese*Solomon Islands**Ngaoi*0</string>
+		<string>Belorussian*Belarus**Pryvitáni*0</string>
+		<string>Belorussian*Belarus**Vitaj*0</string>
+		<string>Belorussian*Belarus*informal*Zdarow*0</string>
+		<string>Bemba*Zambia, Congo-Kinshasa**Mwapoleni*0</string>
+		<string>Bemba*Zambia, Congo-Kinshasa*respectful*Mwapoleni mukwai*0</string>
+		<string>Bemba*Zambia, Congo-Kinshasa**Shani*0</string>
+		<string>Bemba*Southern Zambia**Mwabonwa*0</string>
+		<string>Bemba*Lusaka Zambia**Mulibwanji*0</string>
+		<string>Bene*Africa**Bai*0</string>
+		<string>Bengali*Bangladesh, India**Nomoskaar*0</string>
+		<string>Bengali*Bangladesh, India**Ei je*0</string>
+		<string>Bengali*Bangladesh, India**Aadaab*0</string>
+		<string>Bengali*Bangladesh, India**Assalamualaikum*0</string>
+		<string>Berau*Indonesia**Elsalam aleki*0</string>
+		<string>Beri Beri*Niger**Wushiwushi*0</string>
+		<string>Bété*Côte d&apos;Ivore**Ayo*0</string>
+		<string>Bété*Côte d&apos;Ivore**Yaawa*0</string>
+		<string>Bhojpuri*India**Kaisan baari log*0</string>
+		<string>Bicol*Philippines**Kumustas*0</string>
+		<string>Bicol*Philippines**Kamusta*0</string>
+		<string>Bicol*Philippines**Marhay na aldaw*0</string>
+		<string>Bicol*Philippines**Marhay na aldaw po*0</string>
+		<string>Bicol*Philippines**Marhay na aldaw sa indo gabos*0</string>
+		<string>Bicol*Philippines**Marhay na aldaw saindong gabos*0</string>
+		<string>Bicol*Philippines**Magandang umaga po*0</string>
+		<string>Bilen*Bogos Ethiopia*you enjoy the night?*Aja kruKwma?*0</string>
+		<string>Bilen*Bogos Ethiopia*yes, good morning*MerHaba, aja kruKwma*0</string>
+		<string>Bilen*Bogos Ethiopia*have a nice day*Aja ergruKw&apos;ma?*0</string>
+		<string>Bilen*Bogos Ethiopia*ans: same to you*MerHaba aja ergruKw&apos;ma*0</string>
+		<string>Biloxi*Mississippi Valley USA**Hi ha&apos;*0</string>
+		<string>Biloxi*Mississippi Valley USA**He&apos; ha*0</string>
+		<string>Bislama*Vanuatu*to one person*Halo*0</string>
+		<string>Bislama*Vanuatu*to two people*Halo tufala*0</string>
+		<string>Bislama*Vanuatu*to three people*Halo trifala*0</string>
+		<string>Bislama*Vanuatu*to more than three*Halo olgeta*0</string>
+		<string>Bisu*China, Thailand, Myanmar**Nang lakéung é-éu?*0</string>
+		<string>Bisu*China, Thailand, Myanmar**Lakéung é-éu?*0</string>
+		<string>Bisu*China, Thailand, Myanmar*answer*Ga leu-ngé*0</string>
+		<string>Bisu*China, Thailand, Myanmar*answer*Leu-ngé*0</string>
+		<string>Blackfoot*Alberta Canada, Montana USA**Oki*0</string>
+		<string>Blackfoot*Alberta, Montana*to a friend*Oki niksokowa*0</string>
+		<string>Boboda*Burkina Faso, Mali**Ka fo*0</string>
+		<string>Bole*Nigeria**Use*0</string>
+		<string>Bole*Nigeria*morning*Barka saato*0</string>
+		<string>Bole*Nigeria*afternoon*Barka bushi*0</string>
+		<string>Bole*Nigeria*answer*Yawwa*0</string>
+		<string>Boloki*Congo-Kinshasa**Losako*0</string>
+		<string>Bosnian*Bosnia and Hercegovina**Zdravo*0</string>
+		<string>Bosnian*Bosnia and Hercegovina**Dobar dan*0</string>
+		<string>Bosnian*Bosnia*morning, by Muslims*Sabah hajrula*0</string>
+		<string>Botunga*Congo-Kinshasha, Uganda**Wa bonwa*0</string>
+		<string>Breton*Brittany France**Boñjour*0</string>
+		<string>Breton*Brittany France**Demat*0</string>
+		<string>Breton*Brittany France**Demad*0</string>
+		<string>Breton*Brittany France**Salut*0</string>
+		<string>Breton*Brittany France**Salud*0</string>
+		<string>Breton*Brittany France*formal &amp; plural*Demat deoc&apos;h*0</string>
+		<string>Breton*Brittany France*formal &amp; plural*Demad deoc&apos;h*0</string>
+		<string>Breton*Brittany France*formal &amp; plural*Salut deoc&apos;h*0</string>
+		<string>Breton*Brittany France*formal &amp; plural*Salud deoc&apos;h*0</string>
+		<string>Breton*Brittany France*informal*Demat dit*0</string>
+		<string>Breton*Brittany France*informal*Demad dit*0</string>
+		<string>Breton*Brittany France*informal*Salut dit*0</string>
+		<string>Breton*Brittany France*informal*Salud dit*0</string>
+		<string>Breton*S. Brittany France*Vannetais*Demat deoh*0</string>
+		<string>Breton*S. Brittany France*inf*Demat dis*0</string>
+		<string>Brigidian*western Ireland**Aiah ban twon*0</string>
+		<string>Brigidian*western Ireland**Aiah ban twons*0</string>
+		<string>Bru*Vietnam**Bán té*0</string>
+		<string>Bukusu*Mt. Elgon Kenya**Mlembe*0</string>
+		<string>Bukusu*Mt. Elgon Kenya**Mulembe*0</string>
+		<string>Bukusu*Mt. Elgon Kenya**Oreina *0</string>
+		<string>Bukusu*Mt. Elgon Kenya**Kamakhuwa*0</string>
+		<string>Bukusu*Mt. Elgon Kenya*to important p.*Omu angafu akoboole*0</string>
+		<string>Bulgarian*Bulgaria**Zdraveite*0</string>
+		<string>Bulgarian*Bulgaria*informal*Zdravei*0</string>
+		<string>Bulgarian*Bulgaria*informal*Zdrave*0</string>
+		<string>Bulgarian*Bulgaria*informal*Zdrasti*0</string>
+		<string>Bulgarian*Bulgaria**Dobar den*0</string>
+		<string>Bulu*Cameroon**Mbôlô*0</string>
+		<string>Bunun*Taiwan**Masialasang*0</string>
+		<string>Bura*Nigeria**Usa*0</string>
+		<string>Burmese*Myanmar**Mingala ba*0</string>
+		<string>Burmese*Myanmar**Nekaoyela*0</string>
+		<string>Burmese*Myanmar*have you eaten?*T&apos;amin sapibila?*0</string>
+		<string>Burmese*Myanmar*have you eaten, by man*K&apos;amya t&apos;amin sapyibabyila?*0</string>
+		<string>Burmese*Myanmar*have you eaten, bu woman*Shin t&apos;amin sapyiabyila?*0</string>
+		<string>Burmese*Myanmar*answer: I have eaten*Sapyibabyi*0</string>
+		<string>Burmese*Myanmar*where are you going?*Be thwa malo le?*0</string>
+		<string>Burmese*Myanmar*answer: around here*Di na le be*0</string>
+		<string>Burushashki*Northern Pakistan**Asalam aleykum*0</string>
+		<string>Burushashki*Northern Pakistan**Leh*0</string>
+		<string>Buryat*Mongolia**Sain baina uu*0</string>
+	</array>
+	<key>c</key>
+	<array>
+		<string>Cahuilla*S.California USA*call attention*Wáa*0</string>
+		<string>Cajun*Louisiana United States**Bon jour*0</string>
+		<string>Calapalo*Brazil**Rena-voítse*0</string>
+		<string>Camuno*Italy*formal*Bondesiorìa*0</string>
+		<string>Canela*Brazil**Hââ-pô*0</string>
+		<string>Cantonese*China**Néih hóu*0</string>
+		<string>Cantonese*China**Neilhou*0</string>
+		<string>Cantonese*China**Lay ho*0</string>
+		<string>Cantonese*China**Ho yat*0</string>
+		<string>Cantonese*China**Ngh on*0</string>
+		<string>Cantonese*China**Jou san*0</string>
+		<string>Cassubian*northwestern Poland**Witóm*0</string>
+		<string>Cassubian*northwestern Poland**Witôjze*0</string>
+		<string>Cassubian*central Kaszebe Poland**Mojn *0</string>
+		<string>Catalan*Andorra, Spain, France**Hola*0</string>
+		<string>Catalan*Andorra, Spain, France**Bon dia *0</string>
+		<string>Cayuga*Ontario Canada, New York USA**Sga-noh*0</string>
+		<string>Cayuga*Ontario Canada, New York USA**Sge:no*0</string>
+		<string>Chakma*India, Bangladesh**Jhu*0</string>
+		<string>Chakma*India, Bangladesh**Oy*0</string>
+		<string>Chakma*India, Bangladesh**Namaskar*0</string>
+		<string>Chaldean*Iraq**Shlama illakh*0</string>
+		<string>Cham*Southeast Asia**Salam*0</string>
+		<string>Cham*Southeast Asia**Salaamz *0</string>
+		<string>Cham*Southeast Asia**Salamu alaikum*0</string>
+		<string>Cham*Southeast Asia*answer*Alaikum salam*0</string>
+		<string>Chamorro*Guam**Hafa*0</string>
+		<string>Chamorro*Guam**Hafa adai*0</string>
+		<string>Chamorro*Guam*to a man, informal*Hafa gachong*0</string>
+		<string>Chamorro*Guam*to a woman, informal*Hafa cheluho*0</string>
+		<string>Chatino*Tataltepec Mexico*morning*Cua nque&apos; msaa*0</string>
+		<string>Chatino*Tataltepec Mexico*afternoon*Cua nque&apos; xlyaa*0</string>
+		<string>Chatino*Tataltepec Mexico*evening*Cua nque&apos; sii*0</string>
+		<string>Chechen*North Caucasus Russia**Marsha voghiila*0</string>
+		<string>Chechen*North Caucasus Russia*to man*Marsha woghiila*0</string>
+		<string>Chechen*North Caucasus Russia*to woman*Marsha yoghiila*0</string>
+		<string>Chechen*North Caucasus Russia*plural*Marsha doghiila*0</string>
+		<string>Chechen*North Caucasus Russia**Assalaamu calaikum*0</string>
+		<string>Cheke Holo*Solomon Islands*Maringe*Keli fara*0</string>
+		<string>Cheke Holo*Solomon Islands*Maringe*Hameron keli*0</string>
+		<string>Cherokee*Oklahoma and North Carolina USA**O-si-yo*0</string>
+		<string>Cherokee*Oklahoma and North Carolina USA**Si-yo*0</string>
+		<string>Cherokee*Oklahoma and North Carolina USA**Si-yu*0</string>
+		<string>Cheyenne*Montana &amp; Oklahoma USA*to man*Haaahe*0</string>
+		<string>Cheyenne*Montana &amp; Oklahoma USA**Haaah, epivah-wuh-ennah*0</string>
+		<string>Cheyenne*Montana &amp; Oklahoma USA**Pave-ésheeva*0</string>
+		<string>Chichewa*Malawi**Moni*0</string>
+		<string>Chichewa*Malawi**Muli bwanji*0</string>
+		<string>Chichewa*Malawi*child to older relatives*Moni akuka*0</string>
+		<string>Chichewa*Angoniland Malawi**Tikuoneni*0</string>
+		<string>Chickasaw*Oklahoma USA**Halito*0</string>
+		<string>Chilenje*Zambia**Mwabonwa*0</string>
+		<string>Chilomwe*Malawi**Mo seriwa*0</string>
+		<string>Chinook Jargon*British Colum. Canada, USA**LhaXayEm*0</string>
+		<string>Chinook Jargon*British Colum. Canada, USA**Klahowya*0</string>
+		<string>Chinyanja*Southern Africa**Mònì*0</string>
+		<string>Chinyanja*Southern Africa**Bwino*0</string>
+		<string>Chisena*Malawi**Bondia*0</string>
+		<string>Chishona*Southern Africa*singular*Mhoro*0</string>
+		<string>Chishona*Southern Africa*plural*Mhoroi*0</string>
+		<string>Chishona*Southern Africa*reply*Ehoi*0</string>
+		<string>Chishona*Southern Africa*formal*Tikukwaziwai*0</string>
+		<string>Chishona*Southern Africa**Kwaziwai*0</string>
+		<string>Chishona*Southern Africa**Kanjan*0</string>
+		<string>Chishona*Southern Africa**Hevoi*0</string>
+		<string>Chishona*Southern Africa**Uribo*0</string>
+		<string>Chishona*Southern Africa**Mauya*0</string>
+		<string>Chitonga*Malawi**Mwe uli?*0</string>
+		<string>Chitonga*Malawi*answer*Teu mampha*0</string>
+		<string>Chitonga*Zambia*morning*Mwabuka buti*0</string>
+		<string>Chitonga*Zambia*afternoon*Mwalibizya*0</string>
+		<string>Chitonga*Zambia*afternoon*Mwayusa*0</string>
+		<string>Chitumbuka*Malawi, Zambia**Monire*0</string>
+		<string>Chitumbuka*Malawi, Zambia**Yewo*0</string>
+		<string>Chiyao*Malawi, Tanzania, Mozambique**Quamboni*0</string>
+		<string>Chiyao*Malawi, Tanzania, Mozambique**Subayeedi*0</string>
+		<string>Choctaw*Oklahoma USA**Halito*0</string>
+		<string>Chokwe*Congo-Kinshasha, Angola, Zambia**Moyo*0</string>
+		<string>Chontal*Oaxaca Mexico, Guatemala**Xósa*0</string>
+		<string>Chortí*Guatemala**C&apos;oten*0</string>
+		<string>Chorti*Guatemala*response to C&apos;oten*Chiquento*0</string>
+		<string>Chuj*Guatemala**Buenos día*0</string>
+		<string>Chukchi*Russia*most common*Ye&apos;ti*0</string>
+		<string>Chukchi*Russia**Ge&apos;et-i-git*0</string>
+		<string>Chukchi*Russia**Toro&apos;ma*0</string>
+		<string>Chumash*Santa Barbara California USA**Haku*0</string>
+		<string>Chumash*Santa Barbara California USA**Yawa*0</string>
+		<string>Chuuk*Micronesia**Ran allim*0</string>
+		<string>Chuuk*Micronesia**Ráán ánnim*0</string>
+		<string>Chuuk*Micronesia*to a man*Ráán ánnim o*0</string>
+		<string>Chuuk*Micronesia*to a woman*Ráán ánnim ne*0</string>
+		<string>Chuuk*Mortlock Micronesia**Ráán állim*0</string>
+		<string>Chuuk*Chuuk Lagoon Micronesia**Ran annim*0</string>
+		<string>Chuvash*Russia**Salam*0</string>
+		<string>Chuvash*Russia**Avani*0</string>
+		<string>Coche*Brazil**Nabasti*0</string>
+		<string>Cochimí*Baja California Norte Mexico**Auka*0</string>
+		<string>Cocopa*Baja California Mexico, Arizona USA**Auka*0</string>
+		<string>Coeur d&apos;Alene*Idaho USA**Qhest*0</string>
+		<string>Comanche*Oklahoma USA**Haa*0</string>
+		<string>Comanche*Oklahoma USA**Maruawe*0</string>
+		<string>Comanche*Oklahoma USA**Maruawe, haitsi*0</string>
+		<string>Comorian*Comoros**Bariza djioni*0</string>
+		<string>Comorian*Comoros**Habari*0</string>
+		<string>Comorian*Comoros**Salama*0</string>
+		<string>Coos*Oregon USA**Ta&apos;i*0</string>
+		<string>Cornish*Great Britain**You*0</string>
+		<string>Cornish*Great Britain**Dydh da*0</string>
+		<string>Cornish*Great Britain*formal*Durdathawhy*0</string>
+		<string>Corsican*France**Bonghjornu*0</string>
+		<string>Cree*Canada**Tánisi*0</string>
+		<string>Cree*Canada**Tân&apos;si*0</string>
+		<string>Cree*Canada**Wâciye*0</string>
+		<string>Cree*Ouje-Bougoumou Quebec Canada**Kwaay*0</string>
+		<string>Creole*Dominican Republic*morning*Bon jou*0</string>
+		<string>Creole*St. Lucia**Bonjou*0</string>
+		<string>Crioulo*Guinea-Bissau**Kuma*0</string>
+		<string>Crioulo*Guinea-Bissau**Bom dia*0</string>
+		<string>Croatian*Croatia, Bosnia**Zdravo*0</string>
+		<string>Croatian*Croatia, Bosnia**Zhivio*0</string>
+		<string>Croatian*Croatia, Bosnia*informal*Bok*0</string>
+		<string>Croatian*Croatia, Bosnia*informal*Bog*0</string>
+		<string>Czech*Czech Republic**Dobrý den*0</string>
+		<string>Czech*Czech Republic**Nazdar*0</string>
+		<string>Czech*Czech Republic*informal*Ahoj*0</string>
+	</array>
+	<key>d</key>
+	<array>
+		<string>Dagaare*Ghana, Burkina Faso**Fo be song*0</string>
+		<string>Dagbani*Ghana**Naatuma*0</string>
+		<string>Dakelh*Canada**Hadih*0</string>
+		<string>Dakota*USA, Canada*by male*Hau*0</string>
+		<string>Dakota*USA, Canada*by female*Han*0</string>
+		<string>Dakota*USA, Canada*to a friend by male*Hau koda*0</string>
+		<string>Dani*Indonesia, New Guinea*man to a man*Nayak*0</string>
+		<string>Dani*Indonesia, New Guinea*man to sev.men*Nayak lak*0</string>
+		<string>Dani*Indonesia, New Guinea*by/to a woman*La&apos;uk*0</string>
+		<string>Dani*Indonesia, New Guinea*by/to women*La&apos;uk nya*0</string>
+		<string>Dani*Indonesia, New Guinea**Halao*0</string>
+		<string>Dani*Indonesia, New Guinea**Halabok nak*0</string>
+		<string>Dani*Indonesia, New Guinea**Halabasi nak*0</string>
+		<string>Dani*Indoensia, New Guinea*man to man*Hagul nak    *0</string>
+		<string>Dani*Indonesia, New Guinea*woman to woman*Heget nak  *0</string>
+		<string>Danish*Denmark, Greenland**Goddag*0</string>
+		<string>Danish*Denmark, Greenland**Hej*0</string>
+		<string>Danish*Denmark, Greenland*informal*Hejsa*0</string>
+		<string>Danish*Denmark, Greenland*informal*Hej*0</string>
+		<string>Danish*Denmark, Greenland*informal*Davs*0</string>
+		<string>Danish*South Jutland**Mojn*0</string>
+		<string>Dari*Afghanistan**Chotor asty*0</string>
+		<string>Dawan*Indonesia*where are you going?*Noe me?*0</string>
+		<string>Dawan*Indonesia*ans: I&apos;m going to...*Au nao no...*0</string>
+		<string>Dayak*Indonesia*Land Dayak*Elsalam*0</string>
+		<string>Dayak*Indonesia*Iban*Elsalaam*0</string>
+		<string>Deg Xinag*Alaska**Ade&apos;*0</string>
+		<string>Dhivehi*Maldives**Assalaam u alaykum*0</string>
+		<string>Dhivehi*Maldives**Us-salaam alaikum*0</string>
+		<string>Dhivehi*Maldives**Assalam aleikum*0</string>
+		<string>Dhivehi*Maldives*answer*Aleikum assalam*0</string>
+		<string>Dhivehi*Maldives*informal*Kihineh*0</string>
+		<string>Dinka*Sudan**Ci yi bak*0</string>
+		<string>Diola*Senegal**Kasumai*0</string>
+		<string>Diola*Senegal**Kasumaò*0</string>
+		<string>Diola*Senegal*reply*Kasumi kepp*0</string>
+		<string>Diola*Senegal**Aa*0</string>
+		<string>Djabugay*Queensland Australia**Djirri-nyurra*0</string>
+		<string>Douala*Cameroon**Obusi*0</string>
+		<string>Drehu*New Caledonia**Bozo*0</string>
+		<string>Drehu*New Caledonia**Bozu*0</string>
+		<string>Drehu*New Caledonia**Talofa*0</string>
+		<string>Dumna Yokuts*San Joaquin River Calif.USA**Hawaan*0</string>
+		<string>Dusun*Sabah Malaysia**Okuro-kuro noh?*0</string>
+		<string>Dutch*Netherlands, Belgium**Hallo*0</string>
+		<string>Dutch*Netherlands, Belgium**Hoi*0</string>
+		<string>Dutch*Netherlands, Belgium**Dag*0</string>
+		<string>Dutch*Netherlands**Morgen*0</string>
+		<string>Dutch*Netherlands**Môge*0</string>
+		<string>Dutch*Netherlands**Goedendag*0</string>
+		<string>Dutch*Netherlands*in spoken language*Goeiedag*0</string>
+		<string>Dutch*Netherlands*rarely used*Hai*0</string>
+		<string>Dutch*Belgium*informal by youth*Helaba*0</string>
+		<string>Dutch*Belgium*informal by youth*Yoe*0</string>
+		<string>Dutch*Belgium*informal by youth*Hiya*0</string>
+		<string>Dyirbal*NE Queensland Australia**Nginda wunydjangum*0</string>
+		<string>Dyirbal*NE Queensland Australia**Nginda bayi wunydjangum?*0</string>
+		<string>Dyribal*NE Queensland Australia**Nginda *0</string>
+		<string>Dyula*Burkina Faso, Côte d&apos;Ivoire, Mali**Dansi*0</string>
+		<string>Dyula*Cote d&apos;Ivoire*reply by men*Nba*0</string>
+		<string>Dyula*Cote d&apos;Ivoire*reply by woman*Ns´*0</string>
+		<string>Dyula*Burkina Faso**I dansi*0</string>
+		<string>Dyula*Burkina Faso*reply by men*Am baa*0</string>
+		<string>Dyula*Burkina Faso*reply by women*Am séé*0</string>
+		<string>Dyula*Cote d&apos;Ivoire*entering house*Koko*0</string>
+		<string>Dyula*Cote d&apos;Ivoire*to person working*I ni baara*0</string>
+		<string>Dzongkha*Bhutan**Kuzu zangpo*0</string>
+		<string>Dzongkha*Bhutan**Kuzu zangpo la*0</string>
+		<string>Dzongkha*Bhutan**Yala*0</string>
+	</array>
+	<key>e</key>
+	<array>
+		<string>Edo*Nigeria**Kóyo*0</string>
+		<string>Edo*Nigeria*to a person at home*Ób&apos;ówa*0</string>
+		<string>Edo*Nigeria*to a person at work*Ób&apos;ínwìnà*0</string>
+		<string>Efik*Africa**Idem fo*0</string>
+		<string>Egyptian*ancient Egypt**Iiti*0</string>
+		<string>Egyptian*ancient Egypt**Iiti em hotep*0</string>
+		<string>Egyptian*ancient Egypt*lit. in peace*Em hotep*0</string>
+		<string>Egyptian*ancient Egypt*in great peace*Em hotep nefer*0</string>
+		<string>Egyptian*ancient Egypt*very great peace*Em hotep nefer weret*0</string>
+		<string>Egyptian*ancient Egypt*plural*Yii em hotep*0</string>
+		<string>Egyptian*ancient Egypt*informal*Yeh*0</string>
+		<string>Egyptian*ancient Egypt*to a man*Aw ibek*0</string>
+		<string>Egyptian*ancient Egypt*to a woman*Aw ibetj*0</string>
+		<string>Ejagham*Cameroon, Nigeria**Nkuba*0</string>
+		<string>Ekegusii*Kenya*to one person*Imbuya ore?*0</string>
+		<string>Ekegusii*Kenya*to several people*Imbuya more?*0</string>
+		<string>Ekegusii*Kenya*answer by one person*Imbuya ande*0</string>
+		<string>Ekegusii*Kenya*answer by several people*Imbuya tore*0</string>
+		<string>Enga*Papua New Guinea**Kotáka*0</string>
+		<string>English*America, Australia, UK**Hello*0</string>
+		<string>English*America, UK*formal*Good day*0</string>
+		<string>English*America*informal*Hi *0</string>
+		<string>English*Australia**G&apos;day*0</string>
+		<string>English*Australia**Hiya*0</string>
+		<string>English*New Zealand**Gidday*0</string>
+		<string>English*Southern USA*to more than one*Hi y&apos;all*0</string>
+		<string>English*Australia*Strine dialect*Hay gaan*0</string>
+		<string>English*Australia*Strine dialect*Hezza gaan*0</string>
+		<string>English*Texas USA*Texan dialect*Howdy*0</string>
+		<string>English*Lousiana USA*New Oreleans dialect*Where ya&apos;at*0</string>
+		<string>English*old England*Middle English*Gode dai*0</string>
+		<string>English*old England*Middle English*Gode dei*0</string>
+		<string>English*old Britain*Old English*Ic grete þe*0</string>
+		<string>Eora*Australia**Boodyeri kamuru*0</string>
+		<string>Erzya*Russia**Shumbrat*0</string>
+		<string>Esperanto*international use**Saluton*0</string>
+		<string>Esselen*Big Sur California USA**Saleki asatsa*0</string>
+		<string>Estonian*Estonia**Tervist*0</string>
+		<string>Estonian*Estonia**Tere*0</string>
+		<string>Estonian*Estonia**Tšau*0</string>
+		<string>Estonian*Estonia*to a person working*Jõudu*0</string>
+		<string>Estonian*Estonia*to a person working*Tere jõudu*0</string>
+		<string>Estonian*Estonia*to a person working*Jõudu tööle*0</string>
+		<string>Estonian*Estonia*reply when working*Tarvis*0</string>
+		<string>Estonian*old Estonia*Old Estonian*Terveh*0</string>
+		<string>Eton*Cameroon**Më të wa kon*0</string>
+		<string>Eton*Cameroon**Më të wa kone*0</string>
+		<string>Eton*Cameroon*to other side of street*Më të wa kone wale*0</string>
+		<string>Eton*Cameroon*reply*Kiri mbang*0</string>
+		<string>Even*Russia**Torova*0</string>
+		<string>Éwé*Ghana, Togo**Nilyenia*0</string>
+		<string>Éwé*Ghana, Togo*response*Mile*0</string>
+		<string>Éwé*Ghana, Togo**Wayzo*0</string>
+		<string>Éwé*Ghana, Togo**Fien*0</string>
+		<string>Éwé*Ghana, Togo*to a person working*Ayekoo*0</string>
+		<string>Éwé*Ghana, Togo*to a group working*Aanyekoo*0</string>
+		<string>Ewondo*Cameroon**Mbebekiri*0</string>
+		<string>Ewondo*Cameroon**Mbembé kidi*0</string>
+	</array>
+	<key>f</key>
+	<array>
+		<string>Fang*Gabon, Equatorial Guinea**Mbôlo*0</string>
+		<string>Fang*Gabon, Equatorial Guinea*to one*M&apos;bole*0</string>
+		<string>Fang*Gabon, Equatorial Guinea*to more*M&apos;bolani*0</string>
+		<string>Fante*Ghana, Burkina Faso**Daa daa oo*0</string>
+		<string>Fante*Ghana, Burkina Faso**Modofo*0</string>
+		<string>Faroese*Faroe Islands**Hallo*0</string>
+		<string>Faroese*Faroe Islands*informal*Hey*0</string>
+		<string>Faroese*Faroe Islands*when surprised*Píka sjey*0</string>
+		<string>Farsi*Iran, Afghanistan, Pakistan**Salaam*0</string>
+		<string>Farsi*Iran, Afghanistan, Pakistan**Sa&apos;lam*0</string>
+		<string>Farsi*Iran, Afghanistan, Pakistan**Khush amadeed*0</string>
+		<string>Fijian*Fiji**Bula*0</string>
+		<string>Fijian*Fiji**Ni sa bula*0</string>
+		<string>Fijian*Fiji**Bula vi naka*0</string>
+		<string>Fijian*Fiji**Ni sa bula vi naka*0</string>
+		<string>Fijian*Fiji*to two people*Drau bula*0</string>
+		<string>Fijian*Fiji*to a group*Dou bula*0</string>
+		<string>Fijian*Fiij*to group, stranger, superior*Ni bula*0</string>
+		<string>Fijian*Fiji*reply*Io*0</string>
+		<string>Fijian*Fiji*reply - respectful*Ia*0</string>
+		<string>Finnish*Finland**Päivää*0</string>
+		<string>Finnish*Finland**Terve*0</string>
+		<string>Finnish*Finland*informal, common*Moi*0</string>
+		<string>Finnish*Finland*informal, common*Hei*0</string>
+		<string>Finnish*Finland*informal*Moikka*0</string>
+		<string>Finnish*Finland*formal*Hyvää päivää*0</string>
+		<string>Fon*Benin, Togo**Kudeu*0</string>
+		<string>Fon*Benin, Togo*reply*Oku*0</string>
+		<string>Fon*Benin, Togo**A fon a*0</string>
+		<string>Fon*Benin, Togo**A do gangi a?*0</string>
+		<string>Fon*Benin, Togo*reply*Een, un do gangi*0</string>
+		<string>Fon*Benin, Togo**A do yi yi we a?*0</string>
+		<string>Fon*Benin, Togo*reply*Een, un do gangi*0</string>
+		<string>Fon*Benin, Togo**A do dagbe a?*0</string>
+		<string>Fon*Benin, Togo*reply*Een, un do dagbe*0</string>
+		<string>Fon*Benin, Togo**A do fine a?*0</string>
+		<string>Fon*Benin, Togo*reply*Een, un do fi*0</string>
+		<string>Fon*Benin, Togo**A de u wa?*0</string>
+		<string>Fon*Benin, Togo*reply*Een, un de u*0</string>
+		<string>Fon*Benin, Togo*after long absense*Azan yi aton*0</string>
+		<string>Fon*Benin, Togo*reply*Dokpo je ji*0</string>
+		<string>Fon*Benin, Togo*to a person working*Kudazo*0</string>
+		<string>Fon-Gbe*Benin**Kuabo*0</string>
+		<string>Fore*Papua New Guinea**Kagíé*0</string>
+		<string>Fore*Papua New Guinea**Kwarìgíné*0</string>
+		<string>French*Europe, Africa, Canada**Bonjour*0</string>
+		<string>French*Europe, Africa, Canada**Salut*0</string>
+		<string>Frisian*Netherlands*Westerlauwer*Goeie*0</string>
+		<string>Frisian*Netherlands*Westerlauwer*Goedei*0</string>
+		<string>Frisian*Schleswig-Holstein Germany**God dai*0</string>
+		<string>Friulian*northern Italy**Bundì*0</string>
+		<string>Fulani*West Africa*to one person*No ngoola daa*0</string>
+		<string>Fulani*West Africa*to several people*No ngoola dong*0</string>
+		<string>Fulani*West Africa**No wayi*0</string>
+		<string>Fulani*West Africa**A jaaraama*0</string>
+		<string>Fulani*West Africa**Tanaala*0</string>
+		<string>Fulani*West Africa**Sadu*0</string>
+		<string>Fulani*West Africa**Ngnalène é diam*0</string>
+		<string>Futuna*Wallis and Futuna**Malo le kataki*0</string>
+		<string>Futuna Aniwa*Vanuatu**Jinisa*0</string>
+		<string>Futuna Aniwa*Vanuatu*to two people*Rinisa*0</string>
+		<string>Futuna Aniwa*Vanuatu*to three people*Jikanisa*0</string>
+		<string>Futuna Aniwa*Vanuatu*to three people*Jikanesa*0</string>
+		<string>Futuna Aniwa*Vanuatu*to three people*Jikanesa kokautau*0</string>
+		<string>Futuna Aniwa*Vanuatu*to more than three*Niganisa*0</string>
+		<string>Fuuta Jalon*Guinea**Toolii*0</string>
+	</array>
+	<key>g</key>
+	<array>
+		<string>Ga*Ghana**Mingabu*0</string>
+		<string>Ga*Ghana**Odze ku*0</string>
+		<string>Gagauz*southern Moldova**Gün aydin*0</string>
+		<string>Gagauz*southern Moldova*informal*Selam*0</string>
+		<string>Galician*Spain**Hola*0</string>
+		<string>Gallo*France**Comant q&apos;c&apos;est?*0</string>
+		<string>Ganai*Australia**Wunman njinde*0</string>
+		<string>Gammon*Ireland**Buri talosk*0</string>
+		<string>Ganu*Malaysia**Guana mu lenin sihak dok*0</string>
+		<string>Garífuna*Guatemala**Buíti bináfi*0</string>
+		<string>Garo*India, Bangladesh**Sa lam*0</string>
+		<string>Gascon*France**Salut*0</string>
+		<string>Gbhanda*Liberia**Yanela*0</string>
+		<string>Gbhanda*Liberia**Okonia*0</string>
+		<string>Ge&apos;ez*Ethiopia**Sälam läki*0</string>
+		<string>Georgian*Georgia**Gamardjobat*0</string>
+		<string>Georgian*Georgia**Gamardjobah*0</string>
+		<string>Georgian*Georgia*informal reply*Gagimarjos*0</string>
+		<string>German*Central Europe**Guten Tag   *0</string>
+		<string>German*Central Europe**Hallo*0</string>
+		<string>German*Central Europe*informal*Grüß dich*0</string>
+		<string>German*Central Europe*informal*Tag*0</string>
+		<string>German*Austria, Switzerland, Liechtenstein**Hoi*0</string>
+		<string>German*Austria, Bavaria, Wurttemburg**Grüß Gott*0</string>
+		<string>German*Vienna Austria*in spoken language*Griass God*0</string>
+		<string>German*Vienna Austria*in spoken language*Seavas*0</string>
+		<string>German*Bavarian Alps*in spoken language*Griass di*0</string>
+		<string>German*Bavarian Alps*in spoken language*Griass enk*0</string>
+		<string>German*Bavarian Alps**Hallo*0</string>
+		<string>German*Southern Bavaria**Servus*0</string>
+		<string>German*Bairische**Hä*0</string>
+		<string>German*Bairische**Hää*0</string>
+		<string>German*Bairische**Griàßdigood*0</string>
+		<string>German*Bairische**Griàßdi nachà*0</string>
+		<string>German*Northern Germany**Moin*0</string>
+		<string>German*Northern Germany**Moin moin*0</string>
+		<string>German*Basel Switzerland*polite*Griezi   *0</string>
+		<string>German*Bern Switzerland*spoken*Grü-essech*0</string>
+		<string>German*Bern Switzerland*spoken*Grü-esdi*0</string>
+		<string>German*Chur Switzerland*polite form*Grazi*0</string>
+		<string>German*Chur Switzerland*polite form*Gruiazi*0</string>
+		<string>German*Chur Switzerland*familiar form*Ciao*0</string>
+		<string>German*Schaffhausen Switzerland*spoken*Grüazi*0</string>
+		<string>German*Italy*Süd-Tirol/South Tyrol*Ers Gott*0</string>
+		<string>German*Germany*Hessisch*Guude*0</string>
+		<string>German*Germany*Südhessisch*Ei guude wie*0</string>
+		<string>German*Germany*Südhessisch*Moin*0</string>
+		<string>German*Zurich Switzerland*polite*Grüezi*0</string>
+		<string>German*Zurich Switzerland*polite*Grueziwohl*0</string>
+		<string>German*Zurich Switzerland**Salutti*0</string>
+		<string>German*Zurich Switzerland*familiar*Hoi *0</string>
+		<string>German*Zurich Switzerland*familiar*Salü*0</string>
+		<string>German*Zurich Switzerland*familiar*Tschau*0</string>
+		<string>German*Zurich Switzerland*spoken*Gu-ëte Tag*0</string>
+		<string>German*Zurich Switzerland*spoken*Gu-etä Tag*0</string>
+		<string>German*Zurich Switzerland*by school kids*Hoa*0</string>
+		<string>German*Zurich Swizterland*by school kids*Ha*0</string>
+		<string>German*Zurich Switzerland*old fashioned*Tag wohl*0</string>
+		<string>German*Saarland*in spoken language*Un*0</string>
+		<string>Giryama*Africa**Zhoyo*0</string>
+		<string>Giryama*Kenya**Dzasindadze*0</string>
+		<string>Gitonga*Mozambique**Wa bonwa*0</string>
+		<string>Gong*Thailand**Nàwng a náwng kàwwê?*0</string>
+		<string>Gong*Thailand**A náwng kàwwê?*0</string>
+		<string>Gong*Thailand*answer by a visitor*Ngá kawíng di-o*0</string>
+		<string>Gong*Thailand*answer by a visitor*Kawíng di-o*0</string>
+		<string>Greek*Greece, Cyprus**Geia sou*0</string>
+		<string>Greek*Greece, Cyprus**Geia sas*0</string>
+		<string>Greek*Greece, Cyprus**Geia*0</string>
+		<string>Guaja*Brazil**Zeng*0</string>
+		<string>Guajibo*Colombia, Venezuela**Icá*0</string>
+		<string>Guanche*Canary Islands**Tamaragua*0</string>
+		<string>Guarani*Paraguay**Maitei*0</string>
+		<string>Guarani*Paraguay**Maiteípa*0</string>
+		<string>Guarani*Paraguay**Mba&apos;éichapa*0</string>
+		<string>Gujarati*India**Kem cho*0</string>
+		<string>Gulmancema*Burkina Faso**Din tè*0</string>
+		<string>Gulmancema*Burkina Faso*answer*Lafia*0</string>
+		<string>Gulmancema*Burkina Faso*answer*Lafia dè*0</string>
+		<string>Gumatj*Australia*to one person*Nhamirri nhe?*0</string>
+		<string>Gumatj*Australia*to two people*Nhamirri manda?*0</string>
+		<string>Gumatj*Australia*to several people*Nhamirri walala?*0</string>
+		<string>Gumatj*Australia*answer*Manymak*0</string>
+		<string>Gumatj*Australia*answer*Manymak bay&apos;*0</string>
+		<string>Gumatj*Australia*answer*Latju*0</string>
+		<string>Gunggari*Australia**Gnunha yinda murdi*0</string>
+		<string>Gurenne*Northern Ghana*by working*Tumatuma*0</string>
+		<string>Gurung*Nepal**Namaste*0</string>
+		<string>Gurung*Nepal**Bindi mu*0</string>
+		<string>Guugu Yimithirr*Australia**Ngauthaan-thirr, gadiiwawu-wi*0</string>
+		<string>Gwich&apos;in*Alaska, Canada**Nenànkäk nätäydëk häjit shò trì&apos;nlay*0</string>
+		<string>Gwich&apos;in*Alaska**Neenjit dôonch&apos;yáa*0</string>
+	</array>
+	<key>h</key>
+	<array>
+		<string>Haida*Queen Elizabeth Island Canada**Kii-te-daas a*0</string>
+		<string>Haisla*Canada**Yowtz*0</string>
+		<string>Hakka*China, Malaysia**Zao sin*0</string>
+		<string>Hän*Alaska**Nahhwanànkak nahokhwadál geenjit shòn tr&apos;iinlii*0</string>
+		<string>Harari*Ethiopia**Aman *0</string>
+		<string>Hassaniya*Mauritania**Aw&apos;walikum *0</string>
+		<string>Hassaniya*Mauritania*evening*Masa elher*0</string>
+		<string>Hassaniya*Mauritania**Ehlen*0</string>
+		<string>Hausa*West Africa**Sànnu*0</string>
+		<string>Hausa*West Africa*plural*Sànnunku*0</string>
+		<string>Hausa*West Africa*response*Yâuwa sànnu*0</string>
+		<string>Hausa*West Africa*response*Yâuwa*0</string>
+		<string>Hausa*West Africa*response*Sànnu kàadai*0</string>
+		<string>Hausa*West Africa*to superior; man*Rânkà yà dade*0</string>
+		<string>Hausa*West Africa*to superior; woman*Rânkì yà dade*0</string>
+		<string>Hausa*West Africa*by Muslims*Sàlamù àlaikùn*0</string>
+		<string>Hawaiian*Hawaii**Aloha*0</string>
+		<string>Hawaiian*Hawaii**Aloha mai*0</string>
+		<string>Hawaiian*Hawaii**Welina*0</string>
+		<string>Hawaiian*Hawaii**Welina mai*0</string>
+		<string>Hebrew*Israel*formal*Shalom*0</string>
+		<string>Hebrew*Israel*informal*Ma nishma*0</string>
+		<string>Hebrew*Israel*informal*Hi*0</string>
+		<string>Hebrew*Israel*to male*Ma shlomcha*0</string>
+		<string>Hebrew*Israel*to female*Ma shlomech*0</string>
+		<string>Hebrew*Israel*slang by young people*Alan*0</string>
+		<string>Heiltsuk*Canada**Yowtz*0</string>
+		<string>Herero*Namibia**Koree*0</string>
+		<string>Herero*Namibia*informal*Mosha vi yong, peli*0</string>
+		<string>Hidatsa*United States**Dosha*0</string>
+		<string>Hindi*India, East Asia**Namasté*0</string>
+		<string>Hindi*India, East Asia**Namaskaar*0</string>
+		<string>Hindi*India, East Asia**Namashkar*0</string>
+		<string>Hindi*India, East Asia**Kaise hain*0</string>
+		<string>Hindustani*Surinam**Raz ba-aish*0</string>
+		<string>Hiri Motu*Papua New Guinea*morning*Dada namona*0</string>
+		<string>Hiri Motu*Papua New Guinea*afternoon*Handorai namona*0</string>
+		<string>Hiri Motu*Papua New Guinea*afternoon*Andorai namona*0</string>
+		<string>Hittite*Anatolia, Syria**Ashshuli*0</string>
+		<string>Hmong Daw*China, Laos, Thailand**Nyob zoo*0</string>
+		<string>Hmong Daw*China, Laos, Thai.*to arriving*Tuaj los*0</string>
+		<string>Hmong Daw*China, Laos, Thai.*to arriving*Koj tuaj los*0</string>
+		<string>Hmong Dian*China**Niob raot*0</string>
+		<string>Hmong Du*Vietnam**Ti nâu*0</string>
+		<string>Hmong Du*Vietnam**Caó cu*0</string>
+		<string>Hmong, Eastern*China**Mongx rut*0</string>
+		<string>Hmong Njua*China, Laos, Thailand**Nyob zoo*0</string>
+		<string>Hmong Njua*China, Laos, Thailand**Nyob zoo tsis zoo*0</string>
+		<string>Hmong Njua*China, Laos, Thailand**Zoo hwv lauv*0</string>
+		<string>Hmong Njua*Northern Thailand*at a house*Nyob tsev tsis nyob ua?*0</string>
+		<string>Hmong Njua*Northern Thailand*answer*Nyob ua*0</string>
+		<string>Hmong Njua*China**Nyaob rongt*0</string>
+		<string>Hmong Njua*Vietnam**Nhaoz jông *0</string>
+		<string>Hmong Qiandong*China**Mongx vut*0</string>
+		<string>Hmong Qiandong*China**Mongx niangb vut*0</string>
+		<string>Hñähñu*Mexico**Haxajua*0</string>
+		<string>Hñähñu*Mexico**Tehats&apos;i*0</string>
+		<string>Hñähñu*Mexico**Hats&apos;i*0</string>
+		<string>Hocak Wazijaci*Wisconsin &amp; Nebraska USA**Haho*0</string>
+		<string>Hopi*Southwestern USA**Um waynuma?*0</string>
+		<string>Hopi*Southwestern USA*answer*Owí, nu&apos; waynuma*0</string>
+		<string>Hopi*Southwestern USA**Um pitu?*0</string>
+		<string>Hopi*Southwestern USA*answer*Owí*0</string>
+		<string>Hopi*Southwestern USA*entering a kiva*Ha&apos;u*0</string>
+		<string>Hopi*Southwestern USA*to call attention*Hai*0</string>
+		<string>Huaorani*Ecuador**I ay*0</string>
+		<string>Huaorani*Ecuador**Waponi*0</string>
+		<string>Huasteco*San Luis Potosí Mexico*morning*Tahk&apos;ane:nek*0</string>
+		<string>Huasteco*Mexico*afternoon*Waklane:nek*0</string>
+		<string>Huasteco*Mexico*night*Thamk&apos;une:nek*0</string>
+		<string>Huichol*Nayarit and Jalisco Mexico**Ke áku*0</string>
+		<string>Hungarian*Hungary**Jó napot*0</string>
+		<string>Hungarian*Hungary**Jó napot kívánok*0</string>
+		<string>Hungarian*Hungary*informal, to one*Szervusz*0</string>
+		<string>Hungarian*Hungary*informal, to several*Szervusztok*0</string>
+		<string>Hungarian*Hungary*informal, to one*Szia*0</string>
+		<string>Hungarian*Hungary*informal, to several*Sziasztok*0</string>
+		<string>Hungarian*Hungary*informal*Üdv*0</string>
+		<string>Hupa*North America**He:yung*0</string>
+		<string>Huron*Quebec Canada, Oklahoma USA**Tu ough qua no u*0</string>
+	</array>
+	<key>i</key>
+	<array>
+		<string>Icelandic*Iceland**Góðan daginn*0</string>
+		<string>Icelandic*Iceland**Halló*0</string>
+		<string>Icelandic*Iceland*to a man*Komdu sæll*0</string>
+		<string>Icelandic*Iceland*to a woman*Komdu sæl*0</string>
+		<string>Icelandic*Iceland*to many people*Komið þið sæl*0</string>
+		<string>Icelandic*Iceland*to a man*Sæll*0</string>
+		<string>Icelandic*Iceland*to a woman*Sæl*0</string>
+		<string>Icelandic*Iceland*to a man*Blessaður*0</string>
+		<string>Icelandic*Iceland*to a woman*Blessuð*0</string>
+		<string>Icetot*Uganda*to one person*Iyida*0</string>
+		<string>Icetot*Uganda*to several people*Iyita*0</string>
+		<string>Ido*international use**Bona jorno*0</string>
+		<string>Ido*international use*afternoon*Bona posdimezo*0</string>
+		<string>Igbo*Nigeria**Ibaulachi*0</string>
+		<string>Igbo*Nigeria**Ezigbo ubosi*0</string>
+		<string>Igbo*Nigeria**Ubosi oma*0</string>
+		<string>Igbo*Nigeria**Ndeèwo*0</string>
+		<string>Igbo*Nigeria**Kedu*0</string>
+		<string>Igbo*Nigeria**Kelou*0</string>
+		<string>Ijo*Africa**To baroa*0</string>
+		<string>Ilokano*Philippines*morning*Naimbag nga bigat*0</string>
+		<string>Ilokano*Philippines*morning, formal*Naimbag a bigatyo*0</string>
+		<string>Ilokano*Philippines*morning, informal*Naimbag a bigatmo*0</string>
+		<string>Ilokano*Philippines*at noon*Naimbag nga aldaw*0</string>
+		<string>Ilokano*Philippines*noon, formal*Naimbag ñga aldawyo*0</string>
+		<string>Ilokano*Philippines*noon, informal*Naimbag ñga aldawmo*0</string>
+		<string>Ilokano*Philippines*afternoon*Naimbag nga malem*0</string>
+		<string>Ilokano*Philippines*afternoon, formal*Naimbag a malemyo*0</string>
+		<string>Ilokano*Philippines*afternoon informal*Naimbag a malemmo*0</string>
+		<string>Ilokano*Philippines*evening*Naimbag nga rabii*0</string>
+		<string>Ilonggo*Philippines**Maayo*0</string>
+		<string>Ilonggo*Philippines**Maayo nga adlaw*0</string>
+		<string>Ilonggo*Philippines**Halo*0</string>
+		<string>Indonesian*Indonesia, Surinam**Selamat*0</string>
+		<string>Indonesian*Indonesia, Surinam**Selamat siang*0</string>
+		<string>Indonesian*Indonesia, Surinam**Salam*0</string>
+		<string>Indonesian*Indonesia, Surinam**Apa kabar*0</string>
+		<string>Indonesian*Indonesia, Surinam**Menyapa*0</string>
+		<string>Indonesian*Indonesia, Surinam**Hai*0</string>
+		<string>Ingush*Russia**Salam*0</string>
+		<string>Ingush*Russia**Da dika xalda hwa*0</string>
+		<string>Ingush*Russia*answer to above*Hwa &apos;a xalda da dika*0</string>
+		<string>Ingush*Russia*to two or more people*Da dika xalda shyn*0</string>
+		<string>Ingush*Russia*by man to another man*Wassalaam walejkum*0</string>
+		<string>Ingush*Russia*answer to above*Hwa &apos;a xajla sejra dika*0</string>
+		<string>Innu*Canada**Kwe kwe*0</string>
+		<string>Innu*Canada**Waachiyaa*0</string>
+		<string>Interlingua*constructed**Salute*0</string>
+		<string>Interlingua*constructed**Bon die*0</string>
+		<string>Interlingua*constructed**Bon jorno*0</string>
+		<string>Inuktitut*Canada**Asujutidli*0</string>
+		<string>Inuktitut*Canada**Asujutilli*0</string>
+		<string>Inuktitut*Nunavik South Baffin Canada**Ainngai*0</string>
+		<string>Inuktitut*Nunavik South Baffin Canada**Ai*0</string>
+		<string>Inuktitut*Arctic*to one person*Aksunai*0</string>
+		<string>Inuktitut*Arctic*to two people*Aksutik*0</string>
+		<string>Inuktitut*Canada**Ûmâ*0</string>
+		<string>Iñupiaq*Alaska**Kiana*0</string>
+		<string>Ioway*North America*by a man*Aho*0</string>
+		<string>Ioway*North America*by a woman*Aha *0</string>
+		<string>Ipili*Papua New Guinea**Ani pele amene*0</string>
+		<string>Irish Gaeilge*Ireland*common*Haileo*0</string>
+		<string>Irish Gaeilge*Ireland*God be with you*Dia dhuit*0</string>
+		<string>Irish Gaeilge*Ireland*reply to Dia dhuit*Dia is Muire dhuit*0</string>
+		<string>Ishkashmi*Tajikistan**As-salam alaíkum*0</string>
+		<string>Ishkashmi*Tajikistan*reply*Alaíkum as-salam*0</string>
+		<string>Italian*Cent. Europe, E Africa**Buon giorno*0</string>
+		<string>Italian*Cent. Europe, E Africa*familiar*Salve*0</string>
+		<string>Italian*Cent. Europe, E Africa*familiar*Ciao*0</string>
+		<string>Itbayaten*Batanes Philippines**Kapian ka pa nu Dios aschapanderak*0</string>
+		<string>Itzá*Guatemala**Te&apos;yoos*0</string>
+		<string>Ivasayen*Batanes Philippines**Capian ka pa nu Dios si chamavucjas*0</string>
+		<string>Ixcateco*Mexico**Tami*0</string>
+		<string>Ixil*Quiché Department Guatemala*to man*Cha&apos;lax pap*0</string>
+		<string>Ixil*Quiché Department Guatemala*to woman*Cha&apos;lax nan*0</string>
+	</array>
+	<key>j</key>
+	<array>
+		<string>Jacalteco*Guatemala, Mexico*to man*C&apos;ul mama&apos;*0</string>
+		<string>Jacalteco*Guatemala, Mexico*to woman*C&apos;ul miay*0</string>
+		<string>Japanese*Japan**Konnichi wa*0</string>
+		<string>Japanese*Osaka Japan*Kansai Ben*Maido*0</string>
+		<string>Japanese*Osaka Japan*Kansai Ben*Maido ookini*0</string>
+		<string>Japanese*Osaka Japan*Kansai Ben*Mokarimakka*0</string>
+		<string>Japanese*Osaka Japan*answer*Bochi bochi denna*0</string>
+		<string>Japanese*Northeast Japan*Tohoku Ben*Ohayo-sama*0</string>
+		<string>Japanese*Northeast Japan*Tohoku Ben*Konnyeje wa*0</string>
+		<string>Javanese*Indonesia**Selamat*0</string>
+		<string>Javanese*Indonesia**Halo*0</string>
+		<string>Jelai*Malaysia**Tabek*0</string>
+		<string>Jèrriais*Jersey**Bouonjour*0</string>
+		<string>Jiwarli*Australia*to a friend*Ya jalikurtijuyi*0</string>
+		<string>Jiwarli*Australia*lit. &apos;come here&apos;*Yanamarni nhurra*0</string>
+		<string>Jiwarli*Australia*to call attention*Ya*0</string>
+		<string>Jutlandish*Denmark**Daw-daw*0</string>
+	</array>
+	<key>k</key>
+	<array>
+		<string>Kabardian*Russia*&apos;let your day be good&apos;*Fi maho fuwa*0</string>
+		<string>Kabyle*Algeria**Azul*0</string>
+		<string>Kabyle*Algeria**Salam alik*0</string>
+		<string>Kabuverdianu*Cape Verde**Bon dia*0</string>
+		<string>Kabuverdianu*Cape Verde**Ola*0</string>
+		<string>Kachchi*Uganda**Keayom*0</string>
+		<string>Kadazan*Sabah Malaysia**Ingkuo koh?*0</string>
+		<string>Kalaallisut*Greenland**Aluu*0</string>
+		<string>Kalaallisut*Greenland**Haluu*0</string>
+		<string>Kalaallisut*Greenland**Kutaa*0</string>
+		<string>Kalaallisut*Greenland**Unuugujoq*0</string>
+		<string>Kalaallisut*Greenland**Aluukkut*0</string>
+		<string>Kalaallisut*Greenland**Haluukkut*0</string>
+		<string>Kala Kawaw Ya*Queensland Australia*to 1*Ngi midh?*0</string>
+		<string>Kala Kawaw Ya*Queensland Australia*to 2*Ngipel midh?*0</string>
+		<string>Kala Kawaw Ya*Queensland Australia*to 3+*Ngitha midh?*0</string>
+		<string>Kala Kawaw Ya*Queensland Australia*answer*Balabayginga*0</string>
+		<string>Kala Lagaw Ya*Australia**Sew ngapa*0</string>
+		<string>Kalanga*Botswana, Zimbabwe**Dhùmílánì*0</string>
+		<string>Kalasha*India**Ishpada*0</string>
+		<string>Kalenjin*Kenya**Subaa*0</string>
+		<string>Kalenjin*Kenya**Chamge*0</string>
+		<string>Kalenjin*Kenya**Chamuge*0</string>
+		<string>Kalenjin*Kenya*to a close friend*Chamge mising*0</string>
+		<string>Kalmyk*Russia**Mendvt*0</string>
+		<string>Kalmyk*Russia*informal*Mend*0</string>
+		<string>Kalmyk*Russia**Halun mend*0</string>
+		<string>Kamchadal*Kamchatka Russia**Torova*0</string>
+		<string>Kamviri*South Asia*to a man*Li&apos;o*0</string>
+		<string>Kamviri*South Asia*to a woman*L&apos;e*0</string>
+		<string>Kamviri*South Asia*response*V&apos;ou*0</string>
+		<string>Kamviri*South Asia*response*Kâ&apos;i*0</string>
+		<string>Kangbe*West Africa*morning*E nee somah*0</string>
+		<string>Kangbe*West Africa*noon*E nee teleh*0</string>
+		<string>Kangbe*West Africa*afternoon*E nea woorah*0</string>
+		<string>Kangbe*West Africa*evening*E nea sooh*0</string>
+		<string>Kanienkehaka*Ont. &amp; Quebec Canada, NY USA**Kwe*0</string>
+		<string>Kanienkehaka*Ont. &amp; Quebec Canada, NY USA**Kwe kwe*0</string>
+		<string>Kanienkehaka*Ont. &amp; Quebec Canada, NY USA**She:kon*0</string>
+		<string>Kanienkehaka*Ont. &amp; Quebec Canada, NY USA**Se:koh*0</string>
+		<string>Kanienkehaka*Ont. &amp; Quebec Canada, NY USA**Wa&apos;tkwanowera:ton*0</string>
+		<string>Kanjobal*San Pedro Soloma Guatemala**Janik&apos;*0</string>
+		<string>Kankanaey*Philip.*to p.entering village*Nagapuam*0</string>
+		<string>Kankanaey*Philip.*to p. leaving village*Umayam  *0</string>
+		<string>Kannada*India**Namaskaara*0</string>
+		<string>Kannada*India**Hege iddi ra*0</string>
+		<string>Kannada*India*informal*Hege iddi ya*0</string>
+		<string>Kanuri*Nigeria, Niger**Ushé-ushé*0</string>
+		<string>Kapampangan*Philippines*morning*Mayap ayabak*0</string>
+		<string>Kapingamarangi*Pacific Islands**Malia goe*0</string>
+		<string>Karachay*Turkey**Selam*0</string>
+		<string>Karachay*Turkey**Selamlar*0</string>
+		<string>Karachay*Turkey**Isenlikler*0</string>
+		<string>Karachay*Turkey**Salamun aleykum*0</string>
+		<string>Karachay*Turkey**Esselamun aleykum*0</string>
+		<string>Karaim*Lithuania, Ukraine**Kiun jachšy*0</string>
+		<string>Karakalpak*Central Asia**Assalomu alaikum*0</string>
+		<string>Karakalpak*Central Asia*answer*Valaikum assalom*0</string>
+		<string>Karelian*Finland, Russia**Terveh*0</string>
+		<string>Karelian*Finland, Russia**Terveh teile*0</string>
+		<string>Karelian*Finland, Russia**Hüvä päivä*0</string>
+		<string>Karen*Myanmar**Mu eri*0</string>
+		<string>Karen*Myanmar*Pa&apos;o*Na aw hsaw ha?*0</string>
+		<string>Karen*Myanmar*Pho*Ná à hsà hà?*0</string>
+		<string>Karen*Myanmar*Pho*Mwéh*0</string>
+		<string>Karen*Myanmar*Sgaw*Ná ô hsû há?*0</string>
+		<string>Karen*Myanmar*answer*Mè*0</string>
+		<string>Karen*Myanmar*Sgaw*Madee leh?*0</string>
+		<string>Karitiana*Brazil*morning*Goy&apos;hap*0</string>
+		<string>Karitiana*Brazil*afternoon*Goy&apos;mõyn*0</string>
+		<string>Kasem*Ghana, Burkina Faso*morning*De N zezenga*0</string>
+		<string>Kasem*Ghana, Burkina Faso*morning*De N de zezenga*0</string>
+		<string>Kashmiri*India, Pakistan**Salam*0</string>
+		<string>Kasigau*Kenya*have you woken up well?*Wawuka?*0</string>
+		<string>Kasigau*Kenya*I have woken up well*Nawuka*0</string>
+		<string>Kâte*Papua New Guinea**Mu zheri dâng*0</string>
+		<string>Kaurareg*Australia*to one person*Ni midhikidh*0</string>
+		<string>Kaurareg*Australia*to two people*Nipel midhikidh?*0</string>
+		<string>Kaurareg*Australia*to three or more*Nitha midhikidh?*0</string>
+		<string>Kaurna*Southern Australia**Na marni*0</string>
+		<string>Kaurna*Soutnern Australia**Marni*0</string>
+		<string>Kavango*Namibia**Osinima osiri ngeipi*0</string>
+		<string>Kazakh*Kazakstan, Central Asia, China**Salam*0</string>
+		<string>Kazakh*Kazakstan, Central Asia, China**Asalamu alaykim*0</string>
+		<string>Kazakh*Kazakstan, Central Asia, China**Salamatsyz ba*0</string>
+		<string>Kazakh*Kazakstan, Central Asia, China**Khayrly kün*0</string>
+		<string>Kazakh*Kazakstan, C. Asia, China*informal*Selem*0</string>
+		<string>Kebu*Congo, Uganda**Ngoni*0</string>
+		<string>Kekchí*Guatemala*to elder man*Ch&apos;owa&apos;*0</string>
+		<string>Kekchí*Guatemala*to elder woman*Ch&apos;ona&apos;*0</string>
+		<string>Kekchí*Guatemala**Wan b&apos;i*0</string>
+		<string>Kekchí*Guatemala*answer*Us, b&apos;i*0</string>
+		<string>Keres*Southwestern United States**Guwaadzi sai hauba*0</string>
+		<string>Keres*Cochiti New Mexico USA**Kuweasti hopa*0</string>
+		<string>Khakas*Russia**Izen*0</string>
+		<string>Khakas*Russia**Izenner*0</string>
+		<string>Khakas*Russia**Mangat qun*0</string>
+		<string>Khanty*Russia**Wus&apos;a*0</string>
+		<string>Khanty*Russia**Uusia*0</string>
+		<string>Khmer*Cambodia**Sok sabai jie te*0</string>
+		<string>Khmer*Cambodia**Suor sdei*0</string>
+		<string>Khmer*Cambodia**Choum reap suor*0</string>
+		<string>Khmer*Cambodia*to man*Choum reap suor look*0</string>
+		<string>Khmer*Cambodia*to woman*Choum reap suor look srey*0</string>
+		<string>Khmu*Laos**Sabailuh*0</string>
+		<string>Khomani*South Africa**hoi ca*0</string>
+		<string>Kibudu*Congo-Kinshasha**Salamu*0</string>
+		<string>Kichagga*Tanzania**Kufyenda*0</string>
+		<string>Kichagga*Tanzania*Kibosho*Shimboni*0</string>
+		<string>Kichagga*Tanzania*Kimashami*Nesindisa*0</string>
+		<string>Kichori*Africa**Kopang&apos;o*0</string>
+		<string>Kickapoo*United States, Mexico**Ho*0</string>
+		<string>Kiga*Africa*morning*Oraire gye*0</string>
+		<string>Kiga*Africa*afternoon and evening*Osiibire gye*0</string>
+		<string>Kiga*Africa*night*Oraare gye*0</string>
+		<string>Kiga*Africa*by children*Mbahe*0</string>
+		<string>Kiga*Africa*by children*Mbahi*0</string>
+		<string>Kiganda*Uganda*peace*Mirembe*0</string>
+		<string>Kiganda*Uganda*what&apos;s the news*Mawulire ki?*0</string>
+		<string>Kiganda*Uganda*answer: none*Tetugalaba*0</string>
+		<string>Kigogo*central Tanzania**Mbukwenyi*0</string>
+		<string>Kigogo*central Tanzania*reply*Mbukwa*0</string>
+		<string>Kihaya*Africa**Wasbotaige*0</string>
+		<string>Kihehe*Africa**Kamwene*0</string>
+		<string>Kihema*Congo-Kinshasha**Mirembe*0</string>
+		<string>Kikamba*Tanzania*to one person*Uvoo waku*0</string>
+		<string>Kikamba*Tanzania*to a group*Uvoo wenyu*0</string>
+		<string>Kikongo*Congo, Angola**Mbote*0</string>
+		<string>Kikongo*Congo, Angola**Kiambote*0</string>
+		<string>Kikongo*Congo, Angola*to man*Kiambote tata*0</string>
+		<string>Kikongo*Congo, Angola*to woman*Kiambote mama*0</string>
+		<string>Kikongo*Congo, Angola*to one person*Kiambote kiaku*0</string>
+		<string>Kikongo*Congo, Angola*to several people*Kiambote kieno*0</string>
+		<string>Kikongo*Cuba**Malembe mpolo*0</string>
+		<string>Kikongo*Cuba**Malembe yayé*0</string>
+		<string>Kikongo*Cuba**Malombo*0</string>
+		<string>Kikongo*Cuba**Mambote*0</string>
+		<string>Kikongo*Cuba**Matoko lukaya*0</string>
+		<string>Kikongo*Cuba**Tukaise nguei*0</string>
+		<string>Kikuyu*Kenya**Natya*0</string>
+		<string>Kikuyu*Kenya**Ni kwega*0</string>
+		<string>Kikuyu*Kenya*to one person*Wemwega*0</string>
+		<string>Kikuyu*Kenya*to more than one person*Muriega*0</string>
+		<string>Kiluba*Congo**Ke mwinya*0</string>
+		<string>Kimakonde*Tanzania**Uchidachi*0</string>
+		<string>Kimakonde*Tanzania**Habari na yelo*0</string>
+		<string>Kimanda*Tanzania**Monili*0</string>
+		<string>Kimbolo*Africa**Saita*0</string>
+		<string>Kimbundu*Africa**Kiambote*0</string>
+		<string>Kimbundu*Africa**Twatondela*0</string>
+		<string>Kimeru*Kenya**Uri umwiiga*0</string>
+		<string>Kinuguja*Africa**Che che*0</string>
+		<string>Kinyakyusa*Tanzania**Ogonile*0</string>
+		<string>Kinyamwezi*Tanzania**Mwaadela*0</string>
+		<string>Kinyamwezi*Tanzania**Haa*0</string>
+		<string>Kinyaramba*Tanzania**Wiliani*0</string>
+		<string>Kinyarwanda*Rwanda*not seen in sev. days*Muraho*0</string>
+		<string>Kinyarwanda*Rwanda*morning,seen recently*Mwaramutse*0</string>
+		<string>Kinyarwanda*Rwanda*afternoon, seen rec.*Mwiriwe*0</string>
+		<string>Kinyaturu*Tanzania**Amocha*0</string>
+		<string>Kiowa*USA**Kui-gwu*0</string>
+		<string>Kiowa*USA**Day-own-day aim been*0</string>
+		<string>Kipchak*Russia**Nä tabish bar?*0</string>
+		<string>Kipchak*Russia*answer*Tabish yok*0</string>
+		<string>Kipchak*Russia*answer*Tabish yoghila*0</string>
+		<string>Kipemba*Africa**Kibesa*0</string>
+		<string>Kipsigis*Kenya**Chamegei*0</string>
+		<string>Kipsigis*Uganda**Chamage*0</string>
+		<string>Kirghiz*Kyrgyzstan**Salamat sizbe*0</string>
+		<string>Kirghiz*Kyrgyzstan*formal*Kandisiz*0</string>
+		<string>Kirghiz*Kyrgyzstan*informal*Kandaisen*0</string>
+		<string>Kirghiz*Kyrgyzstan*casual, by youth*Kandai*0</string>
+		<string>Kirghiz*Kyrgyzstan**Salam aleykum*0</string>
+		<string>Kirghiz*Kyrgyzstan**Salam*0</string>
+		<string>Kiribati*Kiribati Pacific Islands**Mauri*0</string>
+		<string>Kiribati*Kiribati Pacific Islands*singul.*Kona mauri *0</string>
+		<string>Kiribati*Kiribati Pacific Islands*plural*Kam na mauri*0</string>
+		<string>Kirundi*Burundi**Bwakeye*0</string>
+		<string>Kirundi*Burundi**Bwa*0</string>
+		<string>Kirundi*Burundi**N&apos;amahoro*0</string>
+		<string>Kirundi*Burundi*morning, seen recently*Mwaramutse*0</string>
+		<string>Kirundi*Burundi*afternoon, seen recently*Miriwe*0</string>
+		<string>Kirundi*Burundi*informal*Jakeye*0</string>
+		<string>Kirundi*Burundi*lit. may you have herds*Amashyo*0</string>
+		<string>Kirundi*Burundi*answer*Amashongore*0</string>
+		<string>Kisanga*South Congo-Kinshasa*morning*Mwalangikai*0</string>
+		<string>Kisanga*South Congo-Kinshasa*afternoon*Twaimunai*0</string>
+		<string>Kisanga*South Congo-Kinshasa*evening*Kyunguloi*0</string>
+		<string>Kisanga*South Congo-Kinshasa*answer*Eyo mwane*0</string>
+		<string>Kiswahili*Southeast Africa*to man*Habari, bwana*0</string>
+		<string>Kiswahili*Southeast Africa*to woman*Habari, bibi*0</string>
+		<string>Kiswahili*Southeast Africa*to elder man*Habari, mzee*0</string>
+		<string>Kiswahili*Southeast Africa*to elder wom.*Habari, mama*0</string>
+		<string>Kiswahili*Southeast Africa*answer*Nzuri*0</string>
+		<string>Kiswahili*Kenya*answer*Mzuri*0</string>
+		<string>Kiswahili*Southeast Africa*to man*Hujambo, bwana*0</string>
+		<string>Kiswahili*Southeast Africa*to woman*Hujambo, bibi*0</string>
+		<string>Kiswahili*Southeast Africa*to elder man*Hujambo, mzee*0</string>
+		<string>Kiswahili*Southeast Africa*to elder wom.*Hujambo, mama*0</string>
+		<string>Kiswahili*Southeast Africa*ans. to 1 man*Sijambo, bwana*0</string>
+		<string>Kiswahili*Southeast Africa*answer to men*Sijambo, mabwana*0</string>
+		<string>Kiswahili*Southeast Africa*ans. to woman*Sijambo, bibi*0</string>
+		<string>Kiswahili*Southeast Africa*ans. to women*Sijambo, mabibi*0</string>
+		<string>Kiswahili*SE Africa*answer to elder man*Sijambo, mzee*0</string>
+		<string>Kiswahili*SE Africa*ans. to elder woman*Sijambo, mama*0</string>
+		<string>Kiswahili*Southeast Africa*to men-plural*Hamjambo, mabwana*0</string>
+		<string>Kiswahili*Southeast Africa*to women-pl.*Hamjambo, mabibi*0</string>
+		<string>Kiswahili*Southeast Africa*ans to 1 man*Hatujambo, bwana*0</string>
+		<string>Kiswahili*Southeast Africa*ans to men-pl*Hatujambo, mabwana*0</string>
+		<string>Kiswahili*Southeast Africa*ans to woman*Hatujambo, bibi*0</string>
+		<string>Kiswahili*Southeast Africa*ans to wom-pl*Hatujambo, mabibi*0</string>
+		<string>Kiswahili*Southeast Africa*in passing*Salama*0</string>
+		<string>Kiswahili*Southeast Africa*to elder*Shikamoo*0</string>
+		<string>Kiswahili*Southeast Africa*to elder man*Shikamoo mzee*0</string>
+		<string>Kiswahili*Southeast Africa*to elder man*Shikamoo baba*0</string>
+		<string>Kiswahili*Southeast Africa*to elder wom.*Shikamoo mama*0</string>
+		<string>Kiswahili*Southeast Africa*by elders*Marahaba*0</string>
+		<string>Kiswahili*Southeast Africa*by Muslims*Asalaamu alekum*0</string>
+		<string>Kiswahili*Southeast Africa*answer*Wa alekum salaam*0</string>
+		<string>Kiswahili*Southeast Africa*to tourists*Jambo*0</string>
+		<string>Kiswahili*Southeast Africa*formal*Jambo sana*0</string>
+		<string>Kituba*Congo**Mbote*0</string>
+		<string>Kituba*Congo*to one person*Mbote na beno*0</string>
+		<string>Kituba*Congo*to several people*Mbote na nge*0</string>
+		<string>Kiwapogoro*Africa**Kiamoka*0</string>
+		<string>Kizaramo*Tanzania**Kugonaze*0</string>
+		<string>Klallam*Washington USA*to p. arriving*Sha shel ?a? chin stáchi*0</string>
+		<string>Klallam*Washington USA*it is a good day*?Éy&apos; skwáchi *0</string>
+		<string>Klallam*Washington USA*it is a good day*?Éy&apos; skwáchi ?áynekw*0</string>
+		<string>Koasati*Louisiana &amp; Texas USA**Bosó*0</string>
+		<string>Koasati*Louisiana &amp; Texas USA*to group*Haciká&apos;nó*0</string>
+		<string>Koasati*Louisiana &amp; Texas USA*to one*Ciká&apos;nó*0</string>
+		<string>Kohistani*Central Asia**Asalaam aleikum*0</string>
+		<string>Komi-Permyak*Russia**Olat-vöat*0</string>
+		<string>Komi-Permyak*Russia*informal*Privyet*0</string>
+		<string>Komi-Zyrian*Russia**Bidza olannyd*0</string>
+		<string>Komi-Zyrian*Russia*informal*Cholöm*0</string>
+		<string>Konkani*India**Namaskaaru*0</string>
+		<string>Konkani*India**Paypadta*0</string>
+		<string>Korean*Korea**Annyong hashimnikka*0</string>
+		<string>Korean*Korea*informal*Annyong haseyo*0</string>
+		<string>Korean*Korea*informal*Annyong*0</string>
+		<string>Koromfe*Burkina Faso**A jebka kibaru*0</string>
+		<string>Koromfe*Burkina Faso**Ng jebe a baani*0</string>
+		<string>Koromfe*Burkina Faso**Ng jebe baani*0</string>
+		<string>Koromfe*Burkian Faso*answer*A baane jebe*0</string>
+		<string>Koryak*Russia*Maritime Koryak*Mej*0</string>
+		<string>Koryak*Russia*Reindeer Koryak*Amto*0</string>
+		<string>Kosraean*Micronesia**Lwen wo*0</string>
+		<string>Kosraean*Micronesia**Kulo malulo*0</string>
+		<string>Koyo*Africa**Osegu*0</string>
+		<string>Koyo*Africa**Ol&apos;*0</string>
+		<string>Koyukon*Alaska**Dzaanh nezoonh*0</string>
+		<string>Kpelle*Liberia**Ba ngung*0</string>
+		<string>Kpelle*Liberia**Ya ngung*0</string>
+		<string>Kréyòl*French Guyana**A kouman*0</string>
+		<string>Krio*Sierra Leone**Kushe*0</string>
+		<string>Kriol*N. Australia*w. are you coming from*Wijei yu bin kaman?*0</string>
+		<string>Kriol*N. Australia*to more than one*Wijei yumob bin kaman?*0</string>
+		<string>Kriol*N. Australia*we&apos;ve come from...*Mela bin kaman brom...*0</string>
+		<string>Kukatja*Australia**Nyuntun palya*0</string>
+		<string>Kumeyaay*Southern California USA, Mexico**Auka*0</string>
+		<string>Kumeyaay*Southern California USA, Mexico**Howka*0</string>
+		<string>Kumeyaay*Southern California USA, Mexico**Haawka*0</string>
+		<string>Kuna*Panama**Na*0</string>
+		<string>Kuna*Panama**Nuedí*0</string>
+		<string>Kuna*Panama**Degitte*0</string>
+		<string>Kuna*Colombian-Panamanian border region**Na&apos;*0</string>
+		<string>Kupsapiny*Uganda*to a man*Supai*0</string>
+		<string>Kupsapiny*Uganda*to a woman*Takwenya*0</string>
+		<string>Kurdi*Iraq, Iran**Rozhbash*0</string>
+		<string>Kurdi*Iraq, Iran*answer*Bashem*0</string>
+		<string>Kurukh*India**Gor-lagi*0</string>
+		<string>Kutthung*Australia**Goojee ik koo*0</string>
+		<string>Kwakiutl*British Columbia Canada**Gila kasla*0</string>
+		<string>Kwakiutl*British Columbia Canada**Gilakas&apos;la*0</string>
+		<string>Kwakiutl*British Columbia Canada**Yoyo*0</string>
+		<string>Kwanyama*Angola, Namibia**Wa aluka*0</string>
+		<string>Kwanyama*Angola, Namibia**Mwa aluka*0</string>
+		<string>Kwaya*Tanzania**Murembe*0</string>
+		<string>Kwere*Tanzania**Walama*0</string>
+		<string>Kwéyòl*Haiti**Bonjou*0</string>
+		<string>Kwéyòl*Haiti*respectful to man*Bonjou msieu*0</string>
+		<string>Kwéyòl*Haiti*to a friend*Bonjou konpè-m*0</string>
+		<string>Kwéyòl*Haiti**Alò*0</string>
+		<string>Kyangonde*Malawi**Ndaga tiyo*0</string>
+	</array>
+	<key>l</key>
+	<array>
+		<string>Laadi*Congo**Kuambilu*0</string>
+		<string>Lacandón*Chiapas Mexico*to enter a house*Taringrech*0</string>
+		<string>Lacandón*Chiapas Mexico*answer= come in*Or ken*0</string>
+		<string>Ladakhi*Pakistan**Djuley*0</string>
+		<string>Ladin*Trentino-Alto Adige Italy**Bon di*0</string>
+		<string>Ladino*Israel, Turkey**Shalom*0</string>
+		<string>Ladino*Israel, Turkey**Shalom alehem*0</string>
+		<string>Ladino*Israel, Turkey**Buenos dias*0</string>
+		<string>Ladino*Israel, Turkey**Ke habar*0</string>
+		<string>Lahu*China, Burma, Thailand**Cheh sha la*0</string>
+		<string>Lahu*China, Burma, Thailand**Cheh sha-ah la*0</string>
+		<string>Lakhota*Nebraska Dakota &amp; Montana USA**Hau*0</string>
+		<string>Lakhota*Nebraska Dakota &amp; Montana USA**Onkwáho*0</string>
+		<string>Lakhota*USA*by male*Hau, ko&apos;la*0</string>
+		<string>Lakhota*USA*by female*Han, mish&apos;ke*0</string>
+		<string>Lakhota*USA*good day*Anpetu waste*0</string>
+		<string>Lamaholot*Indonesia**Moe genai?*0</string>
+		<string>Lamaholot*Indonesia*where are you going?*Moe malaga?*0</string>
+		<string>Lampung*Indonesia**Api kaba*0</string>
+		<string>Lango*Uganda, Sudan**Miremba*0</string>
+		<string>Lani*Irian Jaya Indonesia**Wa*0</string>
+		<string>Lani*Irian Jaya Indonesia**Nore wa*0</string>
+		<string>Lao*Laos**Sabaai-dii*0</string>
+		<string>Lao*Laos*used if meeting on the street*Pai sai*0</string>
+		<string>Lao*Laos*answer*Pai nyaang lmn*0</string>
+		<string>Lao*Laos*have you eaten?*Kin khàp lbew baw?*0</string>
+		<string>Lao*Laos*accept invitation*Nyang*0</string>
+		<string>Latin*ancient Rome, Vatican*most proper*Ave*0</string>
+		<string>Latin*ancient Rome, Vatican**Salve*0</string>
+		<string>Latin*ancient Rome, Vatican*to plural*Salvete*0</string>
+		<string>Latvian*Latvia**Sveiki*0</string>
+		<string>Latvian*Latvia*to a man*Sveiks*0</string>
+		<string>Latvian*Latvia*to a woman*Sveika*0</string>
+		<string>Latvian*Latvia**Sveicinats*0</string>
+		<string>Latvian*Latvia**Labas*0</string>
+		<string>Lega*Congo-Kinshasa**Samba*0</string>
+		<string>Lelemi*Ghana**Abo*0</string>
+		<string>Lenape*Delaware United States*Delaware*Hè*0</string>
+		<string>Lepcha*India, Nepal, Bhutan**Khámrí*0</string>
+		<string>Limbe*Sierra Leone**Wali-wali*0</string>
+		<string>Lindrou*Papua New Guinea**Ndraben tam, komo asen*0</string>
+		<string>Lingala*Congo**Mbóte*0</string>
+		<string>Lingala*Congo**Mbóte na yó*0</string>
+		<string>Lingala*Lomongo Congo**Losáko*0</string>
+		<string>Lingua Franca*Mediterranean**Salute*0</string>
+		<string>Lingua Franca*Mediterranean**Bon dgiorno*0</string>
+		<string>Lisu*Thailand**Ali nga?*0</string>
+		<string>Lisu*Thailand*answer-if you aren&apos;t busy*Atdor nat niaq nga*0</string>
+		<string>Lisu*Thailand*answer-if you aren&apos;t busy*Alshit lil mat yi niaq*0</string>
+		<string>Lisu*Thailand*answer-if you are busy*Tei zil mit atkel cat niaq nga*0</string>
+		<string>Lithuanian*said to male**Sveikas*0</string>
+		<string>Lithuanian*said to female**Sveika*0</string>
+		<string>Lithuanian*several people**Sveiki*0</string>
+		<string>Lithuanian*Lithuania**Labas*0</string>
+		<string>Lithuanian*Lithuania*to a man, formal*Sveikas gyvas*0</string>
+		<string>Lithuanian*Lithuania*to a woman, formal*Sveika gyva*0</string>
+		<string>Lithuanian*Lithuania*to several people*Sveiki gyvi*0</string>
+		<string>Livonian*Latvia**Terinch*0</string>
+		<string>Lleonese*Leon Spain**Salú*0</string>
+		<string>Logang*Uganda**Morembe*0</string>
+		<string>Loglan*international**Loi*0</string>
+		<string>Lojban*international**Coi*0</string>
+		<string>Lokpa*Benin, Togo**Alafiawe*0</string>
+		<string>Low Saxon*Eastern Friesland**Gode Dag*0</string>
+		<string>Low Saxon*Eastern Friesland**Goden Dag*0</string>
+		<string>Low Saxon*Germany*Northern*Goden Dag*0</string>
+		<string>Low Saxon*Germany*Northern*Gouden dag*0</string>
+		<string>Low Saxon*Germany*Northern*Dag*0</string>
+		<string>Low Saxon*Germany*answer*Dag ok*0</string>
+		<string>Low Saxon*Germany*answer*Dag ouk*0</string>
+		<string>Low Saxon*Germany*Northern*Moi*0</string>
+		<string>Low Saxon*Germany*Northern*Moin*0</string>
+		<string>Low Saxon*Germany*Northern*Moin moin*0</string>
+		<string>Low Saxon*Germany*Westphalian*Gueden Dag*0</string>
+		<string>Lua*Thailand*T&apos;in*Mah pen si&apos;ee*0</string>
+		<string>Lucumí*Cuba**Oluku mi*0</string>
+		<string>Ludian*Russia**Hüvä päivä*0</string>
+		<string>Luganda*Uganda**Otya nno*0</string>
+		<string>Luganda*Uganda*morning*Wasizotya nyabo*0</string>
+		<string>Luganda*Uganda*morning*Wasuz&apos;otya*0</string>
+		<string>Luganda*Uganda*afternoon*Osiibye otya nno*0</string>
+		<string>Luganda*Uganda*afternoon*Osiiby&apos;otya*0</string>
+		<string>Luganda*Uganda*answer*Bulungi*0</string>
+		<string>Luganda*Uganda**&apos;Abaffè*0</string>
+		<string>Luganda*Uganda**&apos;Abânge*0</string>
+		<string>Luganda*Uganda*informal*Ki kati*0</string>
+		<string>Luiseño*Southern California USA**Miiyu*0</string>
+		<string>Luiseño*California USA*to several people*Miiyuyam*0</string>
+		<string>Lunda*Zambia, Angola, Congo**Mudi nahi?*0</string>
+		<string>Lunda*Zambia, Angola, Congo*answer*Cha chiwahi*0</string>
+		<string>Lunyankole*Uganda**Osibirega*0</string>
+		<string>Lunyankole*Uganda*after absense*Kaizhe buhorogye?*0</string>
+		<string>Lunyankole*Uganda*answer*Kaizhe buhoro*0</string>
+		<string>Lunyankole*Uganda*by elder*Mphoro*0</string>
+		<string>Lunyankole*Uganda*answer*Eh*0</string>
+		<string>Lunyankole*Uganda*by child*Erirege*0</string>
+		<string>Lunyankole*Mbarara South Uganda*morning*Oreire ota?*0</string>
+		<string>Lunyankole*Mbarara South Uganda*morning*Oreiregye?*0</string>
+		<string>Lunyankole*Mbarara South Uganda*answer*Ndaire kurungi*0</string>
+		<string>Lunyankole*Mbarara South Uganda*aftern.*Osibiregye?*0</string>
+		<string>Lunyankole*Mbarara South Uganda*answer*Nsibire kurungi*0</string>
+		<string>Lunyoro*West Uganda**Mirembe*0</string>
+		<string>Lunyoro*West Uganda*morning*Oraire ota?*0</string>
+		<string>Lunyoro*West Uganda*afternoon*Osibire ota?*0</string>
+		<string>Lunyoro*West Uganda*answer*Kurungi*0</string>
+		<string>Luritja*Australia**Yawa*0</string>
+		<string>Luritja*Australia**Wai*0</string>
+		<string>Lushootseed*Washington State USA**&apos;I, sya&apos;ya&apos;*0</string>
+		<string>Lushootseed*Washington State USA**Kwedachi*0</string>
+		<string>Luo*Kenya, Tanzania**Mirembe*0</string>
+		<string>Luo*Kenya, Tanzania**Misawa*0</string>
+		<string>Luo*Kenya, Tanzania**Mesawa*0</string>
+		<string>Luvale*Zambia**Ngacili?*0</string>
+		<string>Luvale*Zambia*answer*Kanawa*0</string>
+		<string>Luxembourgish*Luxembourg, Germany, France**Moiën*0</string>
+		<string>Luxembourgish*Luxembourg, Germany, France**Bonjour*0</string>
+		<string>Luxembourgish*Luxembourg, Germany, France**Gudde Moiën*0</string>
+		<string>Luxembourgish*Luxembourg, Germany, France**Gudde Mëtteg*0</string>
+		<string>Lyela*Burkina Faso*by a guest*A vièlè*0</string>
+		<string>Lyela*Burkina Faso*answer*On hon*0</string>
+	</array>
+	<key>m</key>
+	<array>
+		<string>Maasai*Serengeti Kenya, Tanzania**Supa*0</string>
+		<string>Maasai*Serengeti Kenya, Tanzania*men*Suba*0</string>
+		<string>Maasai*Serengeti Kenya, Tanzania*answer*Suba oleng*0</string>
+		<string>Maasai*Serengeti Kenya, Tanzania*women*Ta kwenya*0</string>
+		<string>Maasai*Serengeti Kenya, Tanzania*answer*Iko*0</string>
+		<string>Maasai*Kenya, Tanzania*to a young woman*Ndito ta kwenya*0</string>
+		<string>Maasai*Kenya, Tanzania*to a young woman*Nditho ta kwenya*0</string>
+		<string>Maasai*Kenya, Tanzania*to an older woman*Koko ta kwenya*0</string>
+		<string>Maasai*Kenya, Tanzania*to a warrior*Morani ta kwenya*0</string>
+		<string>Maasai*Kenya, Tanzania*to a young man*Kulalayo ta kwenya*0</string>
+		<string>Maasai*Kenya, Tanz.*how are the children*Kasserian ingera*0</string>
+		<string>Mabuiag*Queensland Australia*to one*Ni midhikidh*0</string>
+		<string>Mabuiag*Queensland Australia*to two*Nipel midhikidh*0</string>
+		<string>Mabuiag*Queensland Australia*to three+*Nitha midhikidh*0</string>
+		<string>Mabuiag*Queensland Australia*answer*Matha mina*0</string>
+		<string>Macedonian*Macedonia**Zdravo*0</string>
+		<string>Macedonian*Macedonia**Dobar den*0</string>
+		<string>Macedonian*Macedonia**Prijatno*0</string>
+		<string>Macedonian*Macedonia*informal*Alo*0</string>
+		<string>Maidu*California USA**Hei*0</string>
+		<string>Makah*Washington USA**Hooy*0</string>
+		<string>Makhua*Tanzania**Habaari*0</string>
+		<string>Makhua*Tanzania*answer*Salaama*0</string>
+		<string>Malagasy*Madagascar**Manao ahoana*0</string>
+		<string>Malagasy*Madagascar**Manao ahoana tompoko*0</string>
+		<string>Malagasy*Sakalava Madagascar**Salama*0</string>
+		<string>Malagasy*Sambirano Madagascar**M&apos;bola tsara*0</string>
+		<string>Malagasy*South and Midwestern Madagascar**Akory anareo*0</string>
+		<string>Malagasy*Betsimisaraka Madagascar**Akory lahaly*0</string>
+		<string>Malagasy*Betsileo Madagascar**Tsara madyna*0</string>
+		<string>Malay*Malaysia, Brunei**Selamat*0</string>
+		<string>Malay*Malaysia, Brunei**Apa kabar*0</string>
+		<string>Malay*Malaysia, Brunei**Helo*0</string>
+		<string>Malayalam*Kerala India**Namaskaram*0</string>
+		<string>Malinké*Mali**I be di*0</string>
+		<string>Maltese*Malta**Bongu*0</string>
+		<string>Maltese*Malta**Kifahna*0</string>
+		<string>Mam*Guatemala**Je&apos;y*0</string>
+		<string>Mam*Guatemala**Jeyó*0</string>
+		<string>Mam*Guatemala**Je&apos;ky*0</string>
+		<string>Mam*Guatemala**Jay*0</string>
+		<string>Mam*Guatemala*by a man to a man, inf.*Je&apos;y kraa*0</string>
+		<string>Mam*Guatemala*to an older person*Antz tq&apos;ab&apos;a*0</string>
+		<string>Mam*Guatemala*to an older man*Antz tq&apos;ab&apos;a taat*0</string>
+		<string>Mam*Guatemala*to a visiter*Maa&apos; tzuula b&apos;eetal*0</string>
+		<string>Mam*Guatemala*to a man*Buenos diias, taat*0</string>
+		<string>Mam*Guatemala*to a woman*Buenos diias, naan*0</string>
+		<string>Mambwe*Tanzania, Zambia**Mwapoli mukwai*0</string>
+		<string>Mambwe*Tanzania, Zambia**Mwalya mwina*0</string>
+		<string>Mambwe*Tanzania, Zambia*to p. working*Mwalima mukwai*0</string>
+		<string>Mambwe*Tanzania, Zambia*answer*Ta*0</string>
+		<string>Mambwe*Tanzania, Zambia*answer*Kalombo*0</string>
+		<string>Mambwe*Tanzania, Zambia*answer*Endi mukwai*0</string>
+		<string>Mambwe*Tanzania, Zambia*after journey*Welini kweneko*0</string>
+		<string>Mambwe*Tanzania, Zambia*returning hunter*Mwalulyata*0</string>
+		<string>Mambwe*Tanzania, Zambia*hunter or fisher*Wamba*0</string>
+		<string>Mampruli*Ghana*morning*Dasuba*0</string>
+		<string>Manchu*China**Ei*0</string>
+		<string>Mandan*United States**Nawah*0</string>
+		<string>Mandarin*China*Guoyu, Putonghua*Nî hâo*0</string>
+		<string>Mandarin*China*formal*Nín hâo*0</string>
+		<string>Mandarin*China*many people*Nîmen hâo*0</string>
+		<string>Mandinka*West Africa*to one person*I be ñaading*0</string>
+		<string>Mandinka*West Africa*to several people*Al be ñaading*0</string>
+		<string>Mandinka*West Africa*to one person*I be di*0</string>
+		<string>Mandinka*West Africa*to several people*Al be di*0</string>
+		<string>Mandinka*West Africa*to one person*I ne ke*0</string>
+		<string>Mandinka*West Africa*to several people*Al ne ke*0</string>
+		<string>Mandinka*West Africa*to one person*I tiina*0</string>
+		<string>Mandinka*West Africa*to several people*Al tiina*0</string>
+		<string>Mandinka*West Africa**Kayira be*0</string>
+		<string>Mandinka*West Africa**Ge iwurara*0</string>
+		<string>Mangareva*French Polynesia**Ena koe*0</string>
+		<string>Mangareva*French Polynesia*answer*A koe noti*0</string>
+		<string>Mangareva*French Polynesia**Kia purotu koe*0</string>
+		<string>Mangareva*French Polynesia**Aroha*0</string>
+		<string>Manggarai*Indonesia*where are you going?*Ngonia?*0</string>
+		<string>Maninka*Guinea, Liberia, Sierra Leone**Mesect*0</string>
+		<string>Maninka*Guinea, Liberia, S.Leon*aftern.*Mesomme*0</string>
+		<string>Manyika*Zimbabwe*Hungwe*Kaziwa*0</string>
+		<string>Manyika*Zimbabwe, Mozambique**Kaiwa*0</string>
+		<string>Manx*Britain**Laa mie*0</string>
+		<string>Manx*Britain**Failt erriu*0</string>
+		<string>Manx*Britain**Dy bannee dhyt*0</string>
+		<string>Manx*Britain**Ta shiu cheet*0</string>
+		<string>Manx*Britain**Kys t&apos;ou*0</string>
+		<string>Manx*Britain*to several people*She nyn mea diu ooilley*0</string>
+		<string>Maohi*French Polynesia**Ia orana*0</string>
+		<string>Maori*New Zealand*to one person*Tena koe*0</string>
+		<string>Maori*New Zealand*to two people*Tena korua*0</string>
+		<string>Maori*New Zealand*to three or more*Tena koutou*0</string>
+		<string>Maori*New Zealand**Kia ora*0</string>
+		<string>Maori*Cook Islands**Kia orana*0</string>
+		<string>Maori*Cook Islands*peace*Kia &apos;au*0</string>
+		<string>Mapudungun*Chile, Argentina**Mari mari*0</string>
+		<string>Mapudungun*Chile, Argentina*after absense*Fütá kuyfí *0</string>
+		<string>Mapudungun*Chile, Argentina**Foche*0</string>
+		<string>Marathi*Maharashtra India**Namaskar*0</string>
+		<string>Marathi*Maharashtra India**Namaste*0</string>
+		<string>Marathi*Maharashtra India*informal*Kasa-kaayh*0</string>
+		<string>Mari*Russia*Hill Mari*Pury kechy*0</string>
+		<string>Mari*Russia*morning*Pury irok*0</string>
+		<string>Mari*Russia*evening*Pury vady*0</string>
+		<string>Mari*Russia*Meadow Mari*Salam liyzhe*0</string>
+		<string>Mari*Russia*Meadow Mari*Poro kéch&apos;e*0</string>
+		<string>Mari*Russia*morning*Poro er*0</string>
+		<string>Mari*Russia*evening*Poro kás*0</string>
+		<string>Mari*Russia*how are you?*Kuze ílet?*0</string>
+		<string>Marquesan*French Polynesia**Kaoha*0</string>
+		<string>Marquesan*French Polynesia**Kaoha nui*0</string>
+		<string>Marshallese*Marshal Islands, Nauru**Yokwe yuk*0</string>
+		<string>Marshallese*Marshal Islands, Nauru**Yokwe*0</string>
+		<string>Marshallese*Marshal Islands, Nauru**Yokwe yokwe*0</string>
+		<string>Mashi*Eastern Congo-Kinshasa**Asinge*0</string>
+		<string>Masongo*Ethiopia**Maram bouga*0</string>
+		<string>Masongo*Ethiopia*answer*Ay nandejoua*0</string>
+		<string>Matisa*Namibia**Damara*0</string>
+		<string>Matsikenka*Peru**Aiñovi*0</string>
+		<string>Matsigenka*Peru**Aiñompi*0</string>
+		<string>Matsigenka*Peru*answer*Aiñona*0</string>
+		<string>Matsigenka*Peru*where are you going?*Néga pijáque?*0</string>
+		<string>Matsigenka*Peru*answer: I&apos;m visiting you*Naniáquemíni*0</string>
+		<string>Maué*Brazil**Enodac*0</string>
+		<string>Maué*Brazil**Awãe aiko*0</string>
+		<string>Mazahua*Mexico**Jyasmä*0</string>
+		<string>Mazahua*Mexico**Jyasmäji*0</string>
+		<string>Mazahua*Mexico**Jyas&apos;u*0</string>
+		<string>Mazatec*Oaxaca and Veracruz Mexico**&apos;Ntano*0</string>
+		<string>Mbeere*Kenya**Na atia*0</string>
+		<string>Mehináku*Xingü Park Brazil**Pitsupai*0</string>
+		<string>Mehináku*Xingü Park Brazil*answer*Natupai*0</string>
+		<string>Meithei*India, Bangladesh, Myanmar**Karam touri*0</string>
+		<string>Mekwengo*Uganda**Mirembe*0</string>
+		<string>Mende*Sierra Leone**Bua*0</string>
+		<string>Mende*Sierra Leone**Bianaoh*0</string>
+		<string>Mende*Sierra Leone**Ndiamo, biwa*0</string>
+		<string>Mende*Sierra Leone**Ah wanna-e?*0</string>
+		<string>Menomini*Wisconsin USA**A:neE na:p*0</string>
+		<string>Meriam Mir*Australia, Papua New Guinea**Nako manali?*0</string>
+		<string>Meriam Mir*Australia, PNG*answer*Sikakanali*0</string>
+		<string>Miami*Indiana &amp; Oklahoma USA**Aya aya*0</string>
+		<string>Miami*Indiana &amp; Oklahoma USA*to a friend*Aya aya niihka*0</string>
+		<string>Miccosukee*Florida USA**Che hun ta mo*0</string>
+		<string>Mien*Laos, Thailand**Yiem longx*0</string>
+		<string>Mien*Laos, Thailand**Yiem longx nyei*0</string>
+		<string>Mien*Laos, Thailand**Yiem longx nyei fai*0</string>
+		<string>Mien*Laos, Thailand**Ov, meih daaih orh*0</string>
+		<string>Mien*Vietnam**Puang toi*0</string>
+		<string>Mikmaq*Canada**Kwé*0</string>
+		<string>Milanese*Milan Italy*Lombard*Saludi*0</string>
+		<string>Milanese*Milan Italy*Lombard*Reverissi*0</string>
+		<string>Min Dong*China*Fuchou*Eh ho meh*0</string>
+		<string>Min Nam*China*Chaoshou*Ho mo*0</string>
+		<string>Min Nam*Singapore, Indonesia*Hokkien*Jia ba liao buay*0</string>
+		<string>Min Nam*Singapore, Indonesia*Hokkien*Ho bo*0</string>
+		<string>Min Nam*Taiwan*Hokkien*Li ho    *0</string>
+		<string>Min Nam*Taiwan*Hokkien*Chiah pa bue*0</string>
+		<string>Min Nam*Taiwan*Hokkien*Chiah-tau iah bue*0</string>
+		<string>Min Nam*Taiwan*Hokkien*Peng an*0</string>
+		<string>Min Nam*Taiwan*Hokkien*Chiáh-tàu iáh boë*0</string>
+		<string>Minangkabau*West Sumatra Indonesia**Haloo*0</string>
+		<string>Minangkabau*West Sumatra Indonesia**Baa kaba*0</string>
+		<string>Mingo*Canada, USA**Skênö*0</string>
+		<string>Mingo*Canada, USA**Hae&apos;*0</string>
+		<string>Mingo*Canada, USA**Hau&apos;*0</string>
+		<string>Mingo*Canada, USA*informal*Kuwe*0</string>
+		<string>Mískito*Nicaragua, Honduras**Nak&apos;sa*0</string>
+		<string>Mískito*Nicaragua, Honduras**Nahki sa*0</string>
+		<string>Mitchif*North Dakota USA, Canada**Tawnshi*0</string>
+		<string>Mitchif*North Dakota USA, Canada**Boonzhoor*0</string>
+		<string>Mixe*Oaxaca Mexico**Za jiatzy*0</string>
+		<string>Mixe*Oaxaca Mexico*at a house*Estagai yépsna*0</string>
+		<string>Mixe*Oaxaca Mexico*meeting on the road*Hana beákten*0</string>
+		<string>Mixtec*Chalcatongo Mexico*morning*Tàníndi*0</string>
+		<string>Mixtec*Chalcatongo Oaxaca Mexico*morning*Tándi*0</string>
+		<string>Mixtec*Magdalena Peñasco Oaxaca Mexico**Taondi*0</string>
+		<string>Mixtec*Magdalena Peñasco Mexico*answer*Taondimbaa*0</string>
+		<string>Mixtec*Sta. Catarina Estetla Mex.*morning*Kobaadín*0</string>
+		<string>Mixtec*Sta. Catarina Estetla Mex.*answer*Kobadiátu*0</string>
+		<string>Mixtec*Xicay´n Mexico**Taniku*0</string>
+		<string>Mixtec*Xicay´n Mexico**Ta&apos;áníku*0</string>
+		<string>Mixtec*Xicay´n Mexico**Káa Ndioxi yúu yóo*0</string>
+		<string>Mohegan*Eastern USA**Aquai*0</string>
+		<string>Mohegan*Eastern USA**Quin&apos;a moth&apos;a*0</string>
+		<string>Moksha*Russia**Shumbrat*0</string>
+		<string>Mon*Myanmar, Thailand**Mangera 7aw*0</string>
+		<string>Monégasque*Monaco**Bon giurnu*0</string>
+		<string>Mongo-Nkundu*Congo-Kinshasha**Losáko*0</string>
+		<string>Mongolian*Mongolia, N China**Sain baina uu*0</string>
+		<string>Mono*California USA**Maná hu*0</string>
+		<string>Mòoré*Burkina Faso**Kibaare*0</string>
+		<string>Mòoré*Burkina Faso*to a person working*Ne y tuuma*0</string>
+		<string>Mòoré*Burkina Faso*to a person walking*Ne y kenji*0</string>
+		<string>Mòoré*Burkina Faso*morning*Yibeogo kibaare?*0</string>
+		<string>Mòoré*Burkina Faso*morning*Yibeogo yaa laafi?*0</string>
+		<string>Mòoré*Burkina Faso*morning*Yibeogo kiema?*0</string>
+		<string>Mòoré*Burkina Faso*afternoon*Zaabre kibaare?*0</string>
+		<string>Mòoré*Burkina Faso*afternoon*Zaabre yaa laafi?*0</string>
+		<string>Mòoré*Burkina Faso*afternoon*Zaabre kiema?*0</string>
+		<string>Mòoré*Burkina Faso*answer*Laafi*0</string>
+		<string>Mòoré*Burkina Faso*answer*Laafibeme*0</string>
+		<string>Mòoré*Burkina Faso*answer*Laafibala   *0</string>
+		<string>Mopán Maya*Guatemala**Dioos*0</string>
+		<string>Mordvin*Russia**Shumbrat*0</string>
+		<string>Mordvin*Russia*informal*Syukprya*0</string>
+		<string>Morisyen*Mauritius**Ki m anieère?*0</string>
+		<string>Morisyen*Mauritius*answer*Mon byen, mersi*0</string>
+		<string>Motu*Papua New Guinea**Dina namona*0</string>
+		<string>Mpi*Thailand**Na hà yé?*0</string>
+		<string>Mpi*Thailand*answer by person visiting*Ngó só í he*0</string>
+		<string>Mpongwe*Gabon**Mbolo*0</string>
+		<string>Mura*Brazil**Kauan*0</string>
+		<string>Muskogee*Oklahoma &amp; Florida USA**Estonko*0</string>
+		<string>Muskogee*Oklahoma &amp; Florida USA**Hescha*0</string>
+		<string>Muskogee*Oklahoma &amp; Florida USA**Hesci*0</string>
+		<string>Muskogee*Oklahoma &amp; Florida USA**Hessi*0</string>
+		<string>Muskogee*Oklahoma &amp; Florida USA**Hensci*0</string>
+		<string>Muskogee*Oklahoma  USA**Hërs&apos;cë *0</string>
+		<string>Mutsun*California USA**Pasip-inyi*0</string>
+	</array>
+	<key>n</key>
+	<array>
+		<string>Náhuatl*Mexico, El Salvador**Niltze*0</string>
+		<string>Náhuatl*Mexico, El Salvador*good day*Cualli tonalli*0</string>
+		<string>Náhuatl*Mexico, El Salvador*good day*Cualli tonaltin*0</string>
+		<string>Náhuatl*Tepoztlan Mexico*good day*Cualli motonalli*0</string>
+		<string>Náhuatl*Mexico, El Salvador**Tlathuil*0</string>
+		<string>Náhuatl*Puebla Mexico**Mopanolti*0</string>
+		<string>Náhuatl*Puebla Mexico**Mopanoltihtzino*0</string>
+		<string>Náhuatl*Veracruz Mexico**Piali*0</string>
+		<string>Náhuatl*Veracruz Mexico**Piale*0</string>
+		<string>Náhuatl*Veracruz Mexico*to male*Pial tate*0</string>
+		<string>Náhuatl*Veracruz Mexico*female*Pial nane*0</string>
+		<string>Náhuatl*Guerrero Mexcio*on street*Kän tiaw*0</string>
+		<string>Náhuatl**Aztec Empire*Niltze*0</string>
+		<string>Náhuatl**to person arriving*Otiquihiyohuih*0</string>
+		<string>Náhuatl**to person sitting*Tla ximehuiltihtiecan*0</string>
+		<string>Nakota*North America*by male*Hau*0</string>
+		<string>Nakota*North America*by female*Han*0</string>
+		<string>Nakota*North America*to a friend by male*Hau kona*0</string>
+		<string>Nama*Namibia**!Gâi tsés*0</string>
+		<string>Nama*Namibia**Matisa ti axaro*0</string>
+		<string>Nandi*East Africa**Chamgei*0</string>
+		<string>Nandi*East Africa*elder to younger man*Sopai*0</string>
+		<string>Nandi*East Africa*reply to elder by y.m.*Takwenya*0</string>
+		<string>Nandi*East Africa*younger to elder man*Epa*0</string>
+		<string>Nandi*East Africa*elder to young woman*Takwenya*0</string>
+		<string>Nandi*East Africa*younger to elder woman*Igo*0</string>
+		<string>Nandi*East Africa*man to woman*Takwenya, chepioso-chu*0</string>
+		<string>Nandi*East Africa*woman to man*Takwenya, murén-ju*0</string>
+		<string>Nandi*East Africa*woman to young boy*Sopai*0</string>
+		<string>Nandi*East Africa*reply by young boy*Takwenya*0</string>
+		<string>Nandi*East Africa*man to young girl*Takwenya*0</string>
+		<string>Nandi*East Africa*reply by young girl*Igo*0</string>
+		<string>Navajo*Southwestern United States**Yá&apos;át&apos;ééh*0</string>
+		<string>Navajo*SW United States*to older man*Yá&apos;át&apos;ééh shicheii*0</string>
+		<string>Navajo*SW United States*to older woman*Yá&apos;át&apos;ééh shimá*0</string>
+		<string>Navajo*SW United States*to older woman*Yá&apos;át&apos;ééh shimá yázhí*0</string>
+		<string>Navajo*SW United States*to younger man*Yá&apos;át&apos;ééh shiyáázh*0</string>
+		<string>Navajo*SW United States*to young child*Yá&apos;át&apos;ééh shitsóí*0</string>
+		<string>Navajo*SW United States*to young child*Yá&apos;át&apos;ééh sitsóí*0</string>
+		<string>Naxi*Yunnan China**Al la&apos;laq lei*0</string>
+		<string>Ndebele*Zimbabwe*singular*Sawubona*0</string>
+		<string>Ndebele*Zimbabwe*plural*Salibonani*0</string>
+		<string>Ndebele*Zimbabwe*respectful*Salubonani*0</string>
+		<string>Ndebele*Zimbabwe*reply*Yebo*0</string>
+		<string>Ndebele*Zimbabwe**Lotjani*0</string>
+		<string>Ndebele*Zimbabwe**Lotsha*0</string>
+		<string>Ndebele*Zimbabwe*afternoon*Litshonile*0</string>
+		<string>Ndebele*Zimbabwe*plural*Relotshitse *0</string>
+		<string>Ndjuka*Suriname**U miti oo*0</string>
+		<string>Ndonga*Namibia**Ongeipi kaume*0</string>
+		<string>Nenets*Russia**Andorovo*0</string>
+		<string>Nenets*Russia**Nani torova*0</string>
+		<string>Nepali*Nepal, India*polite*Namaskaar*0</string>
+		<string>Nepali*Nepal, India**Namaste*0</string>
+		<string>Newari*Nepal, India**Jojo-lapa*0</string>
+		<string>Newari*Nepal, India**Namaste*0</string>
+		<string>Newari*Nepal, India**Mahphulaa*0</string>
+		<string>Ngaanyatjarra*Australia*sun-side moiety*Yiparrka*0</string>
+		<string>Ngaanyatjarra*Australia*sun-side moiety*Panaka*0</string>
+		<string>Ngaanyatjarra*Australia*sun-side moiety*Tjarurru*0</string>
+		<string>Ngaanyatjarra*Australia*shade-side moiety*Milangka*0</string>
+		<string>Ngaanyatjarra*Australia*shade-side moiety*Karimarra*0</string>
+		<string>Ngaanyatjarra*Australia*shade-side moiety*Purungu*0</string>
+		<string>Ngalkbon*Australia**Nyale*0</string>
+		<string>Ngambay*Chad**Láphìa*0</string>
+		<string>Ngambay*Chad*answer*Láphìa ya*0</string>
+		<string>Ngambay*Chad**Làléé*0</string>
+		<string>Nganasan*Siberia Russia**Doroba*0</string>
+		<string>Ngiyampaa*Australia**Yamakarra*0</string>
+		<string>Ngizim*Nigeria**Úsài*0</string>
+		<string>Ngumba*Cameroon, Equatorial Guinea**Mirembe*0</string>
+		<string>Nicobarese*Nicobar**Ho*0</string>
+		<string>Nias*Indonesia**Jahowu*0</string>
+		<string>Nigerian Pidgin*Nigeria**How now*0</string>
+		<string>Nimo*Papua New Guinea**Nena wenao*0</string>
+		<string>Niue*Niue Island**Fakaalofa atu*0</string>
+		<string>Niue*Niue Island*to two people*Fakaalofa atu ki a mua*0</string>
+		<string>Niue*Niue Island*to a small group*Fakaalofa atu ki a mutolu*0</string>
+		<string>Niue*Niue Island*to a large group*Fakaalofa atu ki a mutolu oti*0</string>
+		<string>Niue*Niue Island*informal*Koe kia*0</string>
+		<string>Njebi*Gabon**Mbolo*0</string>
+		<string>Njebi*Gabon*answer*Mm, mbolo*0</string>
+		<string>Njebi*Gabon**Wemasoga*0</string>
+		<string>Nominapetu*Puluwat Micronesia**Etowi*0</string>
+		<string>Norwegian*Norway*Nynorsk*Goddag*0</string>
+		<string>Norwegian*Norway*Bokmaal*Hei*0</string>
+		<string>Norwegian*Norway*Bokmaal*Heisann*0</string>
+		<string>Norwegian*Norway*Bokmaal*God dag*0</string>
+		<string>Norwegian*Norway*Bokmaal*Morn*0</string>
+		<string>Norwegian*Norway*Bokmaal*Hallo*0</string>
+		<string>Norwegian*Norway*Nordmørsk*Goddág*0</string>
+		<string>Norwegian*Norway*Nordmørsk*Goddàjen*0</string>
+		<string>Norwegian*Norway*reply; old*Sing Gú*0</string>
+		<string>Norwegian*Norway*old*Godt mót*0</string>
+		<string>Norwegian*Norway*reply*Godt mót att*0</string>
+		<string>Norwegian*Norway*informal*Hêia*0</string>
+		<string>Norwegian*Norway*informal*Hæia*0</string>
+		<string>Norwegian*Norway*to p.working*Síng ârbeia*0</string>
+		<string>Norwegian*Bergen Norway*Bergensk*Halloen*0</string>
+		<string>Norwegian*Sortland Norway*Sortlandsk*Go&apos;da*0</string>
+		<string>Norwegian*Sortland Norway*Sortlandsk*Ka farsken, e det du?*0</string>
+		<string>Ntomba*Congo-Kinshasha**Ómwá*0</string>
+		<string>Ntomba*Congo-Kinshasha**Bómwá*0</string>
+		<string>Ntomba*Congo-Kinshasha**Losako*0</string>
+		<string>Nubi*Kenya, Uganda**Maskagna*0</string>
+		<string>Nuer*Sudan**Male magua*0</string>
+		<string>Ñuiñe*Mexico*child to adult*Ke&apos;ém*0</string>
+		<string>Ñuiñe*Mexico*adult to adult*Xna*0</string>
+		<string>Ñuiñe*Mexico**A&apos;eyo*0</string>
+		<string>Nukuoro*Micronesia**Danuaa*0</string>
+		<string>Nukuoro*Micronesia*to a group*Danuaa goodou alodahi*0</string>
+		<string>Nupe*Africa**Okú*0</string>
+		<string>Nuxalk*Canada**Yaw*0</string>
+		<string>Nuxalk*Canada*hello friends*Yaw smatmc*0</string>
+	</array>
+	<key>o</key>
+	<array>
+		<string>Ofo*Mississippi Valley USA**He&apos; ha*0</string>
+		<string>Ojibwe*USA, Canada**Aaniin*0</string>
+		<string>Ojibwe*USA, Canada**Aanii*0</string>
+		<string>Ojibwe*USA, Canada**Boozhoo*0</string>
+		<string>Okanagan*Montana USA**Way&apos;*0</string>
+		<string>Okanagan*Montana USA**Xast sxelx&apos;ált*0</string>
+		<string>Okanagan*Montana USA**Way&apos; xast sxelx&apos;ált*0</string>
+		<string>Okavango*Namibia**Mazwara*0</string>
+		<string>Oneida*Ontario Canada, Northeastern USA**Sekoli*0</string>
+		<string>Oneida*Ontario Canada, Northeastern USA**Sheko:li*0</string>
+		<string>Oriya*India, Bangladesh**Kemitee choo*0</string>
+		<string>Oriya*India, Bangladesh**Namaskar*0</string>
+		<string>Oromo*Kenya, Somalia**Ashshaamad&apos;d&apos;a*0</string>
+		<string>Oromo*Kenya, Somalia**Ashamaa*0</string>
+		<string>Ossetian*Georgia**Salam*0</string>
+		<string>Ossetian*Georgia**Arfæ*0</string>
+		<string>Otetela*Central Congo-Kinshasa**Moyo*0</string>
+		<string>Oyampi*Brazil*morning*Oateponeko&apos;e*0</string>
+	</array>
+	<key>p</key>
+	<array>
+		<string>Pa&apos;ikwene*Amazon*to an older man*Aitné kívyé*0</string>
+		<string>Pa&apos;ikwene*Amazon*to an older woman*Aitné kívúno*0</string>
+		<string>Pa&apos;ikwene*Amazon*to one person*Ai kam*0</string>
+		<string>Pa&apos;ikwene*Amazon*to several people*Ai ka*0</string>
+		<string>Pa&apos;ikwene*Amazon*response by a man*Ahadjé*0</string>
+		<string>Pa&apos;ikwene*Amazon*response by a woman*Ihi*0</string>
+		<string>Pa&apos;ikwene*Amazon**Yaba*0</string>
+		<string>Pa&apos;ikwene*Amazon*response*Koh*0</string>
+		<string>Pa&apos;ikwene*Amazon**Ba pi ai?*0</string>
+		<string>Pa&apos;ikwene*Amazon*response*Ihi, nah ai*0</string>
+		<string>Pa&apos;ikwene*Amazon**Baiahee*0</string>
+		<string>Pa&apos;ikwene*Amazon*response*Ihee*0</string>
+		<string>Paipai*Baja California Mexico**Auka*0</string>
+		<string>Paipai*S. California USA , B.C. Mexico**Awka*0</string>
+		<string>Paipai*S. California, B.C. Mexico*reply*&apos;Awlika*0</string>
+		<string>Paipai*S. California USA , B.C. Mexico**Nyumkjkye*0</string>
+		<string>Paiute*Nevada USA*I am your friend*Tu-cubin-noonie*0</string>
+		<string>Paiute*Nevada USA*reply*Noonie-tu-cubin*0</string>
+		<string>Paiute*Nevada USA*answer to respondant*Iooie, iooie*0</string>
+		<string>Paiute*Nevada USA*hello friend*Mike-tu-cubin*0</string>
+		<string>Paiute*Owens Valley California USA**Manahóo*0</string>
+		<string>Paiwan*Taiwan**Aianga sun*0</string>
+		<string>Palaun*Palau**Alii*0</string>
+		<string>Palaun*Palau**Alii, kauangerang*0</string>
+		<string>Pali*India*morning*Suppabhaatam te*0</string>
+		<string>Pali*India**Sundara poeto*0</string>
+		<string>Panamahka*Nicaragua**Parastah*0</string>
+		<string>Pangasinan*Philippines**Masantós a kabuasán*0</string>
+		<string>Pangasinan*Philippines**Maabig ya kabuasán*0</string>
+		<string>Pangasinan*Philippines**Masantós ya agew*0</string>
+		<string>Pangasinan*Philippines*to a group*Masantós ya agew ed sikayo*0</string>
+		<string>Pangasinan*Philippines*to a group*Maabig ya kabuasán ed sicayon*0</string>
+		<string>Papiamentu*Dutch Antilles, Aruba**Kon ta bai*0</string>
+		<string>Papiamentu*Dutch Antilles, Aruba**Bon dia*0</string>
+		<string>Paricuru*Brazil**Aitniê*0</string>
+		<string>Pashto*Afghanistan, Pakistan**Senga yai*0</string>
+		<string>Pashto*Afghanistan, Pakistan**Assalam u alaikum*0</string>
+		<string>Pashto*Afghanistan, Pakistan*reply*Wa alaikum ussalam*0</string>
+		<string>Passamaquoddy*Maine USA, New Bruns. Canada**Tan kahk*0</string>
+		<string>Paugusett*USA**Saygo*0</string>
+		<string>Pende*Congo**Moyo*0</string>
+		<string>Pende*Congo**Wabanda*0</string>
+		<string>Phorhépecha*Michoacán Mexico**Nári jámashaki*0</string>
+		<string>Phorhépecha*Michoacán Mexico**Jéndi*0</string>
+		<string>Phorhépecha*Michoacán Mexico**Nashki*0</string>
+		<string>Phorhépecha*Michoacán Mexico**Nark*0</string>
+		<string>Phorhépecha*Michoacán Mexico**Tsé*0</string>
+		<string>Phorhépecha*Michoacán Mexico**Jéndi tsé*0</string>
+		<string>Pijin*Solomon Islands*to one person*Halo*0</string>
+		<string>Pijin*Solomon Islands*to two people*Halo tufala*0</string>
+		<string>Pijin*Solomon Islands*to three people*Halo trifala*0</string>
+		<string>Pijin*Solomon Islands*to more than three*Halo olketa*0</string>
+		<string>Pijin*Solomon Islands*to a friend*Halo fren*0</string>
+		<string>Pijin*Solomon Islands*to a friend*Halo mafren*0</string>
+		<string>Pipil*El Salvador**Yehyek tunal*0</string>
+		<string>Pipil*El Salvador**Bwenas dias*0</string>
+		<string>Pitjantjatjara*South Australia**Wai*0</string>
+		<string>Pitjantjatjara*South Australia**Wai palya*0</string>
+		<string>Pitkern*Pitcairn Island**Wut-a-way you*0</string>
+		<string>Plattdeutsch*N. Germany, Ostfriesland**Moin*0</string>
+		<string>Plattdeutsch*N. Germany, Nordfriesland**Moin moin*0</string>
+		<string>Plattdeutsch*Münster Germany**Goden Dag*0</string>
+		<string>Plattdeutsch*Münster Germany**Schönen goden Dag ok*0</string>
+		<string>Plattdeutsch*Germany**G&apos;n dach*0</string>
+		<string>Pocomchí*Guatemala*to man*C&apos;alen jau*0</string>
+		<string>Pocomchí*Guatemala*to woman*C&apos;alen tut*0</string>
+		<string>Pohnpeian*Micronesia**Kaselehlia*0</string>
+		<string>Pohnpeian*Micronesia*formal*Kaselehlia maing*0</string>
+		<string>Pohnpeian*Micronesia*informal*Kaselel*0</string>
+		<string>Polish*Poland**Dzien dobry*0</string>
+		<string>Polish*Poland*familiar*Czesc*0</string>
+		<string>Polish*Poland**Czolem*0</string>
+		<string>Polish*Poland**Serwus*0</string>
+		<string>Pomak*Greece, Bulgaria, Turkey**Merhaba*0</string>
+		<string>Pomo*California USA**Pasip-inyi*0</string>
+		<string>Popoluca*Veracruz Mexico**Chu&apos;xmooy&apos;e*0</string>
+		<string>Portuguese*Portugal, Brazil**Olá*0</string>
+		<string>Portuguese*Portugal, Brazil*informal*Oi*0</string>
+		<string>Portuguese*Portugal, Brazil*informal*Como vai*0</string>
+		<string>Portuguese*Portugal, Brazil*informal*Tudo bem*0</string>
+		<string>Portuguese*Portugal, Brazil*informal*Tudo bom*0</string>
+		<string>Potawatomi*USA, Ontario Canada**Hau*0</string>
+		<string>Potawatomi*USA, Ontario Canada**Ahaw*0</string>
+		<string>Potawatomi*USA, Ontario Canada**Nijena*0</string>
+		<string>Potawatomi*USA, Canada*meet for 1st time*Bozho*0</string>
+		<string>Provencal*France**Adiu*0</string>
+		<string>Provencal*France**Adieu*0</string>
+		<string>Provencal*France**Bon jorn*0</string>
+		<string>Provencal*France*formal*Adieussiatz*0</string>
+		<string>Provencal*France*afternoon*Bon vèspre*0</string>
+		<string>Prussian*Prussia**Kâils*0</string>
+		<string>Puluwat*Micronesia*good morning*Nesor állim*0</string>
+		<string>Punjabi*India*greeting used by Sikhs*Sat siri akal*0</string>
+		<string>Punjabi*Pakistan, India*by Sikhs*Sat sri akal*0</string>
+		<string>Punjabi*Pakistan, India*by Sikhs*Sat sri akal je*0</string>
+		<string>Punjabi*Pakistan, India*by Muslims*Asslaam alaikam*0</string>
+		<string>Punjabi*Pakistan, India*reply*Vaalaikam asslaam*0</string>
+		<string>Punjabi*Pakistan, India*by Hindus*Namaste *0</string>
+		<string>Punu*Gabon**Um bolo*0</string>
+		<string>Punu*Gabon**Maram bouga*0</string>
+		<string>Punu*Gabon*answer*Ay nandejoua*0</string>
+		<string>Puyuma*Taiwan**&apos;Inavau*0</string>
+	</array>
+	<key>q</key>
+	<array>
+		<string>Quechua Ancashino*Ancash Peru**Winchis*0</string>
+		<string>Quechua Ayacuchano*Ayacucho Peru**Rimaykullayki*0</string>
+		<string>Quechua Boliviano*Bolivia**Imaynalla*0</string>
+		<string>Quechua Cochabambino*Bolivia*afternoon*Allin sukha*0</string>
+		<string>Quechua Cuzqueño*Cuzco Peru**Allillanchu?*0</string>
+		<string>Quechua Cuzqueño**answer to Allillanchu*Allillanmi*0</string>
+		<string>Quechua Cuzqueño*Cuzco Peru**Napaykullayki*0</string>
+		<string>Quechua Cuzqueño*Cuzco Peru**Napaykuyin*0</string>
+		<string>Quechua Cuzqueño*Cuzco Peru*informal*Raphi*0</string>
+		<string>Quiché*Guatemala*formal*Chila jukla*0</string>
+		<string>Quiché*Guatemala*to man*Sakaric, tat*0</string>
+		<string>Quiché*Guatemala*to man*Säqärik, tata&apos;ib*0</string>
+		<string>Quiché*Guatemala*to woman*Sakaric, nan*0</string>
+		<string>Quiché*Guatemala*to woman*Säqärik, nana&apos;ib*0</string>
+		<string>Quichua*Ecuador*good day*Alli punzha*0</string>
+		<string>Quichua*Ecuador*good day*Alli puncha*0</string>
+		<string>Quichua*Ecuador**Causanquichu?*0</string>
+		<string>Quichua*Ecuador*when entering a house*Mincachihuai*0</string>
+	</array>
+	<key>r</key>
+	<array>
+		<string>Rakhin*Myanmar**Nay kaung pha laa?*0</string>
+		<string>Rapanui*Easter Island**&apos;Iorana*0</string>
+		<string>Rapanui*Easter Island**Pehe koe*0</string>
+		<string>Rapanui*Easter Island**Aroha*0</string>
+		<string>Resígaro*Peru**Hidéheehú*0</string>
+		<string>Réunion Creole French*Réunion**Oté*0</string>
+		<string>Rohingya*Myanmar**Ken ahsaw?*0</string>
+		<string>Rohingya*Myanmar*answer*Balah aasee*0</string>
+		<string>Romani*Central Europe*to one*Dobroj tut*0</string>
+		<string>Romani*Central Europe*to one*Dobroj tu*0</string>
+		<string>Romani*Central Europe*plural*Dobroj tume*0</string>
+		<string>Romani*Central Europe*Sinte*Devlesa avilan*0</string>
+		<string>Romani*Central Europe*answer*Devlesa araklam tume*0</string>
+		<string>Romani*Central Europe*Sinte*Sastimos*0</string>
+		<string>Romani*Central Europe*Sinte*Sastipé*0</string>
+		<string>Romani*Central Europe*Sinte*Lasho des*0</string>
+		<string>Romani*Central Europe*Sinte*Droboy tume *0</string>
+		<string>Romani*Central Europe*answer*Nais tuke*0</string>
+		<string>Romani*Bulgaria*Sofia Erli*Lachshí tí yavin*0</string>
+		<string>Romani*Bulgaria*Sliven*Bahtali ti avin*0</string>
+		<string>Romani*Central Europe*Vlax*Ej*0</string>
+		<string>Romani*Central Europe*standardized*Yov sasti*0</string>
+		<string>Romani*Spain*Gitano*Hálo*0</string>
+		<string>Romani*Spain*Gitano*Mey*0</string>
+		<string>Romani*Colombia*Gitano*Sarmai san*0</string>
+		<string>Romanian*Romania**Bunã*0</string>
+		<string>Romanian*Romania**Bunã ziua*0</string>
+		<string>Romanian*Romania**Salut*0</string>
+		<string>Romanian*Romania**Noroc*0</string>
+		<string>Romansch*Switzerland**Allegra*0</string>
+		<string>Romansch*Switzerland**Alligra*0</string>
+		<string>Romansch*Switzerland*colloquial*Ciao*0</string>
+		<string>Romansch*Switzerland*good day*Bun di*0</string>
+		<string>Ron*Nigeria**Cala*0</string>
+		<string>Rotuman*Rotuma Fiji**Noa&apos;ia*0</string>
+		<string>Rotuman*Rotuma Fiji**Noa&apos;ia &apos;e mauri*0</string>
+		<string>Rukai*Taiwan**Muadinga diangi su*0</string>
+		<string>Russian*Russia**Zdravstvuite*0</string>
+		<string>Russian*Russia*informal*Zdravstvui*0</string>
+		<string>Russian*Russia*informal*Zdorovo*0</string>
+		<string>Russian*Russia*informal*Privet*0</string>
+		<string>Rutoro*Uganda**Oly ota?*0</string>
+		<string>Rutoro*Uganda**Amakurru?*0</string>
+		<string>Rutoro*Uganda*reply*Arungi*0</string>
+	</array>
+	<key>s</key>
+	<array>
+		<string>Saami*Scandinavia**Buorre beaivi*0</string>
+		<string>Saami*Scandinavia*reply*Ipmel atti*0</string>
+		<string>Saami*Norway*reply*Ibmel atti*0</string>
+		<string>Saami*Scandinavia**Buurist*0</string>
+		<string>Saami*Scandinavia**Buores*0</string>
+		<string>Saami*Scandinavia**Bures*0</string>
+		<string>Saami*Scandinavia**Dearvva*0</string>
+		<string>Saami*Finland**Tierva*0</string>
+		<string>Saami*Finland, Russia**Tiõrv*0</string>
+		<string>Saami*Finland, Russia**Tiõrv, tiõrv*0</string>
+		<string>Saami*Norway**Buerie biejjie*0</string>
+		<string>Saanich*North America*to call attention*Chene*0</string>
+		<string>Saanich*North America*lit. there you are*Shxw&apos;ele&apos; shkwche&apos;*0</string>
+		<string>Saisiat*Taiwan**Suukatahy*0</string>
+		<string>Sakai*Kerbu Malaysia**Nâhyé*0</string>
+		<string>Sakai*Sungai Raya Malaysia**Tabé*0</string>
+		<string>Sakai*Ulu Pahang Malaysia**Tabek*0</string>
+		<string>Sakao*Vanuatu*when not stopping*Tyavwar o*0</string>
+		<string>Sakao*Vanuatu*where are you going?*Ge, i mge ye?*0</string>
+		<string>Sakao*Espiritu Santo Island Vanuatu*morn.*Segren vogvog*0</string>
+		<string>Samoan*Samoa*haven&apos;t seen in a while*Talofa*0</string>
+		<string>Samoan*Samoa*haven&apos;t seen in a while*Talofa lava*0</string>
+		<string>Samoan*Samoa*formal to a group of men*Kalofa ali&apos;i*0</string>
+		<string>Samoan*Samoa*informal*Malo*0</string>
+		<string>Samoan*Samoa**Feofoofoa&apos;iga*0</string>
+		<string>Sango*Central African Republic**Bara ala kwe*0</string>
+		<string>Sango*Central African Republic**Balao*0</string>
+		<string>Sango*Central African Republic**Mbote*0</string>
+		<string>Sanskrit*India**Namo namah*0</string>
+		<string>Sanskrit*India**SusvAgataM*0</string>
+		<string>Sara*Chad**Dabanyoa*0</string>
+		<string>Saramaccan*Suriname*to a woman*Tía*0</string>
+		<string>Saramaccan*Suriname**I weki nö*0</string>
+		<string>Saramaccan*Suriname**I dë nö*0</string>
+		<string>Saramaccan*Suriname**Nááfu*0</string>
+		<string>Sardinian*Italy**Bonas dies*0</string>
+		<string>Sarnami*Suriname, Holland*Hindu*Namaste*0</string>
+		<string>Sarnami*Suriname, Holland*Hindu*Paalagie*0</string>
+		<string>Sarnami*Suriname, Holland*Hindu*Raam raam*0</string>
+		<string>Sarnami*Suriname, Holland*Muslim*Salaam*0</string>
+		<string>Sarnami*Suriname, Holland*Muslim*Salaam waleikoem*0</string>
+		<string>Sasak*Indonesia**Selamat siang*0</string>
+		<string>Sasak*Indonesia*where are you going?*Mb´ yam laé?*0</string>
+		<string>Savonian*Ylä-Savo Finland**Hyvvee päevee*0</string>
+		<string>Savonian*Ylä-Savo Finland**Heehee*0</string>
+		<string>Scots*Scotland*morning*Guid mornin*0</string>
+		<string>Scots*Scotland*afternoon*Guid efternuin*0</string>
+		<string>Scots*Scotland*evening*Guid eenin*0</string>
+		<string>Scottish Gaelic*Scotland**Madainn mhath*0</string>
+		<string>Scottish Gaelic*Scotland**Hallo*0</string>
+		<string>Sema*India**Akevishi an&apos;kya*0</string>
+		<string>Sema*India*answer*Akevishiani*0</string>
+		<string>Sena*Malawi**Kaziwa*0</string>
+		<string>Seneca*USA, Ontario Canada**Se&apos;kon*0</string>
+		<string>Senoufo*Côte d&apos;Ivoire, Mali*morning*Foyena*0</string>
+		<string>Senoufo*Côte d&apos;Ivoire, Mali*evening*Changwana*0</string>
+		<string>Sepedi*South Africa**Dumela*0</string>
+		<string>Sepedi*South Africa**Thobela*0</string>
+		<string>Serbian*Bosnia, Yugoslavia**Zdravo*0</string>
+		<string>Serbian*Bosnia, Yugoslavia**Dobar dan*0</string>
+		<string>Serrere*Senegal, Gambia**Ndio ko yong*0</string>
+		<string>Seselwa*Seychelles**Bonzour *0</string>
+		<string>Seselwa*Seychelles*good afternoon*Bon apremidi*0</string>
+		<string>Sesotho*Lesotho**Lumela*0</string>
+		<string>Sesotho*Lesotho*to several people*Lumelang*0</string>
+		<string>Sesotho*Lesotho*elder man*Lumela ntate*0</string>
+		<string>Sesotho*Lesotho*elder woman*Lumela &apos;me*0</string>
+		<string>Sesotho*Lesotho*equal man*Lumela abuti*0</string>
+		<string>Sesotho*Lesotho*equal woman*Lumela ausi*0</string>
+		<string>Sesotho*Lesotho*peace*Khotso*0</string>
+		<string>Sesotho*Lesotho*to several people*Khotsong*0</string>
+		<string>Sesotho*Lesotho*elder man*Khotso ntate*0</string>
+		<string>Sesotho*Lesotho*elder woman*Khotso &apos;me*0</string>
+		<string>Sesotho*Lesotho*equal man*Khotso abuti*0</string>
+		<string>Sesotho*Lesotho*equal woman*Khotso ausi*0</string>
+		<string>Sesotho*South Africa**Dumela*0</string>
+		<string>Sesotho*South Africa*to several people*Dumelang*0</string>
+		<string>Sesotho*South Africa*elder man*Dumela ntate*0</string>
+		<string>Sesotho*South Africa*elder woman*Dumela &apos;me*0</string>
+		<string>Sesotho*South Africa*equal man*Dumela abuti*0</string>
+		<string>Sesotho*South Africa*equal woman*Dumela ausi*0</string>
+		<string>Sesotho*South Africa*peace*Kgotso*0</string>
+		<string>Sesotho*South Africa*to several people*Kgotsong*0</string>
+		<string>Sesotho*South Africa*elder man*Kgotso ntate*0</string>
+		<string>Sesotho*South Africa*elder woman*Kgotso &apos;me*0</string>
+		<string>Sesotho*South Africa*equal man*Kgotso abuti*0</string>
+		<string>Sesotho*South Africa*equal woman*Kgotso ausi*0</string>
+		<string>Sesotho*South Africa**Helele*0</string>
+		<string>Sesotho*South Africa**Hai*0</string>
+		<string>Setswana*to man**Dumela rra*0</string>
+		<string>Setswana*to woman**Dumela mma *0</string>
+		<string>Setswana*Botswana, South Africa**Dumela*0</string>
+		<string>Setswana*Botswana, South Africa**Kgotso*0</string>
+		<string>Setu*Southern Estonia**Tereh*0</string>
+		<string>Shambaa*Tanzania*morning*Onga mahundo*0</string>
+		<string>Shambaa*Tanzania*answer*Ni vedi, hangize wako*0</string>
+		<string>Shambaa*Tanzania*afternoon and evening*Onga mshi*0</string>
+		<string>Shanghai*Shanghai China**Non ho*0</string>
+		<string>Shelta*Ireland, USA*old; no longer used*Buri talosk *0</string>
+		<string>Sherpa*Nepal, Tibet*Helambu*Tashi delek*0</string>
+		<string>Sherpa*Nepal, Tibet*Solu*Tashi delek*0</string>
+		<string>Shimasiwa*Comoros**Salama*0</string>
+		<string>Shimasiwa*Comoros*good day*Bariza*0</string>
+		<string>Shimasiwa*Comoros*response*M&apos;bona*0</string>
+		<string>Shimwali*Moheli Island Comoros**Habari*0</string>
+		<string>Shina*Pakistan, India**Asalam aleykum*0</string>
+		<string>Shina*Pakistan, India**Ala*0</string>
+		<string>Shingazidja*Grand Comore Island Comoros**Ufanyihadjei*0</string>
+		<string>Shingazidja*Grand Comore Island Comoros**Barza*0</string>
+		<string>Shinzuani*Anjouan Island Comoros**Jeje*0</string>
+		<string>Shipibo*Peru**Johué*0</string>
+		<string>Shipibo*Peru*morning*Jacón yaméquiri*0</string>
+		<string>Shor*Russia**Ezen*0</string>
+		<string>Shor*Russia**Ezenok*0</string>
+		<string>Shor*Russia**Ezenner*0</string>
+		<string>Shoshoni*Western USA**Haa*0</string>
+		<string>Shoshoni*Western USA**Tsaangu beaichehku*0</string>
+		<string>Shuar*Ecuador, Peru**Pujamek*0</string>
+		<string>Shuar*Ecuador, Peru*reply*Pujajai*0</string>
+		<string>Shuar*Ecuador, Peru**Wiñámek*0</string>
+		<string>Shuar*Ecuador, Peru*reply*Ée wiñájai*0</string>
+		<string>Shuar*Ecuador, Peru*where are you going?*Tuí wéam?*0</string>
+		<string>Shuri*Okinawa Japan*may I come in?*Chaabira sai?*0</string>
+		<string>Shuri*Okinawa Japan*welcome, come in*Mensooree*0</string>
+		<string>Shuswap*Canada**Yeytk*0</string>
+		<string>Shuswap*Canada**Weytk*0</string>
+		<string>Sicilian*Sicily Italy**Sa&apos;benerica*0</string>
+		<string>Sicilian*Sicily Italy**Prontu*0</string>
+		<string>Siglit Inuvialulktum*Canada**Aganna*0</string>
+		<string>Silozi*Zambia, Zimbabwe, Botswana*morn.*Muzuhile cwani*0</string>
+		<string>Silozi*Zambia, Zimbabwe, Botswana*aftern.*Mutozi cwani*0</string>
+		<string>Sindhi*India, Pakistan**Salam*0</string>
+		<string>Sindhi*India, Pakistan**Kehro hal aahei*0</string>
+		<string>Sinhala*Sri Lanka**Ayubowan*0</string>
+		<string>Sinhala*Sri Lanka**Aaybovan*0</string>
+		<string>Sinhala*Sri Lanka**Koheede yanne*0</string>
+		<string>Sinhala*Sri Lanka*informal*Kohamede*0</string>
+		<string>Sinhala*Sri Lanka*answer*Vaaredak nhe*0</string>
+		<string>Sinkyone*California USA**Ninsuk koontcun nalkoo&apos;n*0</string>
+		<string>Sinkyone*California USA**Yein yac*0</string>
+		<string>Siswati*Swaziland*&apos;I see you&apos;*Sawubona*0</string>
+		<string>Siswati*Swaizland*to several people*Sanibona*0</string>
+		<string>Siswati*Swaziland*informal*Yebo*0</string>
+		<string>Slavey*Canada**See-a*0</string>
+		<string>Slovak*Slovakia**Dobrý den*0</string>
+		<string>Slovak*Slovakia**Ahoj*0</string>
+		<string>Slovak*Slovakia**Nazdar*0</string>
+		<string>Slovenian*Slovenia*said to man*Pozdravljeni*0</string>
+		<string>Slovenian*Slovenia*said to woman*Pozdravljena*0</string>
+		<string>Slovenian*Slovenia**Zhivjo*0</string>
+		<string>Slovenian*Slovenia**Zdravo*0</string>
+		<string>Soga*Uganda**Balio*0</string>
+		<string>Solresol*old; international**Ti Me*0</string>
+		<string>Somali*Somalia, Ethiopia**Maalim wanaqsan*0</string>
+		<string>Somali*Somalia, Ethiopia**Iska waran*0</string>
+		<string>Somali*Somalia, Ethiopia**Nabat*0</string>
+		<string>Somali*Somalia, Ethiopia**Nabadeey*0</string>
+		<string>Somali*Somalia, Ethiopia**Kelmad laysku salaamo*0</string>
+		<string>Somali*Somalia, Ethiopia**Salama calaykum*0</string>
+		<string>Somali*Somalia, Ethiopia**Maxad shegtay*0</string>
+		<string>Somali*Somalia, Ethiopia**See tahay*0</string>
+		<string>Sömañ*Malaysia**Tabé*0</string>
+		<string>Soninke*Mali, Senegal, Cóte d&apos;Ivoire**Angujam*0</string>
+		<string>Soninke*Mali, Senegal, Cóte d&apos;Ivoire**Oh moho*0</string>
+		<string>Soninke*Mali, Senegal, Cóte d&apos;Ivoire**Beeta*0</string>
+		<string>Sorbian*eastern Germany*Upper Sorbian*Dobry dzen*0</string>
+		<string>Sorbian*eastern Germany*Lower Sorbian*Dobry zen*0</string>
+		<string>Sorbian*Germany*informal*Hallo*0</string>
+		<string>Sorbian*Germany*to one*Witaj*0</string>
+		<string>Spanish*America, Spain**Hola *0</string>
+		<string>Spanish*America, Spain**Buenos días*0</string>
+		<string>Spanish*Argentina**Buen día*0</string>
+		<string>Spokane*United States**&apos;A*0</string>
+		<string>Sranan*Suriname**Odi*0</string>
+		<string>Sranan*Suriname**Gi odi*0</string>
+		<string>Sûdovian*Baltic region**Kailas*0</string>
+		<string>Sûdovian*Baltic region**Laban deinan*0</string>
+		<string>Sukuma*Tanzania*Gwe*Walama*0</string>
+		<string>Sumbanese*Indonesia*where are you going?*Nggi lua mu?*0</string>
+		<string>Sunda*Indonesia**Kumaha*0</string>
+		<string>Sunda*Indonesia**Damang*0</string>
+		<string>Suqpiaq*Alaska**Cama&apos;i*0</string>
+		<string>Sursilvan*Switzerland**Bien gi*0</string>
+		<string>Suryoyo*Syria, Turkey**Shlomo*0</string>
+		<string>Suryoyo*Syria, Turkey**B&apos;shayno*0</string>
+		<string>Susu*Guinea**Inuale*0</string>
+		<string>Susu*Guinea*morning*Tena mari*0</string>
+		<string>Susu*Guinea*evening*Tena mafeyen*0</string>
+		<string>Swabian*Central Europe**Grüß Gott*0</string>
+		<string>Swedish*Sweden, Finland**God dag*0</string>
+		<string>Swedish*Sweden, Finland*most common*Hej*0</string>
+		<string>Swedish*Sweden, Finland**Hejsan*0</string>
+		<string>Swedish*Sweden, Finland**Hallå*0</string>
+		<string>Swedish*Sweden, Finland*informal*Morsning*0</string>
+		<string>Swedish*Sweden, Finlnad*call attention*Hallå där*0</string>
+		<string>Swedish*Sweden*very informal*Tja*0</string>
+		<string>Swedish*Sweden*very informal*Tjenare*0</string>
+		<string>Swedish*Sweden*very informal*Tjena*0</string>
+		<string>Swedish*Sweden*very informal*Tjabba*0</string>
+		<string>Swedish*Finland**Morjens*0</string>
+		<string>Syriac*Middle East*West Syriac*Shlom lekh*0</string>
+	</array>
+	<key>t</key>
+	<array>
+		<string>Tachi Yokuts*California United States**Hìu*0</string>
+		<string>Tagalog*Philippines**Halo*0</string>
+		<string>Tagalog*Philippines**Huy*0</string>
+		<string>Tagalog*Philippines**Magandang hapon po*0</string>
+		<string>Tagalog*Philippines**Mabuhay*0</string>
+		<string>Tagalog*Philippines**Kumustá*0</string>
+		<string>Tahitian*Tahiti French Polynesia**Ia ora na*0</string>
+		<string>Tahitian*Tahiti French Polynesia*to one*Ia ora na &apos;oe*0</string>
+		<string>Tahitian*Tahiti French Polynesia*to two*Ia ora na &apos;orua*0</string>
+		<string>Tahitian*Tahiti French Polynesia*several*Ia ora na &apos;outou*0</string>
+		<string>Tahitian*Tahiti French Polynesia**E hate huru*0</string>
+		<string>Taino*Caribbean, Florida USA**Tau*0</string>
+		<string>Taino*Caribbean, Florida USA**Taiguey*0</string>
+		<string>Taino*Brazil**Boili*0</string>
+		<string>Tajik*Tajikistan**Salom*0</string>
+		<string>Tajik*Tajikistan**Assalom u aleykum*0</string>
+		<string>Tajik*Tajikistan*answer*Valaykum assalom*0</string>
+		<string>Tamang*Nepal, India**Lhaso*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*informal*Oyik*0</string>
+		<string>Tamasheq*Mali, Burkina Faso**Oiuwan*0</string>
+		<string>Tamasheq*Niger**Oyweem*0</string>
+		<string>Tamasheq*Mali, Burkina Faso**Minitwixeh*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*response*Izot*0</string>
+		<string>Tamasheq*Mali, Burkina Faso**Azul*0</string>
+		<string>Tamasheq*Mali, Burkina Faso**Matole*0</string>
+		<string>Tamasheq*Mali, Burkina Faso**Ma-tihlaqqa*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*Tuareg*Salamu aleykum*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*ans*Aleykum salam*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*Tuareg*Ma d&apos;tolahat?*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*ans*Alxer yas*0</string>
+		<string>Tamasheq*Mali, Burkina Faso*ans*Alxer yas al hamdulillahi*0</string>
+		<string>Tamasheq*Mali*ans. by older man*Ijak alxer da iknan*0</string>
+		<string>Tamil*India, Southeast Asia**Vanakkam*0</string>
+		<string>Tamil*India, Southeast Asia**Saukhyama*0</string>
+		<string>Tamil*India, Southeast Asia**Enna vishayan*0</string>
+		<string>Tamil*India, Southeast Asia**Vaanga*0</string>
+		<string>Tanana*Alaska**Do&apos;eent&apos;aa*0</string>
+		<string>Tarahumara*Chihuahua Mexico**Kuirabá*0</string>
+		<string>Tarahumara*Chihuahua Mexico**Kuira*0</string>
+		<string>Tarahumara*Chihuahua Mexico**Diosi kuira*0</string>
+		<string>Tarahumara*Samachique Mexico**Riosi cuira*0</string>
+		<string>Tarahumara*Samachique Mexico**Cuira*0</string>
+		<string>Tashkorghani*northwestern China**Assalamu äläykum*0</string>
+		<string>Tashkorghani*northwestern China**Assalam alaykum*0</string>
+		<string>Tashkorghani*northwestern China*reply*Wa&apos;äläykumu salam*0</string>
+		<string>Tatar*Russia, China**Isenmesez*0</string>
+		<string>Tatar*Russia, China*informal*Isenme*0</string>
+		<string>Tatar*Russia, China*informal*Selam*0</string>
+		<string>Tatar*Russia, China**Esselamögaleyköm*0</string>
+		<string>Tatar*Russia, China**Selamnar*0</string>
+		<string>Tay*Vietnam**Pá prama*0</string>
+		<string>Telefol*Papua New Guinea*to a friend*Seno, num seno*0</string>
+		<string>Telugu*India*to elder*Namaskaaramandi*0</string>
+		<string>Telugu*India**Namaskaaram*0</string>
+		<string>Tembé Tenetéhar*Amazon Brazil**&apos;Êy*0</string>
+		<string>Tembé Tenetéhar*Amazon Brazil**Öy*0</string>
+		<string>Tembé Tenetéhar*Amazon Brazil*morning*Zanêcoême*0</string>
+		<string>Tembé Tenetéhar*Amazon Brazil*afternoon*Zanecaróc*0</string>
+		<string>Temne*Sierra Leone**Seke*0</string>
+		<string>Temne*Sierra Leone**Wan, sekke yo*0</string>
+		<string>Tenah*Alaska**Netura*0</string>
+		<string>Tetum*East Timor**Hae*0</string>
+		<string>Tetum*East Timor**Dader diak*0</string>
+		<string>Tetum*East Timor**O diak ka lae?*0</string>
+		<string>Tetum*East Timor*answer*Diak*0</string>
+		<string>Tetum*East Timor**Bondia*0</string>
+		<string>Thai*Thailand**Sawatdi*0</string>
+		<string>Thai*Thailand*by man*Sawatdi krap*0</string>
+		<string>Thai*Thailand*by woman*Sawatdi ka*0</string>
+		<string>Thai*Thailand*where are you going?*Khun ja pai ti nai?*0</string>
+		<string>Thai*Thailand*answer*Pai thîaw*0</string>
+		<string>Thai*Chiang Mai Thailand*by man*Sawatdi kap*0</string>
+		<string>Thai*Chiang Mai Thailand*by woman*Sawatdi jau*0</string>
+		<string>Thangmi*Himalayas**Sewa*0</string>
+		<string>Tibetan*China, Nepal, India**Kam sangbo dugay*0</string>
+		<string>Tibetan*China, Nepal, India**Tashidelek*0</string>
+		<string>Tibetan*China, Nepal, India**Oloy*0</string>
+		<string>Tigrinya*Ethiopia**Selam*0</string>
+		<string>Tigrinya*Ethiopia*to male friend*Dahando w&apos;alka*0</string>
+		<string>Tigrinya*Ethiopia*to female friend*Dahando w&apos;alki*0</string>
+		<string>Tlingit*Canada, USA*morning*Juk&apos;e-ri-tsu-tat*0</string>
+		<string>Tlingit*Canada, USA**Wa-é ák-wé*0</string>
+		<string>Tojolobal*Chiapas Mexico**San jb&apos;ankila*0</string>
+		<string>Tokelauan*Tokelau, New Zealand**Taloha*0</string>
+		<string>Tokelauan*Tokelua, New Zealand**Taloha ni*0</string>
+		<string>Tok Pisin*Papua New Guinea**Gude*0</string>
+		<string>Tok Pisin*Papua New Guinea**Gude gude*0</string>
+		<string>Toltichi Yokuts*California USA**Xawaxan*0</string>
+		<string>Tongan*Tonga, Pacific Islands**Malo e lelei*0</string>
+		<string>Tongan*Tonga, Pacific Islands**Malo e tau lava*0</string>
+		<string>Tongan*Tonga, Pacific Islands*daylight*Malo e tau ma&apos;u &apos;a e &apos;aho&apos; ni*0</string>
+		<string>Tongan*Tonga*after very long absense*Malo e mo&apos;ui*0</string>
+		<string>Tongva*California USA**Ava&apos;aha*0</string>
+		<string>Toraja*Indonesia**Apa kareba*0</string>
+		<string>Totonaco*Veracruz Mexico**Katlen*0</string>
+		<string>Totonaco*Veracruz Mexico*to man*Katlen kumpali*0</string>
+		<string>Trobes Tokples*Trobriand Papua New Guinea**Bwena kau kwau*0</string>
+		<string>Trobes Tokples*Trobriand Papua New Guinea**Bwena la lai*0</string>
+		<string>Tsaatang*Mongolia**Aqua*0</string>
+		<string>Tsaatang*Mongolia**San baino*0</string>
+		<string>Tsekhene*British Columbia Canada**Danach&apos;e &apos;a*0</string>
+		<string>Tsekhene*British Columbia Canada*reply*Sasch&apos;e*0</string>
+		<string>Tshiluba*Kasai Occidental Region Congo**Moyo wenu*0</string>
+		<string>Tshiluba*Kasai Occidental Region Congo**Moyo*0</string>
+		<string>Tshiluba*Kasai Occidental Reg. Congo*ans*Eh moy*0</string>
+		<string>Tsimshian*Alaska**Ts&apos;im&apos;wii&apos;amhaw*0</string>
+		<string>Tsimpsean*Alaska**&apos;Ndellawaan*0</string>
+		<string>Tsonga*South Africa*morning*Abusheni*0</string>
+		<string>Tsonga*South Africa*morning*Avusheni*0</string>
+		<string>Tsonga*South Africa*afternoon*Inhelekani*0</string>
+		<string>Tsonga*South Africa*evening*Riperile*0</string>
+		<string>Tsou*Taiwan**Aveoveoyu*0</string>
+		<string>Tübatalabal*California United States**Mãi*0</string>
+		<string>Tulu*India**Namaskaara*0</string>
+		<string>Tulu*India**Yencha ullere*0</string>
+		<string>Tulu*India**Yencha ullaaru*0</string>
+		<string>Turkish*Turkey, Northern Cyprus**Merhaba*0</string>
+		<string>Turkish*Turkey, Northern Cyprus**Selam*0</string>
+		<string>Turkish*Turkey, Northern Cyprus**Iyi gunler*0</string>
+		<string>Turkmen*Turkmenistan**Salam*0</string>
+		<string>Turkmen*Turkmenistan**Salam aleykum*0</string>
+		<string>Tuscarora*New York USA, Ontario Canada**J&apos;wan*0</string>
+		<string>Tutchone*Canada**Dánän ts&apos;ín huyàjáél*0</string>
+		<string>Tuvan*Russia**Ekii*0</string>
+		<string>Tuvaluan*Tuvalu**Talofa*0</string>
+		<string>Tzeltal*Chiapas Mexico**Bi xchih &apos;awo&apos;tan*0</string>
+		<string>Tzeltal*Chiapas Mexico**Lek bal &apos;ayat*0</string>
+		<string>Tzeltal*Chiapas Mexico*answer*Lek &apos;ayan*0</string>
+		<string>Tzotzil*Chiapas Mexico**K&apos;uxi*0</string>
+		<string>Tzotzil*Chiapas Mexico**K&apos;usi xi*0</string>
+		<string>Tzotzil*Chiapas Mexico**K&apos;usi aw otan*0</string>
+	</array>
+	<key>u</key>
+	<array>
+		<string>Uchinaaguchi*Okinawa Japan**Chuu-wuganabira*0</string>
+		<string>Uchinaaguchi*Okinawa Japan**Chuuwoga*0</string>
+		<string>Uchinaaguchi*Okinawa Japan*by older gen.*Haisai*0</string>
+		<string>Udmurt*Russia**Ziech bures*0</string>
+		<string>Udmurt*Russia*familiar, to one person*Ziech bur*0</string>
+		<string>Udmurt*Russia*polite or to several*Ziech buriesh*0</string>
+		<string>Udmurt*Russia*informal*Salam*0</string>
+		<string>Ukrainian*Ukraine**Pryvit*0</string>
+		<string>Ukrainian*Ukraine**Dobri den*0</string>
+		<string>Ukrainian*Ukraine**Zdorovenkni*0</string>
+		<string>Ukrainian*Ukraine**Vitayu*0</string>
+		<string>Ukrainian*Ukraine*informal*Zdrastuy*0</string>
+		<string>Ulwa*Nicaragua**Parasnaka*0</string>
+		<string>Ulwa*Nicaragua**Parasnaka itukwâna mâ sihpayang*0</string>
+		<string>Ulwa*Nicaragua**Yampara  *0</string>
+		<string>Ulwa*Nicaragua**Nak&apos;sa*0</string>
+		<string>Umatilla*Oregon United States**Nich-che-coogh*0</string>
+		<string>Unagan*Alaska, Russia**Aang*0</string>
+		<string>Urdu*India, Pakistan, Bangladesh**Salaam aleekum*0</string>
+		<string>Urdu*India, Pakistan, Bangladesh**Adaab*0</string>
+		<string>Urdu*India, Pakistan, Bangladesh**Adaab arz*0</string>
+		<string>Ute*Colorado and Utah USA**Mique wush tagooven*0</string>
+		<string>Utshiokwe*Congo**Moyo*0</string>
+		<string>Uvean*Ouvea Atoll New Caledonia**Alofa*0</string>
+		<string>Uvean*Wallis and Futuna**Alofa atu*0</string>
+		<string>Uvean*Wallis and Futuna**Malo te kataki*0</string>
+		<string>Uyghur*Central Asia**Asalam aleykum*0</string>
+		<string>Uyghur*Central Asia**Ässalamu äläykum*0</string>
+		<string>Uyghur*Central Asia*answer*Wä&apos;äläykum ässalam*0</string>
+		<string>Uyghur*Central Asia**Hoy*0</string>
+		<string>Uzbek*Central Asia**Salaam aleikhem*0</string>
+		<string>Uzbek*Central Asia**Asalom u alaykhum*0</string>
+		<string>Uzbek*Central Asia*reply*Valeikum-assalom*0</string>
+		<string>Uzbek*Central Asia*reply*Tinch böling*0</string>
+		<string>Uzbek*Central Asia**Salom*0</string>
+		<string>Uzbek*Central Asia**Yakhshimisiz*0</string>
+	</array>
+	<key>v</key>
+	<array>
+		<string>Valencian*Spain**Hola*0</string>
+		<string>Venda*South Africa*said by man*Ndaa*0</string>
+		<string>Venda*South Africa*said by woman*Aah*0</string>
+		<string>Venda*South Africa**Avuwani*0</string>
+		<string>Venda*South Africa*answer*Avuwa*0</string>
+		<string>Venda*South Africa**Rivoni*0</string>
+		<string>Venda*South Africa*to person returning*Vhadali*0</string>
+		<string>Venda*South Africa*to person working*Vhashumi*0</string>
+		<string>Veps*western Russia**Tervhen*0</string>
+		<string>Veps*western Russia**Tervhen eläd*0</string>
+		<string>Vietnamese*Vietnam**Chào*0</string>
+		<string>Vietnamese*Vietnam**Chào bạn*0</string>
+		<string>Vietnamese*Vietnam*to man*Chào ông*0</string>
+		<string>Vietnamese*Vietnam*to woman*Chào bà*0</string>
+		<string>Vietnamese*Vietnam*to young woman*Chào cô*0</string>
+		<string>Vietnamese*Vietnam*to a man you know*Chào anh*0</string>
+		<string>Vietnamese*Vietnam*to a women you know*Chào chị*0</string>
+		<string>Vietnamese*Vietnam*to a young person*Chào em*0</string>
+		<string>Vietnamese*Vietnam**Nuchu*0</string>
+		<string>Visayan*Philippines*where are you going?*Asa ka mo muadto?*0</string>
+		<string>Visayan*Philippines**Maqayu*0</string>
+		<string>Võru*Võrumaa Estonia**Tereq*0</string>
+		<string>Võru*Võrumaa Estonia**Tereh*0</string>
+		<string>Võru*Võrumaa Estonia**Tereq päivä *0</string>
+		<string>Võru*Võrumaa Estonia**Tereh päivä*0</string>
+		<string>Võru*Võrumaa Estonia**Tereq jummal&apos;imeq*0</string>
+		<string>Võru*Võrumaa Estonia**Häid tervit teile*0</string>
+		<string>Votic*Russia**Üvä päivää*0</string>
+		<string>Votic*Russia**Üvvää tervüüttä*0</string>
+		<string>Votic*Russia**Terveh*0</string>
+		<string>Votic*Russia**Terveüz *0</string>
+		<string>Votic*Russia**Tervüüz*0</string>
+	</array>
+	<key>w</key>
+	<array>
+		<string>Waali*Northwestern Ghana**Ansomaa*0</string>
+		<string>Waali*Northwestern Ghana*it is well*O be son*0</string>
+		<string>Wakhi*Central Asia**Asalam aleykum*0</string>
+		<string>Wagiman*Australia**Yow*0</string>
+		<string>Wallisian*Wallis and Futuna**Malo e lelei*0</string>
+		<string>Walloon*Belgium**Bondjoû*0</string>
+		<string>Warumungu*Australia**Yar*0</string>
+		<string>Warlpiri*Northern Territory Australia**Ngurrju mayinpa*0</string>
+		<string>Warlpiri*Northern Territory Australia**Calamara*0</string>
+		<string>Wasco-Wishram*Oregon USA**Dan miuxulal?*0</string>
+		<string>Wasco-Wishram*Oregon USA*to male*Ai l kala*0</string>
+		<string>Welsh*Wales**Dydd da*0</string>
+		<string>Welsh*Wales*south*Shwmae*0</string>
+		<string>Welsh*Wales*north*Sut mae*0</string>
+		<string>Wik-mungkan*Australia*to one person*Niiyalang*0</string>
+		<string>Wik-mungkan*Australia*to two people*Nipalang*0</string>
+		<string>Wintu*California USA*Winnemem Wintu*Hestum*0</string>
+		<string>Wolof*West Africa**Jama ngaam*0</string>
+		<string>Wolof*West Africa*peace be with you*Salamalekum*0</string>
+		<string>Wolof*West Africa*peace be with you*Malekumsalam*0</string>
+		<string>Wolof*West Africa*peace on you*Diamengam*0</string>
+		<string>Wolof*West Africa*1: how are you*Nanga def*0</string>
+		<string>Wolof*West Africa*2: answer to 1*Mangi fii rekk*0</string>
+		<string>Wolof*West Africa*3: answer to 2*Nunga fe*0</string>
+		<string>Wolof*West Africa*4: may your body rest*Mbaa sa yaram jaam*0</string>
+		<string>Wolof*West Africa*5: peace only*Jamm rekk*0</string>
+		<string>Wolof*West Africa*6: praise to Allah*Alhumdullilah*0</string>
+	</array>
+	<key>x</key>
+	<array>
+		<string>Xhosa*South Africa, Lesotho**Molo*0</string>
+		<string>Xhosa*South Africa, Lesotho*plural*Molweni*0</string>
+		<string>Xucuru*Brazil*morning*Bremen    *0</string>
+		<string>Xucuru-Cariri*Brazil**Akakáume*0</string>
+		<string>Xucuru-Cariri*Brazil*answer*Íkaké*0</string>
+	</array>
+	<key>y</key>
+	<array>
+		<string>Yacouba*Côte d&apos;Ivoire, Liberia*morning,m*Unzhu babo*0</string>
+		<string>Yacouba*Côte d&apos;Ivoire, Liberia*morning,w*Na babo*0</string>
+		<string>Yaka*Angola, Congo-Kinshasa**Mbote*0</string>
+		<string>Yami*Taiwan*to older male, &apos;uncle&apos;*Maran gon*0</string>
+		<string>Yami*Taiwan*to older female, &apos;aunt&apos;*Kaminan gon*0</string>
+		<string>Yami*Taiwan*to older peer, &apos;sibling&apos;*Kaka gon*0</string>
+		<string>Yami*Taiwan*to younger peer, &apos;sibling&apos;*Wali gon*0</string>
+		<string>Yami*Taiwan*to younger person, &apos;child&apos;*Anak gon*0</string>
+		<string>Yankunytjatjara*South Australia**Wai*0</string>
+		<string>Yanomami*Venezuela, Brazil**Eou*0</string>
+		<string>Yapese*Micronesia**Mogethin*0</string>
+		<string>Yaqui*Sonora Mexico, Arizona USA**Diós &apos;emchiókue*0</string>
+		<string>Yiddish*Russia, USA**Ah guten tog*0</string>
+		<string>Yiddish*Russia, USA**Sholem aleykhem*0</string>
+		<string>Yiddish*Russia, USA*answer*Aleykhem sholem*0</string>
+		<string>Yiddish*Poland, Belgium**A gütt&apos;n tuuk*0</string>
+		<string>Yitchogo*Gabon*to women*Timogya*0</string>
+		<string>Yitchogo*Gabon*to women*Yi maram bouga*0</string>
+		<string>Yitchogo*Gabon*to men*Buokaye*0</string>
+		<string>Yoko*Japan**Bo*0</string>
+		<string>Yolngu Matha*Australia**Nha mirri*0</string>
+		<string>Yolngu Matha*Australia**Yo, nha mirri*0</string>
+		<string>Yolngu Matha*Australia**Yo manymak*0</string>
+		<string>Yoruba*West Africa*morning, honorific*E kú àárò*0</string>
+		<string>Yoruba*West Africa*afternoon, honorific*E kú òsán*0</string>
+		<string>Yoruba*West Africa*evening, honorific*E kú ìròle*0</string>
+		<string>Yoruba*West Africa*night/before midnight*E kú alé*0</string>
+		<string>Yoruba*West Africa*night/after midnight*E kú áísún*0</string>
+		<string>Yoruba*West Africa*to a person at home*E kú alé*0</string>
+		<string>Yoruba*West Africa*to a person at work*E kú isé*0</string>
+		<string>Yoruba*West Africa*to a person returning*E kú àbò*0</string>
+		<string>Yoruba*West Africa*to a person sitting*E kú ìjokòó*0</string>
+		<string>Yoruba*West Africa*after long absence*E kú àmójúbà*0</string>
+		<string>Yoruba*West Africa*morning non-honorific*O kú àárò*0</string>
+		<string>Yoruba*West Africa*afternoon, non-honor.*O kú òsán*0</string>
+		<string>Yoruba*West Africa*evening non-honorific*O kú ìròle*0</string>
+		<string>Yoruba*West Africa*night/before midnight*O kú alé*0</string>
+		<string>Yoruba*West Africa*night/after midnight*O kú áísún*0</string>
+		<string>Yucateco*Mexico*to one person*Biix a beel?*0</string>
+		<string>Yucateco*Yucatan Mexico**Ki&apos;ki&apos;t&apos;áantabah*0</string>
+		<string>Yucateco*Yucatan Mexico**Óla*0</string>
+		<string>Yucateco*Yucatan Mexico**Olaj*0</string>
+		<string>Yucateco*Yucatan Mexico**Bwenas*0</string>
+		<string>Yugambeh*Australia**Jingiwalli wahlu*0</string>
+		<string>Yugur*Gansu China*Western Yugur*Yahsh mô*0</string>
+		<string>Yuki*Northern California USA**&apos;On tat*0</string>
+		<string>Yuki*Northern California USA**Heó, heó*0</string>
+		<string>Yumpla Tok*Torres Strait Australia**Wis wei*0</string>
+		<string>Yumpla Tok*Torres Strait Australia*to one*Wis wei yu*0</string>
+		<string>Yup&apos;ik*Alaska USA, Siberia Russia**Waqaa*0</string>
+		<string>Yup&apos;ik*Central Alaska**Chamai*0</string>
+		<string>Yup&apos;ik*Coastal Alaska**Camai*0</string>
+		<string>Yura Ngawarla*Flinders South Australia**Nunga*0</string>
+		<string>Yura Ngawarla*South Australia**Nangga*0</string>
+	</array>
+	<key>z</key>
+	<array>
+		<string>Zapotec*Juchitan Mexico**Shitalsha*0</string>
+		<string>Zapotec*Juchitan Mexico**Sicaru siado*0</string>
+		<string>Zapotec*Oaxaca Mexico**Pa diuxi*0</string>
+		<string>Zapotec*Tehuantepec Mexico*arriving*Hu&apos;*0</string>
+		<string>Zapotec*Villa Alta Mexico**Padiull*0</string>
+		<string>Zapotec*Yatzachi Mexico**Dioxei*0</string>
+		<string>Zapotec*Yatzachi Mexico**Dioxe*0</string>
+		<string>Zapotec*Yatzachi Mexico**Padiox*0</string>
+		<string>Zapotec*Yatzachi Mexico**Padioxei*0</string>
+		<string>Zapotec*Yatzachi Mexico*to p.leaving home*Baza&apos;o*0</string>
+		<string>Zapotec*Yatzachi Mexico*to a group*Baza&apos;ale*0</string>
+		<string>Zapotec*Yatzachi Mexico*to a group*Baza&apos;acle*0</string>
+		<string>Zapotec*Yatzachi Mexico*to gr. going home*Bazeya&apos;acle*0</string>
+		<string>Zapotec*Yatzachi Mexico*by p. going home*Bazeya&apos;a*0</string>
+		<string>Zapotec*Yatzachi Mex.*by group going home*Bazeyo&apos;oto*0</string>
+		<string>Zapotec*Yulalag Mexico**Padiuzhe*0</string>
+		<string>Zapotec*Zoogocho Mexico**Patiosh*0</string>
+		<string>Zarma*Niger, Nigeria, Burkina Faso**Fofo*0</string>
+		<string>Zarma*Niger*reply*N&apos;goy*0</string>
+		<string>Zazaki*Turkey**Ti senêna?*0</string>
+		<string>Zazaki*Turkey**Çituria?*0</string>
+		<string>Zazaki*Turkey**Çitana?*0</string>
+		<string>Zazaki*Turkey*formal*Halê shima senino?*0</string>
+		<string>Zemba*Namibia*informal*Mosha vi yong, peli*0</string>
+		<string>Xitswa*Mozambique**Xewe*0</string>
+		<string>Zjerma*Niger**Fofo*0</string>
+		<string>Zulu*South Africa, Lesotho**Sawubona*0</string>
+		<string>Zulu*South Africa, Lesotho*plural*Sanibonani*0</string>
+		<string>Zuñi*Southwestern United States**Keshi*0</string>
+		<string>Zuñi*Southwestern United States**Kesh&apos;shi*0</string>
+		<string>Zuñi*Southwestern United States**K&apos;eccannishshi to&apos; &apos;a-tu*0</string>
+	</array>
+</dict>
+</plist>

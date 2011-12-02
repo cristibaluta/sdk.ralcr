@@ -1,0 +1,16 @@
+-cp CoreAnimation
+-cp CoreAnimation/Transitions
+-cp Draw
+-cp Events
+-cp Foundation
+-cp GameKit
+-cp IOKit
+-cp Media
+-cp Network
+-cp Physics
+-cp Services
+-cp SimpleSkins
+-cp SWFTools
+-cp UIKit
+-cp UnitTestings
+-cp Utils

@@ -1,0 +1,9 @@
+#-as3 AS3_GENERATED
+-swf frameworks.swc
+-swf-version 10
+-main Main.hx
+#--dead-code-elimination
+
+all.hxml
+
+Samples/build_tests.hxml

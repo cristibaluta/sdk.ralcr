@@ -1,0 +1,7 @@
+-swf Samples/QuickTests/test.swf
+-swf-version 9
+-swf-header 1000:330:50
+-main Main.hx
+-cp Samples/QuickTests
+all.hxml
+--dead-code-elimination

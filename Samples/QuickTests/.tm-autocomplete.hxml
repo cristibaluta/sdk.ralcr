@@ -1,0 +1,9 @@
+
+-swf test.swf
+-swf-version 9
+-swf-header 1000:330:50
+-main Main.hx
+-cp ../lib
+-cp ../SCRFrameworks/Foundation
+-cp ../SCRFrameworks/UIKit
+-D tm-autocomplete

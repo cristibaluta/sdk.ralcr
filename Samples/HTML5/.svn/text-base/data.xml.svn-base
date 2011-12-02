@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+	
+	<menu>
+		<item id="menuHome"></item>
+		<item id="menuAttraxion"></item>
+		<item id="menuS7"></item>
+		<item id="menuTour">http://demotour.skisrossignol.com/index.php?_lang=FR&_lang=IV</item>
+		<item id="menuBuy">
+			<item id="submenuAttraxion">http://hp.com</item>
+			<item id="submenuS7">http://hp.com</item>
+		</item>
+	</menu>
+	
+	
+	
+	
+	
+	
+	<page id="attraxion">
+		<subtitle>Edition Attraxion</subtitle>
+		<description><![CDATA[<font size='30'>Attraxion Design</font>
+
+Bring out the bold of your already colorful life with the Attraxion design! Its very unique pattern is fully coordinated with Rossignol Attraxion VIII Echo skis, constructed with natural, recycled materials and being the most environmentally-friendly ski on the market. With this in mind, you’ll enjoy finding a packaging fully made from recycled material and documentation, printed with soy/water-based inks.
+
+This sleek limited edition notebook comes with coordinated sleeve to fit right with the rest of your gear and best-in-class entertainment with Adobe® Premiere® Elements and Adobe® Photoshop® Elements: to easily edit, create and share your best photos and vids. The must-have for this winter!]]></description>
+		<specs><![CDATA[<font size='30'>Specifications</font>
+
+15.6'' High Definition LED BrightView display
+Adobe® Photoshop® Elements 8 and Adobe® Premiere® Elements 8 to easily make your videos and photos even more extraordinary.
+Windows 7 Home Premium
+HP MediaSmart software for access to the music and movies you love
+UP to Intel® Core™ i5 Processor
+Up to 1TB hard drive capacities
+Up to 4 USB port, including a USB 3.0
+Optional Blu-ray for your favourite movies
+Integrated HP TrueVision Webcam to optimize video for any light setting
+Altec Lansing speakers and Dolby audio
+Modular port replicator dock, stand and speaker to adapt to your environment.]]></specs>
+		<accesories>
+			<item name="Coordinated Protective sleeve case (in the box)" price="10$">case.png</item>
+			<item name="HP 2.4GHz Wireless Optical Mobile Mouse (Luminous Rose)" price="10$">mouse.png</item>
+			<item name="HP Stereo headset" price="10$">headphones.png</item>
+			<item name="HP MU09 Long Life Notebook Battery" price="10$">battery.png</item>
+		</accesories>
+		<videos>
+			<video name="Rossignol echo lena" thumb="lena.jpg">http://h41308.www4.hp.com/richmedia/download/uk/en/video casts/Rossignol_echo_lena.flv</video>
+			<video name="Freeski" thumb="freeski.jpg">http://h41308.www4.hp.com/richmedia/download/uk/en/video%20casts/Freeski.flv</video>
+		</videos>
+		<gallery>
+			<photo>laptop1.png</photo>
+			<photo>laptop2.png</photo>
+			<photo>laptop3.png</photo>
+			<photo>laptop4.png</photo>
+		</gallery>
+		<wallpapers>
+			<photo>wallpaper1</photo>
+			<photo>wallpaper2</photo>
+		</wallpapers>
+		<price>599€</price>
+		<link id="butDesign"></link>
+		<link id="butSpecs"></link>
+		<link id="butAccesories"></link>
+		<link id="butVideos"></link>
+		<link id="butWallpaper"></link>
+		<link id="butScreensaver">screensavers.zip</link>
+		<link id="butBuy"></link>
+		<link id="butFacebook"></link>
+	</page>
+	
+	
+	
+	
+	
+	
+	
+	<page id="s7">
+		<subtitle>Edition S7</subtitle>
+		<description><![CDATA[<font size='30'>S7 Design</font>
+
+You now have the equipment that fits right with the rest of your gear. While carving through the Courchevel to La Plagne, chronicle your sweet jumps, gnarly falls, and meet ups with your friends with the S7 limited edition notebook. It matches the Rossignol S7 Freeride skis, perfect for extreme sensations on powder and comes with coordinated sleeve to express your style.  
+
+As a powder hound, when catching big air you don't want to be the only one that experiences it. It's got all the cool stuff you need to edit, create and share easily your photos and vids with Adobe® Premiere® Elements and Adobe® Photoshop® Elements, to keep you in high action!]]></description>
+		<specs><![CDATA[<font size='30'>Specifications</font>
+
+15.6'' High Definition LED BrightView display
+Adobe® Photoshop® Elements 8 and Adobe® Premiere® Elements 8 to easily make your videos and photos even more extraordinary.
+Windows 7 Home Premium
+HP MediaSmart software for access to the music and movies you love 
+UP to Intel® Core™ i5 Processor
+Up to 1TB hard drive capacities
+Up to 4 USB port, including a USB 3.0
+Optional Blu-ray for your favourite movies
+Integrated HP TrueVision Webcam to optimize video for any light setting
+Altec Lansing speakers and Dolby audio
+Modular port replicator dock, stand and speaker to adapt to your environment.]]></specs>
+		<accesories>
+			<item name="Coordinated Protective sleeve case (in the box)" price="10$">case.png</item>
+			<item name="HP 2.4GHz Wireless Optical Mobile Mouse (Luminous Rose)" price="10$">mouse.png</item>
+			<item name="HP Stereo headset" price="10$">headphones.png</item>
+			<item name="HP MU09 Long Life Notebook Battery" price="10$">battery.png</item>
+		</accesories>
+		<videos>
+			<video name="Rossignol echo lena" thumb="lena.jpg">http://h41308.www4.hp.com/richmedia/download/uk/en/video casts/Rossignol_echo_lena.flv</video>
+			<video name="Freeski" thumb="freeski.jpg">http://h41308.www4.hp.com/richmedia/download/uk/en/video%20casts/Freeski.flv</video>
+			<video name="S7" thumb="s7.jpg">http://h41308.www4.hp.com/richmedia/download/uk/en/video%20casts/S7.flv</video>
+		</videos>
+		<gallery>
+			<photo>laptop1.png</photo>
+			<photo>laptop2.png</photo>
+			<photo>laptop3.png</photo>
+			<photo>laptop4.png</photo>
+		</gallery>
+		<wallpapers>
+			<photo>wallpaper3</photo>
+			<photo>wallpaper4</photo>
+		</wallpapers>
+		<price>599€</price>
+		<link id="butDesign"></link>
+		<link id="butSpecs"></link>
+		<link id="butAccesories"></link>
+		<link id="butVideos"></link>
+		<link id="butWallpaper"></link>
+		<link id="butScreensaver">screensavers.zip</link>
+		<link id="butBuy"></link>
+		<link id="butFacebook"></link>
+	</page>
+	
+</root>

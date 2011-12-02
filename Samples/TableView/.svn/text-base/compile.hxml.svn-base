@@ -1,0 +1,7 @@
+-swf Samples/TableView/tableview.swf
+-swf-version 10
+-swf-header 500:600:40
+-cp Samples/TableView
+all.hxml
+-main Main.hx
+#-swf-lib resources.swf

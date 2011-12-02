@@ -1,0 +1,16 @@
+-swf Samples/loadHaxeInHaxe/Main.swf
+-swf-header 1000:600:60
+-swf-version 9
+-cp Network
+-cp Samples/loadHaxeInHaxe
+-cp Samples/loadHaxeInHaxe/extern
+-main Main.hx
+
+
+--next
+#-swf9 plugin.swc PluginSwc
+-swf Samples/loadHaxeInHaxe/plugin.swf
+-swf-header 1000:600:60
+-swf-version 10
+-cp Samples/loadHaxeInHaxe/plugin
+-main Plugin.hx

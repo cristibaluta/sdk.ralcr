@@ -1,0 +1,7 @@
+#-swf9 plugin.swc PluginSwc
+-swf9 plugin.swf
+-swf-header 1000:600:60
+-main Plugin.hx
+
+--gen-hx-classes plugin.swf
+

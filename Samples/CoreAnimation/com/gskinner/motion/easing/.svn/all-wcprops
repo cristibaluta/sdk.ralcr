@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing
+END
+Elastic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Elastic.hx
+END
+Circular.hx
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Circular.hx
+END
+Cubic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Cubic.hx
+END
+Exponential.hx
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Exponential.hx
+END
+Quartic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Quartic.hx
+END
+Linear.hx
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Linear.hx
+END
+Bounce.hx
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Bounce.hx
+END
+Quintic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Quintic.hx
+END
+Quadratic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Quadratic.hx
+END
+Sine.hx
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Sine.hx
+END
+Back.hx
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/92/trunk/Samples/CoreAnimation/com/gskinner/motion/easing/Back.hx
+END

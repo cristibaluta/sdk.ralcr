@@ -1,0 +1,8 @@
+-js Samples/HTML5/test.js
+-cp Samples/HTML5
+-cp Foundation
+-cp CoreAnimation
+-cp UIKit
+-cp Draw
+-cp Media
+-main Main

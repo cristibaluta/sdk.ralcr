@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem
+END
+getFileInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/getFileInfo.php
+END
+exif.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/exif.php
+END
+writeToFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/writeToFile.php
+END
+iptc.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/iptc.php
+END
+snapshot.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/snapshot.php
+END
+readDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/readDirectory.php
+END
+resize.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/resize.php
+END
+deleteFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/deleteFile.php
+END
+readAndCreateThumbs.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/readAndCreateThumbs.php
+END
+readFileContent.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/readFileContent.php
+END
+rename.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/rename.php
+END
+writeIPTC.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/writeIPTC.php
+END
+saveToComputer.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/saveToComputer.php
+END
+uploadFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/uploadFile.php
+END
+deleteDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/deleteDirectory.php
+END
+sort.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/sort.php
+END
+saveToServer.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/saveToServer.php
+END
+createDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/92/trunk/api.ralcr/filesystem/createDirectory.php
+END

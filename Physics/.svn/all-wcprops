@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/92/trunk/Physics
+END
+PHYOther.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Physics/PHYOther.hx
+END
+PHYStress.hx
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/92/trunk/Physics/PHYStress.hx
+END
+PHYWaves.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Physics/PHYWaves.hx
+END
+PHYThermodynamics.hx
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/92/trunk/Physics/PHYThermodynamics.hx
+END
+PHYGravitation.hx
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/92/trunk/Physics/PHYGravitation.hx
+END
+PHYMechanics.hx
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/92/trunk/Physics/PHYMechanics.hx
+END
+PHYCircularMotion.hx
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/92/trunk/Physics/PHYCircularMotion.hx
+END
+PHYSmoothRolling.hx
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/92/trunk/Physics/PHYSmoothRolling.hx
+END
+PHYElectromagnetism.hx
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/92/trunk/Physics/PHYElectromagnetism.hx
+END
+PHYFluid.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Physics/PHYFluid.hx
+END
+PHYParticle.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/92/trunk/Physics/PHYParticle.hx
+END
+PHYLight.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Physics/PHYLight.hx
+END
+PHYElasticity.hx
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/92/trunk/Physics/PHYElasticity.hx
+END
+PHYFormulae.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/92/trunk/Physics/PHYFormulae.hx
+END
+RCPhysicsObject.hx
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/92/trunk/Physics/RCPhysicsObject.hx
+END
+PHYFriction.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/92/trunk/Physics/PHYFriction.hx
+END
+PHYCollisions.hx
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/92/trunk/Physics/PHYCollisions.hx
+END

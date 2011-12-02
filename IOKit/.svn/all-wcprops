@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/svn/!svn/ver/92/trunk/IOKit
+END
+JPGEncoder10.hx
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/92/trunk/IOKit/JPGEncoder10.hx
+END
+ASYNCJpegEncoder.hx
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/92/trunk/IOKit/ASYNCJpegEncoder.hx
+END
+PNGEncoder.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/IOKit/PNGEncoder.hx
+END
+BitString.hx
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/92/trunk/IOKit/BitString.hx
+END
+WAVWriter.hx
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/92/trunk/IOKit/WAVWriter.hx
+END
+JPGEncoder10_.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/92/trunk/IOKit/JPGEncoder10_.hx
+END
+JPGEncoder.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/IOKit/JPGEncoder.hx
+END

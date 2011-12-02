@@ -1,0 +1,6 @@
+# Everything is relative to the Frameworks folder
+-swf9 Samples/CameraMotion/camera.swf
+-swf-header 1000:600:40
+-cp Samples/CameraMotion
+all.hxml
+-main Main.hx

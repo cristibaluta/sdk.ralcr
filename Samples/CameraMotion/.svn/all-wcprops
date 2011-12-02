@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/97/trunk/Samples/CameraMotion
+END
+compile.hxml
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/Samples/CameraMotion/compile.hxml
+END
+Main.hx
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/92/trunk/Samples/CameraMotion/Main.hx
+END
+MotionTrackerDemo.hx
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/92/trunk/Samples/CameraMotion/MotionTrackerDemo.hx
+END
+camera.swf
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/97/trunk/Samples/CameraMotion/camera.swf
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/92/trunk/Samples/CameraMotion/index.html
+END

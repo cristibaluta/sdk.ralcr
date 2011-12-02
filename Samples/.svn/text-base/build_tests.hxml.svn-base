@@ -1,0 +1,11 @@
+#-cmd haxe Samples/CoreAnimation/compile.hxml
+-cmd haxe Samples/Draw/compile.hxml
+-cmd haxe Samples/Text/compile.hxml
+-cmd haxe Samples/HTML5/compile.hxml
+-cmd haxe Samples/CameraMotion/compile.hxml
+-cmd haxe Samples/Csv/compile.hxml
+-cmd haxe Samples/QuickTests/compile.hxml
+-cmd haxe Samples/loadHaxeInHaxe/compile.hxml
+#-cmd haxe Samples/HeartEquation/compile.hxml
+-cmd haxe Samples/TableView/compile.hxml
+#-cmd haxe Samples/cpp/compile.hxml

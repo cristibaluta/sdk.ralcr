@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/94/trunk/CoreAnimation
+END
+CATimingFunction.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/CoreAnimation/CATimingFunction.hx
+END
+CoreAnimation.hx
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/94/trunk/CoreAnimation/CoreAnimation.hx
+END
+CAObject.hx
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/94/trunk/CoreAnimation/CAObject.hx
+END
+CASequence.hx
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/92/trunk/CoreAnimation/CASequence.hx
+END
+CADelegate.hx
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/92/trunk/CoreAnimation/CADelegate.hx
+END
+CATransitionInterface.hx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/92/trunk/CoreAnimation/CATransitionInterface.hx
+END

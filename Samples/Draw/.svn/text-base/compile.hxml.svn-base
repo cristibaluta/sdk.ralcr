@@ -1,0 +1,6 @@
+# Everything is relative to the Frameworks folder
+-swf9 Samples/Draw/drawings.swf
+-swf-header 1000:600:40
+-cp Samples/Draw
+all.hxml
+-main Main.hx

@@ -1,0 +1,32 @@
+html {
+	font-family: FFF Urban;
+	font-size: 8px;
+	font-weight: normal;
+	letterSpacing: 1px;
+	leading: 3px;
+	color: #FFFFFF;
+}
+h1 {
+	font-size: 22px;
+	font-family: Lucida Sans;
+}
+h2 {
+	font-family: FFF Urban_8pt_st;
+	font-weight: bold;
+}
+.bluetext {
+	color: #cceeff;
+	leading: 13px;
+}
+
+a:link {
+	font-family: FFF Urban_8pt_st;
+	color: #EC9955;
+	text-decoration: none;
+	margin-left: 0;
+	font-weight: bold;
+}
+a:hover {
+	color: #EC9955;
+	text-decoration: underline;
+}

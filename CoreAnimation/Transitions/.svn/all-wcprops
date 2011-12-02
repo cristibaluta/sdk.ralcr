@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/94/trunk/CoreAnimation/Transitions
+END
+CATFrames.hx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATFrames.hx
+END
+CATBezier.hx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATBezier.hx
+END
+CATText.hx
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATText.hx
+END
+CATZoom.hx
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATZoom.hx
+END
+CATMorph.hx
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATMorph.hx
+END
+CATKenBurns.hx
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/94/trunk/CoreAnimation/Transitions/CATKenBurns.hx
+END
+CATDistort.hx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATDistort.hx
+END
+CATSound.hx
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATSound.hx
+END
+CATween.hx
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATween.hx
+END
+CATSlide.hx
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATSlide.hx
+END
+CATHaxeGetSet.hx
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATHaxeGetSet.hx
+END
+CATColors.hx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATColors.hx
+END
+CATPixelator.hx
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATPixelator.hx
+END
+CATBrightness.hx
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATBrightness.hx
+END
+CATFilters.hx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/92/trunk/CoreAnimation/Transitions/CATFilters.hx
+END

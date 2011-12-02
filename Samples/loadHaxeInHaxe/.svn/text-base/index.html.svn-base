@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<style type="text/css">
+body {
+	background-color: #777777;
+}
+</style>
+
+<script type="text/javascript" src="../swfobject.js"></script>
+<script language="JavaScript">
+	
+	var div_id = "videoInPage";
+	
+	var flashvars = {id : div_id};
+	var params = {	wmode : "transparent",
+					allowFullScreen : 'true', allowNetworking : 'all', allowScriptAccess : 'always'
+				};
+	var attributes = { id : div_id, name : div_id };
+	swfobject.embedSWF ("Main.swf?" + Math.random()*1, div_id,
+						"820", "350",
+						"9", null,
+						flashvars, params, attributes
+					);
+</script>
+</head>
+
+<body>
+	<div id="videoInPage"></div>
+</body>
+</html>

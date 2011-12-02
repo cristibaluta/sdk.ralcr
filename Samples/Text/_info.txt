@@ -1,0 +1,7 @@
+<html><h2>This is a sample with styles got from css file:</h2>
+
+What's this fuss about true randomness?
+<span class="bluetext">Perhaps you have wondered how predictable machines like computers can generate randomness. In reality, most random numbers used in computer programs are pseudo-random, which means they are a generated in a predictable fashion using a mathematical formula. This is fine for many purposes, but it may not be random in the way you expect if you're used to dice rolls and lottery draws.</span>
+
+<a href="http://random.org" target="_blank">RANDOM.ORG</a> offers true random numbers to anyone on the Internet. The randomness comes from atmospheric noise, which for many purposes is better than the pseudo-random number algorithms typically used in computer programs. People use <a href="http://random.org" target="_blank">RANDOM.ORG</a> for holding draws, lotteries and sweepstakes, to drive games and gambling sites, for scientific applications and for art and music.
+<h1>THE END!</h1></html>

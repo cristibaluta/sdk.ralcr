@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/98/trunk/Foundation
+END
+FontManager.hx
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/92/trunk/Foundation/FontManager.hx
+END
+Files.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Foundation/Files.hx
+END
+Zeta.hx
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/92/trunk/Foundation/Zeta.hx
+END
+RCArray.hx
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/92/trunk/Foundation/RCArray.hx
+END
+Fugu.hx
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/92/trunk/Foundation/Fugu.hx
+END
+RCNotification.hx
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/92/trunk/Foundation/RCNotification.hx
+END
+RCStringTools.hx
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/92/trunk/Foundation/RCStringTools.hx
+END
+RCNotificationCenter.hx
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/93/trunk/Foundation/RCNotificationCenter.hx
+END
+RCLocalization.hx
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/92/trunk/Foundation/RCLocalization.hx
+END
+RCMath.hx
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/101/trunk/Foundation/RCMath.hx
+END
+RCIterator.hx
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/92/trunk/Foundation/RCIterator.hx
+END
+RCLocalizationProxy.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/Foundation/RCLocalizationProxy.hx
+END
+HashArray.hx
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/92/trunk/Foundation/HashArray.hx
+END
+RCRect.hx
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/92/trunk/Foundation/RCRect.hx
+END
+RCDateTools.hx
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/92/trunk/Foundation/RCDateTools.hx
+END
+RCStage.hx
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/98/trunk/Foundation/RCStage.hx
+END
+RCPosition.hx
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/92/trunk/Foundation/RCPosition.hx
+END
+Local.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Foundation/Local.hx
+END
+RCFont.hx
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/92/trunk/Foundation/RCFont.hx
+END
+RCUserDefaults.hx
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/92/trunk/Foundation/RCUserDefaults.hx
+END
+RCLib.hx
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/92/trunk/Foundation/RCLib.hx
+END
+Shortcuts.hx
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/92/trunk/Foundation/Shortcuts.hx
+END
+RCSize.hx
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/92/trunk/Foundation/RCSize.hx
+END
+RCAppDelegate.hx
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/98/trunk/Foundation/RCAppDelegate.hx
+END

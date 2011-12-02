@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/92/trunk/api.ralcr/others
+END
+info.php
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/92/trunk/api.ralcr/others/info.php
+END
+sendMail.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/92/trunk/api.ralcr/others/sendMail.php
+END
+checkPassword.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/92/trunk/api.ralcr/others/checkPassword.php
+END
+proxy.php
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/92/trunk/api.ralcr/others/proxy.php
+END
+createSession.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/92/trunk/api.ralcr/others/createSession.php
+END

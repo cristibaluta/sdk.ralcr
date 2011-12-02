@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations
+END
+LICENCE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/LICENCE.txt
+END
+Elastic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Elastic.hx
+END
+Cubic.hx
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Cubic.hx
+END
+Quad.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Quad.hx
+END
+Linear.hx
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Linear.hx
+END
+Bounce.hx
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Bounce.hx
+END
+Expo.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Expo.hx
+END
+Quart.hx
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Quart.hx
+END
+Sine.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Sine.hx
+END
+Back.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Back.hx
+END
+Quint.hx
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Quint.hx
+END
+Circ.hx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/92/trunk/CoreAnimation/caequations/Circ.hx
+END

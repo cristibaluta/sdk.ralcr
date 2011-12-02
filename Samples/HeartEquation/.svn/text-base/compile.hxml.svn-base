@@ -1,0 +1,13 @@
+# Everything is relative to the Frameworks folder
+-swf9 Samples/HeartEquation/heart.swf
+-swf-header 1000:600:33
+-cp Samples/HeartEquation
+all.hxml
+-main Main.hx
+
+#JS
+--next
+-js Samples/HeartEquation/heart.js
+-cp Samples/HeartEquation
+all.hxml
+-main Main.hx

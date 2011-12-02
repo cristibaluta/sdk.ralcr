@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<style type="text/css">
+body {
+	background-color: #666666;
+	height: 100%; 
+	margin: 0; 
+	padding: 0;
+}
+</style>
+
+<script type="text/javascript" src="../swfobject.js"></script>
+<script language="JavaScript">
+	
+	var div_id = "videoInPage";
+	
+	var flashvars = {id : div_id, xmlPath:"data_products.xml"};
+	var params = {	wmode : "opaque",
+					allowFullScreen : 'true', allowNetworking : 'all', allowScriptAccess : 'always'
+				};
+	var attributes = { id : div_id, name : div_id };
+	swfobject.embedSWF ("test.swf?" + Math.random()*1, div_id,
+						"100%", "100%",
+						"9", null,
+						flashvars, params, attributes
+					);
+</script>
+</head>
+
+<body>
+	<div id="videoInPage"></div>
+</body>
+</html>
