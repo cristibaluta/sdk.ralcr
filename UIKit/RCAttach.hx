@@ -15,21 +15,24 @@ class RCAttach extends RCView {
 	
 	
 	public function new (x, y, id:String) {
+		
 		super (x, y);
+		
 		this.id = id;
 		
 		try {
+		
 		#if nme
 			target = new MovieClip();
 			target.addChild ( new nme.display.Bitmap (nme.Assets.getBitmapData ( id ), nme.display.PixelSnapping.AUTO, true));
 			layer.addChild ( target );
 		#elseif (flash && !nme)
-			trace(id);
-			target = flash.Lib.attach ( id );trace(target);
+			target = flash.Lib.attach ( id );
 			layer.addChild ( target );
 		#elseif (nme || js)
 			target = RCAssets.getFileWithKey( id );
 		#end
+		
 		}catch(e:Dynamic){ trace(e+" : id="+id); }
 	}
 	
