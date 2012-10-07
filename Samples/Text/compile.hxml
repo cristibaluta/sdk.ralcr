@@ -1,6 +1,0 @@
--swf9 Samples/Text/fontmanagertest.swf
--swf-header 1000:600:40
--cp Samples/Text
-all.hxml
--main Main.hx
--swf-lib resources.swf
