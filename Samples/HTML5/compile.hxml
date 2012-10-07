@@ -1,0 +1,11 @@
+-js Samples/HTML5/test.js
+-cp Samples/HTML5
+all.hxml
+-main Main
+
+--next
+-swf Samples/HTML5/test.swf
+-swf-header 1000:600:60:dddddd
+-cp Samples/HTML5
+all.hxml
+-main Main

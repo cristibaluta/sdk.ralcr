@@ -1,0 +1,15 @@
+-cp CoreAnimation
+-cp CoreAnimation/Transitions
+-cp DrawKit
+-cp Events
+-cp Foundation
+-cp GameKit
+-cp IOKit
+-cp MediaKit
+-cp Network
+-cp Physics
+-cp Services
+-cp Skins
+-cp UIKit
+-cp UnitTestings
+-cp Utils

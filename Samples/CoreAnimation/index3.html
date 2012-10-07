@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<title>CoreAnimation</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+	
+	/* hide from ie on mac \*/
+	html {
+		height: 100%;
+		overflow: hidden;
+	}
+	#imagin_instance {
+        height: 100%;
+    }
+
+	body {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #191919;
+	}
+	p {
+		color: #666666;
+		font-family: Georgia;
+		font-size: 11px;
+		letter-spacing: 1px;
+		margin-top: 6px;
+		margin-left: 10px;
+	}
+</style>
+</head>
+
+<body>
+	<!-- SWFObject embed by Geoff Stearns geoff@deconcept.com http://blog.deconcept.com/ -->
+	<script src="../swfobject.js"></script>
+
+	<script language="JavaScript">
+		var flashvars = {};
+		var params = {
+			allowfullscreen: "true",
+			allownetworking: "all",
+			bgcolor: "#999999"
+		};
+		var attributes = {};
+
+		swfobject.embedSWF ("test3.swf?"+Math.random()*1, "fonts", "100%", "100%", "9.0.0", "", flashvars, params, attributes);
+		
+	</script>
+	<div id="fonts">
+		<p>You need JavaScript activated and at least flash player 9 installed.</p>
+	</div>
+	
+</body>
+</html>

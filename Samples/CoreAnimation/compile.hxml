@@ -1,0 +1,22 @@
+# Everything is relative to the Frameworks folder
+-swf9 Samples/CoreAnimation/test1.swf
+-swf-header 1000:600:40
+-cp Samples/CoreAnimation
+-lib GTweenHX
+all.hxml
+-main Main1.hx
+
+--next
+-swf9 Samples/CoreAnimation/test2.swf
+-swf-header 1000:600:40
+-cp Samples/CoreAnimation
+all.hxml
+-main Main2.hx
+
+--next
+-swf9 Samples/CoreAnimation/test3.swf
+-swf-header 1000:600:40
+-cp Samples/CoreAnimation
+all.hxml
+-main Main3.hx
+

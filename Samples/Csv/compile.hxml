@@ -1,0 +1,5 @@
+-swf9 Samples/Csv/test.swf
+-swf-header 1000:600:40
+-cp Samples/Csv
+all.hxml
+-main Main.hx

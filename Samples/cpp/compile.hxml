@@ -1,0 +1,13 @@
+
+
+# CPP
+-cpp Samples/cpp/build
+-cp Samples/cpp
+-main Main.hx
+-debug
+-lib nme
+-lib hxcpp
+-lib GTweenHX
+--remap flash:nme
+--remap neko:cpp
+all.hxml

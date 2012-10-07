@@ -1,0 +1,12 @@
+# -as3 AS3_GENERATED
+-swf sdk.ralcr.swc
+-swf-version 10
+-main Main.hx
+#--dead-code-elimination
+
+all.hxml
+
+Samples/build_tests.hxml
+
+	#-cmd cd /Users/Cristi/Documents/NME/ZeroLaMie
+	#-cmd haxe compile.hxml
