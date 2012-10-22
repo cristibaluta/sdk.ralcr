@@ -6,6 +6,8 @@
 //  Copyright (c) 2010 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
+
 import flash.display.DisplayObjectContainer;
 import flash.filters.BlurFilter;
 import flash.filters.DropShadowFilter;
@@ -40,7 +42,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 			case "blur":
 				if (Std.is (filterValue, Int) || Std.is (filterValue, Float)) {
 					// We have directly a value
-					fromBlur = getCurrentBlurFilter ( target );
+					fromBlur = getCurrentBlurFilter ( target.layer );
 					toBlur = new BlurFilter (filterValue, filterValue, 3);
 				}
 				// Set the values to be animatable
@@ -52,7 +54,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 			case "glow":
 				if (Std.is (filterValue, Int) || Std.is (filterValue, Float)) {
 					// We have directly a value
-					fromGlow = getCurrentGlowFilter ( target );
+					fromGlow = getCurrentGlowFilter ( target.layer );
 					fromGlow.knockout = false;
 					fromGlow.inner = false;
 					fromGlow.quality = 3;
@@ -78,7 +80,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 			case "shadow":
 				if (Std.is (filterValue, Int) || Std.is (filterValue, Float)) {
 					// We have directly a value
-					fromShadow = getCurrentShadowFilter ( target );
+					fromShadow = getCurrentShadowFilter ( target.layer );
 					fromShadow.quality = 3;
 					fromShadow.inner = false;
 					fromShadow.knockout = false;
@@ -149,11 +151,11 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 		}
 		
 		if (currentBlur != null)
-			target.filters = [currentBlur];
+			target.layer.filters = [currentBlur];
 		else if (currentGlow != null)
-			target.filters = [currentGlow];
+			target.layer.filters = [currentGlow];
 		else if (currentShadow != null)
-			target.filters = [currentShadow];
+			target.layer.filters = [currentShadow];
 			
 /*		return;
 		for (f in target.filters) {
@@ -200,3 +202,5 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 		return shadow;
 	}
 }
+
+#end

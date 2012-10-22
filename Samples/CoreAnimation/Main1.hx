@@ -23,10 +23,10 @@ import flash.utils.Timer;
 
 class Main1 {
 	
-	inline static var tweeners = ["CoreAnimation", "HTween", "TweenerHX", "GTweenHX", "", "start", "stop", "up", "down"];
+	inline static var TWEENERS = ["CoreAnimation", "HTween", "TweenerHX", "GTweenHX", "", "start", "stop", "up", "down"];
 	static var timeIn = 2.4;
 	inline static var timeOut = 4;
-	static var container :flash.display.Sprite;
+	static var container :RCView;
 	static var photo :RCImage;
 	static var m :RCRectangle;
 	static var c = 20;
@@ -35,25 +35,22 @@ class Main1 {
 	static var tweener :String = "CoreAnimation";
 	//static var tweener :String = "GTweenHX";
 	static var logo :flash.display.MovieClip;
-	static var menu :RCGroupButtons<RCButton>;
+	static var menu :RCGroup<RCButton>;
 	static var timer : haxe.Timer;
 	
 	
 	static function main () {
 		haxe.Firebug.redirectTraces();
-		RCWindow.init();
-		FontManager.init();
-		//TestColors.init();
+		RCWindow.sharedWindow().init();
 		
-		menu = new RCGroupButtons<RCButton>(50, 50, null, 10, constructButton);
-		menu.add ( tweeners );
-		menu.addEventListener (GroupEvent.CLICK, clickHandler);
-		menu.select( "CoreAnimation" );
-		RCWindow.addChild ( menu );
-		RCWindow.addChild ( new RCStats (5, 5) );
+		menu = new RCGroup<RCButton>(50, 50, null, 20, constructButton);
+		menu.add ( TWEENERS );
+		//menu.select( "CoreAnimation" );
+		RCWindow.sharedWindow().addChild ( menu );
+		RCWindow.sharedWindow().addChild ( new RCStats (5, 5) );
 		
-		particlesTxt = new RCTextView (5, 50+menu.height, null, null, "Particles: "+c+"->50ms", RCFontManager.getRCFont("system",{embedFonts:false}));
-		RCWindow.addChild ( particlesTxt );
+		particlesTxt = new RCTextView (5, 100+menu.height, null, null, "Particles: "+c+"->50ms", RCFont.systemFontOfSize(12));
+		RCWindow.sharedWindow().addChild ( particlesTxt );
 		
 		timer = new haxe.Timer(50);
 		timer.run = genParticles;
@@ -74,24 +71,22 @@ class Main1 {
 	}
 	
 	static function kenburns () {
-		container = new flash.display.Sprite();
-		container.x = 200;
-		container.y = 50;
+		container = new RCView(200, 50);
 		
 		photo = new RCImage (200, 0, "3134265_large.jpg");
 		photo.onComplete = fadePhoto;
-		RCWindow.addChild ( container );
+		RCWindow.sharedWindow().addChild ( container );
 		
-		m = new RCRectangle (200, 50, 500, 500, 0x000000, 0.3);
-		RCWindow.addChild ( m );
-		container.mask = m;
+/*		m = new RCRectangle (200, 50, 500, 500, 0x000000, 0.3);
+		RCWindow.sharedWindow().addChild ( m );
+		container.mask = m;*/
 		
-		RCWindow.addChild ( new LayerOldTV (200, 50, 500, 500) );
+		//RCWindow.sharedWindow().addChild ( new LayerOldTV (200, 50, 500, 500) );
 	}
 	
 	
 	static function fadePhoto(){
-		var p = photo.duplicate();
+		var p = photo.copy();
 		container.addChild ( p );
 		
 		var obj = new CATKenBurns (p, {}, 10, 0, caequations.Linear.NONE);
@@ -119,8 +114,8 @@ class Main1 {
 	static function p2(){trace("kenburn 2= ");}
 	static function genParticles() :Void {
 		for (i in 0...c) {
-			var obj = new RCEllipse(RCWindow.width/2, RCWindow.height/2, 2, 2, 0xffffff, 0.6);
-			RCWindow.addChild ( obj );
+			var obj = new RCEllipse(RCWindow.sharedWindow().width/2, RCWindow.sharedWindow().height/2, 2, 2, 0xffffff, 0.6);
+			RCWindow.sharedWindow().addChild ( obj );
 			t5 ( obj );
 		}
 	}
@@ -128,55 +123,56 @@ class Main1 {
 	
 	
 	
-	static function constructButton (label:String) :RCButton {
-		var s = new SKSimpleButtonWithText (label, [0xcccccc, 0x999999, 0x000000, 0xb1e6f0]);
+	static function constructButton (index:RCIndexPath) :RCButton {
+		var s = new SKSimpleButtonWithText (TWEENERS[index.row], [0xcccccc, 0x999999, 0x000000, 0xb1e6f0]);
 		var b = new RCButton (0, 0, s);
+		b.onClick = callback (clickHandler, TWEENERS[index.row]);
 		return b;
 	}
-	static function clickHandler (e:GroupEvent) :Void {
-		switch (e.label) {
+	static function clickHandler (label:String) :Void {
+		switch (label) {
 			case "start": timer = new haxe.Timer(50); timer.run = genParticles;
 			case "stop": timer.stop();
 			case "up": c+=20;
 			case "down": c-=20;
 			default:
-				tweener = e.label;
-				menu.select( tweener );
+				tweener = label;
+				//menu.select( tweener );
 		}
 		particlesTxt.text = "Particles: "+c+"->50ms";
 	}
 	
 	static function t1(){
 		switch (tweener) {
-			case tweeners[0]:
+			case TWEENERS[0]:
 				var obj = new CATween (logo, {x:800, scaleX:3, scaleY:3}, timeIn, 0, caequations.Cubic.IN_OUT);
 					obj.delegate.animationDidStop = t2;
 				CoreAnimation.add ( obj );
 			
-			case tweeners[1]:
+			case TWEENERS[1]:
 				HTween.add (logo, timeIn, {x:800, scaleX:3, scaleY:3, onComplete:t2});
 									
-			case tweeners[2]:
+			case TWEENERS[2]:
 				Tweener.addTween (logo, {x:800, scaleX:3, scaleY:3, time:timeIn, transition:"easeinoutcubic", onComplete:t2});
 				
-			case tweeners[3]:
+			case TWEENERS[3]:
 				new GTween (logo, timeIn, {x:800, scaleX:3, scaleY:3}, {ease:Cubic.easeInOut, onComplete:t2});
 		}
 	}
 	static function t2(){
 		switch (tweener) {
-			case tweeners[0]:
+			case TWEENERS[0]:
 				var obj = new CATween (logo, {x:50, scaleX:1, scaleY:1}, timeOut, 0, caequations.Cubic.IN_OUT);
 					obj.delegate.animationDidStop = t1;
 				CoreAnimation.add ( obj );
 			
-			case tweeners[1]:
+			case TWEENERS[1]:
 				HTween.add (logo, timeOut, {x:50, scaleX:1, scaleY:1, onComplete:t1});
 									
-			case tweeners[2]:
+			case TWEENERS[2]:
 				Tweener.addTween (logo, {x:50, scaleX:1, scaleY:1, time:timeOut, transition:"easeinoutcubic", onComplete:t1});
 				
-			case tweeners[3]:
+			case TWEENERS[3]:
 				new GTween (logo, timeOut, {x:50, scaleX:1, scaleY:1}, {ease:Cubic.easeInOut, onComplete:t1});
 		}
 	}
@@ -187,34 +183,34 @@ class Main1 {
 	// Particles
 	static function t5(obj:RCEllipse){
 		timeIn = 0.2+Math.random()*1;
-		var nx = RCWindow.width-Math.random()*RCWindow.width*2;
-		var ny = RCWindow.height-Math.random()*RCWindow.height*2;
+		var nx = RCWindow.sharedWindow().width-Math.random()*RCWindow.sharedWindow().width*2;
+		var ny = RCWindow.sharedWindow().height-Math.random()*RCWindow.sharedWindow().height*2;
 		
 		switch (tweener) {
-			case tweeners[0]:
+			case TWEENERS[0]:
 				var anim = new CATween (obj, {x:nx, y:ny, scaleX:3, scaleY:3}, timeIn, 0, caequations.Linear.NONE);
 					anim.delegate.animationDidStop = remove;
 					anim.delegate.arguments = [obj];
 				CoreAnimation.add ( anim );
 			
-			case tweeners[1]:
+			case TWEENERS[1]:
 				HTween.add (obj, timeIn, {x:nx, y:ny, scaleX:3, scaleY:3, onComplete:remove, onCompleteParams:[obj]});
 			
-			case tweeners[2]:
+			case TWEENERS[2]:
 				Tweener.addTween (obj, {x:nx, y:ny, scaleX:3, scaleY:3, time:timeIn, transition:"linear",
 									onComplete:remove, onCompleteParams:[obj]});
 				
-			case tweeners[3]:
+			case TWEENERS[3]:
 				new GTween (obj, timeIn, {x:nx, y:ny, scaleX:3, scaleY:3}, {ease:Linear.easeNone, onComplete:remove2 });
 		}
 	}
 	static function remove (obj:RCEllipse) {//trace("remove "+obj);
-		RCWindow.removeChild ( obj );
+		RCWindow.sharedWindow().removeChild ( obj );
 		obj = null;
 	}
 	static function remove2(tween:GTween):Void {
 		//trace("tween completed");
-		RCWindow.removeChild ( tween.target );
+		RCWindow.sharedWindow().removeChild ( tween.target );
 		tween.target = null;
 	}
 }

@@ -1,7 +1,5 @@
-import flash.display.MovieClip;
 
-
-class Main extends MovieClip {
+class Main {
 	
 	inline static var SOURCE = 
 "psmith01,CLASS2B,Peter Smith 1,YEAR2,1,N,ADVANCED,STAFF,1,Y,Y
@@ -14,17 +12,16 @@ amarkov,CLASS4E,Anya Markov,UKSCHOOLS,3,Y,STANDARD,PUPIL,1,N,N";
 	
 	public static function main () {
 		haxe.Firebug.redirectTraces();
-		RCWindow.init();
-		RCWindow.addChild ( new Main() );
+		new Main();
 	}
 	
 	
 	public function new () {
-		super();
 		
 		var csv = new Csv();
 			csv.initWithCsv ( SOURCE );
+			
+		trace("Display the csv as an array");
 		trace (csv.getArray());
-		trace(csv[0]);
 	}
 }

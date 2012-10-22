@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tweener
  * Transition controller for movieclips, sounds, textfields and other objects
  *
@@ -35,11 +35,11 @@ http://lib.haxe.org/
 */
 package caurina.transitions;
 
-#if (flash || nme)8
-import flash.MovieClip;
-#elseif flash9
-import flash.display.MovieClip;
-import flash.events.Event;
+#if flash8
+	import flash.MovieClip;
+#elseif (flash9 || nme)
+	import flash.display.MovieClip;
+	import flash.events.Event;
 #end
 //import haxe.FastList;
 
@@ -989,11 +989,11 @@ if (tProperty == null) return false;
 	static function startEngine () : Void {//trace(">>>>>>>>>>>>>>>>>>>START ENGINE<<<<<<<<<<<<<<<<<");
 		_engineExists = true;
 		_tweenList = new List<TweenListObj>();
-#if (flash || nme)8
+#if flash8
 		var randomDepth = Math.floor (Math.random() * 999999);
 		__tweener_controller__ = flash.Lib._root.createEmptyMovieClip (getControllerName(), 31338+randomDepth);
 		__tweener_controller__.onEnterFrame = onEnterFrame;
-#elseif flash9
+#elseif (flash9 || nme)
 		__tweener_controller__ = new MovieClip();
 		__tweener_controller__.addEventListener (Event.ENTER_FRAME, onEnterFrame);
 #end
@@ -1009,10 +1009,10 @@ if (tProperty == null) return false;
 		_tweenList = null;
 		_currentTime = 0;
 		_currentTimeFrame = 0;
-#if (flash || nme)8
+#if flash8
 		__tweener_controller__.onEnterFrame = null;
 		__tweener_controller__.removeMovieClip();
-#elseif flash9
+#elseif (flash9 || nme)
 		__tweener_controller__.removeEventListener (Event.ENTER_FRAME, onEnterFrame);
 		__tweener_controller__ = null;
 #end
@@ -1035,9 +1035,9 @@ if (tProperty == null) return false;
 	/**
 	 * Ran once every frame. It's the main engine, updates all existing tweenings.
 	 */
-#if (flash || nme)8
+#if flash8
 	public static function onEnterFrame () : Void {
-#elseif flash9
+#elseif (flash9 || nme)
 	public static function onEnterFrame (e:Event) : Void {
 #end
 		updateTime();

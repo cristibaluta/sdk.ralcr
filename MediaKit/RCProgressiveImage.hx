@@ -5,6 +5,8 @@
 //  Copyright (c) 2009 http://ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
+
 import flash.display.Sprite;
 import flash.display.Loader;
 import flash.net.URLStream;
@@ -83,3 +85,5 @@ class RCProgressiveImage extends Sprite {
 			imageStream.removeEventListener (IOErrorEvent.IO_ERROR, imageStreamError);
 	}
 }
+
+#end

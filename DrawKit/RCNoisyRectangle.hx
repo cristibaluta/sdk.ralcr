@@ -5,6 +5,8 @@
 //  Copyright (c) 2010 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
+
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 
@@ -38,3 +40,5 @@ class RCNoisyRectangle extends RCDraw, implements RCDrawInterface {
 		layer.addChild ( bitmapRectangle );
 	}
 }
+
+#end
