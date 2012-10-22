@@ -9,7 +9,7 @@
 
 class RCStar extends RCDraw, implements RCDrawInterface {
 	
-	public var points :UInt;
+	public var points :Int;
 	public var innerRadius :Int;
 	public var outerRadius :Int;
 	public var angle :Int;
@@ -23,7 +23,8 @@ class RCStar extends RCDraw, implements RCDrawInterface {
 	// outerRadius = radius of the tips of the points
 	// angle = [optional] starting angle in degrees. (defaults to 0)
 	// ==============
-	public function new (x, y, w, h, color:Dynamic, alpha:Float=1.0, points:UInt, innerRadius, outerRadius, angle:Int=0) {
+	public function new (x, y, w, h, color:Dynamic, alpha:Float=1.0, points:Int, innerRadius, outerRadius, angle:Int=0) {
+		
 		super (x, y, w, h, color, alpha);
 		
 		this.points = points;
@@ -52,7 +53,7 @@ class RCStar extends RCDraw, implements RCDrawInterface {
 		
 		// calculate starting angle in radians
 		start = (angle / 180) * Math.PI;
-		layer.graphics.moveTo(x+(Math.cos(start)*outerRadius), y-(Math.sin(start)*outerRadius));
+		layer.graphics.moveTo (x+(Math.cos(start)*outerRadius), y-(Math.sin(start)*outerRadius));
 		
 		// draw lines
 		for (i in 0...points) {

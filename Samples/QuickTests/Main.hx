@@ -1,6 +1,5 @@
 import flash.errors.Error;
 import flash.events.MouseEvent;
-import RCMouse;
 
 class Main {
 	
@@ -42,15 +41,16 @@ class Main {
 	
 	static function testTea(){
 		var str = "blah blah blah";
+		var pass = "123dsf";
 		trace(str);
-		var str1 = TEA.encrypt(str, "123dsf");
+		var str1 = TEA.encrypt(str, pass);
 		trace(str1);
-		var str2 = TEA.decrypt(str1, "123dsf");
+		var str2 = TEA.decrypt(str1, pass);
 		trace(str2);
 		
-		var str1 = XXTea.encrypt(str, "123dsf");
+		var str1 = XXTea.encrypt(str, pass);
 		trace(str1);
-		var str2 = XXTea.decrypt(str1, "123dsf");
+		var str2 = XXTea.decrypt(str1, pass);
 		trace(str2);
 	}
 	

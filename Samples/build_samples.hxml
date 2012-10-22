@@ -1,0 +1,11 @@
+--next Samples/CoreAnimation/compile.hxml
+--next Samples/Draw/compile.hxml
+# --next Samples/Text/compile.hxml
+# --next Samples/UIKit/compile.hxml
+# -cmd haxe Samples/CameraMotion/compile.hxml
+--next Samples/Csv/compile.hxml
+--next Samples/QuickTests/compile.hxml
+--next Samples/loadHaxeInHaxe/compile.hxml
+--next Samples/HeartEquation/compile.hxml
+--next Samples/TableView/compile.hxml
+#-cmd haxe Samples/cpp/compile.hxml

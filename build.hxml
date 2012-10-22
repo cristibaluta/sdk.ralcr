@@ -6,7 +6,7 @@
 
 all.hxml
 
-Samples/build_tests.hxml
+Samples/build_samples.hxml
 
-	#-cmd cd /Users/Cristi/Documents/NME/ZeroLaMie
-	#-cmd haxe compile.hxml
+#-cmd cd /Users/Cristi/Documents/NME/ZeroLaMie
+#-cmd haxe compile.hxml

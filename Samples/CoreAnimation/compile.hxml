@@ -1,4 +1,4 @@
-# Everything is relative to the Frameworks folder
+# Everything is relative to the sdk.ralcr folder
 -swf9 Samples/CoreAnimation/test1.swf
 -swf-header 1000:600:40
 -cp Samples/CoreAnimation

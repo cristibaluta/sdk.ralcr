@@ -1,5 +1,5 @@
 //
-//  RCSkin - A collection of organized views that will get displayed in a RCControl
+//  RCSkin.hx - A collection of organized views that will get displayed in a RCControl
 //
 //  Created by Baluta Cristian on 2008-07-03.
 //  Copyright (c) 2008-2012 ralcr.com. 
@@ -30,6 +30,14 @@ class RCSkin {
 	public var hit :RCView;
 	
 	
+	/**
+	*  Extend this class and create views for each state
+	* @param colors - an array of colours for:
+	*  colors[0] is for NORMAL background
+	*  colors[1] is for NORMAL label
+	*  colors[2] is for HIGHLIGHTED background
+	*  colors[3] is for HIGHLIGHTED label
+	*/
 	public function new (?colors : Array<Null<Int>>)
 	{
 		normal		= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}};

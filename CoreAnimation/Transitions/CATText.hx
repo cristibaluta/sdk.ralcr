@@ -7,13 +7,6 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
-	import flash.text.TextFormat;
-	import flash.text.TextField;
-#elseif js
-	
-#end
-
 class CATText extends CAObject, implements CATransitionInterface {
 	
 	var direction :Int;
@@ -23,11 +16,9 @@ class CATText extends CAObject, implements CATransitionInterface {
 	override public function init () :Void {
 		
 		direction = -1;
-		html = Reflect.field (properties, "html");
 		var fromText = "";
 		var toText = "";
 		var text :Dynamic = Reflect.field (properties, "text");
-		
 		
 		if (text != null) {
 			if (Std.is (text, String)) {
@@ -50,14 +41,6 @@ class CATText extends CAObject, implements CATransitionInterface {
 	
 	override public function animate (time_diff:Float) :Void {
 		var nrOfLetters = Math.round (calculate (time_diff, "nrOfLetters"));
-		
-		#if (flash || nme)
-			if (html)
-				target.htmlText = Reflect.field (toValues, "text").substr (0, nrOfLetters);
-			else
-				target.text = Reflect.field (toValues, "text").substr (0, nrOfLetters);
-		#elseif js
-				target.text = Reflect.field (toValues, "text").substr (0, nrOfLetters);
-		#end
+		target.setText ( Reflect.field (toValues, "text").substr (0, nrOfLetters));
 	}
 }

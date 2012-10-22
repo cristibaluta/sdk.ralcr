@@ -6,17 +6,16 @@ class Main2 {
 	
 	static function main () :Void {
 		haxe.Firebug.redirectTraces();
-		RCWindow.init();
-		RCWindow.addChild ( new RCStats (5, 5) );
+		RCWindow.sharedWindow().addChild ( new RCStats (5, 5) );
 		
 		photo = new RCImage (200, 0, "3134265_large.jpg");
 		photo.onComplete = fadePhoto;
-		RCWindow.addChild ( photo );
+		RCWindow.sharedWindow().addChild ( photo );
 		
 		bg = new RCRectangle (0, 100, 200, 300, 0x999999);
-		bg.setColor (0xffffff);
-		RCWindow.addChild ( bg );
-		trace (bg.transform.colorTransform);
+		//bg.setColor (0xffffff);
+		RCWindow.sharedWindow().addChild ( bg );
+		trace (bg.layer.transform.colorTransform);
 		
 		var obj = new CATColors (bg, {color:0x000000}, 4, 0, caequations.Cubic.IN_OUT);
 		CoreAnimation.add (obj);
@@ -29,7 +28,7 @@ class Main2 {
 			//cm.adjustSaturation (-20);
 			//cm.adjustHue (70);
 		
-		photo.filters = [new ColorMatrixFilter(cm.toArray())];
+		photo.layer.filters = [new ColorMatrixFilter(cm.toArray())];
 			
 		//Fugu.brightness (photo, 50);
 		//new catransitions.Brightness().setBrightness (photo, 50);
