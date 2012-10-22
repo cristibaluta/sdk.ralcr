@@ -1,5 +1,5 @@
 //
-//  HTTPRequest.hx
+//  RCHttp.hx
 //
 //  Created by Baluta Cristian on 2008-09-06.
 //  Copyright (c) 2008-2012 ralcr.com. 
@@ -13,7 +13,7 @@
 #end
 
 
-class HTTPRequest extends RCRequest {
+class RCHttp extends RCRequest {
 	
 	var apiPath :String; // Path to the folder that contains all php scripts
 	
@@ -23,7 +23,7 @@ class HTTPRequest extends RCRequest {
 	 **/
 	public function new (?apiPath:String) {
 		this.apiPath = apiPath;
-		if ( ! StringTools.endsWith (apiPath, "/"))
+		if ( apiPath != null && ! StringTools.endsWith (apiPath, "/"))
 			this.apiPath += "/";
 		super();
 	}

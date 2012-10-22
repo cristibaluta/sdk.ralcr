@@ -671,136 +671,6 @@ Fugu.stack = function() {
 	var stack = haxe.Stack.exceptionStack();
 	haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "Fugu.hx", lineNumber : 161, className : "Fugu", methodName : "stack"});
 }
-var GKMath = $hxClasses["GKMath"] = function() { }
-GKMath.__name__ = ["GKMath"];
-GKMath.linesIntersection = function(A,B,C,D) {
-	var denominator = (B.x - A.x) * (D.y - C.y) - (B.y - A.y) * (D.x - C.x);
-	if(denominator == 0) return null;
-	var rTop = (A.y - C.y) * (D.x - C.x) - (A.x - C.x) * (D.y - C.y);
-	var sTop = (A.y - C.y) * (B.x - A.x) - (A.x - C.x) * (B.y - A.y);
-	var r = rTop / denominator;
-	var s = sTop / denominator;
-	if(r > 0 && r < 1 && s > 0 && s < 1) return new RCPoint(A.x + r * (B.x - A.x),A.y + r * (B.y - A.y));
-	return null;
-}
-GKMath.distanceToLine = function(point,A,B) {
-	var dx = B.x - A.x;
-	var dy = B.y - A.y;
-	var u = ((point.x - A.x) * dx + (point.y - A.y) * dy) / (dx * dx + dy * dy);
-	var closest;
-	if(u < 0) closest = new RCPoint(A.x,A.y); else if(u > 1) closest = new RCPoint(B.x,B.y); else closest = new RCPoint(A.x + u * dx,A.y + u * dy);
-	return closest;
-}
-var _HTTPRequest = _HTTPRequest || {}
-_HTTPRequest.URLVariables = $hxClasses["_HTTPRequest.URLVariables"] = function() {
-};
-_HTTPRequest.URLVariables.__name__ = ["_HTTPRequest","URLVariables"];
-_HTTPRequest.URLVariables.prototype = {
-	__class__: _HTTPRequest.URLVariables
-}
-var RCRequest = $hxClasses["RCRequest"] = function() {
-};
-RCRequest.__name__ = ["RCRequest"];
-RCRequest.prototype = {
-	destroy: function() {
-		this.removeListeners(this.loader);
-		this.loader = null;
-	}
-	,ioErrorHandler: function(e) {
-		this.result = e;
-		this.onError();
-	}
-	,httpStatusHandler: function(e) {
-		this.status = e;
-		this.onStatus();
-	}
-	,securityErrorHandler: function(e) {
-		this.result = e;
-		this.onError();
-	}
-	,progressHandler: function(e) {
-	}
-	,completeHandler: function(e) {
-		this.result = e;
-		if(this.result.indexOf("error::") != -1) {
-			this.result = this.result.split("error::").pop();
-			this.onError();
-		} else this.onComplete();
-	}
-	,openHandler: function(e) {
-		this.onOpen();
-	}
-	,removeListeners: function(dispatcher) {
-		dispatcher.onData = null;
-		dispatcher.onError = null;
-		dispatcher.onStatus = null;
-	}
-	,addListeners: function(dispatcher) {
-		dispatcher.onData = $bind(this,this.completeHandler);
-		dispatcher.onError = $bind(this,this.securityErrorHandler);
-		dispatcher.onStatus = $bind(this,this.httpStatusHandler);
-	}
-	,load: function(URL,variables,method) {
-		if(method == null) method = "POST";
-		this.loader = new haxe.Http(URL);
-		this.loader.async = true;
-		var _g = 0, _g1 = Reflect.fields(variables);
-		while(_g < _g1.length) {
-			var key = _g1[_g];
-			++_g;
-			this.loader.setParameter(key,Reflect.field(variables,key));
-		}
-		this.addListeners(this.loader);
-		this.loader.request(method == "POST"?true:false);
-	}
-	,onStatus: function() {
-	}
-	,onProgress: function() {
-	}
-	,onError: function() {
-	}
-	,onComplete: function() {
-	}
-	,onOpen: function() {
-	}
-	,percentLoaded: null
-	,status: null
-	,result: null
-	,loader: null
-	,__class__: RCRequest
-}
-var HTTPRequest = $hxClasses["HTTPRequest"] = function(apiPath) {
-	this.apiPath = apiPath;
-	if(!StringTools.endsWith(apiPath,"/")) this.apiPath += "/";
-	RCRequest.call(this);
-};
-HTTPRequest.__name__ = ["HTTPRequest"];
-HTTPRequest.__super__ = RCRequest;
-HTTPRequest.prototype = $extend(RCRequest.prototype,{
-	call: function(script,variables_list,method) {
-		if(method == null) method = "POST";
-		var variables = new _HTTPRequest.URLVariables();
-		if(variables_list != null) {
-			var _g = 0, _g1 = Reflect.fields(variables_list);
-			while(_g < _g1.length) {
-				var f = _g1[_g];
-				++_g;
-				variables[f] = Reflect.field(variables_list,f);
-			}
-		}
-		this.load(this.apiPath + script,variables,method);
-	}
-	,readDirectory: function(directoryName) {
-		var variables = new _HTTPRequest.URLVariables();
-		variables.path = directoryName;
-		this.load(this.apiPath + "filesystem/readDirectory.php",variables);
-	}
-	,readFile: function(file) {
-		this.load(file);
-	}
-	,apiPath: null
-	,__class__: HTTPRequest
-});
 var JSExternalInterface = $hxClasses["JSExternalInterface"] = function() { }
 JSExternalInterface.__name__ = ["JSExternalInterface"];
 JSExternalInterface.addCallback = function(functionName,closure) {
@@ -1815,14 +1685,8 @@ Main.win = null;
 Main.main = function() {
 	haxe.Firebug.redirectTraces();
 	var mousew = new EVMouse("mousewheel",RCWindow.sharedWindow().target,{ fileName : "Main.hx", lineNumber : 24, className : "Main", methodName : "main"});
-	var colision = GKMath.linesIntersection(new RCPoint(10,10),new RCPoint(100,100),new RCPoint(10,100),new RCPoint(100,10));
-	haxe.Log.trace("colision " + Std.string(colision),{ fileName : "Main.hx", lineNumber : 31, className : "Main", methodName : "main"});
-	return;
 	try {
-		RCWindow.sharedWindow();
-		var group = new RCGroup(200,230,0,null,Main.createRadioButton);
-		RCWindow.sharedWindow().addChild(group);
-		group.add([1,2,3,4,5,5]);
+		haxe.Log.trace("step1 - RCFont, RCTextView",{ fileName : "Main.hx", lineNumber : 32, className : "Main", methodName : "main"});
 		var f = new RCFont();
 		f.color = 16777215;
 		f.font = "Arial";
@@ -1830,65 +1694,81 @@ Main.main = function() {
 		f.embedFonts = false;
 		var t = new RCTextView(50,30,null,null,"HTML5",f);
 		RCWindow.sharedWindow().addChild(t);
-		haxe.Log.trace("t.width " + t.getWidth(),{ fileName : "Main.hx", lineNumber : 47, className : "Main", methodName : "main"});
+		haxe.Log.trace("t.width " + t.getWidth(),{ fileName : "Main.hx", lineNumber : 40, className : "Main", methodName : "main"});
+		haxe.Log.trace("step1 - backgroundColor",{ fileName : "Main.hx", lineNumber : 42, className : "Main", methodName : "main"});
 		Main.win = RCWindow.sharedWindow();
 		Main.win.setBackgroundColor(15724527);
+		haxe.Log.trace("step2 - RCFontManager",{ fileName : "Main.hx", lineNumber : 59, className : "Main", methodName : "main"});
 		RCFontManager.init();
+		haxe.Log.trace("step2 - RCAssets",{ fileName : "Main.hx", lineNumber : 61, className : "Main", methodName : "main"});
 		RCAssets.loadFileWithKey("photo","../assets/900x600.jpg");
 		RCAssets.loadFileWithKey("some_text","../assets/data.txt");
 		RCAssets.loadFileWithKey("Urban","../assets/FFF Urban.ttf");
 		RCAssets.loadFontWithKey("Futu","../assets/FUTUNEBI.TTF");
 		RCAssets.onComplete = Main.testJsFont;
+		haxe.Log.trace("step2 - RCRectangle",{ fileName : "Main.hx", lineNumber : 69, className : "Main", methodName : "main"});
 		var rect = new RCRectangle(0,0,300,150,RCColor.redColor());
 		RCWindow.sharedWindow().addChild(rect);
 		rect.setClipsToBounds(true);
 		rect.setCenter(new RCPoint(RCWindow.sharedWindow().getWidth() / 2,RCWindow.sharedWindow().getHeight() / 2));
+		haxe.Log.trace("step2 - RCImage",{ fileName : "Main.hx", lineNumber : 76, className : "Main", methodName : "main"});
 		Main.ph = new RCImage(1,1,"../assets/900x600.jpg");
 		Main.ph.onComplete = Main.resizePhoto;
 		rect.addChild(Main.ph);
+		haxe.Log.trace("step3 - ellipse",{ fileName : "Main.hx", lineNumber : 81, className : "Main", methodName : "main"});
 		Main.circ = new RCEllipse(0,0,100,100,RCColor.darkGrayColor());
 		RCWindow.sharedWindow().addChild(Main.circ);
 		var size = RCWindow.sharedWindow().size;
-		haxe.Log.trace(size,{ fileName : "Main.hx", lineNumber : 103, className : "Main", methodName : "main"});
-		var a1 = new CATween(Main.circ,{ x : size.width - 100, y : 0},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 104, className : "Main", methodName : "main"});
-		var a2 = new CATween(Main.circ,{ x : size.width - 100, y : size.height - 100},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 105, className : "Main", methodName : "main"});
-		var a3 = new CATween(Main.circ,{ x : 0, y : size.height - 100},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 106, className : "Main", methodName : "main"});
-		var a4 = new CATween(Main.circ,{ x : 0, y : 0},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 107, className : "Main", methodName : "main"});
+		haxe.Log.trace(size,{ fileName : "Main.hx", lineNumber : 96, className : "Main", methodName : "main"});
+		var a1 = new CATween(Main.circ,{ x : size.width - 100, y : 0},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 97, className : "Main", methodName : "main"});
+		var a2 = new CATween(Main.circ,{ x : size.width - 100, y : size.height - 100},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 98, className : "Main", methodName : "main"});
+		var a3 = new CATween(Main.circ,{ x : 0, y : size.height - 100},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 99, className : "Main", methodName : "main"});
+		var a4 = new CATween(Main.circ,{ x : 0, y : 0},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 100, className : "Main", methodName : "main"});
 		var seq = new CASequence([a1,a2,a3,a4]);
 		seq.start();
+		haxe.Log.trace("step5 - line",{ fileName : "Main.hx", lineNumber : 104, className : "Main", methodName : "main"});
 		Main.lin = new RCLine(30,300,400,600,16724736);
 		RCWindow.sharedWindow().addChild(Main.lin);
+		haxe.Log.trace("step6 - Keys",{ fileName : "Main.hx", lineNumber : 109, className : "Main", methodName : "main"});
 		var k = new RCKeyboardController();
 		k.onLeft = Main.moveLeft;
 		k.onRight = Main.moveRight;
-		var m = new EVMouse("mouseover",rect.layer,{ fileName : "Main.hx", lineNumber : 122, className : "Main", methodName : "main"});
+		haxe.Log.trace("step7 - Mouse",{ fileName : "Main.hx", lineNumber : 114, className : "Main", methodName : "main"});
+		var m = new EVMouse("mouseover",rect.layer,{ fileName : "Main.hx", lineNumber : 115, className : "Main", methodName : "main"});
 		m.add(function(_) {
-			haxe.Log.trace("onOver",{ fileName : "Main.hx", lineNumber : 123, className : "Main", methodName : "main"});
+			haxe.Log.trace("onOver",{ fileName : "Main.hx", lineNumber : 116, className : "Main", methodName : "main"});
 		});
+		haxe.Log.trace("step8 - text",{ fileName : "Main.hx", lineNumber : 118, className : "Main", methodName : "main"});
 		Main.testTexts();
+		haxe.Log.trace("step8 - signals",{ fileName : "Main.hx", lineNumber : 120, className : "Main", methodName : "main"});
 		Main.testSignals();
+		haxe.Log.trace("step8 - buttons",{ fileName : "Main.hx", lineNumber : 122, className : "Main", methodName : "main"});
 		Main.testButtons();
+		haxe.Log.trace("step9 - SKSlider",{ fileName : "Main.hx", lineNumber : 132, className : "Main", methodName : "main"});
 		var s = new haxe.SKSlider();
+		haxe.Log.trace("step9 - RCSlider",{ fileName : "Main.hx", lineNumber : 134, className : "Main", methodName : "main"});
 		var sl = new RCSlider(50,250,160,10,s);
 		RCWindow.sharedWindow().addChild(sl);
 		sl.setMaxValue(500);
 		sl.setValue(30);
-		Main.req = new HTTPRequest();
+		haxe.Log.trace("step10 - Http",{ fileName : "Main.hx", lineNumber : 143, className : "Main", methodName : "main"});
+		Main.req = new RCHttp();
 		Main.req.onComplete = function() {
-			haxe.Log.trace("http result " + Main.req.result,{ fileName : "Main.hx", lineNumber : 152, className : "Main", methodName : "main"});
+			haxe.Log.trace("http result " + Main.req.result,{ fileName : "Main.hx", lineNumber : 145, className : "Main", methodName : "main"});
 		};
 		Main.req.onError = function() {
-			haxe.Log.trace("http error " + Main.req.result,{ fileName : "Main.hx", lineNumber : 153, className : "Main", methodName : "main"});
+			haxe.Log.trace("http error " + Main.req.result,{ fileName : "Main.hx", lineNumber : 146, className : "Main", methodName : "main"});
 		};
 		Main.req.onStatus = function() {
-			haxe.Log.trace("http status " + Main.req.status,{ fileName : "Main.hx", lineNumber : 154, className : "Main", methodName : "main"});
+			haxe.Log.trace("http status " + Main.req.status,{ fileName : "Main.hx", lineNumber : 147, className : "Main", methodName : "main"});
 		};
 		Main.req.readFile("../assets/data.txt");
-		var anim = new CATCallFunc(Main.setAlpha_,{ alpha : { fromValue : 0, toValue : 1}},2.8,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 158, className : "Main", methodName : "main"});
+		haxe.Log.trace("step11 - CATCallFunc",{ fileName : "Main.hx", lineNumber : 150, className : "Main", methodName : "main"});
+		var anim = new CATCallFunc(Main.setAlpha_,{ alpha : { fromValue : 0, toValue : 1}},2.8,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 151, className : "Main", methodName : "main"});
 		CoreAnimation.add(anim);
 	} catch( e ) {
 		Fugu.stack();
-		haxe.Log.trace(e,{ fileName : "Main.hx", lineNumber : 162, className : "Main", methodName : "main"});
+		haxe.Log.trace(e,{ fileName : "Main.hx", lineNumber : 155, className : "Main", methodName : "main"});
 	}
 }
 Main.setAlpha_ = function(a) {
@@ -1902,16 +1782,17 @@ Main.testJsFont = function() {
 	f.embedFonts = false;
 	var t = new RCTextView(50,120,null,null,"blah blah blah",f);
 	RCWindow.sharedWindow().addChild(t);
-	haxe.Log.trace("t.width " + t.getWidth(),{ fileName : "Main.hx", lineNumber : 174, className : "Main", methodName : "testJsFont"});
+	haxe.Log.trace("t.width " + t.getWidth(),{ fileName : "Main.hx", lineNumber : 167, className : "Main", methodName : "testJsFont"});
 }
 Main.resizePhoto = function() {
-	haxe.Log.trace("startResizing",{ fileName : "Main.hx", lineNumber : 187, className : "Main", methodName : "resizePhoto"});
-	haxe.Log.trace(Main.ph.getContentSize(),{ fileName : "Main.hx", lineNumber : 202, className : "Main", methodName : "resizePhoto"});
+	haxe.Log.trace("startResizing",{ fileName : "Main.hx", lineNumber : 180, className : "Main", methodName : "resizePhoto"});
+	var ph2 = Main.ph.copy();
+	RCWindow.sharedWindow().addChild(ph2);
+	haxe.Log.trace(Main.ph.getContentSize(),{ fileName : "Main.hx", lineNumber : 195, className : "Main", methodName : "resizePhoto"});
 	var scrollview = new RCScrollView(780,10,300,300);
 	RCWindow.sharedWindow().addChild(scrollview);
-	scrollview.setContentView(Main.ph);
-	return;
-	var anim = new CATween(Main.ph,{ x : { fromValue : -Main.ph.getWidth(), toValue : Main.ph.getWidth()}},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 210, className : "Main", methodName : "resizePhoto"});
+	scrollview.setContentView(ph2);
+	var anim = new CATween(Main.ph,{ x : { fromValue : -Main.ph.getWidth(), toValue : Main.ph.getWidth()}},2,0,caequations.Cubic.IN_OUT,{ fileName : "Main.hx", lineNumber : 202, className : "Main", methodName : "resizePhoto"});
 	anim.repeatCount = 5;
 	anim.autoreverses = true;
 	CoreAnimation.add(anim);
@@ -1928,13 +1809,13 @@ Main.signal = null;
 Main.testSignals = function() {
 	Main.signal = new RCSignal();
 	Main.signal.add(Main.printNr);
-	Main.signal.addOnce(Main.printNr2,{ fileName : "Main.hx", lineNumber : 229, className : "Main", methodName : "testSignals"});
+	Main.signal.addOnce(Main.printNr2,{ fileName : "Main.hx", lineNumber : 221, className : "Main", methodName : "testSignals"});
 	Main.signal.remove(Main.printNr);
 	Main.signal.removeAll();
 	var _g = 0;
 	while(_g < 5) {
 		var i = _g++;
-		Main.signal.dispatch(Math.random(),null,null,null,{ fileName : "Main.hx", lineNumber : 233, className : "Main", methodName : "testSignals"});
+		Main.signal.dispatch(Math.random(),null,null,null,{ fileName : "Main.hx", lineNumber : 225, className : "Main", methodName : "testSignals"});
 	}
 }
 Main.printNr = function(nr) {
@@ -1950,32 +1831,35 @@ Main.testButtons = function() {
 			HXAddress.href("flash.html");
 		};
 		b.onOver = function() {
-			haxe.Log.trace("over",{ fileName : "Main.hx", lineNumber : 253, className : "Main", methodName : "testButtons"});
+			haxe.Log.trace("over",{ fileName : "Main.hx", lineNumber : 245, className : "Main", methodName : "testButtons"});
 		};
 		b.onOut = function() {
-			haxe.Log.trace("out",{ fileName : "Main.hx", lineNumber : 254, className : "Main", methodName : "testButtons"});
+			haxe.Log.trace("out",{ fileName : "Main.hx", lineNumber : 246, className : "Main", methodName : "testButtons"});
 		};
 		b.onPress = function() {
-			haxe.Log.trace("press",{ fileName : "Main.hx", lineNumber : 255, className : "Main", methodName : "testButtons"});
+			haxe.Log.trace("press",{ fileName : "Main.hx", lineNumber : 247, className : "Main", methodName : "testButtons"});
 		};
 		var s1 = new haxe.SKButtonRadio();
-		var b1 = new RCButtonRadio(200,200,s1);
+		var b1 = new RCButtonRadio(50,230,s1);
 		RCWindow.sharedWindow().addChild(b1);
-		var group = new RCGroup(200,230,0,null,Main.createRadioButton);
+		var group = new RCGroup(50,200,0,null,Main.createRadioButton);
 		RCWindow.sharedWindow().addChild(group);
 		group.add([1,2,3,4,5,5]);
+		var seg = new RCSegmentedControl(100,400,640,50,ios.SKSegment);
+		RCWindow.sharedWindow().addChild(seg);
+		seg.initWithLabels(["Masculin","Feminin","123","Label 12345"],false);
+		seg.click.add(Main.segClick);
 	} catch( e ) {
 		Fugu.stack();
 	}
 }
 Main.createRadioButton = function(indexPath) {
 	var s = new haxe.SKButtonRadio();
-	var s1 = new SkinButtonWithText("blah blah",null);
-	var b = new RCButtonRadio(0,0,s1);
+	var b = new RCButtonRadio(0,0,s);
 	return b;
 }
 Main.segClick = function(s) {
-	haxe.Log.trace(s.getSelectedIndex(),{ fileName : "Main.hx", lineNumber : 280, className : "Main", methodName : "segClick"});
+	haxe.Log.trace(s.getSelectedIndex(),{ fileName : "Main.hx", lineNumber : 272, className : "Main", methodName : "segClick"});
 }
 Main.testTexts = function() {
 	try {
@@ -1986,11 +1870,11 @@ Main.testTexts = function() {
 		f.embedFonts = false;
 		var t = new RCTextView(50,30,null,null,"HTML5",f);
 		RCWindow.sharedWindow().addChild(t);
-		haxe.Log.trace("t.width " + t.getWidth(),{ fileName : "Main.hx", lineNumber : 292, className : "Main", methodName : "testTexts"});
+		haxe.Log.trace("t.width " + t.getWidth(),{ fileName : "Main.hx", lineNumber : 284, className : "Main", methodName : "testTexts"});
 		var f2 = f.copy();
 		f2.color = 16777215;
 		f2.size = 16;
-		var r = new RCTextRoll(50,60,200,null,"We are working on the HTML5 version of the gallery...",f2);
+		var r = new RCTextRoll(50,60,200,null,"What's this fuss about true randomness?",f2);
 		RCWindow.sharedWindow().addChild(r);
 		r.start();
 		r.setBackgroundColor(16724736);
@@ -2071,7 +1955,7 @@ RCAssets.prototype = {
 		case "RCImage":
 			this.imagesList.set(key,obj);
 			break;
-		case "HTTPRequest":
+		case "RCHttp":
 			this.dataList.set(key,obj.result);
 			break;
 		case "RCSwf":
@@ -2100,7 +1984,7 @@ RCAssets.prototype = {
 	}
 	,loadText: function(key,URL) {
 		var _g = this;
-		var data = new HTTPRequest();
+		var data = new RCHttp();
 		if(data.result == null) {
 			data.onProgress = (function(f,a1,a2) {
 				return function() {
@@ -3001,6 +2885,116 @@ RCGroup.prototype = $extend(JSView.prototype,{
 	,constructor_: null
 	,items: null
 	,__class__: RCGroup
+});
+var _RCHttp = _RCHttp || {}
+_RCHttp.URLVariables = $hxClasses["_RCHttp.URLVariables"] = function() {
+};
+_RCHttp.URLVariables.__name__ = ["_RCHttp","URLVariables"];
+_RCHttp.URLVariables.prototype = {
+	__class__: _RCHttp.URLVariables
+}
+var RCRequest = $hxClasses["RCRequest"] = function() {
+};
+RCRequest.__name__ = ["RCRequest"];
+RCRequest.prototype = {
+	destroy: function() {
+		this.removeListeners(this.loader);
+		this.loader = null;
+	}
+	,ioErrorHandler: function(e) {
+		this.result = e;
+		this.onError();
+	}
+	,httpStatusHandler: function(e) {
+		this.status = e;
+		this.onStatus();
+	}
+	,securityErrorHandler: function(e) {
+		this.result = e;
+		this.onError();
+	}
+	,progressHandler: function(e) {
+	}
+	,completeHandler: function(e) {
+		this.result = e;
+		if(this.result.indexOf("error::") != -1) {
+			this.result = this.result.split("error::").pop();
+			this.onError();
+		} else this.onComplete();
+	}
+	,openHandler: function(e) {
+		this.onOpen();
+	}
+	,removeListeners: function(dispatcher) {
+		dispatcher.onData = null;
+		dispatcher.onError = null;
+		dispatcher.onStatus = null;
+	}
+	,addListeners: function(dispatcher) {
+		dispatcher.onData = $bind(this,this.completeHandler);
+		dispatcher.onError = $bind(this,this.securityErrorHandler);
+		dispatcher.onStatus = $bind(this,this.httpStatusHandler);
+	}
+	,load: function(URL,variables,method) {
+		if(method == null) method = "POST";
+		this.loader = new haxe.Http(URL);
+		this.loader.async = true;
+		var _g = 0, _g1 = Reflect.fields(variables);
+		while(_g < _g1.length) {
+			var key = _g1[_g];
+			++_g;
+			this.loader.setParameter(key,Reflect.field(variables,key));
+		}
+		this.addListeners(this.loader);
+		this.loader.request(method == "POST"?true:false);
+	}
+	,onStatus: function() {
+	}
+	,onProgress: function() {
+	}
+	,onError: function() {
+	}
+	,onComplete: function() {
+	}
+	,onOpen: function() {
+	}
+	,percentLoaded: null
+	,status: null
+	,result: null
+	,loader: null
+	,__class__: RCRequest
+}
+var RCHttp = $hxClasses["RCHttp"] = function(apiPath) {
+	this.apiPath = apiPath;
+	if(apiPath != null && !StringTools.endsWith(apiPath,"/")) this.apiPath += "/";
+	RCRequest.call(this);
+};
+RCHttp.__name__ = ["RCHttp"];
+RCHttp.__super__ = RCRequest;
+RCHttp.prototype = $extend(RCRequest.prototype,{
+	call: function(script,variables_list,method) {
+		if(method == null) method = "POST";
+		var variables = new _RCHttp.URLVariables();
+		if(variables_list != null) {
+			var _g = 0, _g1 = Reflect.fields(variables_list);
+			while(_g < _g1.length) {
+				var f = _g1[_g];
+				++_g;
+				variables[f] = Reflect.field(variables_list,f);
+			}
+		}
+		this.load(this.apiPath + script,variables,method);
+	}
+	,readDirectory: function(directoryName) {
+		var variables = new _RCHttp.URLVariables();
+		variables.path = directoryName;
+		this.load(this.apiPath + "filesystem/readDirectory.php",variables);
+	}
+	,readFile: function(file) {
+		this.load(file);
+	}
+	,apiPath: null
+	,__class__: RCHttp
 });
 var RCImage = $hxClasses["RCImage"] = function(x,y,URL) {
 	JSView.call(this,x,y);
@@ -4553,30 +4547,6 @@ Reflect.makeVarArgs = function(f) {
 		return f(a);
 	};
 }
-var SkinButtonWithText = $hxClasses["SkinButtonWithText"] = function(label_str,colors) {
-	RCSkin.call(this,colors);
-	var format = RCFont.systemFontOfSize(12);
-	var formatHighlighted = format.copy();
-	formatHighlighted.color = 3355443;
-	this.normal.label = new RCTextView(0,0,null,null,label_str,format);
-	this.normal.label.viewDidAppear.add($bind(this,this.viewDidAppear_));
-	this.highlighted.label = new RCTextView(0,0,null,null,label_str,formatHighlighted);
-	this.normal.background = new RCRectangle(0,0,this.normal.label.getWidth(),this.normal.label.getHeight(),16777215,0);
-	this.hit = new RCRectangle(0,0,this.normal.label.getWidth(),this.normal.label.getHeight(),16777215,0);
-};
-SkinButtonWithText.__name__ = ["SkinButtonWithText"];
-SkinButtonWithText.__super__ = RCSkin;
-SkinButtonWithText.prototype = $extend(RCSkin.prototype,{
-	viewDidAppear_: function() {
-		haxe.Log.trace("bg appear " + this.normal.label.getWidth(),{ fileName : "SkinButtonWithText.hx", lineNumber : 33, className : "SkinButtonWithText", methodName : "viewDidAppear_"});
-		this.normal.background.size = this.normal.label.getContentSize();
-		this.hit.size = this.normal.label.getContentSize();
-		(js.Boot.__cast(this.normal.background , RCRectangle)).redraw();
-		(js.Boot.__cast(this.hit , RCRectangle)).redraw();
-		this.normal.label.viewDidAppear.removeAll();
-	}
-	,__class__: SkinButtonWithText
-});
 var Std = $hxClasses["Std"] = function() { }
 Std.__name__ = ["Std"];
 Std["is"] = function(v,t) {

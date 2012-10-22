@@ -1,0 +1,7 @@
+
+-swf Samples/GameKit/test.swf
+-swf-version 9
+-swf-header 1000:600:60:dddddd
+-cp Samples/GameKit
+all.hxml
+-main Main

@@ -55,9 +55,9 @@ class Main {
 	}
 	
 	
-/*	static var req :HTTPRequest;
+/*	static var req :RCHttp;
 	static function testTheDeals () {
-		req = new HTTPRequest("http://thedeals.ro/api/categories");
+		req = new RCHttp("http://thedeals.ro/api/categories");
 		req.onComplete = onC;
 		req.call ("", {api_key:"0e54c11ddbf9f29570a9cbf3c6709059", api_sig:"zguxoqlek6l1vuzo"});
 	}

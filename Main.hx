@@ -63,7 +63,7 @@ import RCSwf;
 import RCVideo;
 
 // Network
-import HTTPRequest;
+import RCHttp;
 import HTTPTokenizedRequest;
 import RCFileSystem;
 import RCFileTransfer;

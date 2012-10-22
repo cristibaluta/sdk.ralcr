@@ -1,11 +1,12 @@
--js Samples/HTML5/test.js
--cp Samples/HTML5
+-js Samples/UIKit/test.js
+-cp Samples/UIKit
 all.hxml
 -main Main
 
 --next
--swf Samples/HTML5/test.swf
+-swf Samples/UIKit/test.swf
+-swf-version 9
 -swf-header 1000:600:60:dddddd
--cp Samples/HTML5
+-cp Samples/UIKit
 all.hxml
 -main Main

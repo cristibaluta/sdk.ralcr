@@ -21,7 +21,7 @@
 
 
 
-class RCFileSystem extends HTTPRequest {
+class RCFileSystem extends RCHttp {
 	
 	public function new (apiPath:String) {
 		super ( apiPath );

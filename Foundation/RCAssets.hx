@@ -129,7 +129,7 @@ class RCAssets {
 	}
 	function loadText (key:String, URL:String) :Void {
 		//trace("load text "+key+", "+URL);
-		var data = new HTTPRequest();
+		var data = new RCHttp();
 		#if nme
 			// Search for the asset in NME library first
 			data.result = nme.Assets.getText ( URL );
@@ -187,7 +187,7 @@ class RCAssets {
 		// RCImage has some static fields that is causing Type.getClass to return a complex type
 		switch (Type.getClassName(Type.getClass(obj))) {
 			case "RCImage" : imagesList.set ( key, obj );
-			case "HTTPRequest" : dataList.set ( key, obj.result );
+			case "RCHttp" : dataList.set ( key, obj.result );
 			case "RCSwf" : swfList.set ( key, obj );
 			default : trace("This asset is not added to any list. key="+key);
 		}
