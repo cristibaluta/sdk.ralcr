@@ -26,7 +26,8 @@ class Main {
 			//mousew.remove ( wheelHandler );
 			//mousew.destroy();
 		
-		
+			try {
+			}
 		try{
 			
 		trace("step1 - RCFont, RCTextView");

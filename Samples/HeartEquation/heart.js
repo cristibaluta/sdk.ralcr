@@ -277,10 +277,11 @@ RCSignal.prototype = {
 		return false;
 	}
 	,callMethod: function(listener,args,pos) {
+		haxe.Log.trace("call method with args:",{ fileName : "RCSignal.hx", lineNumber : 70, className : "RCSignal", methodName : "callMethod", customParams : [args]});
 		try {
 			listener.apply(null,args);
 		} catch( e ) {
-			haxe.Log.trace("[RCSignal error: " + Std.string(e) + ", called from: " + Std.string(pos) + "]",{ fileName : "RCSignal.hx", lineNumber : 74, className : "RCSignal", methodName : "callMethod"});
+			haxe.Log.trace("[RCSignal error: " + Std.string(e) + ", called from: " + Std.string(pos) + "]",{ fileName : "RCSignal.hx", lineNumber : 75, className : "RCSignal", methodName : "callMethod"});
 			Fugu.stack();
 		}
 	}
@@ -1668,8 +1669,8 @@ RCRectangle.prototype = $extend(RCDraw.prototype,{
 		return w;
 	}
 	,redraw: function() {
-		var fillColorStyle = (js.Boot.__cast(this.color , RCColor)).fillColorStyle;
-		var strokeColorStyle = (js.Boot.__cast(this.color , RCColor)).strokeColorStyle;
+		var fillColorStyle = this.color.fillColorStyle;
+		var strokeColorStyle = this.color.strokeColorStyle;
 		this.layer.style.margin = "0px 0px 0px 0px";
 		this.layer.style.width = this.size.width * RCDevice.currentDevice().dpiScale + "px";
 		this.layer.style.height = this.size.height * RCDevice.currentDevice().dpiScale + "px";

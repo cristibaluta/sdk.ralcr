@@ -28,6 +28,7 @@ class RCLog {
 	public static function trace (v : Dynamic, ?inf : haxe.PosInfos) : Void
 	{
 		#if js
+			// IE < 9 does not support console.log
 			if (RCDevice.currentDevice().userAgent == MSIE) return;
 		#end
 		if ( ALLOW_TRACES_FROM.length == 0 ) {

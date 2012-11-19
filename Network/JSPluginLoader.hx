@@ -68,9 +68,15 @@ class JSPluginLoader {
 	public static function exists (filename:String) :Bool
 	{
 		var element = (filename.indexOf(".js") != -1) ? "script" : (filename.indexOf(".css") != -1) ? "link" : "none";
+		trace(element);
 		var attr = (filename.indexOf(".js") != -1)? "src" : (filename.indexOf(".css") != -1) ? "href" : "none";
+		trace(attr);
 		var collection :HtmlCollection<HtmlDom> = js.Lib.document.getElementsByTagName( element );
+		trace(collection);
 		for (i in 0...collection.length) {
+			trace(collection[i]);
+			trace(collection[i].getAttribute(attr));
+			trace(collection[i].getAttribute(attr));
 			if (collection[i].getAttribute(attr) != null && collection[i].getAttribute(attr).indexOf(filename) != -1)
 				return true;
 		}

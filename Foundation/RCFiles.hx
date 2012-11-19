@@ -30,6 +30,14 @@ class RCFiles {
 		return new RCFiles ( str.split ("[FILES::").pop().split ("::FILES]").shift().split ( separator ));
 	}
 	
+	/**
+	*  If it's not a known file means it's a directory
+	*/
+	public static function isDirectory (file:String) :Bool {
+		return ! file.isIn (PHOTOS.concat(MUSIC).concat(FLASH).concat(VIDEOS).concat(TEXT).concat(PANO2VR), "end");
+	}
+	
+	
 	
 	public function new (files:Array<String>) {
 		
@@ -82,14 +90,6 @@ class RCFiles {
 			dir.push ( file );
 		}
 	}
-	
-	/**
-	*  If it's not a known file means it's a directory
-	*/
-	public static function isDirectory (file:String) :Bool {
-		return ! file.isIn (PHOTOS.concat(MUSIC).concat(FLASH).concat(VIDEOS).concat(TEXT).concat(PANO2VR), "end");
-	}
-	
 	
 	public function toString():String {
 		return "[Files:\ndir: "+dir+

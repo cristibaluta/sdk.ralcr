@@ -35,8 +35,8 @@ class RCRectangle extends RCDraw, implements RCDrawInterface {
 		
 #elseif js
 		
-		var fillColorStyle = cast (color, RCColor).fillColorStyle;
-		var strokeColorStyle = cast (color, RCColor).strokeColorStyle;
+		var fillColorStyle :Null<Int> = color.fillColorStyle;
+		var strokeColorStyle :Null<Int> = color.strokeColorStyle;
 		
 		layer.style.margin = "0px 0px 0px 0px";
 		layer.style.width = size.width * RCDevice.currentDevice().dpiScale + "px";
