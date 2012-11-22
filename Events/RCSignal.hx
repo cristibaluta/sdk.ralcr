@@ -67,7 +67,7 @@ class RCSignal<T> {
 		}
 	}
 	function callMethod (listener:T, ?args:Array<Dynamic>, ?pos:haxe.PosInfos) {
-		trace("call method with args:", args);
+		
 		try {
 			Reflect.callMethod (null, listener, args);
 		}
