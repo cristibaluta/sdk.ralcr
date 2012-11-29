@@ -227,10 +227,7 @@ class RCImage extends RCView {
 		#if (flash || nme)
 			loader.contentLoaderInfo.addEventListener (Event.COMPLETE, completeHandler);
 			loader.contentLoaderInfo.addEventListener (ProgressEvent.PROGRESS, progressHandler);
-			// Bug, NME doesn't have error field
-			#if !nme
 			loader.contentLoaderInfo.addEventListener (ErrorEvent.ERROR, errorHandler);
-			#end
 			loader.contentLoaderInfo.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 		#elseif js
 			loader.onload = completeHandler;
@@ -242,9 +239,7 @@ class RCImage extends RCView {
 		#if (flash || nme)
 			loader.contentLoaderInfo.removeEventListener (Event.COMPLETE, completeHandler);
 			loader.contentLoaderInfo.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
-			#if !nme
 			loader.contentLoaderInfo.removeEventListener (ErrorEvent.ERROR, errorHandler);
-			#end
 			loader.contentLoaderInfo.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 		#elseif js
 			loader.onload = null;

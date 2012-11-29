@@ -18,6 +18,7 @@ class RCWedge extends RCDraw, implements RCDrawInterface {
 	
 	
 	public function new (x, y, w, h, color:Dynamic, alpha:Float=1.0, arc:Int) {
+		
 		super (x, y, w, h, color, alpha);
 		
 		this.arc = arc;

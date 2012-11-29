@@ -27,5 +27,6 @@ class Main {
 		RCWindow.sharedWindow().addChild ( new RCDashedLine (10, 200, 300, 1, 0x333333, 1,  10, 2) );
 		RCWindow.sharedWindow().addChild ( new RCDashedLine (10, 200, 3, 300, 0x333333, 1,  10, null) );
 		RCWindow.sharedWindow().addChild ( new RCLine(10, 200, 300, 500, 0x333333, .6, 1) );
+		RCWindow.sharedWindow().addChild ( new RCWedge(10, 200, 300,300, 0x333333, .6, 70) );
 	}
 }

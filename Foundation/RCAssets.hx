@@ -1,7 +1,7 @@
 //
 //	RCAssets.hx
 //	Foundation
-//  Lib to load external swfs, images, fonts...
+//  Lib to load external swfs, images, fonts... into an async way
 //	
 //
 //  Created by Baluta Cristian on 2009-01-09.
@@ -185,14 +185,20 @@ class RCAssets {
 	function completeHandler (key:String, obj:Dynamic) :Void {
 		//trace("completeHandler for key: '"+key+"' with object: "+obj);
 		// RCImage has some static fields that is causing Type.getClass to return a complex type
-		switch (Type.getClassName(Type.getClass(obj))) {
+		// instead a simple class name
+		var class_name = Type.getClassName ( Type.getClass ( obj));
+		switch (class_name) {
 			case "RCImage" : imagesList.set ( key, obj );
 			case "RCHttp" : dataList.set ( key, obj.result );
 			case "RCSwf" : swfList.set ( key, obj );
-			default : trace("This asset is not added to any list. key="+key);
+			default : trace("Asset not supported: key="+key+", class_name="+class_name);
 		}
 		onCompleteHandler();
 	}
+	
+	/**
+	 *  Count the total assets loaded
+	 **/
 	function onCompleteHandler () :Void {
 		nr ++;
 		if (nr >= max)

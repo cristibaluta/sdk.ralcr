@@ -1,4 +1,11 @@
-// The properties a display object must have
+//
+//  RCDisplayObject.hx
+//	UIKit
+//	A view interface, implement this for each target
+//
+//	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
+//
+
 
 class RCDisplayObject {
 	

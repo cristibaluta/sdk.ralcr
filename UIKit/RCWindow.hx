@@ -6,7 +6,9 @@
 //  Updated 2008-2012 http://ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-// RCWindow is the main RCView of the application. It has some suplimentar properties
+// RCWindow is the main view of the application and can be only one.
+// It has some suplimentar properties than the RCView
+// Note:
 // NME crashes if you're trying to init some static variables.
 
 #if (flash || nme)
@@ -15,6 +17,8 @@
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.display.StageDisplayState;
+#elseif objc
+	import objc.ios.ui.UIView;
 #elseif js
 	import js.Dom;
 #end
@@ -45,6 +49,12 @@ class RCWindow extends RCView {
 	
 	
 	public function new (id:String) {
+		
+		if (sharedWindow_ != null) {
+			var err = "RCWindow is a singletone, create and access it with RCWindow.sharedWindow(?id)";
+			trace ( err );
+			throw err;
+		}
 		
 		super (0.0, 0.0, 0.0, 0.0);
 		
@@ -81,8 +91,9 @@ class RCWindow extends RCView {
 	}
 	
 	
-	// JS can permit to change the container of the RCWindow, which is the main view of the app
-	
+	/**
+	* JS can permit to change the target of the RCWindow
+	*/
 	public function setTarget (id:String) :Void {
 		#if js
 			
@@ -117,14 +128,14 @@ class RCWindow extends RCView {
 			
 			if (color == null) {
 				target.style.background = null;
-				return color;
 			}
-			
-			var red   = (color & 0xff0000) >> 16;
-			var green = (color & 0xff00) >> 8;
-			var blue  = color & 0xFF;
-			var alpha = 1;
-			target.style.background = "rgba("+red+","+green+","+blue+","+alpha+")";
+			else {
+				var red   = (color & 0xff0000) >> 16;
+				var green = (color & 0xff00) >> 8;
+				var blue  = color & 0xFF;
+				var alpha = 1;
+				target.style.background = "rgba("+red+","+green+","+blue+","+alpha+")";
+			}
 			
 		#end
 		
@@ -210,19 +221,10 @@ class RCWindow extends RCView {
 	
 	
 	/**
-	 *	Add and remove views
-	 */
-/*	override public function addChild (child:RCView) :Void {
-		
-	}
-	override public function removeChild (child:RCView) :Void {
-		
-	}*/
-	
-	
-	/**
 	 *  Add or remove a modal view controller
 	 *  Only one can exist at a given time
+	 *  It requires any RCView but is your responsability to dismiss it
+	 *  When the fade out animation finishes it is destroyed
 	 **/
 	public function addModalViewController (view:RCView) :Void {
 		modalView = view;
@@ -237,7 +239,7 @@ class RCWindow extends RCView {
 			anim.delegate.animationDidStop = destroyModalViewController;
 		CoreAnimation.add ( anim );
 	}
-	public function destroyModalViewController () :Void {
+	private function destroyModalViewController () :Void {
 		modalView.destroy();
 		modalView = null;
 	}
@@ -254,7 +256,7 @@ class RCWindow extends RCView {
 		return Math.round (height/2 - h/RCDevice.currentDevice().dpiScale/2);
 	}
 	
-	override public function toString():String {
+	override public function toString () :String {
 		return "[RCWindow target="+target+"]";
 	}
 }

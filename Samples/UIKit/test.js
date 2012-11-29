@@ -348,7 +348,6 @@ RCSignal.prototype = {
 		return false;
 	}
 	,callMethod: function(listener,args,pos) {
-		haxe.Log.trace("call method with args:",{ fileName : "RCSignal.hx", lineNumber : 70, className : "RCSignal", methodName : "callMethod", customParams : [args]});
 		try {
 			listener.apply(null,args);
 		} catch( e ) {
@@ -1932,7 +1931,7 @@ RCAssets.prototype = {
 		if(returnAsBitmap == null) returnAsBitmap = true;
 		RCAssets.init();
 		if(this.imagesList.exists(key)) return this.imagesList.get(key).copy(); else if(this.dataList.exists(key)) return this.dataList.get(key); else if(this.swfList.exists(key)) return this.swfList.get(key);
-		haxe.Log.trace("Asset with key: " + key + "  was not found.",{ fileName : "RCAssets.hx", lineNumber : 258, className : "RCAssets", methodName : "get"});
+		haxe.Log.trace("Asset with key: " + key + "  was not found.",{ fileName : "RCAssets.hx", lineNumber : 264, className : "RCAssets", methodName : "get"});
 		return null;
 	}
 	,totalProgress: function() {
@@ -1952,7 +1951,8 @@ RCAssets.prototype = {
 		if(this.nr >= this.max) RCAssets.onComplete();
 	}
 	,completeHandler: function(key,obj) {
-		switch(Type.getClassName(Type.getClass(obj))) {
+		var class_name = Type.getClassName(Type.getClass(obj));
+		switch(class_name) {
 		case "RCImage":
 			this.imagesList.set(key,obj);
 			break;
@@ -1963,7 +1963,7 @@ RCAssets.prototype = {
 			this.swfList.set(key,obj);
 			break;
 		default:
-			haxe.Log.trace("This asset is not added to any list. key=" + key,{ fileName : "RCAssets.hx", lineNumber : 192, className : "RCAssets", methodName : "completeHandler"});
+			haxe.Log.trace("Asset not supported: key=" + key + ", class_name=" + class_name,{ fileName : "RCAssets.hx", lineNumber : 194, className : "RCAssets", methodName : "completeHandler"});
 		}
 		this.onCompleteHandler();
 	}
@@ -4356,6 +4356,11 @@ RCTextView.prototype = $extend(JSView.prototype,{
 	,__properties__: $extend(JSView.prototype.__properties__,{set_text:"setText",get_text:"getText"})
 });
 var RCWindow = $hxClasses["RCWindow"] = function(id) {
+	if(RCWindow.sharedWindow_ != null) {
+		var err = "RCWindow is a singletone, create and access it with RCWindow.sharedWindow(?id)";
+		haxe.Log.trace(err,{ fileName : "RCWindow.hx", lineNumber : 55, className : "RCWindow", methodName : "new"});
+		throw err;
+	}
 	JSView.call(this,0.0,0.0,0.0,0.0);
 	this.stage = js.Lib.document;
 	this.setTarget(id);
@@ -4386,14 +4391,14 @@ RCWindow.prototype = $extend(JSView.prototype,{
 	}
 	,dismissModalViewController: function() {
 		if(this.modalView == null) return;
-		var anim = new CATween(this.modalView,{ y : this.getHeight()},0.3,0,caequations.Cubic.IN,{ fileName : "RCWindow.hx", lineNumber : 236, className : "RCWindow", methodName : "dismissModalViewController"});
+		var anim = new CATween(this.modalView,{ y : this.getHeight()},0.3,0,caequations.Cubic.IN,{ fileName : "RCWindow.hx", lineNumber : 238, className : "RCWindow", methodName : "dismissModalViewController"});
 		anim.delegate.animationDidStop = $bind(this,this.destroyModalViewController);
 		CoreAnimation.add(anim);
 	}
 	,addModalViewController: function(view) {
 		this.modalView = view;
 		this.modalView.setX(0);
-		CoreAnimation.add(new CATween(this.modalView,{ y : { fromValue : this.getHeight(), toValue : 0}},0.5,0,caequations.Cubic.IN_OUT,{ fileName : "RCWindow.hx", lineNumber : 231, className : "RCWindow", methodName : "addModalViewController"}));
+		CoreAnimation.add(new CATween(this.modalView,{ y : { fromValue : this.getHeight(), toValue : 0}},0.5,0,caequations.Cubic.IN_OUT,{ fileName : "RCWindow.hx", lineNumber : 233, className : "RCWindow", methodName : "addModalViewController"}));
 		this.addChild(this.modalView);
 	}
 	,supportsFullScreen: function() {
@@ -4434,15 +4439,13 @@ RCWindow.prototype = $extend(JSView.prototype,{
 	}
 	,fsprefix: null
 	,setBackgroundColor: function(color) {
-		if(color == null) {
-			this.target.style.background = null;
-			return color;
+		if(color == null) this.target.style.background = null; else {
+			var red = (color & 16711680) >> 16;
+			var green = (color & 65280) >> 8;
+			var blue = color & 255;
+			var alpha = 1;
+			this.target.style.background = "rgba(" + red + "," + green + "," + blue + "," + alpha + ")";
 		}
-		var red = (color & 16711680) >> 16;
-		var green = (color & 65280) >> 8;
-		var blue = color & 255;
-		var alpha = 1;
-		this.target.style.background = "rgba(" + red + "," + green + "," + blue + "," + alpha + ")";
 		return color;
 	}
 	,setTarget: function(id) {
@@ -4460,7 +4463,7 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		}
 		this.size.width = this.target.scrollWidth;
 		this.size.height = this.target.scrollHeight;
-		haxe.Log.trace(this.size,{ fileName : "RCWindow.hx", lineNumber : 109, className : "RCWindow", methodName : "setTarget"});
+		haxe.Log.trace(this.size,{ fileName : "RCWindow.hx", lineNumber : 120, className : "RCWindow", methodName : "setTarget"});
 		this.target.appendChild(this.layer);
 	}
 	,resizeHandler: function(w,h) {
