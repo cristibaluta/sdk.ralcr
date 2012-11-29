@@ -88,6 +88,24 @@ class RCImage extends RCView {
 	}
 #end
 	
+	public static function imageWithRegionOfImage (rect:RCRect, image:RCImage) :RCImage {
+		
+#if (flash || nme)
+		
+		var color = #if neko {rgb:0x000000, a:0} #else 0x000000ff #end ;
+		var bitmapData = new BitmapData (Math.round(rect.size.width), Math.round(rect.size.height), true, color);
+			bitmapData.draw ( image.bitmapData );
+		var bitmap = new Bitmap (bitmapData, PixelSnapping.AUTO, true);
+		
+		var im = new RCImage (rect.origin.x, rect.origin.y, null);
+			im.layer.addChild ( bitmap );
+		return im;
+		
+#elseif js
+	
+		return null;
+#end
+	}
 	
 	
 	

@@ -91,6 +91,7 @@ class RCAssets {
 			loadSwf (key, URL, newDomain);
 		}
 		else if(URL.toLowerCase().indexOf(".xml") != -1 ||
+				URL.toLowerCase().indexOf(".plist") != -1 ||
 				URL.toLowerCase().indexOf(".txt") != -1 ||
 				URL.toLowerCase().indexOf(".css") != -1)
 		{
@@ -114,7 +115,7 @@ class RCAssets {
 		return true;
 	}
 	function loadPhoto (key:String, URL:String) :Void {
-		trace("load photo "+key+", "+URL);
+		//trace("load photo "+key+", "+URL);
 		var photo = new RCImage (0, 0, URL);
 			photo.onProgress = callback (progressHandler, key, photo);
 			photo.onComplete = callback (completeHandler, key, photo);
@@ -172,7 +173,7 @@ class RCAssets {
 	*  Dispatch onComplete and onError events
 	*/
 	function errorHandler (key:String, media:Dynamic) :Void {
-		//trace("Error loading URL for key: '"+key+"' with object: "+media);
+		trace("Error loading URL for key: '"+key+"' with object: "+media);
 		max --;
 		onError();
 		if (nr >= max)
@@ -183,7 +184,7 @@ class RCAssets {
 		totalProgress();
 	}
 	function completeHandler (key:String, obj:Dynamic) :Void {
-		//trace("completeHandler for key: '"+key+"' with object: "+obj);
+		trace("completeHandler for key: '"+key+"' with object: "+obj);
 		// RCImage has some static fields that is causing Type.getClass to return a complex type
 		// instead a simple class name
 		var class_name = Type.getClassName ( Type.getClass ( obj));
