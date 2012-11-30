@@ -6,8 +6,12 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-import flash.display.MovieClip;
-import flash.display.Sprite;
+#if (flash || nme || cpp)
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+#elseif js
+	private typedef MovieClip = Dynamic;
+#end
 
 
 class GKSprite extends RCView {
@@ -26,14 +30,14 @@ class GKSprite extends RCView {
 	public var isOnGround :Bool;
 	public var collisionArea :MovieClip;
 	
-	public var layer2 :Sprite;
+	public var layer2 :RCView;
 	public var registrationPoint (default, setRegistrationPoint) :RCPoint;
 	
 	
 	public function new (x, y) {
 		super(x, y);
-		this.layer2 = new Sprite();
-		this.layer.addChild ( layer2 );
+		this.layer2 = new RCView(0, 0);
+		this.addChild ( layer2 );
 	}
 
 	public function setRegistrationPoint (point:RCPoint) :RCPoint {

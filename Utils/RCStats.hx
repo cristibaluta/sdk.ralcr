@@ -17,12 +17,14 @@ class RCStats extends RCRectangle {
 	
 	
 	public function new (?x=0, ?y=0) {
+		
 		super (x, y, 152, 18, 0xffffff, 0.9, 16);
+		
 		addChild ( new RCRectangle (1, 1, 150, 16, 0x333333, 0.3, 16) );
 		
 		var f = RCFont.systemFontOfSize(12);
-			f.color = 0xffffff;
-		txt = new RCTextView (6, #if flash 1 #else 3 #end, null, 20, "Calculating...", f);
+			f.color = 0x333333;
+		txt = new RCTextView (6, #if (flash || nme || cpp || neko) 1 #else 3 #end, null, 20, "Calculating...", f);
 		addChild ( txt );
 		
 		last = CoreAnimation.timestamp();
@@ -39,7 +41,7 @@ class RCStats extends RCRectangle {
 			fps = Math.round (ticks / delta * 1000);
 			ticks = 0;
 			last = now;
-			#if flash
+			#if (flash || nme || cpp || neko)
 				currMemory = Math.round ( flash.system.System.totalMemory / (1024*1024) );
 			#end
 			txt.text = fps + " FPS,  " + currMemory + " Mbytes";

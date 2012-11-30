@@ -39,8 +39,9 @@ class CADelegate {
 	}
 	
 	public function stop () :Void {
+		// TODO: .apply is not working on Mac and ios with NME
 		if (Reflect.isFunction( animationDidStop )) {
-			try{ animationDidStop.apply (null, arguments); }catch(e:Dynamic){
+			try{ animationDidStop/*.apply*/ (null, arguments); }catch(e:Dynamic){
 				trace(e);
 				trace(pos.className + " -> " + pos.methodName + " -> " + pos.lineNumber);
 				var stack = haxe.Stack.exceptionStack();

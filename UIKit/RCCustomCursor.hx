@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
+#if (flash || nme || cpp || neko)
 	import flash.ui.Mouse;
 #elseif js
 	import js.Dom;
@@ -22,7 +22,9 @@ class RCCustomCursor extends RCView {
 	
 	
 	public function new (target:Dynamic) {
+		
 		super (0, 0);
+		
 		this.target = target;
 		
 		//Stage.MC.addEventListener (Event.MOUSE_LEAVE, hideCustomCursor);
@@ -35,7 +37,8 @@ class RCCustomCursor extends RCView {
 	 *  @param obj : for flash can be a RCView, for js should be a String path to an image
 	 **/
 	public function draw (obj:Dynamic) :Void {
-		#if flash
+		
+		#if (flash || nme || cpp || neko)
 			Fugu.safeRemove ( cursor );
 			cursor = obj;
 			cursor.layer.mouseEnabled = false;
@@ -52,7 +55,7 @@ class RCCustomCursor extends RCView {
 	
 	function moveHandler (e:EVMouse) :Void {
 		//if (!cursor.visible) cursor.visible = true;
-		#if flash
+		#if (flash || nme || cpp || neko)
 			setX ( e.e.stageX );
 			setY ( e.e.stageY );
 			e.updateAfterEvent();
@@ -63,7 +66,7 @@ class RCCustomCursor extends RCView {
 	}*/
 	
 	override public function destroy () :Void {
-		#if flash
+		#if (flash || nme || cpp || neko)
 			Mouse.hide();
 		#elseif js
 			js.Lib.document.body.style.cursor = "auto";

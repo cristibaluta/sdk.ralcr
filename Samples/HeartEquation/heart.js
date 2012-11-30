@@ -16,7 +16,7 @@ CADelegate.prototype = {
 		if(Reflect.isFunction(this.kenBurnsBeginsFadingOut)) try {
 			this.kenBurnsBeginsFadingOut.apply(null,this.kenBurnsArgs);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 66, className : "CADelegate", methodName : "kbOut"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 67, className : "CADelegate", methodName : "kbOut"});
 		}
 	}
 	,kbIn: function() {
@@ -24,24 +24,25 @@ CADelegate.prototype = {
 		if(Reflect.isFunction(this.kenBurnsDidFadedIn)) try {
 			this.kenBurnsDidFadedIn.apply(null,this.kenBurnsArgs);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 60, className : "CADelegate", methodName : "kbIn"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 61, className : "CADelegate", methodName : "kbIn"});
 		}
 	}
 	,repeat: function() {
 		if(Reflect.isFunction(this.animationDidReversed)) try {
 			this.animationDidReversed.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 54, className : "CADelegate", methodName : "repeat"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 55, className : "CADelegate", methodName : "repeat"});
 		}
 	}
 	,stop: function() {
+		haxe.Log.trace(this.animationDidStop,{ fileName : "CADelegate.hx", lineNumber : 42, className : "CADelegate", methodName : "stop"});
 		if(Reflect.isFunction(this.animationDidStop)) try {
-			this.animationDidStop.apply(null,this.arguments);
+			this.animationDidStop(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 44, className : "CADelegate", methodName : "stop"});
-			haxe.Log.trace(this.pos.className + " -> " + this.pos.methodName + " -> " + this.pos.lineNumber,{ fileName : "CADelegate.hx", lineNumber : 45, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 45, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(this.pos.className + " -> " + this.pos.methodName + " -> " + this.pos.lineNumber,{ fileName : "CADelegate.hx", lineNumber : 46, className : "CADelegate", methodName : "stop"});
 			var stack = haxe.Stack.exceptionStack();
-			haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "CADelegate.hx", lineNumber : 47, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "CADelegate.hx", lineNumber : 48, className : "CADelegate", methodName : "stop"});
 		}
 	}
 	,start: function() {

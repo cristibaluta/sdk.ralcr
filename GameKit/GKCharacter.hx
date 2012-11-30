@@ -6,7 +6,11 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-import flash.display.MovieClip;
+#if (flash || nme || cpp)
+	import flash.display.MovieClip;
+#elseif js
+	private typedef MovieClip = Dynamic;
+#end
 
 
 class GKCharacter extends GKSprite {
