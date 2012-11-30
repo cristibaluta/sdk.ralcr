@@ -23,6 +23,7 @@ class RCButton extends RCControl {
 		
 		this.skin = skin;
 		this.skin.hit.alpha = 0;
+		
 		fixSkin();
 		
 		super (x, y, currentBackground.width, currentBackground.height);
@@ -67,7 +68,7 @@ class RCButton extends RCControl {
 	// Make sure that all the skin elements neccesary for a button exists
 	function fixSkin () {
 		
-		// We need a label, if missing substitute it with the image or otherView
+		// We need a label, if it's missing replace with the image or otherView
 		if (skin.normal.label == null)
 			skin.normal.label = skin.normal.image;
 		if (skin.normal.label == null)
@@ -120,4 +121,8 @@ class RCButton extends RCControl {
 		if (obj == null || !autoBrightness) return;
 		Fugu.brightness (obj, brightness);
 	}*/
+	
+	override public function toString () :String {
+		return "[RCButton bounds:"+bounds.origin.x+"x"+bounds.origin.y+","+bounds.size.width+"x"+bounds.size.height+"]";
+	}
 }

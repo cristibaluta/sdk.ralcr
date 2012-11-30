@@ -172,8 +172,8 @@ class RCAssets {
 	/**
 	*  Dispatch onComplete and onError events
 	*/
-	function errorHandler (key:String, media:Dynamic) :Void {
-		trace("Error loading URL for key: '"+key+"' with object: "+media);
+	function errorHandler (key:String, obj:Dynamic) :Void {
+		trace("Error loading URL for key: '"+key+"' with object: "+obj);
 		max --;
 		onError();
 		if (nr >= max)
@@ -184,7 +184,7 @@ class RCAssets {
 		totalProgress();
 	}
 	function completeHandler (key:String, obj:Dynamic) :Void {
-		trace("completeHandler for key: '"+key+"' with object: "+obj);
+		//trace("completeHandler for key: '"+key+"' with object: "+obj);
 		// RCImage has some static fields that is causing Type.getClass to return a complex type
 		// instead a simple class name
 		var class_name = Type.getClassName ( Type.getClass ( obj));

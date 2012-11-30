@@ -205,6 +205,14 @@ class RCDisplayObject {
 	
 	
 	/**
+	 *  Test hit
+	 *  x_ and _y are not changing
+	 **/
+	public function hitTest (otherObject:RCView) :Bool {
+		return false;
+	}
+	
+	/**
 	 *  Start an animation
 	 **/
 	public function addAnimation (obj:CAObject) :Void {
@@ -221,6 +229,6 @@ class RCDisplayObject {
 	}
 	
 	public function toString () :String {
-		return "[RCView bounds:"+bounds.origin.x+"x"+bounds.origin.x+","+bounds.size.width+"x"+bounds.size.height+"]";
+		return "[RCView bounds:"+bounds.origin.x+"x"+bounds.origin.y+","+bounds.size.width+"x"+bounds.size.height+"]";
 	}
 }

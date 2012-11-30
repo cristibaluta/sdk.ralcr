@@ -574,7 +574,7 @@ var RCDisplayObject = $hxClasses["RCDisplayObject"] = function() {
 RCDisplayObject.__name__ = ["RCDisplayObject"];
 RCDisplayObject.prototype = {
 	toString: function() {
-		return "[RCView bounds:" + this.getBounds().origin.x + "x" + this.getBounds().origin.x + "," + this.getBounds().size.width + "x" + this.getBounds().size.height + "]";
+		return "[RCView bounds:" + this.getBounds().origin.x + "x" + this.getBounds().origin.y + "," + this.getBounds().size.width + "x" + this.getBounds().size.height + "]";
 	}
 	,destroy: function() {
 		CoreAnimation.remove(this.caobj);
@@ -582,6 +582,9 @@ RCDisplayObject.prototype = {
 	}
 	,addAnimation: function(obj) {
 		CoreAnimation.add(this.caobj = obj);
+	}
+	,hitTest: function(otherObject) {
+		return false;
 	}
 	,removeChild: function(child) {
 	}

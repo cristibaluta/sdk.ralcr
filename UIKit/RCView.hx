@@ -95,7 +95,10 @@ class RCView extends RCDisplayObject {
 		layer.rotation = r;
 		return super.setRotation ( r );
 	}
-	
+	override public function scale (sx:Float, sy:Float) :Void {
+		untyped layer.scaleX = sx;
+		untyped layer.scaleY = sy;
+	}
 	
 	override public function setVisible (v:Bool) :Bool {
 		layer.visible = v;
@@ -113,6 +116,17 @@ class RCView extends RCDisplayObject {
 		return layer.mouseY / RCDevice.currentDevice().dpiScale;
 	}
 	
+	
+	override public function hitTest (otherObject:RCView) :Bool {
+		//return layer.hitTestPoint (otherObject.layer.x, otherObject.layer.y);
+		//trace(x_+"x"+y_+", "+layer.width+"x"+layer.height+", "+otherObject.layer.x+"x"+otherObject.layer.y);
+		if (otherObject.layer.x >= x_ && otherObject.layer.y >= y_) {
+			if (otherObject.layer.x <= x_ + layer.width && otherObject.layer.y <= y_ + layer.height) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 *  This method is usually overriten by the super class.

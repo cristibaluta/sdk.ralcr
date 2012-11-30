@@ -179,16 +179,6 @@ class JSView extends RCDisplayObject {
 		return contentSize_;
 	}
 	
-/*	override public function setScaleX (sx:Float) :Float {
-		scaleX_ = sx;
-		scale (scaleX_, scaleY_);
-		return scaleX_;
-	}
-	override public function setScaleY (sy:Float) :Float {
-		scaleY_ = sy;
-		scale (scaleX_, scaleY_);
-		return scaleY_;
-	}*/
 	var transformProperty :String;
 	override public function scale (sx:Float, sy:Float) :Void {
 		untyped layer.style[getTransformProperty()+"Origin"] = "top left";
