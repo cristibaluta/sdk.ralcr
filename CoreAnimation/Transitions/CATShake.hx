@@ -21,17 +21,17 @@ class CATShake extends CAObject, implements CATransitionInterface {
 		if (magnitude == null)
 			magnitude = 10;
 		
-		originalX = target.x;
-		originalY = target.y;
-		nextMove = 10;
+		originalX = target.getX();// target.x will return NaN, probably because of the new getter and setter of haxe
+		originalY = target.getY();
+		nextMove = 0;
 	}
 	
 	override public function animate (time_diff:Float) :Void {
 		
 		if (time_diff > nextMove) {
-			target.x = originalX + Math.random()*magnitude*2 - magnitude;
-			target.y = originalY + Math.random()*magnitude*2 - magnitude;
-			nextMove = Math.round ( 10 + Math.random()*10 );
+			target.setX ( originalX + Math.random()*magnitude*2 - magnitude );
+			target.setY ( originalY + Math.random()*magnitude*2 - magnitude );
+			nextMove = Math.round ( time_diff + 15 + Math.random()*10 );
 		}
 		
 		if (time_diff >= duration) {
