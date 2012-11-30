@@ -36,4 +36,8 @@ class GKSound {
 			mp3s.get ( id ).stop();
 	}
 	
+	public static function mute (b:Bool) :Void {
+		for (mp3 in mp3s)
+			mp3.setVolume ( b ? 1 : 0 );
+	}
 }
