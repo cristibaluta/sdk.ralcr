@@ -11,105 +11,119 @@ import haxe.Timer;
 
 class RCImageAnimated extends RCView {
 	
-	var photoLeft :RCImage;
-	var photoRight :RCImage;
-	var nrOfLoadedPhotos :Int;
-	var photoToDisplay :Int;
-	
+	public var images :Array<RCImage>;
+	public var currentFrame :Int;
 	public var isLoaded :Bool;
 	public var percentLoaded :Int;
 	public var errorMessage :String;
-	public var updateTime :Int;
+	public var fps :Int;
+	var nr :Int;
+	var max :Int;
+	var timer :Timer;
+	
 	
 	dynamic public function onComplete () :Void {}
 	dynamic public function onProgress () :Void {}
 	dynamic public function onError () :Void {}
 	
 	
-	public function new (x, y, URLLeft:String, URLRight:String) {
+	public static function animatedImageWithImages (x, y, images:Array<RCImage>) {
+		var im = new RCImageAnimated (x, y, null);
+			im.images = images;
+			im.gotoAndStop ( 1 );
+		return im;
+	}
+	
+	
+	public function new (x, y, urls:Array<String>) {
 		
 		super (x, y);
 		
 		isLoaded = false;
 		percentLoaded = 0;
-		nrOfLoadedPhotos = 0;
-		updateTime = 10;
-		photoToDisplay = 0;
+		currentFrame = 0;
+		fps = 10;
+		nr = 0;
+		max = 0;
 		
-		photoLeft = new RCImage (0, 0, URLLeft);
-		photoLeft.onProgress = progressHandler;
-		photoLeft.onError = errorHandler;
-		photoLeft.onComplete = completeHandler;
 		
-		photoRight = new RCImage (0, 0, URLRight);
-		photoRight.onProgress = progressHandler;
-		photoRight.onError = errorHandler;
-		photoRight.onComplete = completeHandler;
+		if (urls == null) return;
+		
+		images = new Array<RCImage>();
+		
+		for (url in urls) {
+			var im = new RCImage (0, 0, url);
+			im.onProgress = progressHandler;
+			im.onError = errorHandler;
+			im.onComplete = completeHandler;
+			images.push ( im );
+		}
+		max = images.length;
+	}
+	
+	// Controlling the animation
+	
+	public function gotoAndStop (f:Int) :Void {
+		if (f == 0 || f > images.length)
+			f = 1;
+		if (currentFrame > 0)
+			Fugu.safeRemove ( images[currentFrame-1] );
+		addChild ( images[f-1] );
+		currentFrame = f;
+	}
+	
+	public function play (?newFPS:Null<Int>) :Void {
+		
+		if (newFPS != null) {
+			fps = newFPS;
+			stop();
+		}
+		
+		if (timer == null) {
+			timer = new Timer ( fps );
+			timer.run = loop;
+		}
+	}
+	
+	public function stop () :Void {
+		if (timer != null) {
+			timer.stop();
+			timer = null;
+		}
+	}
+	
+	function loop() {
+		gotoAndStop ( currentFrame + 1 );
 	}
 	
 	
 	/**
 	 *	Handlers.
 	 */
-	function completeHandler (e:Event) :Void {
-		
-		nrOfLoadedPhotos ++;
-		
-		if (nrOfLoadedPhotos == 2) {
-			size.width = lastW = photoLeft.width;
-			size.height = lastH = photoLeft.height;
-			isLoaded = true;
+	function completeHandler () :Void {
+		onCompleteHandler();
+	}
+	function onCompleteHandler () :Void {
+		nr ++;
+		if (nr >= max)
 			onComplete();
-			
-			timer = new Timer ( updateTime );
-			timer.run = loop;
-		}
 	}
-	
-	function loop(_) {
-		
-		if (photoToDisplay == 0) {
-			photoToDisplay = 1;
-			
-			this.addChild ( photoLeft );
-			if (this.contains( photoRight )) this.removeChild ( photoRight );
-		}
-		else {
-			photoToDisplay = 0;
-			
-			this.addChild ( photoRight );
-			if (this.contains( photoLeft )) this.removeChild ( photoLeft );
-		}
+	function progressHandler () :Void {
+/*		percentLoaded = Math.round (e.target.bytesLoaded * 100 / e.target.bytesTotal);
+		onProgress ();*/
 	}
-	
-	function progressHandler (e:ProgressEvent) :Void {
-		percentLoaded = Math.round (e.target.bytesLoaded * 100 / e.target.bytesTotal);
-		onProgress ();
-	}
-	
-	function errorHandler (e:ErrorEvent) :Void {
-		errorMessage = e.toString();
+	function errorHandler () :Void {
+		//errorMessage = e.toString();
 		onError();
-	}
-	
-	function ioErrorHandler (e:IOErrorEvent) :Void {
-		errorMessage = e.toString();
-		onError();
+		onCompleteHandler();
 	}
 	
 	
 	override public function destroy() :Void {
 		
+		stop();
+		Fugu.safeDestroy ( images );
+		images = null;
 		super.destroy();
-		
-		photoLeft.destroy();
-		photoLeft = null;
-		photoRight.destroy();
-		photoRight = null;
-		
-		if (timer != null) {
-			timer.stop();
-			timer = null;
-		}
 	}
 }
