@@ -35,13 +35,18 @@ class CADelegate {
 	public function start () :Void {
 		startPointPassed = true;
 		if (Reflect.isFunction( animationDidStart ))
-			try{ animationDidStart.apply (null, arguments); }catch(e:Dynamic){trace(e);}
+		try{ Reflect.callMethod (null, animationDidStart, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ animationDidStart/*.apply (null,*/ (arguments); }catch(e:Dynamic){trace(e);}
 	}
 	
 	public function stop () :Void {
 		// TODO: .apply is not working on Mac and ios with NME
 		if (Reflect.isFunction( animationDidStop )) {
-			try{ animationDidStop/*.apply*/ (null, arguments); }catch(e:Dynamic){
+			try {
+				//animationDidStop/*.apply (null,*/ (arguments);
+				Reflect.callMethod (null, animationDidStop, arguments);
+			}
+			catch(e:Dynamic){
 				trace(e);
 				trace(pos.className + " -> " + pos.methodName + " -> " + pos.lineNumber);
 				var stack = haxe.Stack.exceptionStack();
@@ -52,18 +57,21 @@ class CADelegate {
 	
 	public function repeat () :Void {
 		if (Reflect.isFunction( animationDidReversed ))
-			try{ animationDidReversed.apply (null, arguments); }catch(e:Dynamic){trace(e);}
+			try{ Reflect.callMethod (null, animationDidReversed, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ animationDidReversed/*.apply (null,*/ (arguments); }catch(e:Dynamic){trace(e);}
 	}
 	
 	public function kbIn () :Void {
 		kenBurnsPointInPassed = true;
 		if (Reflect.isFunction( kenBurnsDidFadedIn ))
-			try{ kenBurnsDidFadedIn.apply (null, kenBurnsArgs); }catch(e:Dynamic){trace(e);}
+			try{ Reflect.callMethod (null, kenBurnsDidFadedIn, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ kenBurnsDidFadedIn/*.apply (null,*/ (kenBurnsArgs); }catch(e:Dynamic){trace(e);}
 	}
 	
 	public function kbOut () :Void {
 		kenBurnsPointOutPassed = true;
 		if (Reflect.isFunction( kenBurnsBeginsFadingOut ))
-			try{ kenBurnsBeginsFadingOut.apply (null, kenBurnsArgs); }catch(e:Dynamic){trace(e);}
+			try{ Reflect.callMethod (null, kenBurnsBeginsFadingOut, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ kenBurnsBeginsFadingOut/*.apply (null,*/ (kenBurnsArgs); }catch(e:Dynamic){trace(e);}
 	}
 }

@@ -20,17 +20,19 @@ class CASequence {
 		var obj = objs.shift();
 		if (objs.length > 0) {
 			var arguments :Dynamic = obj.delegate.animationDidStop;
-			obj.delegate.animationDidStop = animationDidStop;
+			obj.delegate.animationDidStop = animationDidStopHandler;
 			obj.delegate.arguments = [arguments];
 		}
 		CoreAnimation.add ( obj );
 	}
 	
-	function animationDidStop (func:Dynamic) {
+	function animationDidStopHandler (func:Dynamic) {
 		// Call the original method
+		// .apply is not working in cpp
 		if (func != null) {
 			if (Reflect.isFunction( func ))
-				try{ func.apply (null, []); }catch(e:Dynamic){ trace(e); Fugu.stack(); }
+				Reflect.callMethod (null, func, []);
+				//try{ func/*.apply (null,*/ (/*[]*/); }catch(e:Dynamic){ trace(e); Fugu.stack(); }
 		}
 		
 		// Start the next animation
