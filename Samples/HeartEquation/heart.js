@@ -14,35 +14,34 @@ CADelegate.prototype = {
 	kbOut: function() {
 		this.kenBurnsPointOutPassed = true;
 		if(Reflect.isFunction(this.kenBurnsBeginsFadingOut)) try {
-			this.kenBurnsBeginsFadingOut.apply(null,this.kenBurnsArgs);
+			this.kenBurnsBeginsFadingOut.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 67, className : "CADelegate", methodName : "kbOut"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 74, className : "CADelegate", methodName : "kbOut"});
 		}
 	}
 	,kbIn: function() {
 		this.kenBurnsPointInPassed = true;
 		if(Reflect.isFunction(this.kenBurnsDidFadedIn)) try {
-			this.kenBurnsDidFadedIn.apply(null,this.kenBurnsArgs);
+			this.kenBurnsDidFadedIn.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 61, className : "CADelegate", methodName : "kbIn"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 67, className : "CADelegate", methodName : "kbIn"});
 		}
 	}
 	,repeat: function() {
 		if(Reflect.isFunction(this.animationDidReversed)) try {
 			this.animationDidReversed.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 55, className : "CADelegate", methodName : "repeat"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 60, className : "CADelegate", methodName : "repeat"});
 		}
 	}
 	,stop: function() {
-		haxe.Log.trace(this.animationDidStop,{ fileName : "CADelegate.hx", lineNumber : 42, className : "CADelegate", methodName : "stop"});
 		if(Reflect.isFunction(this.animationDidStop)) try {
-			this.animationDidStop(null,this.arguments);
+			this.animationDidStop.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 45, className : "CADelegate", methodName : "stop"});
-			haxe.Log.trace(this.pos.className + " -> " + this.pos.methodName + " -> " + this.pos.lineNumber,{ fileName : "CADelegate.hx", lineNumber : 46, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 50, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(this.pos.className + " -> " + this.pos.methodName + " -> " + this.pos.lineNumber,{ fileName : "CADelegate.hx", lineNumber : 51, className : "CADelegate", methodName : "stop"});
 			var stack = haxe.Stack.exceptionStack();
-			haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "CADelegate.hx", lineNumber : 48, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "CADelegate.hx", lineNumber : 53, className : "CADelegate", methodName : "stop"});
 		}
 	}
 	,start: function() {
@@ -195,7 +194,7 @@ CoreAnimation.add = function(obj) {
 	obj.init();
 	obj.initTime();
 	if(CoreAnimation.ticker == null) {
-		CoreAnimation.ticker = new EVLoop();
+		CoreAnimation.ticker = new EVLoop({ fileName : "CoreAnimation.hx", lineNumber : 50, className : "CoreAnimation", methodName : "add"});
 		CoreAnimation.ticker.setFuncToCall(CoreAnimation.updateAnimations);
 	}
 }
@@ -342,14 +341,14 @@ EVFullScreen.__super__ = RCSignal;
 EVFullScreen.prototype = $extend(RCSignal.prototype,{
 	__class__: EVFullScreen
 });
-var EVLoop = $hxClasses["EVLoop"] = function() {
+var EVLoop = $hxClasses["EVLoop"] = function(pos) {
 };
 EVLoop.__name__ = ["EVLoop"];
 EVLoop.prototype = {
 	destroy: function() {
-		this.stop();
+		this.stop({ fileName : "EVLoop.hx", lineNumber : 47, className : "EVLoop", methodName : "destroy"});
 	}
-	,stop: function() {
+	,stop: function(pos) {
 		if(this.ticker == null) return;
 		this.ticker.stop();
 		this.ticker = null;
@@ -358,7 +357,7 @@ EVLoop.prototype = {
 		if(this.run != null) this.run();
 	}
 	,setFuncToCall: function(func) {
-		this.stop();
+		this.stop({ fileName : "EVLoop.hx", lineNumber : 18, className : "EVLoop", methodName : "setFuncToCall"});
 		this.run = func;
 		this.ticker = new haxe.Timer(Math.round(1 / EVLoop.FPS * 1000));
 		this.ticker.run = $bind(this,this.loop);
@@ -1080,7 +1079,7 @@ var Particle = $hxClasses["Particle"] = function(x,y,t,s) {
 	this.current_theta = 0.001;
 	this.sign = s;
 	this.addChild(new RCRectangle(0,0,1,1,0));
-	this.loopEvent = new EVLoop();
+	this.loopEvent = new EVLoop({ fileName : "Main.hx", lineNumber : 98, className : "Particle", methodName : "new"});
 	this.loopEvent.setFuncToCall($bind(this,this.loopTheta));
 	this.timer = new haxe.Timer(40);
 	this.timer.run = $bind(this,this.advanceTheta);
@@ -1113,7 +1112,7 @@ Particle.prototype = $extend(JSView.prototype,{
 		if(Math.abs(this.current_theta - this.theta) <= 0.001) {
 			this.current_theta = this.theta;
 			this.timer.stop();
-			this.loopEvent.stop();
+			this.loopEvent.stop({ fileName : "Main.hx", lineNumber : 110, className : "Particle", methodName : "advanceTheta"});
 			this.fxy();
 			this.o_x = this.o_x - this.f_x * 500 * this.sign;
 			this.o_y = this.o_y - this.f_y * 500;
@@ -1713,11 +1712,11 @@ var RCStats = $hxClasses["RCStats"] = function(x,y) {
 	RCRectangle.call(this,x,y,152,18,16777215,0.9,16);
 	this.addChild(new RCRectangle(1,1,150,16,3355443,0.3,16));
 	var f = RCFont.systemFontOfSize(12);
-	f.color = 16777215;
+	f.color = 3355443;
 	this.txt = new RCTextView(6,3,null,20,"Calculating...",f);
 	this.addChild(this.txt);
 	this.last = new Date().getTime();
-	this.e = new EVLoop();
+	this.e = new EVLoop({ fileName : "RCStats.hx", lineNumber : 33, className : "RCStats", methodName : "new"});
 	this.e.setFuncToCall($bind(this,this.loop));
 };
 RCStats.__name__ = ["RCStats"];
@@ -1730,12 +1729,12 @@ RCStats.prototype = $extend(RCRectangle.prototype,{
 	}
 	,loop: function() {
 		this.ticks++;
-		var now = new Date().getTime();
-		var delta = now - this.last;
-		if(delta >= 1000) {
-			this.fps = Math.round(this.ticks / delta * 1000);
+		this.now = new Date().getTime();
+		this.delta = this.now - this.last;
+		if(this.delta >= 1000) {
+			this.fps = Math.round(this.ticks / this.delta * 1000);
 			this.ticks = 0;
-			this.last = now;
+			this.last = this.now;
 			this.txt.setText(this.fps + " FPS,  " + this.currMemory + " Mbytes");
 		}
 	}
@@ -1744,6 +1743,8 @@ RCStats.prototype = $extend(RCRectangle.prototype,{
 	,currMemory: null
 	,fps: null
 	,ticks: null
+	,delta: null
+	,now: null
 	,last: null
 	,__class__: RCStats
 });

@@ -14,35 +14,34 @@ CADelegate.prototype = {
 	kbOut: function() {
 		this.kenBurnsPointOutPassed = true;
 		if(Reflect.isFunction(this.kenBurnsBeginsFadingOut)) try {
-			this.kenBurnsBeginsFadingOut.apply(null,this.kenBurnsArgs);
+			this.kenBurnsBeginsFadingOut.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 67, className : "CADelegate", methodName : "kbOut"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 74, className : "CADelegate", methodName : "kbOut"});
 		}
 	}
 	,kbIn: function() {
 		this.kenBurnsPointInPassed = true;
 		if(Reflect.isFunction(this.kenBurnsDidFadedIn)) try {
-			this.kenBurnsDidFadedIn.apply(null,this.kenBurnsArgs);
+			this.kenBurnsDidFadedIn.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 61, className : "CADelegate", methodName : "kbIn"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 67, className : "CADelegate", methodName : "kbIn"});
 		}
 	}
 	,repeat: function() {
 		if(Reflect.isFunction(this.animationDidReversed)) try {
 			this.animationDidReversed.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 55, className : "CADelegate", methodName : "repeat"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 60, className : "CADelegate", methodName : "repeat"});
 		}
 	}
 	,stop: function() {
-		haxe.Log.trace(this.animationDidStop,{ fileName : "CADelegate.hx", lineNumber : 42, className : "CADelegate", methodName : "stop"});
 		if(Reflect.isFunction(this.animationDidStop)) try {
-			this.animationDidStop(null,this.arguments);
+			this.animationDidStop.apply(null,this.arguments);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 45, className : "CADelegate", methodName : "stop"});
-			haxe.Log.trace(this.pos.className + " -> " + this.pos.methodName + " -> " + this.pos.lineNumber,{ fileName : "CADelegate.hx", lineNumber : 46, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(e,{ fileName : "CADelegate.hx", lineNumber : 50, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(this.pos.className + " -> " + this.pos.methodName + " -> " + this.pos.lineNumber,{ fileName : "CADelegate.hx", lineNumber : 51, className : "CADelegate", methodName : "stop"});
 			var stack = haxe.Stack.exceptionStack();
-			haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "CADelegate.hx", lineNumber : 48, className : "CADelegate", methodName : "stop"});
+			haxe.Log.trace(haxe.Stack.toString(stack),{ fileName : "CADelegate.hx", lineNumber : 53, className : "CADelegate", methodName : "stop"});
 		}
 	}
 	,start: function() {
@@ -132,14 +131,9 @@ var CASequence = $hxClasses["CASequence"] = function(objs) {
 };
 CASequence.__name__ = ["CASequence"];
 CASequence.prototype = {
-	animationDidStop: function(func) {
+	animationDidStopHandler: function(func) {
 		if(func != null) {
-			if(Reflect.isFunction(func)) try {
-				func.apply(null,[]);
-			} catch( e ) {
-				haxe.Log.trace(e,{ fileName : "CASequence.hx", lineNumber : 33, className : "CASequence", methodName : "animationDidStop"});
-				Fugu.stack();
-			}
+			if(Reflect.isFunction(func)) func.apply(null,[]);
 		}
 		if(this.objs.length > 0) this.start();
 	}
@@ -147,7 +141,7 @@ CASequence.prototype = {
 		var obj = this.objs.shift();
 		if(this.objs.length > 0) {
 			var arguments = obj.delegate.animationDidStop;
-			obj.delegate.animationDidStop = $bind(this,this.animationDidStop);
+			obj.delegate.animationDidStop = $bind(this,this.animationDidStopHandler);
 			obj.delegate.arguments = [arguments];
 		}
 		CoreAnimation.add(obj);
@@ -266,7 +260,7 @@ CoreAnimation.add = function(obj) {
 	obj.init();
 	obj.initTime();
 	if(CoreAnimation.ticker == null) {
-		CoreAnimation.ticker = new EVLoop();
+		CoreAnimation.ticker = new EVLoop({ fileName : "CoreAnimation.hx", lineNumber : 50, className : "CoreAnimation", methodName : "add"});
 		CoreAnimation.ticker.setFuncToCall(CoreAnimation.updateAnimations);
 	}
 }
@@ -413,14 +407,14 @@ EVFullScreen.__super__ = RCSignal;
 EVFullScreen.prototype = $extend(RCSignal.prototype,{
 	__class__: EVFullScreen
 });
-var EVLoop = $hxClasses["EVLoop"] = function() {
+var EVLoop = $hxClasses["EVLoop"] = function(pos) {
 };
 EVLoop.__name__ = ["EVLoop"];
 EVLoop.prototype = {
 	destroy: function() {
-		this.stop();
+		this.stop({ fileName : "EVLoop.hx", lineNumber : 47, className : "EVLoop", methodName : "destroy"});
 	}
-	,stop: function() {
+	,stop: function(pos) {
 		if(this.ticker == null) return;
 		this.ticker.stop();
 		this.ticker = null;
@@ -429,7 +423,7 @@ EVLoop.prototype = {
 		if(this.run != null) this.run();
 	}
 	,setFuncToCall: function(func) {
-		this.stop();
+		this.stop({ fileName : "EVLoop.hx", lineNumber : 18, className : "EVLoop", methodName : "setFuncToCall"});
 		this.run = func;
 		this.ticker = new haxe.Timer(Math.round(1 / EVLoop.FPS * 1000));
 		this.ticker.run = $bind(this,this.loop);
@@ -3020,7 +3014,7 @@ RCImage.imageWithContentsOfFile = function(path) {
 RCImage.resizableImageWithCapInsets = function(path,capWidth) {
 	return new RCImage(0,0,path);
 }
-RCImage.imageWithRegionOfImage = function(rect,image) {
+RCImage.imageWithRegionOfImage = function(image,size,source_rect,draw_at) {
 	return null;
 }
 RCImage.__super__ = JSView;
@@ -4103,7 +4097,7 @@ var RCSliderSync = $hxClasses["RCSliderSync"] = function(target,contentView,slid
 	this.setFinalValue(this.valueStart);
 	this.f = 1;
 	this.valueChanged = new RCSignal();
-	this.ticker = new EVLoop();
+	this.ticker = new EVLoop({ fileName : "RCSliderSync.hx", lineNumber : 60, className : "RCSliderSync", methodName : "new"});
 	this.mouseWheel = new EVMouse("mousewheel",target,{ fileName : "RCSliderSync.hx", lineNumber : 61, className : "RCSliderSync", methodName : "new"});
 	this.resume();
 };

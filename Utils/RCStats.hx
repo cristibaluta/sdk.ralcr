@@ -1,5 +1,5 @@
 //
-//  Display stats bout frames per second and memory ocupied by all flash applications in that time
+//  Display stats about FPS and memory ocupied by all flash applications
 //
 //  Created by Baluta Cristian on 2010-04-18.
 //  Copyright (c) 2010-2012 http://ralcr.com. 
@@ -9,6 +9,8 @@
 class RCStats extends RCRectangle {
 	
 	var last :Float;
+	var now :Float;
+	var delta :Float;
 	var ticks :Int;
 	var fps :Int;
 	var currMemory :Int;
@@ -24,7 +26,7 @@ class RCStats extends RCRectangle {
 		
 		var f = RCFont.systemFontOfSize(12);
 			f.color = 0x333333;
-		txt = new RCTextView (6, #if (flash || nme || cpp || neko) 1 #else 3 #end, null, 20, "Calculating...", f);
+		txt = new RCTextView (6, #if (flash || nme) 1 #else 3 #end, null, 20, "Calculating...", f);
 		addChild ( txt );
 		
 		last = CoreAnimation.timestamp();
@@ -34,14 +36,14 @@ class RCStats extends RCRectangle {
 	
 	function loop () {
 		ticks++;
-		var now = CoreAnimation.timestamp();
-		var delta = now - last;
+		now = CoreAnimation.timestamp();
+		delta = now - last;
 		
 		if (delta >= 1000) {
 			fps = Math.round (ticks / delta * 1000);
 			ticks = 0;
 			last = now;
-			#if (flash || nme || cpp || neko)
+			#if (flash || nme)
 				currMemory = Math.round ( flash.system.System.totalMemory / (1024*1024) );
 			#end
 			txt.text = fps + " FPS,  " + currMemory + " Mbytes";

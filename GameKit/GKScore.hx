@@ -12,6 +12,8 @@ class GKScore {
 	public var score :Int;
 	public var totalScore :Int;
 	public var speed :Float;// The speed at which the score is changing
+	public var ups :Int;
+	public var downs :Int;
 	
 	dynamic public function onChange () :Void {}
 	
@@ -24,12 +26,16 @@ class GKScore {
 		score = 0;
 		totalScore = 0;
 		speed = 1;
+		ups = 0;
+		downs = 0;
 	}
 	
 	public function add (s:Int) :Int {
+		ups ++;
 		return set (totalScore + s);
 	}
 	public function minus (s:Int) :Int {
+		downs ++;
 		return set (totalScore - s);
 	}
 	public function set (s:Int) :Int {

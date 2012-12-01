@@ -9,7 +9,7 @@
 class GKSound {
 	
 	static var mp3s :Hash<RCAudio>;
-	
+	static var muted :Bool;
 	
 	public static function init () :Void {
 		
@@ -17,6 +17,7 @@ class GKSound {
 		
 		//sounds = new Hash<Sound>();
 		mp3s = new Hash<RCAudio>();
+		muted = false;
 	}
 	
 	
@@ -28,7 +29,7 @@ class GKSound {
 	}
 	
 	public static function playMp3 (id:String) :Void {
-		if (mp3s.get ( id ) != null)
+		if (mp3s.get ( id ) != null && !muted)
 			mp3s.get ( id ).start();
 	}
 	public static function stopMp3 (id:String) :Void {
@@ -37,7 +38,8 @@ class GKSound {
 	}
 	
 	public static function mute (b:Bool) :Void {
+		muted = b;
 		for (mp3 in mp3s)
-			mp3.setVolume ( b ? 1 : 0 );
+			if (muted) mp3.stop();
 	}
 }

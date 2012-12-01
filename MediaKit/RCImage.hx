@@ -17,6 +17,8 @@
 	import flash.events.ProgressEvent;
 	import flash.events.ErrorEvent;
 	import flash.events.IOErrorEvent;
+	import flash.geom.Matrix;
+	import flash.geom.Rectangle;
 	#if flash
 		import flash.system.LoaderContext;
 	#end
@@ -88,16 +90,19 @@ class RCImage extends RCView {
 	}
 #end
 	
-	public static function imageWithRegionOfImage (rect:RCRect, image:RCImage) :RCImage {
+	public static function imageWithRegionOfImage (image:RCImage, size:RCSize, source_rect:RCRect, draw_at:RCRect) :RCImage {
 		
 #if (flash || nme)
 		
 		var color = #if neko {rgb:0x000000, a:0} #else 0x000000ff #end ;
-		var bitmapData = new BitmapData (Math.round(rect.size.width), Math.round(rect.size.height), true, color);
-			bitmapData.draw ( image.bitmapData );
+		var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
+		var matrix = new Matrix();
+			matrix.tx = - source_rect.origin.x + draw_at.origin.x;
+			matrix.ty = - source_rect.origin.y + draw_at.origin.y;
+			bitmapData.draw ( image.bitmapData, matrix, null, null, new Rectangle(draw_at.origin.x, draw_at.origin.y, draw_at.size.width, draw_at.size.height) );
 		var bitmap = new Bitmap (bitmapData, PixelSnapping.AUTO, true);
 		
-		var im = new RCImage (rect.origin.x, rect.origin.y, null);
+		var im = new RCImage (0, 0, null);
 			im.layer.addChild ( bitmap );
 		return im;
 		
