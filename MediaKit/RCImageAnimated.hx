@@ -1,5 +1,5 @@
 //
-//  3D Image simulation
+//  RCImageAnimated.hx
 //
 //  Created by Baluta Cristian on 2008-04-01.
 //  Copyright (c) 2008 http://ralcr.com. 
@@ -16,10 +16,12 @@ class RCImageAnimated extends RCView {
 	public var isLoaded :Bool;
 	public var percentLoaded :Int;
 	public var errorMessage :String;
-	public var fps :Int;
+	public var fps (default, set_fps) :Int;
+	public var reverse :Bool;
 	var nr :Int;
 	var max :Int;
 	var timer :Timer;
+	var _fps :Int;
 	
 	
 	dynamic public function onComplete () :Void {}
@@ -27,6 +29,9 @@ class RCImageAnimated extends RCView {
 	dynamic public function onError () :Void {}
 	
 	
+	/**
+	 *  Convenience method to create an animated image from an array of images
+	 **/
 	public static function animatedImageWithImages (x, y, images:Array<RCImage>) {
 		var im = new RCImageAnimated (x, y, null);
 			im.images = images;
@@ -42,7 +47,8 @@ class RCImageAnimated extends RCView {
 		isLoaded = false;
 		percentLoaded = 0;
 		currentFrame = 0;
-		fps = 10;
+		_fps = 10;
+		reverse = false;
 		nr = 0;
 		max = 0;
 		
@@ -64,10 +70,11 @@ class RCImageAnimated extends RCView {
 	// Controlling the animation
 	
 	public function gotoAndStop (f:Int) :Void {
+		
 		if (f == 0 || f > images.length)
 			f = 1;
 		if (currentFrame > 0)
-			Fugu.safeRemove ( images[currentFrame-1] );
+		removeChild ( images[currentFrame-1] );
 		addChild ( images[f-1] );
 		currentFrame = f;
 	}
@@ -75,12 +82,12 @@ class RCImageAnimated extends RCView {
 	public function play (?newFPS:Null<Int>) :Void {
 		
 		if (newFPS != null) {
-			fps = newFPS;
+			_fps = newFPS;
 			stop();
 		}
 		
 		if (timer == null) {
-			timer = new Timer ( fps );
+			timer = new Timer ( Math.round ( 1000/_fps) );
 			timer.run = loop;
 		}
 	}
@@ -92,7 +99,7 @@ class RCImageAnimated extends RCView {
 		}
 	}
 	
-	function loop() {
+	function loop () {
 		gotoAndStop ( currentFrame + 1 );
 	}
 	
@@ -118,6 +125,11 @@ class RCImageAnimated extends RCView {
 		onCompleteHandler();
 	}
 	
+	public function set_fps (f:Int) :Int {
+		_fps = f;
+		if (timer != null) play ( f );
+		return f;
+	}
 	
 	override public function destroy() :Void {
 		
