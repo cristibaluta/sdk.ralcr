@@ -77,7 +77,7 @@ class Zeta {
 	 *	array2 is used to sort the array with priority on elements from array2
 	 */
 	// Not working in nme for an unknown reason
-#if !nme
+
 	public static function sort<T> (array:Array<T>, sort_type:String, ?sort_array:Array<T>) :Array<T> {
 		
 		if (sort_type.toLowerCase() == "lastmodifieddescending") return array;
@@ -102,7 +102,7 @@ class Zeta {
 										break;
 									}
 								return arr.concat ( array );
-			default:			untyped array.sortOn ( sort_type, Array.NUMERIC );// Array.ASCENDING |
+			default:			untyped array.sortOn ( sort_type#if !nme, Array.NUMERIC#end );// Array.ASCENDING |
 		}
 		return array;
 	}
@@ -115,7 +115,6 @@ class Zeta {
 	inline static function descendingSort<T> (a:T, b:T) :Int { 
 		return (Std.string(a) > Std.string(b)) ? -1:1;
 	}
-#end
 	
 	
 	/**
