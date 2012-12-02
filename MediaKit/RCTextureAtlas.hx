@@ -21,13 +21,19 @@ class RCTextureAtlas {
 		
 		parse ( Xml.parse ( atlas ) );
     }
+	
 	function parse (xml:Xml) :Void {
 		
 		var type = xml.firstElement().nodeName;//trace(type);
-		
 		if (type == "plist")
 			parsePlist ( xml.firstElement() );
+		else if (type == "TextureAtlas")
+			parseXml ( xml.firstElement() );
 	}
+	
+	
+	// Parse PLIST
+	
 	function parsePlist (xmlPlist:Xml) :Void {
 		
 		var key_type :String = null;
@@ -82,60 +88,48 @@ class RCTextureAtlas {
 			}
 		}
 	}
-/*	function parseDictionary( xmlDict:Xml ) :Hash<Dynamic> {
+
+
+	// Parse XML
+	
+	function parseXml (xml:Xml) :Void {
 		
-			var h = new Hash<Dynamic>();
-			var key :String = null;
+        var scale :Float = 1;
+		var frame_data :FrameData = null;
+		var x :Float;
+		var y :Float;
+		var width :Float;
+		var height :Float;
+		var frameX :Float;
+		var frameY :Float;
+		var frameWidth :Float;
+		var frameHeight :Float;
 		
-			for (element in xmlDict.elements()) {
-				if (key == null && element.nodeName == "key" ) {						
-					key = element.firstChild().toString();
-				}
-				else {
-					switch ( element.nodeName ) {
-						case "dict": h.set (key, parseDictionary (element));
-						case "array": h.set (key, parseArray (element));
-						case "string": h.set (key, element.firstChild().toString());
-						case "integer": h.set (key, Std.parseInt(element.firstChild().toString()));
-						case "real": h.set (key, Std.parseFloat(element.firstChild().toString()));
-						case "data": h.set (key, element.firstChild());
-						case "date": 
-							var d = element.firstChild().toString();
-								d = StringTools.replace(d, "T", " ");
-								d = StringTools.replace(d, "Z", "");
-							h.set (key, Date.fromString(d));
-					}
-					key = null;
-				}
-			}
-			//trace(h);
-			return h;
-		}*/
-/*	function parseXml (atlasXml:XML) :Void {
-		
-        var scale:Number = mAtlasTexture.scale;
-            
-        for (var subTexture:XML in atlasXml.SubTexture)
-        {
-            var name:String        = subTexture.attribute("name");
-            var x:Number           = parseFloat(subTexture.attribute("x")) / scale;
-            var y:Number           = parseFloat(subTexture.attribute("y")) / scale;
-            var width:Number       = parseFloat(subTexture.attribute("width")) / scale;
-            var height:Number      = parseFloat(subTexture.attribute("height")) / scale;
-            var frameX:Number      = parseFloat(subTexture.attribute("frameX")) / scale;
-            var frameY:Number      = parseFloat(subTexture.attribute("frameY")) / scale;
-            var frameWidth:Number  = parseFloat(subTexture.attribute("frameWidth")) / scale;
-            var frameHeight:Number = parseFloat(subTexture.attribute("frameHeight")) / scale;
-                
-            var region:Rectangle = new Rectangle(x, y, width, height);
-            var frame:Rectangle  = frameWidth > 0 && frameHeight > 0 ?
-                    new Rectangle(frameX, frameY, frameWidth, frameHeight) : null;
-                
-	        _regions.set (name, region);
-	        _frames.set (name, frame);
-        }
-    }*/
+		for (element in xml.elements()) {
+			
+			x = Std.parseFloat ( element.get("x")) / scale;
+			y = Std.parseFloat ( element.get("y")) / scale;
+			width = Std.parseFloat ( element.get("width")) / scale;
+			height = Std.parseFloat ( element.get("height")) / scale;
+			frameX = Std.parseFloat ( element.get("frameX")) / scale;
+			frameY = Std.parseFloat ( element.get("frameY")) / scale;
+			frameWidth = Std.parseFloat ( element.get("frameWidth")) / scale;
+			frameHeight = Std.parseFloat ( element.get("frameHeight")) / scale;
+			
+			frame_data = {
+				frame : new RCRect (x, y, width, height),
+				offset : null,
+				rotated : false,
+				sourceColorRect : new RCRect (-frameX, -frameY, width, height),
+				sourceSize : new RCSize (frameWidth, frameHeight)
+			};
+			
+	        _textures.set (element.get("name"), frame_data);
+		}
+	}
     
+	
+	
     public function imageNamed (name:String) :RCImage {
 		
         var texture_data = _textures.get ( name );
@@ -156,11 +150,10 @@ class RCTextureAtlas {
 		for (name in _textures.keys())
 			if (name.indexOf(prefix) == 0)                
 				names.push ( name );           
-		
-		//names.sort ( untyped Array.CASEINSENSITIVE );
-		
+		Zeta.sort (names, "ascending");
+			
 		for (name in names)
-			textures.push ( imageNamed ( name)); 
+			textures.push ( imageNamed ( name));
 		
 		return textures;
 	}

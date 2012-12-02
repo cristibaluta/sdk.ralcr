@@ -90,12 +90,19 @@ class RCImage extends RCView {
 	}
 #end
 	
+	/**
+	*  @param image = The image from where to copy smaller images
+	*  @param size = the size of the final image
+	*  @param source_rect = the rect of the desired crop
+	*  @param draw_at = clip everything that is not in this rect
+	*  
+	*/
 	public static function imageWithRegionOfImage (image:RCImage, size:RCSize, source_rect:RCRect, draw_at:RCRect) :RCImage {
 		
 #if (flash || nme)
 		
 		var color = #if neko {rgb:0x000000, a:0} #else 0x000000ff #end ;
-		var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
+var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
 		var matrix = new Matrix();
 			matrix.tx = - source_rect.origin.x + draw_at.origin.x;
 			matrix.ty = - source_rect.origin.y + draw_at.origin.y;
