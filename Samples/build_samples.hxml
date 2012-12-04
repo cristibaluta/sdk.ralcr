@@ -9,4 +9,5 @@
 --next Samples/HeartEquation/compile.hxml
 --next Samples/TableView/compile.hxml
 --next Samples/GameKit/compile.hxml
+--next Samples/Facebook/compile.hxml
 #-cmd haxe Samples/cpp/compile.hxml

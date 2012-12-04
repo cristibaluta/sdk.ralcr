@@ -102,7 +102,7 @@ class RCImage extends RCView {
 #if (flash || nme)
 		
 		var color = #if neko {rgb:0x000000, a:0} #else 0x000000ff #end ;
-var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
+		var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
 		var matrix = new Matrix();
 			matrix.tx = - source_rect.origin.x + draw_at.origin.x;
 			matrix.ty = - source_rect.origin.y + draw_at.origin.y;
@@ -110,6 +110,7 @@ var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height)
 		var bitmap = new Bitmap (bitmapData, PixelSnapping.AUTO, true);
 		
 		var im = new RCImage (0, 0, null);
+			im.bitmapData = bitmapData;
 			im.layer.addChild ( bitmap );
 		return im;
 		

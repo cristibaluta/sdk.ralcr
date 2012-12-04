@@ -5,19 +5,18 @@
 //  Copyright (c) 2011 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-import flash.display.Sprite;
-
 
 class SKSimpleButtonWithSprite extends RCSkin {
 	
-	public function new (sprite:Sprite, ?colors:Array<Null<Int>>) {
+	public function new (view:RCView, ?colors:Array<Null<Int>>) {
+		
 		super ( colors );
 		
 		// Attach from library the object with linkage "linkage"
-		up = sprite;
+		normal.label = view;
 		
 		// Creates a transparent background for mouse hit area
-		background = new RCRectangle (0, 0, up.width, up.height, 0xFFFFFF, 0);
-		hit = new RCRectangle (0, 0, up.width, up.height, 0xFFFFFF, 0);
+		normal.background = new RCRectangle (0, 0, view.width, view.height, 0xFFFFFF, 0);
+		hit = new RCRectangle (0, 0, view.width, view.height, 0xFFFFFF, 0);
 	}
 }

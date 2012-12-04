@@ -19,22 +19,24 @@ class RCTextureAtlas {
 		_textures = new Hash<FrameData>();
 		_texture = texture;
 		
-		parse ( Xml.parse ( atlas ) );
+		if (atlas.indexOf ("{\"frames\":") == 0)
+			parseJSON ( atlas );
+		else
+			parse ( Xml.parse ( atlas ) );
     }
 	
-	function parse (xml:Xml) :Void {
+	function parse (xml:Xml) {
 		
-		var type = xml.firstElement().nodeName;//trace(type);
-		if (type == "plist")
-			parsePlist ( xml.firstElement() );
-		else if (type == "TextureAtlas")
-			parseXml ( xml.firstElement() );
+		switch ( xml.firstElement().nodeName ) {
+			 case "plist" : parsePlist ( xml.firstElement() );
+			 case "TextureAtlas" : parseXml ( xml.firstElement() );
+		}
 	}
 	
 	
-	// Parse PLIST
+	// Parse PLIST - for Cocos2D
 	
-	function parsePlist (xmlPlist:Xml) :Void {
+	function parsePlist (xmlPlist:Xml) {
 		
 		var key_type :String = null;
 		
@@ -90,9 +92,9 @@ class RCTextureAtlas {
 	}
 
 
-	// Parse XML
+	// Parse XML - Sparrow
 	
-	function parseXml (xml:Xml) :Void {
+	function parseXml (xml:Xml) {
 		
         var scale :Float = 1;
 		var frame_data :FrameData = null;
@@ -128,6 +130,13 @@ class RCTextureAtlas {
 		}
 	}
     
+	
+	
+	// Parse JSON - 
+	
+	function parseJSON (json:String) {
+		
+	}
 	
 	
     public function imageNamed (name:String) :RCImage {

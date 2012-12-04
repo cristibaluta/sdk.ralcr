@@ -55,11 +55,13 @@ import RCWedge;
 // Media
 import RCAudio;
 import RCImage;
+import RCImageAnimated;
 import RCImageStretchable;
 import RCProgressiveImage;
 import RCRadioStream;
 import RCRtmp;
 import RCSwf;
+import RCTextureAtlas;
 import RCVideo;
 
 // Network
@@ -102,6 +104,7 @@ import CATMorph;
 import CATPixelator;
 import CATSlide;
 import CATSound;
+import CATShake;
 import CATText;
 import CATZoom;
 //import CATBezier;
