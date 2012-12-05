@@ -1,26 +1,26 @@
 
 package;
 
-	import com.facebook.graph.core.AbstractFacebook;
-	import com.facebook.graph.data.Batch;
-	import com.facebook.graph.data.FQLMultiQuery;
-	import com.facebook.graph.data.FacebookSession;
-	import com.facebook.graph.net.FacebookRequest;
-	import com.facebook.graph.utils.FacebookDataUtils;
-	import com.facebook.graph.utils.IResultParser;
-	import com.facebook.graph.windows.MobileLoginWindow;
+import com.facebook.graph.core.AbstractFacebook;
+import com.facebook.graph.data.Batch;
+import com.facebook.graph.data.FQLMultiQuery;
+import com.facebook.graph.data.FacebookSession;
+import com.facebook.graph.net.FacebookRequest;
+import com.facebook.graph.utils.FacebookDataUtils;
+import com.facebook.graph.utils.IResultParser;
+import com.facebook.graph.windows.MobileLoginWindow;
 	
-	import flash.display.Stage;
-	import flash.geom.Rectangle;
-	import flash.media.StageWebView;
-	import flash.net.SharedObject;
-	import flash.net.URLRequestMethod;
+import flash.display.Stage;
+import flash.geom.Rectangle;
+import flash.media.StageWebView;
+import flash.net.SharedObject;
+import flash.net.URLRequestMethod;
 
 	/**
 	 * For use in Mobile, to access the Facebook Graph API from the Mobile phone.
 	 *
 	 */
-	public class FacebookMobile extends AbstractFacebook {
+	public class FacebookMobile extends Facebook {
 		
 		inline public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
 		inline public static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
@@ -32,31 +32,17 @@ package;
 		inline static var SO_NAME = 'com.facebook.graph.FacebookMobile';
 		
 		static var _instance:FacebookMobile;
-		static var _canInit:Boolean = false;
-		var _manageSession:Boolean = true;
+		static var _canInit:Bool = false;
+		var _manageSession:Bool = true;
 		var loginWindow:MobileLoginWindow;
 		var applicationId:String;
-		var loginCallback:Function;
-		var logoutCallback:Function;
-		var initCallback:Function;
+		var loginCallback:Dynamic;
+		var logoutCallback:Dynamic;
+		var initCallback:Dynamic;
 
-		var webView:StageWebView;
-		var stageRef:Stage;
+		var webView :StageWebView;
+		var stageRef :Stage;
 		
-
-		/**
-		 * Creates a new FacebookMobile instance
-		 *
-		 */
-		public function new() {
-			super();
-
-			if (_canInit == false) {
-				throw new Error(
-					'FacebookMobile is an singleton and cannot be instantiated.'
-				);
-			}
-		}
 
 		/**
 		 * Initializes this Facebook singleton with your application ID.
@@ -72,13 +58,13 @@ package;
 		 * @param accessToken If you have a previously saved access_token, you can pass it in here.
 		 *
 		 */
-		public static function init(applicationId:String, callback:Function, accessToken:String = null):void {
+		public static function init (applicationId:String, callback:Dynamic, accessToken:String = null) {
 
-			getInstance().init(applicationId, callback, accessToken);
+			Facebook.sharedFacebook().init(applicationId, callback, accessToken);
 		}
 		
-		public static function set locale(value:String):void {
-			getInstance().locale = value;
+		public static function set locale(value:String) {
+			Facebook.sharedFacebook().locale = value;
 		}
 		
 		/**
@@ -106,8 +92,8 @@ package;
 		 * @see http://developers.facebook.com/docs/guides/mobile/
 		 *
 		 */
-		public static function login (callback:Function, stageRef:Stage, extendedPermissions:Array, webView:StageWebView = null, display:String = 'touch'):void {
-			getInstance().login (callback, stageRef, extendedPermissions, webView, display);
+		public static function login (callback:Dynamic, stageRef:Stage, extendedPermissions:Array, webView:StageWebView = null, display:String = 'touch') {
+			Facebook.sharedFacebook().login (callback, stageRef, extendedPermissions, webView, display);
 		}
 
 		/**
@@ -117,8 +103,8 @@ package;
 		 * and the end developer must save the session manually.
 		 *
 		 */
-		public static function set manageSession(value:Boolean):void {
-			getInstance().manageSession = value;
+		public static function set manageSession(value:Bool) {
+			Facebook.sharedFacebook().manageSession = value;
 		}
 
 		/**
@@ -132,8 +118,8 @@ package;
 		 * @param appOrigin (Optional) The site url specified for your app. Required for clearing html window cookie.
 		 *
 		 */
-		public static function logout(callBack:Function=null, appOrigin:String=null):void {
-			getInstance().logout(callBack, appOrigin);
+		public static function logout(callBack:Dynamic=null, appOrigin:String=null) {
+			Facebook.sharedFacebook().logout(callBack, appOrigin);
 		}
 
 		/**
@@ -151,8 +137,8 @@ package;
 		 * @see http://developers.facebook.com/docs/authentication/permissions
 		 *
 		 */
-		public static function requestExtendedPermissions (callback:Function, webView:StageWebView, ...extendedPermissions:Array):void {
-			getInstance().requestExtendedPermissions(callback, webView, extendedPermissions);
+		public static function requestExtendedPermissions (callback:Dynamic, webView:StageWebView, ...extendedPermissions:Array) {
+			Facebook.sharedFacebook().requestExtendedPermissions(callback, webView, extendedPermissions);
 		}
 
 		/**
@@ -181,12 +167,12 @@ package;
 		 *
 		 */
 		public static function api(method:String,
-								   callback:Function,
+								   callback:Dynamic,
 								   params:* = null,
 								   requestMethod:String = 'GET'
-		):void {
+		) {
 
-			getInstance().api(method,
+			Facebook.sharedFacebook().api(method,
 				callback,
 				params,
 				requestMethod
@@ -203,7 +189,7 @@ package;
 		 *
 		 */
 		public static function getRawResult(data:Object):Object {			
-			return getInstance().getRawResult(data);
+			return Facebook.sharedFacebook().getRawResult(data);
 		}
 		
 		/**
@@ -215,8 +201,8 @@ package;
 		 * @see http://developers.facebook.com/docs/api#reading
 		 *
 		 */
-		public static function hasNext(data:Object):Boolean {
-			var result:Object = getInstance().getRawResult(data);
+		public static function hasNext(data:Object):Bool {
+			var result:Object = Facebook.sharedFacebook().getRawResult(data);
 			if(!result.paging){ return false; }
 			return (result.paging.next != null);
 		}
@@ -230,8 +216,8 @@ package;
 		 * @see http://developers.facebook.com/docs/api#reading
 		 *
 		 */
-		public static function hasPrevious(data:Object):Boolean {
-			var result:Object = getInstance().getRawResult(data);
+		public static function hasPrevious(data:Object):Bool {
+			var result:Object = Facebook.sharedFacebook().getRawResult(data);
 			if(!result.paging){ return false; }
 			return (result.paging.previous != null);
 		}
@@ -249,8 +235,8 @@ package;
 		 * @see http://developers.facebook.com/docs/api#reading
 		 *
 		 */
-		public static function nextPage(data:Object, callback:Function):FacebookRequest {
-			return getInstance().nextPage(data, callback);
+		public static function nextPage(data:Object, callback:Dynamic):FacebookRequest {
+			return Facebook.sharedFacebook().nextPage(data, callback);
 		}
 		
 		/**
@@ -266,8 +252,8 @@ package;
 		 * @see http://developers.facebook.com/docs/api#reading
 		 *
 		 */
-		public static function previousPage(data:Object, callback:Function):FacebookRequest {
-			return getInstance().previousPage(data, callback);
+		public static function previousPage(data:Object, callback:Dynamic):FacebookRequest {
+			return Facebook.sharedFacebook().previousPage(data, callback);
 		}
 
 		/**
@@ -278,9 +264,9 @@ package;
 		 * @see com.facebook.graph.net.FacebookMobile#request()
 		 */
 		public static function postData(method:String,
-										callback:Function,
+										callback:Dynamic,
 										params:* = null
-		):void {
+		) {
 
 			api(method, callback, params, URLRequestMethod.POST);
 		}
@@ -299,8 +285,8 @@ package;
 		 * @see http://developers.facebook.com/docs/reference/api/video/
 		 * 
 		 */
-		public static function uploadVideo(method:String, callback:Function = null, params:* = null):void {
-			getInstance().uploadVideo(method, callback, params);
+		public static function uploadVideo(method:String, callback:Dynamic = null, params:* = null) {
+			Facebook.sharedFacebook().uploadVideo(method, callback, params);
 		}
 
 		/**
@@ -316,9 +302,9 @@ package;
 		 * @see com.facebook.graph.net.FacebookMobile#request()
 		 *
 		 */
-		public static function deleteObject(method:String, callback:Function ):void {
+		public static function deleteObject(method:String, callback:Dynamic ) {
 
-			getInstance().deleteObject(method, callback);
+			Facebook.sharedFacebook().deleteObject(method, callback);
 		}
 
 		/**
@@ -331,8 +317,8 @@ package;
 		 * @see com.facebook.graph.net.Facebook#callRestAPI()
 		 * 
 		 */	
-		public static function fqlQuery(query:String, callback:Function=null, values:Object=null):void {
-			getInstance().fqlQuery(query, callback, values);
+		public static function fqlQuery(query:String, callback:Dynamic=null, values:Object=null) {
+			Facebook.sharedFacebook().fqlQuery(query, callback, values);
 		}
 		
 		/**
@@ -344,8 +330,8 @@ package;
 		 * @see com.facebook.graph.net.Facebook#callRestAPI()
 		 * 
 		 */	
-		public static function fqlMultiQuery(queries:FQLMultiQuery, callback:Function=null, parser:IResultParser=null):void {
-			getInstance().fqlMultiQuery(queries, callback, parser);
+		public static function fqlMultiQuery(queries:FQLMultiQuery, callback:Dynamic=null, parser:IResultParser=null) {
+			Facebook.sharedFacebook().fqlMultiQuery(queries, callback, parser);
 		}
 		
 		/**
@@ -356,8 +342,8 @@ package;
 		 * @see callback The callback to execute when this operation is complete.
 		 * 
 		 */
-		public static function batchRequest(batch:Batch, callback:Function=null):void {
-			getInstance().batchRequest(batch, callback);
+		public static function batchRequest(batch:Batch, callback:Dynamic=null) {
+			Facebook.sharedFacebook().batchRequest(batch, callback);
 		}
 
 		/**
@@ -375,12 +361,12 @@ package;
 		 *
 		 */
 		public static function callRestAPI(methodName:String,
-										   callback:Function = null,
+										   callback:Dynamic = null,
 										   values:* = null,
 										   requestMethod:String = 'GET'
-		):void {
+		) {
 
-			getInstance().callRestAPI(methodName, callback, values, requestMethod);
+			Facebook.sharedFacebook().callRestAPI(methodName, callback, values, requestMethod);
 		}
 
 		/**
@@ -398,7 +384,7 @@ package;
 										   type:String = null
 		):String {
 
-			return getInstance().getImageUrl(id, type);
+			return Facebook.sharedFacebook().getImageUrl(id, type);
 		}
 
 		/**
@@ -406,13 +392,13 @@ package;
 		 *
 		 */
 		public static function getSession():FacebookSession {
-			return getInstance().session;
+			return Facebook.sharedFacebook().session;
 		}
 
 		function init(applicationId:String,
-								callback:Function,
+								callback:Dynamic,
 								accessToken:String = null
-		):void {
+		) {
 			
 			initCallback = callback;
 
@@ -435,7 +421,7 @@ package;
 		 * @private
 		 *
 		 */
-		function verifyAccessToken():void {
+		function verifyAccessToken() {
 			api('/me', handleUserLoad);
 		}
 
@@ -443,7 +429,7 @@ package;
 		 * @private
 		 *
 		 */
-		function handleUserLoad(result:Object, error:Object):void {
+		function handleUserLoad(result:Object, error:Object) {
 			 if (result) {
 				session.uid = result.id;
 				session.user = result;
@@ -470,7 +456,7 @@ package;
      	  * @private
           *
      	  */
-		function login (callback:Function, stageRef:Stage, extendedPermissions:Array, webView:StageWebView = null, display:String = 'touch'):void {
+		function login (callback:Dynamic, stageRef:Stage, extendedPermissions:Array, webView:StageWebView = null, display:String = 'touch') {
 			this.loginCallback = callback;
 			this.stageRef = stageRef;
 			if (!webView) {
@@ -496,14 +482,14 @@ package;
 			);
 		}
 		
-		function set manageSession(value:Boolean):void {
+		function set manageSession(value:Bool) {
 			_manageSession = value;
 
 		}
 		
-		function requestExtendedPermissions( callback:Function, webView:StageWebView,
+		function requestExtendedPermissions( callback:Dynamic, webView:StageWebView,
 			...extendedPermissions:Array
-		):void {
+		) {
 
 			if (applicationId == null) {
 				throw new Error(
@@ -513,7 +499,7 @@ package;
 			login (callback, stageRef, extendedPermissions, webView);
 		}
 		
-		function handleLogin(result:Object, fail:Object):void {
+		function handleLogin(result:Object, fail:Object) {
 			loginWindow.loginCallback = null;
 
 			if (fail) {
@@ -539,7 +525,7 @@ package;
 		 * @private
 		 *
 		 */
-		function logout(callback:Function=null, appOrigin:String=null):void {
+		function logout(callback:Dynamic=null, appOrigin:String=null) {
 			this.logoutCallback = callback;
 			
 			//clears cookie for mobile.
@@ -563,7 +549,7 @@ package;
 		 * @private
 		 *
 		 */
-		function handleLogout(result:Object, fail:Object):void {
+		function handleLogout(result:Object, fail:Object) {
 			//This is a specific case. Since we are hitting a different URL to 
 			//logout, we do not get a normal result/fail
 			if (logoutCallback != null) {
@@ -591,7 +577,7 @@ package;
 		 * @private
 		 *
 		 */
-		static function getInstance():FacebookMobile {
+		static function Facebook.sharedFacebook():FacebookMobile {
 			if (_instance == null) {
 				_canInit = true;
 				_instance = new FacebookMobile();

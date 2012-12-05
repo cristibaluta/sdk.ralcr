@@ -1,0 +1,12 @@
+# -js Samples/UIKit/test.js
+# -cp Samples/UIKit
+# all.hxml
+# -main Main
+# 
+# --next
+-swf Samples/TextureAtlas/TextureAtlas.swf
+-swf-version 9
+-swf-header 600:300:60:333333
+-cp Samples/TextureAtlas
+all.hxml
+-main Main
