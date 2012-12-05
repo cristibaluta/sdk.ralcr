@@ -1,4 +1,4 @@
-import flash.events.Event;
+﻿import flash.events.Event;
 import flash.events.DataEvent;
 import flash.events.ErrorEvent;
 import flash.events.IOErrorEvent;
@@ -33,8 +33,8 @@ class FacebookRequest {
 	public function new() { }
 		
 	public function call (requestUrl:String, requestMethod:String = 'GET', _callback:Dynamic, values:Dynamic=null) {
-		trace(requestUrl);
-		trace(_requestMethod);
+		//trace(requestUrl);
+		//trace(_requestMethod);
 		_url = requestUrl;
 		_requestMethod = requestMethod;
 		__callback = _callback;
@@ -53,9 +53,7 @@ class FacebookRequest {
 		trace(fileData);
 		//There is no fileData, so just send it off.
 		if (fileData == null) {
-			trace(values);
 			urlRequest.data = objectToURLVariables(values);
-			trace(urlRequest.data);
 			loadURLLoader();
 			return;
 		}
@@ -122,7 +120,6 @@ class FacebookRequest {
 		}
 		
 		for (n in Reflect.fields(values)) {
-			trace("field "+n);
 			Reflect.setField (urlVars, n, Reflect.field ( values, n));
 		}
 			

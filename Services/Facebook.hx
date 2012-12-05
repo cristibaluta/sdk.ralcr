@@ -10,27 +10,11 @@ typedef JsonParseError = Dynamic;
 
 class Facebook {
 
-	inline public static var GRAPH_URL = 'https://graph.facebook.com';
-	inline public static var API_URL = 'https://api.facebook.com';
-	inline public static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
-	inline public static var VIDEO_URL = 'https://graph-video.facebook.com';
+	inline static var GRAPH_URL = 'https://graph.facebook.com';
+	inline static var API_URL = 'https://api.facebook.com';
+	inline static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
+	inline static var VIDEO_URL = 'https://graph-video.facebook.com';
 	
-	    /**
-	     * Used for AIR applications only.
-	     * URL to re-direct to after a successfull login to Facebook.
-	     *
-	     * @see com.facebook.graph.FacebookDesktop#login
-	     * @see http://developers.facebook.com/docs/authentication/desktop
-	     *
-	     */
-	inline public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
-	inline public static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
-	inline public static var LOGIN_FAIL_URL = 'http://www.facebook.com/connect/login_success.html?error_reason';
-	inline public static var LOGIN_FAIL_SECUREURL = 'https://www.facebook.com/connect/login_success.html?error_reason';
-	inline public static var LOGIN_URL = 'https://login.facebook.com/login.php';
-	inline public static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
-		
-
     static var _instance :Facebook;
 	
     var jsCallbacks :Dynamic;
@@ -389,11 +373,11 @@ class Facebook {
      */
 	public function api (method:String, _callback:Dynamic, ?params:Dynamic, requestMethod:String = 'GET') {
   		
-		trace(method);
+/*		trace(method);
 		trace(_callback);
 		trace(params);
 		trace(requestMethod);
-		trace(accessToken());
+		trace(accessToken());*/
 		
 		method = (method.indexOf('/') != 0) ?  '/'+method : method;
 		
@@ -403,13 +387,12 @@ class Facebook {
 			if (params.access_token == null)
 				params.access_token = accessToken();
 		}
-		trace(params.access_token);
 		
 		var req = new FacebookRequest();
 			req.functionToCall = _callback;
 		openRequests.push ( req );
 		
-		if (locale != null) { params.locale = locale; }
+		if (locale != null) params.locale = locale;
 		
         req.call (GRAPH_URL+method, requestMethod, handleRequestLoad, params);
     }

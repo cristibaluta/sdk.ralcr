@@ -21,8 +21,16 @@ package;
 	 *
 	 */
 	public class FacebookMobile extends AbstractFacebook {
-
-		static const SO_NAME = 'com.facebook.graph.FacebookMobile';
+		
+		inline public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
+		inline public static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
+		inline public static var LOGIN_FAIL_URL = 'http://www.facebook.com/connect/login_success.html?error_reason';
+		inline public static var LOGIN_FAIL_SECUREURL = 'https://www.facebook.com/connect/login_success.html?error_reason';
+		inline public static var LOGIN_URL = 'https://login.facebook.com/login.php';
+		inline public static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
+		
+		inline static var SO_NAME = 'com.facebook.graph.FacebookMobile';
+		
 		static var _instance:FacebookMobile;
 		static var _canInit:Boolean = false;
 		var _manageSession:Boolean = true;

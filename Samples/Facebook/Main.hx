@@ -1,16 +1,9 @@
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import haxe.Json;
+import FacebookTools;
 
-typedef FacebookUser = {
-	var name : String;
-	var id : String;
-}
-typedef FacebookUserInfo = {
-	var name : String;
-	var id : String;
-}
-	
+
 class Main extends Sprite {
 		
 	static var APP_ID = "249854931808870"; //Place your application id here
@@ -21,13 +14,13 @@ class Main extends Sprite {
 	}
 	
 	public function new () {
+		
 		haxe.Firebug.redirectTraces();
-		trace("new");
 		super();
 		
 		fb = Facebook.init (APP_ID, onInit);
 		var s = new SKSimpleButtonWithText ("Logout", null);
-		var b = new RCButton (20, 80, s);
+		var b = new RCButton (20, 70, s);
 			b.onClick = logoutHandler;
 			b.init();
 		addChild ( b.layer );
@@ -38,13 +31,13 @@ class Main extends Sprite {
 		addChild ( b.layer );
 		
 		var s = new SKSimpleButtonWithText ("GetFriends", null);
-		var b = new RCButton (120, 50, s);
+		var b = new RCButton (20, 100, s);
 			b.onClick = getFriendsHandler;
 			b.init();
 		addChild ( b.layer );
 		
 		var s = new SKSimpleButtonWithText ("GetFriendWithId", null);
-		var b = new RCButton (120, 80, s);
+		var b = new RCButton (20, 120, s);
 			b.onClick = getFriendHandler;
 			b.init();
 		addChild ( b.layer );
@@ -65,19 +58,18 @@ class Main extends Sprite {
 		fb.logout (onLogout);
 	}
 	function onLogin (result:Dynamic, fail:Dynamic){
-		trace(result);trace(fail);
+		//trace(result);trace(fail);
+		//if (result != null) 
 	}
 	function onLogout(success:Bool){			
 		trace(success);			
 	}
 	
 	function getFriendsHandler(){
-		trace("getFriendsHandler");
-		handleCallApiClick ("/me/friends", friendsHandler);
+		FacebookTools.requestFriends( friendsHandler );
 	}
 	function getFriendHandler(){
-		trace("getFriendHandler");
-		handleCallApiClick ("245700020", friendHandler);// Emma
+		FacebookTools.requestProfilePictureForUserId ("245700020", friendHandler);// Emma
 	}
 	
 	function handleReqTypeChange(event:MouseEvent){
@@ -87,35 +79,32 @@ class Main extends Sprite {
 			paramsLabel.visible = paramsInput.visible = true; //only POST request types have params
 		}*/
 	}
-	
-	function handleCallApiClick(method:String, func:Dynamic){
-		var requestType = "GET";//getRadio.selected ? "GET" : "POST";
-		var params:Dynamic = null;	
-		if (requestType == "POST") {
-			try {
-				params = Json.parse ( "" );
-			} catch (e:Dynamic) {
-				trace("\n\nERROR DECODING JSON: " + e.message);
+	function friendsHandler (result:Dynamic, fail:Dynamic) {
+		if (result != null) {
+			var friends :Array<FacebookFriend> = result;
+			trace(friends.length);
+			var self = this;
+			var i = 0;
+			for (fr in friends) {
+				trace(i+", "+fr);
+				//continue;
+				if (i<10) {
+					
+				FacebookTools.requestProfilePictureForUserId (fr.id, function(result:Dynamic, fail:Dynamic) {
+					trace("ready"+result.url+i);
+					addChild ( new RCImage(Math.random()*600, 0, result.url).layer );
+				});
+				}
+				else break;
+				i++;
 			}
 		}
-		fb.api (method, func, params, requestType);
 	}
-	function friendsHandler (result:Dynamic, fail:Dynamic){
-		trace(fail);
-		if (result != null) {
-			var users :Array<FacebookUser> = result;
-			trace(users.length);
-			for (user in users) trace(user);
-		}
+	function friendHandler (result:Dynamic, fail:Dynamic) {
+		trace(result);trace(fail);
+		addChild ( new RCImage(350, 100, result.url).layer );
 	}
-	function friendHandler (result:Dynamic, fail:Dynamic){
-		trace(result);trace(fail);return;
-		if (result != null) {
-			var users :Array<FacebookUser> = result;
-			trace(users.length);
-			for (user in users) trace(user);
-		}
-	}
+	
 	
 	
 	function handleUIClick (event:MouseEvent){			
@@ -133,10 +122,7 @@ class Main extends Sprite {
 			trace("\n\nPlease specify dialog type");
 		}
 	}
-	
 	function onUICallback(result:Dynamic){
 		trace(result);
 	}
-		
-	
 }
