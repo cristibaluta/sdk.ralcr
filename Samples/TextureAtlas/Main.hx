@@ -18,29 +18,22 @@ class Main extends Sprite {
 		haxe.Firebug.redirectTraces();
 		super();
 		
-		fb = Facebook.init (APP_ID, onInit);
-		var s = new SKSimpleButtonWithText ("Logout", null);
-		var b = new RCButton (20, 70, s);
-			b.onClick = logoutHandler;
-			b.init();
-		addChild ( b.layer );
-		var s = new SKSimpleButtonWithText ("Login", null);
-		var b = new RCButton (20, 50, s);
-			b.onClick = loginHandler;
-			b.init();
-		addChild ( b.layer );
+		//var textureAtlas = new RCTextureAtlas (RCAssets.sharedAssets().get("players_png"), RCAssets.sharedAssets().get("players_plist"));
+/*		var textureAtlas = new RCTextureAtlas (RCAssets.sharedAssets().get("t_png"), RCAssets.sharedAssets().get("t_xml"));
+		addChild ( textureAtlas.imageNamed("Asset_Door_Front_008_D_frame0-20_008_.RGB_color.0000.tga") );
 		
-		var s = new SKSimpleButtonWithText ("GetFriends", null);
-		var b = new RCButton (20, 100, s);
-			b.onClick = getFriendsHandler;
-			b.init();
-		addChild ( b.layer );
+		var i = 0;
+		var arr = textureAtlas.imagesWithPrefix ( "Asset_Door_Front_008_D" );
+		var aim = RCImageAnimated.animatedImageWithImages (300, 0, arr);
+		aim.play(10);
+		addChild ( aim );*/
 		
-		var s = new SKSimpleButtonWithText ("GetFriendWithId", null);
-		var b = new RCButton (20, 120, s);
-			b.onClick = getFriendHandler;
-			b.init();
-		addChild ( b.layer );
+/*		for (im in arr) {
+			addChild ( im );
+			im.x = 200+i*100;
+			i++;
+		}*/
+		
 	}
 	
 	function onInit (result:Dynamic, fail:Dynamic) {

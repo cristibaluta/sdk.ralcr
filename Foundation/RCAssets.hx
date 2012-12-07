@@ -68,9 +68,6 @@ class RCAssets {
 	
 	
 	
-	/**
-	 *  RCAssets can be initialized only once
-	 */
 	function new () {
 		imagesList = new Hash<RCImage>();
 		swfList = new Hash<RCSwf>();
@@ -80,7 +77,7 @@ class RCAssets {
 	}
 	
 	public function set (key:String, URL:String, ?newDomain:Bool=true) :Bool {
-		//trace("set "+key+", "+URL);
+		trace("set "+key+", "+URL);
 		max ++;
 		
 		if (key == null)
@@ -115,7 +112,7 @@ class RCAssets {
 		return true;
 	}
 	function loadPhoto (key:String, URL:String) :Void {
-		//trace("load photo "+key+", "+URL);
+		trace("load photo "+key+", "+URL);
 		var photo = new RCImage (0, 0, URL);
 			photo.onProgress = callback (progressHandler, key, photo);
 			photo.onComplete = callback (completeHandler, key, photo);
@@ -129,14 +126,15 @@ class RCAssets {
 			swf.onError = callback (errorHandler, key, swf);
 	}
 	function loadText (key:String, URL:String) :Void {
-		//trace("load text "+key+", "+URL);
+		trace("load text "+key+", "+URL);
 		var data = new RCHttp();
 		#if nme
 			// Search for the asset in NME library first
 			data.result = nme.Assets.getText ( URL );
+			trace(data.result);
 		#end
 		if (data.result == null) {
-			// If NME assets didn't contained the asset, load them with http request
+			// If NME assets didn't contained the asset, load it with a Http request
 			data.onProgress = callback (progressHandler, key, data);
 			data.onComplete = callback (completeHandler, key, data);
 			data.onError = callback (errorHandler, key, data);
@@ -224,7 +222,7 @@ class RCAssets {
 	 *	Get the asset.
 	 *  Can be RCImage, RCSwf, String, and Sprite or MovieClip as a RCView
 	 *	@param key - The key on which the asset was registered
-	 *  @param returnAsBitmap - When the asset is from an external swf you can force it to return as a Bitmap Sprite
+	 *  @param returnAsBitmap - When the asset is from an external swf you can force it to return as a Bitmap
 	 */
 	public function get (key:String, returnAsBitmap:Bool=true) :Dynamic {
 		init();
@@ -242,12 +240,12 @@ class RCAssets {
 			return swfList.get( key );// Returns RCSwf
 		}
 		
-#if (flash || nme)
-		// In the last instance search for assets in each of the loaded swf files, might be there
+#if (flash || (nme && flash))
+		// Last chance, search for assets in each of the loaded swf libs, might be there
 		else {
 			var classInstance :Dynamic = createInstance ( key );// Can be Sprite or MovieClip
 			if (classInstance == null) {
-				trace("Asset with key: "+key+"  was not found in swf assets.");
+				trace("Asset with key '"+key+"' was not found in swf libs.");
 				return null;
 			}
 			
@@ -262,7 +260,7 @@ class RCAssets {
 		}
 #end
 		// No class was found with this definition name
-		trace("Asset with key: "+key+"  was not found.");
+		trace("Asset with key '"+key+"'  was not found.");
 		return null;
 	}
 	

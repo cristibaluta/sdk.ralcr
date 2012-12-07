@@ -192,23 +192,12 @@ class Facebook {
 		return (result.paging.previous != null);
 	}
 	
-    /**
-     * Shortcut method to post data to Facebook.
-     * @see com.facebook.graph.net.Facebook#api()
-     */
     public static function postData( method:String, _callback:Dynamic, params:Dynamic) {
 		sharedFacebook().api (method, _callback, params, URLRequestMethod.POST);
     }
 	
     /**
     * Asynchronous method to get the user's current session from Facebook.
-    *
-    * This method calls out to the underlying Javascript SDK
-    * to check what the current user's login status is.
-    * You can listen for a javscript event by using
-    * Facebook.addJSEventListener('auth.sessionChange', callback)
-    * @see http://developers.facebook.com/docs/reference/javascript/FBAS.getLoginStatus
-    *
     */
     public function getLoginStatus() {
 		ExternalInterface.call('FBAS.getLoginStatus');
@@ -217,28 +206,35 @@ class Facebook {
     /**
      * Shows the Facebook login window to the end user.
      *
-     * @param callback The method to call when login is successful.
-     * The handler must have the signature of callback(success:Dynamic, fail:Dynamic);
+     * @param callback(success:Dynamic, fail:Dynamic);
      * Success will be a FacebookSession if successful, or null if not.
      *
      * @param options Values to modify the behavior of the login window.
      * http://developers.facebook.com/docs/reference/javascript/FBAS.login
      */
 	public function login (_callback:Dynamic, options:Dynamic) {
-		 _loginCallback = _callback;
-		 ExternalInterface.call ('FBAS.login', options);
+		_loginCallback = _callback;
+#if nme
+		
+#elseif (flash || js)
+		ExternalInterface.call ('FBAS.login', options);
+#end
     }
 	public function logout (_callback:Dynamic) {
-      _logoutCallback = _callback;
-      ExternalInterface.call('FBAS.logout');
+		_logoutCallback = _callback;
+#if nme
+		
+#elseif (flash || js)
+		ExternalInterface.call('FBAS.logout');
+#end
     }
 	
-	function getAuthResponse():FacebookAuthResponse {
+	function getAuthResponse () :FacebookAuthResponse {
 		
 		var result:String = ExternalInterface.call('FBAS.getAuthResponse');
 		var authResponseObj:Dynamic;
 		try {
-			authResponseObj = Json.parse(result);
+			authResponseObj = Json.parse ( result );
 		} catch (e:Dynamic) {
 			return null;
 		}
@@ -251,16 +247,8 @@ class Facebook {
 	
     /**
      * Shows a Facebook sharing dialog.
-     *
-     * @param method The related method for this dialog
-     *	(ex. stream.publish).
-     * @param data Data to pass to the dialog, date will be Json encoded.
-	 * @param callback (Optional) Method to call when complete
-     * @param display (Optional) The type of dialog to show (iframe or popup).
-     * @see http://developers.facebook.com/docs/reference/javascript/FBAS.ui
-     *
      */
-	 public function ui (method:String, data:Dynamic, _callback:Dynamic, ?display:String) {
+	 public function ui (method:String, data:Dynamic, ?_callback:Dynamic, ?display:String) {
 
 		 data.method = method;
 
@@ -284,27 +272,12 @@ class Facebook {
 
 
     function handleLogout() {
-		trace("handle logout");
 	  authResponse = null;
       if (_logoutCallback != null) {
         _logoutCallback(true);
         _logoutCallback = null;
       }
     }
-	function handleJSEvent(event:String, result:String) {
-		trace(event);trace(result);
-/*	      if (jsCallbacks[event] != null) {
-	        var decodedResult:Object;
-	        try {
-	          decodedResult = JSON.decode(result);
-	        } catch (e:JSONParseError) { }
-
-	        for (var func:Object in jsCallbacks[event]) {
-	          (func as Function)(decodedResult);
-	          delete jsCallbacks[event][func];
-	        }
-	      }*/
-	}
 	function handleAuthResponseChange(result:String) {
 		trace(result);
 		var resultObj :Dynamic = null;
@@ -354,9 +327,7 @@ class Facebook {
      *
      * @param calllback Method that will be called when this request is complete
      * The handler must have the signature of callback(result:Dynamic, fail:Dynamic);
-     * On success, result will be the object data returned from Facebook.
-     * On fail, result will be null and fail will contain information about the error.
-     *
+
      * @param params Any parameters to pass to Facebook.
      * For example, you can pass {file:myPhoto, message:'Some message'};
      * this will upload a photo to Facebook.
@@ -371,15 +342,9 @@ class Facebook {
      * @see http://developers.facebook.com/docs/api
      *
      */
-	public function api (method:String, _callback:Dynamic, ?params:Dynamic, requestMethod:String = 'GET') {
+	public function api (method:String, _callback:Dynamic, ?params:Dynamic, requestMethod:String='GET') {
   		
-/*		trace(method);
-		trace(_callback);
-		trace(params);
-		trace(requestMethod);
-		trace(accessToken());*/
-		
-		method = (method.indexOf('/') != 0) ?  '/'+method : method;
+		if (method.indexOf('/') != 0) method = '/' + method;
 		
 		if (accessToken() != null) {
 			if (params == null)
@@ -427,11 +392,7 @@ class Facebook {
 			
 		req.call (VIDEO_URL + method, 'POST', handleRequestLoad, params); 
 	}
-		
-    /**
-    * @private
-    * 
-    */
+	
 	function pagingCall (url:String, _callback:Dynamic) :FacebookRequest {
 		
 		var req = new FacebookRequest();
@@ -442,17 +403,8 @@ class Facebook {
 		
 		return req;
 	}
-		
-	/**
-     * Returns a reference to the entire raw object
-	 * Facebook returns (including paging, etc.).
-     *
-     * @param data The result object.
-     *
-     * @see http://developers.facebook.com/docs/api#reading
-     *
-     */
-	 public function getRawResult (data:Dynamic) :Dynamic {
+	
+	public function getRawResult (data:Dynamic) :Dynamic {
 		return resultHash[data];
 	}
 	
@@ -462,12 +414,6 @@ class Facebook {
      * @param data The result object.
 	 * @param callback Method that will be called when this request is complete
      * The handler must have the signature of callback(result:Dynamic, fail:Dynamic);
-     * On success, result will be the object data returned from Facebook.
-     * On fail, result will be null and fail will contain information about the error.
-	 * 
-	 * @see com.facebook.graph.net.FacebookDesktop#request()
-     * @see http://developers.facebook.com/docs/api#reading
-     *
      */
 	public function nextPage (data:Dynamic, _callback:Dynamic) :FacebookRequest {
 		
@@ -496,14 +442,15 @@ class Facebook {
 	}
 	
     function handleRequestLoad (target:FacebookRequest) {
+		
         var resultCallback:Dynamic = target.functionToCall;
         if (resultCallback == null) {
 			openRequests.remove ( target );
         }
 
 		if (target.success) {
-			var data:Dynamic = Reflect.field(target.data, "data") != null ? target.data.data : target.data;
-			resultHash.push ( data );// = target.data;
+			var data:Dynamic = Reflect.field (target.data, "data") != null ? target.data.data : target.data;
+			resultHash.push ( data );
 			
 			if (data.hasOwnProperty("error_code")) {
 				resultCallback (null, data);
@@ -612,7 +559,7 @@ class Facebook {
      * @see http://developers.facebook.com/docs/api#pictures
      *
      */
-    public function getImageUrl(id:String, type:String = null):String {
-        return GRAPH_URL + '/' + id + '/picture' + (type != null?'?type=' + type:'');
+    public function getImageUrl (id:String, ?type:String) :String {
+        return GRAPH_URL + '/' + id + '/picture' + (type != null ? ('?type=' + type) : '');
     }
 }

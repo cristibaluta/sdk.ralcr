@@ -155,7 +155,9 @@ class RCImage extends RCView {
 		if (URL == null) return;
 		
 		#if nme
-			bitmapData = nme.Assets.getBitmapData ( URL );
+			// Nme has the assets already embeded
+			trace("nme initWithContentsOfFile:"+URL);
+			bitmapData = nme.Assets.getBitmapData ( URL );trace(bitmapData);
 			haxe.Timer.delay (function() { (bitmapData != null) ? completeHandler(null) : errorHandler(null); }, 10);
 		#elseif flash
 			loader.load ( new URLRequest ( URL ), new LoaderContext ( true ) );

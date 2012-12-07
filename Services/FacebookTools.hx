@@ -11,6 +11,9 @@ typedef FacebookFriendPhoto = {
 
 class FacebookTools {
 	
+	public static function requestInfoForUserId (userId:String, func:Dynamic) {
+		Facebook.sharedFacebook().api (userId, func, null, "GET");
+	}
 	public static function requestFriends (func:Dynamic) {
 		Facebook.sharedFacebook().api ("me/friends", func, null, "GET");
 	}

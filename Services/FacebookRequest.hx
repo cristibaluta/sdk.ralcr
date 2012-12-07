@@ -1,9 +1,9 @@
-﻿import flash.events.Event;
-import flash.events.DataEvent;
+import flash.events.Event;
+//import flash.events.DataEvent;
 import flash.events.ErrorEvent;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
-import flash.net.FileReference;
+//import flash.net.FileReference;
 import flash.net.URLRequest;
 import flash.net.URLLoader;
 import flash.net.URLRequestMethod;
@@ -17,7 +17,7 @@ typedef PostRequest = Dynamic;
 
 class FacebookRequest {
 		
-	var fileReference :FileReference;
+	//var fileReference :FileReference;
 	var urlLoader :URLLoader;
 	var urlRequest :URLRequest;
 	var _url :String;
@@ -40,7 +40,6 @@ class FacebookRequest {
 		__callback = _callback;
 		
 		urlRequest = new URLRequest(requestUrl);
-		//urlRequest = new URLRequest("https://graph.facebook.com/me/friends?access_token=AAAAAAITEghMBABqJHZB1ZC9JhRMyjdkvkCsgsx16X8aqZBZAUFAbBcvX6ZA7o8E7S4LY8BVlkFt7O2g3unc9r8quZAaJTMDrVoByRqWGHcVnl8iPkRYEJM");
 		urlRequest.method = _requestMethod;
 /*			https://graph.facebook.com/me/friends?access_token=AAAAAAITEghMBABqJHZB1ZC9JhRMyjdkvkCsgsx16X8aqZBZAUFAbBcvX6ZA7o8E7S4LY8BVlkFt7O2g3unc9r8quZAaJTMDrVoByRqWGHcVnl8iPkRYEJMaccess%5Ftoken=function%20Function%28%29%20%7B%7D*/
 		//If there are no user defined values, just send the request as is.
@@ -50,7 +49,7 @@ class FacebookRequest {
 		}
 			
 		var fileData:Dynamic = extractFileData(values);
-		trace(fileData);
+		//trace(fileData);
 		//There is no fileData, so just send it off.
 		if (fileData == null) {
 			urlRequest.data = objectToURLVariables(values);
@@ -59,17 +58,17 @@ class FacebookRequest {
 		}
 			
 		//If the fileData is a FileReference, let it handle this request.
-		if (Std.is (fileData, FileReference)) {
+/*		if (Std.is (fileData, FileReference)) {
 			urlRequest.data = objectToURLVariables(values);
 			urlRequest.method = URLRequestMethod.POST;
 				
 			fileReference = cast (fileData, FileReference);
-			fileReference.addEventListener( DataEvent.UPLOAD_COMPLETE_DATA, handleFileReferenceData, false, 0, true );
+			//fileReference.addEventListener( DataEvent.UPLOAD_COMPLETE_DATA, handleFileReferenceData, false, 0, true );
 			fileReference.addEventListener( IOErrorEvent.IO_ERROR, handelFileReferenceError, false, 0, false );
 			fileReference.addEventListener( SecurityErrorEvent.SECURITY_ERROR, handelFileReferenceError, false, 0, false);
 			fileReference.upload(urlRequest);
 			return;
-		}
+		}*/
 		
 		urlRequest.data = createUploadFileRequest(fileData, values).getPostData();
 		urlRequest.method = URLRequestMethod.POST;
@@ -78,7 +77,7 @@ class FacebookRequest {
 	}
 		
 		
-	function handleFileReferenceData(event:DataEvent) {
+	function handleFileReferenceData(event:/*DataEvent*/Dynamic) {
 		handleDataLoad(event.data);
 	}
 		
@@ -108,7 +107,8 @@ class FacebookRequest {
 	}
 		
 	function isValueFile(value:Dynamic):Bool {
-		return (Std.is (value, FileReference) || Std.is (value, Bitmap) || Std.is (value, BitmapData) || Std.is (value, ByteArray));
+		return false;
+		//return (Std.is (value, FileReference) || Std.is (value, Bitmap) || Std.is (value, BitmapData) || Std.is (value, ByteArray));
 	}
 		
 	function objectToURLVariables (values:Dynamic) :URLVariables {
@@ -142,8 +142,8 @@ class FacebookRequest {
 				
 			urlLoader = null;
 		}
-		if (fileReference != null) {
-			fileReference.removeEventListener( DataEvent.UPLOAD_COMPLETE_DATA, handleFileReferenceData );
+/*		if (fileReference != null) {
+			//fileReference.removeEventListener( DataEvent.UPLOAD_COMPLETE_DATA, handleFileReferenceData );
 			fileReference.removeEventListener( IOErrorEvent.IO_ERROR, handelFileReferenceError );
 			fileReference.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, handelFileReferenceError );
 				
@@ -152,7 +152,7 @@ class FacebookRequest {
 			} catch (e:Dynamic) { }
 				
 			fileReference = null;
-		}
+		}*/
 	}
 	
 	function loadURLLoader() {
@@ -312,14 +312,15 @@ class FacebookSession {
 
    
    public function fromJSON (result:Dynamic) {
-        if (result != null) {
+	   trace(Std.string(result));
+       if (result != null) {
             sessionKey = result.session_key;
             expireDate = Date.fromString (result.expires);
             accessToken = result.access_token;
             secret = result.secret;
-            sig = result.sig;
-            uid = result.uid;
-        }
+			sig = result.sig;
+			uid = result.uid;
+       }
     }
     public function toString():String {
         return '[FacebookSession userId:' + uid + ']';

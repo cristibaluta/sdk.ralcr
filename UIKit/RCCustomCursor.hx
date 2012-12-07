@@ -66,8 +66,9 @@ class RCCustomCursor extends RCView {
 	}*/
 	
 	override public function destroy () :Void {
+		
 		#if (flash || nme || cpp || neko)
-			Mouse.hide();
+			Mouse.show();
 		#elseif js
 			js.Lib.document.body.style.cursor = "auto";
 		#end
