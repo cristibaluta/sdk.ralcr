@@ -22,21 +22,21 @@
 		import flash.net.URLRequestMethod;
 	#else
 		private typedef HTTPStatusEvent = Dynamic;
-		private typedef URLVariables = Dynamic;
 		private typedef URLRequestMethod = Dynamic;
+		private class URLVariables implements Dynamic { public function new(){} }
 	#end
 #elseif js
 	import js.Dom;
 	import haxe.Http;
 	private typedef URLLoader = Http;
 	private typedef URLRequest = Http;
-	private typedef URLVariables = Dynamic;
 	private typedef IEventDispatcher = Http;
 	private typedef ProgressEvent = Dynamic;
 	private typedef SecurityErrorEvent = String;
 	private typedef IOErrorEvent = String;
 	private typedef Result = String;
 	private typedef HTTPStatusEvent = Int;
+	private class URLVariables implements Dynamic { public function new(){} }
 #end
 
 class RCRequest {
@@ -65,16 +65,11 @@ class RCRequest {
 	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
+		
 		#if (flash || nme)
 			loader = new URLLoader();
 			addListeners ( loader );
-			var request = new URLRequest ( URL );
-			#if flash
-				request.data = variables;
-				request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
-			#end
-			loader.load ( request );
-			
+			loader.load ( createRequest (URL, variables, method) );
 		#elseif js
 			loader = new Http ( URL );
 			loader.async = true;
@@ -85,6 +80,7 @@ class RCRequest {
 			loader.request ( method == "POST" ? true : false );
 		#end
 	}
+	
 	
 	
 	/**
@@ -177,6 +173,27 @@ class RCRequest {
 		#end
 		onError();
     }
+	
+	
+	// Utils
+	function createRequest (URL:String, variables:URLVariables, method:String) :URLRequest {
+		var request = new URLRequest ( URL );
+		#if flash
+			request.data = variables;
+			request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
+		#end
+		return request;
+	}
+	function createVariables (variables_list:Dynamic) :URLVariables {
+		
+		var variables = new URLVariables();
+		
+		if (variables_list != null)
+			for (f in Reflect.fields (variables_list))
+				Reflect.setField (variables, f, Reflect.field (variables_list, f));
+		
+		return variables;
+	}
 	
 	
 	/**

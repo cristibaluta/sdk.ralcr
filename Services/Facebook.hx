@@ -24,6 +24,7 @@ class Facebook {
 	var oauth2 :Bool;
 	var locale :String;
     var openRequests :Array<FacebookRequest>;
+    var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
 	var parserHash :Array<Dynamic>;
 	
@@ -72,6 +73,7 @@ class Facebook {
         openRequests = new Array<FacebookRequest>();
 		resultHash = new Array<Dynamic>();
 		parserHash = new Array<Dynamic>();
+		requests = new Array<RCHttp>();
 
         _initCallback = _callback;
 	  
@@ -110,17 +112,7 @@ class Facebook {
      * where the underlying Javascript SDK will notify this swf
      * that a valid login has occurred.
      *
-     * @param display Type of login form to show to the user.
-     * <ul>
-     *	<li>touch Default; (Recommended)
-     * 		Smartphone, full featured web browsers.
-     * 	</li>
-     *
-     *	<li>wap;
-     *		Older mobile web browsers,
-     * 		shows a slimmer UI to the end user.
-     * 	</li>
-     * </ul>
+     * @param display Type of login form to show to the user: touch/wap
 	 * 
 	 * @param extendedPermissions (Optional) Array of extended permissions
      * to ask the user for once they are logged in.
@@ -343,25 +335,26 @@ class Facebook {
         req.call (GRAPH_URL+method, requestMethod, handleRequestLoad, params);*/
 		
 		var req = new RCHttp();
-			req.onComplete = callback (apiHandler, _callback);
-			req.onError = callback (apiHandler, _callback);
+			req.onComplete = callback (completeHandler, req, _callback);
+			req.onError = callback (errorHandler, req, _callback);
 			req.call (GRAPH_URL + method, params, requestMethod);
 		requests.push ( req );
     }
-	function completeHandler (_callback:Dynamic) {
-		trace(http.result);
+	function completeHandler (req:RCHttp, _callback:Dynamic) {
+		trace(req.result);
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
 		} catch (e:Dynamic) {
 			parsedData = req.result;
-			errorHandler ();
+			errorHandler (req, _callback);
 		}
 		
-		_callback (parsedData, null);
+		_callback (parsedData.data, null);
 	}
-	function errorHandler (_callback:Dynamic) {
-		trace(http.result);
+	function errorHandler (req:RCHttp, _callback:Dynamic) {
+		trace(req.result);
+		var parsedData = Json.parse ( req.result );
 		_callback (null, parsedData);
 	}
 	/**

@@ -6,13 +6,6 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
-	import flash.net.URLVariables;
-#elseif js
-	private class URLVariables implements Dynamic { public function new(){} }
-#end
-
-
 class RCHttp extends RCRequest {
 	
 	var apiPath :String; // Path to the folder that contains all php scripts
@@ -43,9 +36,7 @@ class RCHttp extends RCRequest {
 	 */
 	public function readDirectory (directoryName:String) :Void {
 		
-		var variables = new URLVariables();
-			variables.path = directoryName;
-		
+		var variables = createVariables ( { path : directoryName } );
 		load ( apiPath + "filesystem/readDirectory.php", variables );
 	}
 	
@@ -54,12 +45,14 @@ class RCHttp extends RCRequest {
 	 * Call an url and pass some variables
 	 */
 	public function call (script:String, variables_list:Dynamic, ?method:String="POST") :Void {
+		load (apiPath + script, createVariables (variables_list), method);
+	}
+	
+	public function navigateToURL (URL:String, variables_list:Dynamic, ?method:String="POST", ?target:String="_self") :Void {
 		
-		var variables = new URLVariables();
-		if (variables_list != null)
-			for (f in Reflect.fields (variables_list))
-				Reflect.setField (variables, f, Reflect.field (variables_list, f));
-		
-		load (apiPath + script, variables, method);
+		var variables = createVariables ( variables_list );
+		#if (flash || nme)
+		flash.Lib.getURL (createRequest (URL, variables, method), target);
+		#end
 	}
 }

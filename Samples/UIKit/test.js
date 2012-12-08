@@ -2891,13 +2891,6 @@ RCGroup.prototype = $extend(JSView.prototype,{
 	,items: null
 	,__class__: RCGroup
 });
-var _RCHttp = _RCHttp || {}
-_RCHttp.URLVariables = $hxClasses["_RCHttp.URLVariables"] = function() {
-};
-_RCHttp.URLVariables.__name__ = ["_RCHttp","URLVariables"];
-_RCHttp.URLVariables.prototype = {
-	__class__: _RCHttp.URLVariables
-}
 var RCRequest = $hxClasses["RCRequest"] = function() {
 };
 RCRequest.__name__ = ["RCRequest"];
@@ -2905,6 +2898,22 @@ RCRequest.prototype = {
 	destroy: function() {
 		this.removeListeners(this.loader);
 		this.loader = null;
+	}
+	,createVariables: function(variables_list) {
+		var variables = new _RCRequest.URLVariables();
+		if(variables_list != null) {
+			var _g = 0, _g1 = Reflect.fields(variables_list);
+			while(_g < _g1.length) {
+				var f = _g1[_g];
+				++_g;
+				variables[f] = Reflect.field(variables_list,f);
+			}
+		}
+		return variables;
+	}
+	,createRequest: function(URL,variables,method) {
+		var request = new haxe.Http(URL);
+		return request;
 	}
 	,ioErrorHandler: function(e) {
 		this.result = e;
@@ -2942,9 +2951,6 @@ RCRequest.prototype = {
 	}
 	,load: function(URL,variables,method) {
 		if(method == null) method = "POST";
-		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(variables,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);
@@ -2981,22 +2987,17 @@ var RCHttp = $hxClasses["RCHttp"] = function(apiPath) {
 RCHttp.__name__ = ["RCHttp"];
 RCHttp.__super__ = RCRequest;
 RCHttp.prototype = $extend(RCRequest.prototype,{
-	call: function(script,variables_list,method) {
+	navigateToURL: function(URL,variables_list,method,target) {
+		if(target == null) target = "_self";
 		if(method == null) method = "POST";
-		var variables = new _RCHttp.URLVariables();
-		if(variables_list != null) {
-			var _g = 0, _g1 = Reflect.fields(variables_list);
-			while(_g < _g1.length) {
-				var f = _g1[_g];
-				++_g;
-				variables[f] = Reflect.field(variables_list,f);
-			}
-		}
-		this.load(this.apiPath + script,variables,method);
+		var variables = this.createVariables(variables_list);
+	}
+	,call: function(script,variables_list,method) {
+		if(method == null) method = "POST";
+		this.load(this.apiPath + script,this.createVariables(variables_list),method);
 	}
 	,readDirectory: function(directoryName) {
-		var variables = new _RCHttp.URLVariables();
-		variables.path = directoryName;
+		var variables = this.createVariables({ path : directoryName});
 		this.load(this.apiPath + "filesystem/readDirectory.php",variables);
 	}
 	,readFile: function(file) {
@@ -3486,6 +3487,13 @@ RCRectangle.prototype = $extend(RCDraw.prototype,{
 	,roundness: null
 	,__class__: RCRectangle
 });
+var _RCRequest = _RCRequest || {}
+_RCRequest.URLVariables = $hxClasses["_RCRequest.URLVariables"] = function() {
+};
+_RCRequest.URLVariables.__name__ = ["_RCRequest","URLVariables"];
+_RCRequest.URLVariables.prototype = {
+	__class__: _RCRequest.URLVariables
+}
 var _RCScrollBar = _RCScrollBar || {}
 _RCScrollBar.Direction = $hxClasses["_RCScrollBar.Direction"] = { __ename__ : ["_RCScrollBar","Direction"], __constructs__ : ["HORIZONTAL","VERTICAL"] }
 _RCScrollBar.Direction.HORIZONTAL = ["HORIZONTAL",0];

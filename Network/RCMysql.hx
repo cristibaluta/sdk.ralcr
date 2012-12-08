@@ -89,7 +89,7 @@ class RCMysql extends RCRequest {
 	 * Extract matching variables from an object
 	 * Some fields possible to be arrays, and need to be joined by the separator ", "
 	 */
-	function createVariables (variables_list:Dynamic) :URLVariables {
+/*	function createVariables (variables_list:Dynamic) :URLVariables {
 		
 		var variables = new URLVariables();
 		
@@ -100,5 +100,5 @@ class RCMysql extends RCRequest {
 			}
 			
 		return variables;
-	}
+	}*/
 }

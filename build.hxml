@@ -2,6 +2,7 @@
 -swf sdk.ralcr.swc
 -swf-version 10
 -main Main.hx
+--times
 #--dead-code-elimination
 
 all.hxml
