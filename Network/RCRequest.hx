@@ -60,6 +60,9 @@ class RCRequest {
 	
 	/**
 	 * Execute a request
+	 *	@param URL - the url of the reuest
+	 *	@param varaibles - An object containing the variables to send along the request
+	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
 		#if (flash || nme)

@@ -18,12 +18,12 @@ class RCHttp extends RCRequest {
 	var apiPath :String; // Path to the folder that contains all php scripts
 	
 	/**
-	 *  Some of the features require the api.ralcr php scripts. 
+	 *  @param apiPath - Some of the features require the api.ralcr external php scripts. 
 	 *  You need to include it in the exported app and pass here the path to the folder
 	 **/
-	public function new (?apiPath:String) {
+	public function new (?apiPath:String="") {
 		this.apiPath = apiPath;
-		if ( apiPath != null && ! StringTools.endsWith (apiPath, "/"))
+		if (apiPath != "" && ! StringTools.endsWith (apiPath, "/"))
 			this.apiPath += "/";
 		super();
 	}
@@ -38,9 +38,11 @@ class RCHttp extends RCRequest {
 	
 	
 	/**
-	 * Read the content of a folder.
+	 *	Read the content of a folder.
+	 *	Require the apiPath
 	 */
 	public function readDirectory (directoryName:String) :Void {
+		
 		var variables = new URLVariables();
 			variables.path = directoryName;
 		
@@ -49,9 +51,10 @@ class RCHttp extends RCRequest {
 	
 	
 	/**
-	 * Call a custom script and pass some variables
+	 * Call an url and pass some variables
 	 */
 	public function call (script:String, variables_list:Dynamic, ?method:String="POST") :Void {
+		
 		var variables = new URLVariables();
 		if (variables_list != null)
 			for (f in Reflect.fields (variables_list))

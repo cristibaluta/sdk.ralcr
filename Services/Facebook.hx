@@ -1,23 +1,18 @@
 package;
 
 import flash.external.ExternalInterface;
-import flash.net.URLRequest;
-import flash.net.URLRequestMethod;
-import flash.net.URLVariables;
 import haxe.Json;
 import FacebookRequest;// and Session
-typedef JsonParseError = Dynamic;
 
 class Facebook {
 
-	inline static var GRAPH_URL = 'https://graph.facebook.com';
+	inline public static var GRAPH_URL = 'https://graph.facebook.com';
 	inline static var API_URL = 'https://api.facebook.com';
 	inline static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
 	inline static var VIDEO_URL = 'https://graph-video.facebook.com';
 	
     static var _instance :Facebook;
 	
-    var jsCallbacks :Dynamic;
 	var openUICalls :Hash<Dynamic>;
     var applicationId :String;
     var _initCallback :Dynamic;
@@ -73,7 +68,6 @@ class Facebook {
 		if (_instance != null) {
 			throw ( 'Facebook is a singleton and cannot be instantiated.' );
 		}
-		jsCallbacks = {};
 		openUICalls = new Hash<Dynamic>();
         openRequests = new Array<FacebookRequest>();
 		resultHash = new Array<Dynamic>();
@@ -134,28 +128,20 @@ class Facebook {
      * @see http://developers.facebook.com/docs/guides/mobile/
      *
      */
-/*    public static function mobileLogin (redirectUri:String, display:String='touch', extendedPermissions:Array<String>) {
-
-      var data:URLVariables = new URLVariables();
-      data.client_id = sharedFacebook().applicationId;
-      data.redirect_uri = redirectUri;
-      data.display = display;	  
-	  if (extendedPermissions != null) { data.scope = extendedPermissions.join(","); }
-
-      var req:URLRequest = new URLRequest ( AUTH_URL );
-      req.method = URLRequestMethod.GET;
-      req.data = data;
-
-      flash.Lib.getURL (req, '_self');
-    }*/
-	
-	/**
-	 * Logs the user out after being logged in with mobileLogin().
-	 *
-	 * @param redirectUri After logout, Facebook will redirect
-	 * the user back to this URL.
-	 *
-	 */
+    public function mobileLogin (redirectUri:String, ?display:String='touch', ?extendedPermissions:Array<String>) {
+		
+		var data = {
+			client_id : applicationId,
+			redirect_uri : redirectUri,
+			display : display,
+			scope : null
+		}
+		if (extendedPermissions != null)
+			data.scope = extendedPermissions.join(",");
+		var req = new RCHttp();
+			req.call (AUTH_URL, data, "GET");
+		//flash.Lib.getURL (req, '_self');
+    }
 /*	public static function mobileLogout(redirectUri:String) {
 		sharedFacebook().authResponse = null;
 		
@@ -180,26 +166,20 @@ class Facebook {
      * @see http://developers.facebook.com/docs/api#reading
      *
      */
-	public static function hasNext (data:Dynamic) :Bool {
-		var result:Dynamic = sharedFacebook().getRawResult(data);
-		if(!result.paging){ return false; }
-		return (result.paging.next != null);
+	public function hasNext (data:Dynamic) :Bool {
+		var result:Dynamic = getRawResult( data );
+		return (result.paging != null && result.paging.next != null);
 	}
 	
-	public static function hasPrevious (data:Dynamic) :Bool {
-		var result = sharedFacebook().getRawResult ( data );
-		if (result.paging == null) return false;
-		return (result.paging.previous != null);
+	public function hasPrevious (data:Dynamic) :Bool {
+		var result:Dynamic = getRawResult ( data );
+		return (result.paging != null && result.paging.previous != null);
 	}
-	
-    public static function postData( method:String, _callback:Dynamic, params:Dynamic) {
-		sharedFacebook().api (method, _callback, params, URLRequestMethod.POST);
-    }
 	
     /**
     * Asynchronous method to get the user's current session from Facebook.
     */
-    public function getLoginStatus() {
+    public function getLoginStatus () {
 		ExternalInterface.call('FBAS.getLoginStatus');
     }
 
@@ -220,6 +200,7 @@ class Facebook {
 		ExternalInterface.call ('FBAS.login', options);
 #end
     }
+	
 	public function logout (_callback:Dynamic) {
 		_logoutCallback = _callback;
 #if nme
@@ -271,22 +252,22 @@ class Facebook {
 	}
 
 
-    function handleLogout() {
-	  authResponse = null;
-      if (_logoutCallback != null) {
-        _logoutCallback(true);
-        _logoutCallback = null;
-      }
-    }
+	function handleLogout() {
+		authResponse = null;
+		if (_logoutCallback != null) {
+			_logoutCallback ( true );
+			_logoutCallback = null;
+		}
+	}
 	function handleAuthResponseChange(result:String) {
-		trace(result);
+		//trace(result);
 		var resultObj :Dynamic = null;
 		var success = true;
 		
 		if (result != null) {
 			try {
 				resultObj = Json.parse(result);
-			} catch (e:JsonParseError) {
+			} catch (e:Dynamic) {
 				success = false;
 			}
 		} else {
@@ -342,10 +323,10 @@ class Facebook {
      * @see http://developers.facebook.com/docs/api
      *
      */
-	public function api (method:String, _callback:Dynamic, ?params:Dynamic, requestMethod:String='GET') {
+	public function api (method:String, _callback:Dynamic, ?params:Dynamic, ?requestMethod:String='GET') {
   		
 		if (method.indexOf('/') != 0) method = '/' + method;
-		
+		trace(method);
 		if (accessToken() != null) {
 			if (params == null)
 				params = {};
@@ -353,14 +334,36 @@ class Facebook {
 				params.access_token = accessToken();
 		}
 		
-		var req = new FacebookRequest();
+/*		var req = new FacebookRequest();
 			req.functionToCall = _callback;
 		openRequests.push ( req );
 		
 		if (locale != null) params.locale = locale;
 		
-        req.call (GRAPH_URL+method, requestMethod, handleRequestLoad, params);
+        req.call (GRAPH_URL+method, requestMethod, handleRequestLoad, params);*/
+		
+		var req = new RCHttp();
+			req.onComplete = callback (apiHandler, _callback);
+			req.onError = callback (apiHandler, _callback);
+			req.call (GRAPH_URL + method, params, requestMethod);
+		requests.push ( req );
     }
+	function completeHandler (_callback:Dynamic) {
+		trace(http.result);
+		var parsedData :Dynamic = null;
+		try {
+			parsedData = Json.parse ( req.result );
+		} catch (e:Dynamic) {
+			parsedData = req.result;
+			errorHandler ();
+		}
+		
+		_callback (parsedData, null);
+	}
+	function errorHandler (_callback:Dynamic) {
+		trace(http.result);
+		_callback (null, parsedData);
+	}
 	/**
 	 * Shortcut method to upload video to Facebook.
 	 * 
@@ -501,7 +504,7 @@ class Facebook {
 			parserHash[values["queries"]] = null;
 			delete parserHash[values["queries"]];
 			parserHash[req] = p;*/
-				//}
+		//}
 
         req.call (API_URL + '/method/' + methodName, requestMethod, handleRequestLoad, values);
     }
@@ -524,19 +527,10 @@ class Facebook {
 			
 		callRestAPI ('fql.query', _callback, {query:query});
 	}
-/*	public function fqlMultiQuery (queries:FQLMultiQuery, callback:Dynamic, parser:IResultParser) {
-			
-		//defaults to FQLMultiQueryParser
-		parserHash[queries.toString()] = parser != null ? parser : new FQLMultiQueryParser();
-			
-		callRestAPI ('fql.multiquery', callback, {queries:queries.toString()});
-	}*/
-	//
+	
     /**
      * Deletes an object from Facebook.
-     * The current user must have granted extended permission
-     * to delete the corresponding object,
-     * or an error will be returned.
+     * The current user must have granted extended permission.
      *
      * @param method The ID and connection of the object to delete.
      * For example, /POST_ID/like to remove a like from a message.
@@ -545,21 +539,8 @@ class Facebook {
      * @see com.facebook.graph.net.FacebookDesktop#api()
      *
      */
-    public function deleteObject(method:String, _callback:Dynamic) {
+    public function deleteObject (method:String, _callback:Dynamic) {
         var params = {method:'delete'};
-        api (method, _callback, params, URLRequestMethod.POST);
-    }
-    /**
-     * Utility method to format a picture URL, in order to load an image from Facebook.
-     *
-     * @param id The ID you wish to load an image from.
-     * @param type The size of image to display from Facebook
-     * (square, small, or large).
-     *
-     * @see http://developers.facebook.com/docs/api#pictures
-     *
-     */
-    public function getImageUrl (id:String, ?type:String) :String {
-        return GRAPH_URL + '/' + id + '/picture' + (type != null ? ('?type=' + type) : '');
-    }
+        api (method, _callback, params, "POST");
+	}
 }
