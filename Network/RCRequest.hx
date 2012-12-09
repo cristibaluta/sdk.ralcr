@@ -92,10 +92,10 @@ class RCRequest {
 			dispatcher.addEventListener (Event.COMPLETE, completeHandler);
 			dispatcher.addEventListener (ProgressEvent.PROGRESS, progressHandler);
 			dispatcher.addEventListener (SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+			dispatcher.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 			#if flash
 				dispatcher.addEventListener (HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 			#end
-			dispatcher.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 		#elseif js
 			dispatcher.onData = completeHandler;
 			dispatcher.onError = securityErrorHandler;
@@ -109,10 +109,10 @@ class RCRequest {
 			dispatcher.removeEventListener (Event.COMPLETE, completeHandler);
 			dispatcher.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
 			dispatcher.removeEventListener (SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+			dispatcher.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 			#if flash
 				dispatcher.removeEventListener (HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 			#end
-			dispatcher.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 		#elseif js
 			dispatcher.onData = null;
 			dispatcher.onError = null;
@@ -135,6 +135,7 @@ class RCRequest {
 			result = e;
 		#end
 		
+		// ralcr error convention, put error:: in front of the result
 		(result.indexOf("error::") != -1)
 		? {
 			result = result.split("error::").pop();
@@ -178,7 +179,7 @@ class RCRequest {
 	// Utils
 	function createRequest (URL:String, variables:URLVariables, method:String) :URLRequest {
 		var request = new URLRequest ( URL );
-		#if flash
+		#if (flash || nme)
 			request.data = variables;
 			request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
 		#end
@@ -201,6 +202,7 @@ class RCRequest {
 	 */
 	public function destroy () :Void {
 		removeListeners ( loader );
+		//try { loader.close(); } catch (e:Dynamic) { }
 		loader = null;
 	}
 }

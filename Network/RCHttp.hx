@@ -52,7 +52,7 @@ class RCHttp extends RCRequest {
 		
 		var variables = createVariables ( variables_list );
 		#if (flash || nme)
-		flash.Lib.getURL (createRequest (URL, variables, method), target);
+			flash.Lib.getURL ( createRequest (URL, variables, method), target);
 		#end
 	}
 }

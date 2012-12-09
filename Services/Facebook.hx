@@ -1,14 +1,32 @@
-package;
 
 import flash.external.ExternalInterface;
 import haxe.Json;
-import FacebookRequest;// and Session
+//import FacebookRequest;// and Session
+
+typedef FacebookAuthResponse = {
+	var uid :String;
+	var expireDate :Date;
+	var accessToken :String;
+	var signedRequest :String;
+}
+typedef FacebookSession = {
+	var uid :String;
+	var user :Dynamic;
+	var sessionKey :String;
+	var expireDate :Date;
+	var accessToken :String;
+	var secret :String;
+	var sig :String;
+	var availablePermissions :Array<String>;
+}
+
 
 class Facebook {
 
 	inline public static var GRAPH_URL = 'https://graph.facebook.com';
 	inline static var API_URL = 'https://api.facebook.com';
 	inline static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
+	inline static var LOGOUT_URL = '"http://m.facebook.com/logout.php"';
 	inline static var VIDEO_URL = 'https://graph-video.facebook.com';
 	
     static var _instance :Facebook;
@@ -23,10 +41,8 @@ class Facebook {
 	var authResponse :FacebookAuthResponse;
 	var oauth2 :Bool;
 	var locale :String;
-    var openRequests :Array<FacebookRequest>;
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
-	var parserHash :Array<Dynamic>;
 	
 	
 	
@@ -65,14 +81,12 @@ class Facebook {
 	
 	
     public function new (applicationId:String, _callback:Dynamic, options:Dynamic, accessToken:String) {
-		trace("new");
+		
 		if (_instance != null) {
 			throw ( 'Facebook is a singleton and cannot be instantiated.' );
 		}
 		openUICalls = new Hash<Dynamic>();
-        openRequests = new Array<FacebookRequest>();
 		resultHash = new Array<Dynamic>();
-		parserHash = new Array<Dynamic>();
 		requests = new Array<RCHttp>();
 
         _initCallback = _callback;
@@ -81,20 +95,27 @@ class Facebook {
 		this.oauth2 = true;
 
         if (options == null)
-		options = {};
-        options.appId = applicationId;
-		options.oauth = true;
+			options = {};
+        	options.appId = applicationId;
+			options.oauth = true;
 		
+#if nme
+	
+#elseif (flash || js)
 		new FacebookJSBridge();
-        
-		ExternalInterface.addCallback('authResponseChange', handleAuthResponseChange);
-		ExternalInterface.addCallback('logout', handleLogout);
-		ExternalInterface.addCallback('uiResponse', handleUI);
+
+		ExternalInterface.addCallback ('authResponseChange', handleAuthResponseChange);
+		ExternalInterface.addCallback ('logout', handleLogout);
+		ExternalInterface.addCallback ('uiResponse', handleUI);
         ExternalInterface.call ('FBAS.init', options);
-		
+#end
 		if (accessToken != null) {
-			authResponse = new FacebookAuthResponse();
-			authResponse.accessToken = accessToken;
+			authResponse = {
+				uid : null,
+				expireDate : null,
+				accessToken : accessToken,
+				signedRequest : null
+			}
 		}
 		if (options.status != false) {
 			getLoginStatus();
@@ -131,22 +152,19 @@ class Facebook {
 		if (extendedPermissions != null)
 			data.scope = extendedPermissions.join(",");
 		var req = new RCHttp();
-			req.call (AUTH_URL, data, "GET");
-		//flash.Lib.getURL (req, '_self');
+			req.navigateToURL (AUTH_URL, data, "GET", "_self");
     }
-/*	public static function mobileLogout(redirectUri:String) {
-		sharedFacebook().authResponse = null;
+	public function mobileLogout(redirectUri:String) {
 		
-		var data = new URLVariables();
-		data.confirm = 1;
-		data.next = redirectUri;	
+		authResponse = null;
 		
-		var req = new URLRequest("http://m.facebook.com/logout.php");
-		req.method = URLRequestMethod.GET;
-		req.data = data;
-		
-		flash.Lib.getURL (req, '_self');				
-	}*/
+		var data = {
+			confirm : 1,
+			next : redirectUri
+		}
+		var req = new RCHttp();
+			req.navigateToURL (LOGOUT_URL, data, "GET", "_self");			
+	}
 	
 
     
@@ -211,11 +229,18 @@ class Facebook {
 		} catch (e:Dynamic) {
 			return null;
 		}
-		trace(authResponseObj);
-		var a = FacebookAuthResponse.fromJson( authResponseObj );
-		this.authResponse = a;
+		trace("authResponseObj: "+authResponseObj);
+		this.authResponse = generateAuthResponse ( authResponseObj );
 		
 		return authResponse;
+	}
+	function generateAuthResponse (json:Dynamic) :FacebookAuthResponse {
+		return {
+			uid : json.userID,
+			expireDate : Date.fromTime ( Date.now().getTime() + json.expiresIn * 1000),
+			accessToken : json.access_token != null ? json.access_token : json.accessToken,
+			signedRequest : json.signedRequest
+		}
 	}
 	
     /**
@@ -267,11 +292,12 @@ class Facebook {
 		}
 		
 		if (success) {
-			if (authResponse == null) {
+			authResponse = generateAuthResponse ( resultObj );
+/*			if (authResponse == null) {
 				authResponse = FacebookAuthResponse.fromJson( resultObj );
 			} else {
 				authResponse = FacebookAuthResponse.fromJson( resultObj );
-			}
+			}*/
 		}
 		
 		if (_initCallback != null) {
@@ -318,21 +344,15 @@ class Facebook {
 	public function api (method:String, _callback:Dynamic, ?params:Dynamic, ?requestMethod:String='GET') {
   		
 		if (method.indexOf('/') != 0) method = '/' + method;
-		trace(method);
+		
 		if (accessToken() != null) {
 			if (params == null)
 				params = {};
 			if (params.access_token == null)
 				params.access_token = accessToken();
 		}
-		
-/*		var req = new FacebookRequest();
-			req.functionToCall = _callback;
-		openRequests.push ( req );
-		
-		if (locale != null) params.locale = locale;
-		
-        req.call (GRAPH_URL+method, requestMethod, handleRequestLoad, params);*/
+		if (locale != null)
+			params.locale = locale;
 		
 		var req = new RCHttp();
 			req.onComplete = callback (completeHandler, req, _callback);
@@ -341,13 +361,14 @@ class Facebook {
 		requests.push ( req );
     }
 	function completeHandler (req:RCHttp, _callback:Dynamic) {
-		trace(req.result);
+		/*trace(req.result);*/
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
 		} catch (e:Dynamic) {
 			parsedData = req.result;
 			errorHandler (req, _callback);
+			return;
 		}
 		
 		_callback (parsedData.data, null);
@@ -371,7 +392,7 @@ class Facebook {
 	 * @see http://developers.facebook.com/docs/reference/api/video/
 	 * 
 	 */
-	public function uploadVideo (method:String, _callback:Dynamic, params:Dynamic) {
+/*	public function uploadVideo (method:String, _callback:Dynamic, params:Dynamic) {
 			
 		method = (method.indexOf('/') != 0) ?  '/'+method : method;
 			
@@ -385,20 +406,11 @@ class Facebook {
 		openRequests.push ( req );
 		
 		if (locale != null) params.locale = locale;
-			
+		
 		req.call (VIDEO_URL + method, 'POST', handleRequestLoad, params); 
-	}
+	}*/
 	
-	function pagingCall (url:String, _callback:Dynamic) :FacebookRequest {
-		
-		var req = new FacebookRequest();
-			req.functionToCall = _callback;
-		openRequests.push ( req );
-		
-		req.callURL (handleRequestLoad, url, locale);
-		
-		return req;
-	}
+	
 	
 	public function getRawResult (data:Dynamic) :Dynamic {
 		return resultHash[data];
@@ -411,10 +423,10 @@ class Facebook {
 	 * @param callback Method that will be called when this request is complete
      * The handler must have the signature of callback(result:Dynamic, fail:Dynamic);
      */
-	public function nextPage (data:Dynamic, _callback:Dynamic) :FacebookRequest {
+	public function nextPage (data:Dynamic, _callback:Dynamic) :RCHttp {
 		
-		var req :FacebookRequest = null;
-		var rawObj:Dynamic = getRawResult(data);
+		var req :RCHttp = null;
+		var rawObj :Dynamic = getRawResult(data);
 		
 		if (rawObj && rawObj.paging && rawObj.paging.next) {
 			req = pagingCall (rawObj.paging.next, _callback);
@@ -424,46 +436,53 @@ class Facebook {
 		}
 		return req;
 	}
-	public function previousPage(data:Dynamic, _callback:Dynamic) :FacebookRequest {
+	public function previousPage(data:Dynamic, _callback:Dynamic) :RCHttp {
 		
-		var req:FacebookRequest = null;
-		var rawObj:Dynamic = getRawResult(data);
+		var req :RCHttp = null;
+		var rawObj :Dynamic = getRawResult(data);
 		
 		if (rawObj && rawObj.paging && rawObj.paging.previous) {
 			req = pagingCall (rawObj.paging.previous, _callback);
-		} else if(_callback != null) {
+		} else if (_callback != null) {
 			_callback (null, 'no page');
 		}
 		return req;
 	}
-	
-    function handleRequestLoad (target:FacebookRequest) {
+	function pagingCall (url:String, _callback:Dynamic) :RCHttp {
 		
-        var resultCallback:Dynamic = target.functionToCall;
-        if (resultCallback == null) {
-			openRequests.remove ( target );
-        }
-
-		if (target.success) {
-			var data:Dynamic = Reflect.field (target.data, "data") != null ? target.data.data : target.data;
+/*		var req = new FacebookRequest();
+			req.functionToCall = _callback;
+		openRequests.push ( req );
+		
+		req.callURL (handleRequestLoad, url, locale);*/
+		var params = {locale : locale};
+		var req = new RCHttp();
+			req.onComplete = callback (handleRequestLoad, req, _callback, true);
+			req.onError = callback (handleRequestLoad, req, _callback, false);
+			req.call (url, params, "GET");
+		requests.push ( req );
+		
+		return req;
+	}
+	
+    function handleRequestLoad (req:RCHttp, _callback:Dynamic, success:Bool) {
+		
+		var json :Dynamic = Json.parse ( req.result );
+		
+		if (success) {
+			var data :Dynamic = Reflect.field (json, "data") != null ? json.data : json;
 			resultHash.push ( data );
 			
-			if (data.hasOwnProperty("error_code")) {
-				resultCallback (null, data);
+			if (Reflect.field (data, "error_code") != null) {
+				_callback (null, data);
 			} else {
-/*				if (Std.is (parserHash[target], IResultParser)) {
-					var p:IResultParser = cast (parserHash[target], IResultParser);
-					data = p.parse(data);
-					parserHash.remove ( target );
-					//delete parserHash[target];
-				}*/
-				resultCallback (data, null);
+				_callback (data, null);
 			}
 		} else {
-			resultCallback (null, target.data);
+			_callback (null, json);
 		}
 
-        //delete openRequests[target];
+		requests.remove ( req );
     }
     /**
      * Used to make old style RESTful API calls on Facebook.
@@ -486,9 +505,9 @@ class Facebook {
 		if (accessToken() != null) values.access_token = accessToken();
 		if (locale != null) values.locale = locale;
 
-        var req = new FacebookRequest();
-			req.functionToCall = _callback;
-		openRequests.push ( req );
+/*        var req = new FacebookRequest();
+			req.functionToCall = _callback;*/
+		//openRequests.push ( req );
         
 			
 		//keeping a reference to parser using the queries string as key, need to re-key to FacebookRequest so it can reference parser when call completes
@@ -499,7 +518,7 @@ class Facebook {
 			parserHash[req] = p;*/
 		//}
 
-        req.call (API_URL + '/method/' + methodName, requestMethod, handleRequestLoad, values);
+        //req.call (API_URL + '/method/' + methodName, requestMethod, handleRequestLoad, values);
     }
 
 	/**

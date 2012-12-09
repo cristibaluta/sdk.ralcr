@@ -1929,7 +1929,7 @@ RCAssets.prototype = {
 		if(returnAsBitmap == null) returnAsBitmap = true;
 		RCAssets.init();
 		if(this.imagesList.exists(key)) return this.imagesList.get(key).copy(); else if(this.dataList.exists(key)) return this.dataList.get(key); else if(this.swfList.exists(key)) return this.swfList.get(key);
-		haxe.Log.trace("Asset with key '" + key + "'  was not found.",{ fileName : "RCAssets.hx", lineNumber : 263, className : "RCAssets", methodName : "get"});
+		haxe.Log.trace("Asset with key '" + key + "'  was not found.",{ fileName : "RCAssets.hx", lineNumber : 262, className : "RCAssets", methodName : "get"});
 		return null;
 	}
 	,totalProgress: function() {
@@ -1961,7 +1961,7 @@ RCAssets.prototype = {
 			this.swfList.set(key,obj);
 			break;
 		default:
-			haxe.Log.trace("Asset not supported: key=" + key + ", class_name=" + class_name,{ fileName : "RCAssets.hx", lineNumber : 193, className : "RCAssets", methodName : "completeHandler"});
+			haxe.Log.trace("Asset not supported: key=" + key + ", class_name=" + class_name,{ fileName : "RCAssets.hx", lineNumber : 192, className : "RCAssets", methodName : "completeHandler"});
 		}
 		this.onCompleteHandler();
 	}
@@ -1970,7 +1970,7 @@ RCAssets.prototype = {
 		this.totalProgress();
 	}
 	,errorHandler: function(key,obj) {
-		haxe.Log.trace("Error loading URL for key: '" + key + "' with object: " + Std.string(obj),{ fileName : "RCAssets.hx", lineNumber : 174, className : "RCAssets", methodName : "errorHandler"});
+		haxe.Log.trace("Error loading URL for key: '" + key + "' with object: " + Std.string(obj),{ fileName : "RCAssets.hx", lineNumber : 173, className : "RCAssets", methodName : "errorHandler"});
 		this.max--;
 		RCAssets.onError();
 		if(this.nr >= this.max) RCAssets.onComplete();
@@ -1984,7 +1984,6 @@ RCAssets.prototype = {
 	}
 	,loadText: function(key,URL) {
 		var _g = this;
-		haxe.Log.trace("load text " + key + ", " + URL,{ fileName : "RCAssets.hx", lineNumber : 129, className : "RCAssets", methodName : "loadText"});
 		var data = new RCHttp();
 		if(data.result == null) {
 			data.onProgress = (function(f,a1,a2) {
@@ -2027,7 +2026,6 @@ RCAssets.prototype = {
 		})($bind(this,this.errorHandler),key,swf);
 	}
 	,loadPhoto: function(key,URL) {
-		haxe.Log.trace("load photo " + key + ", " + URL,{ fileName : "RCAssets.hx", lineNumber : 115, className : "RCAssets", methodName : "loadPhoto"});
 		var photo = new RCImage(0,0,URL);
 		photo.onProgress = (function(f,a1,a2) {
 			return function() {
@@ -2047,7 +2045,6 @@ RCAssets.prototype = {
 	}
 	,set: function(key,URL,newDomain) {
 		if(newDomain == null) newDomain = true;
-		haxe.Log.trace("set " + key + ", " + URL,{ fileName : "RCAssets.hx", lineNumber : 80, className : "RCAssets", methodName : "set"});
 		this.max++;
 		if(key == null) key = Std.string(Math.random());
 		if(URL.toLowerCase().indexOf(".swf") != -1) this.loadSwf(key,URL,newDomain); else if(URL.toLowerCase().indexOf(".xml") != -1 || URL.toLowerCase().indexOf(".plist") != -1 || URL.toLowerCase().indexOf(".txt") != -1 || URL.toLowerCase().indexOf(".css") != -1) this.loadText(key,URL); else if(URL.toLowerCase().indexOf(".ttf") != -1 || URL.toLowerCase().indexOf(".otf") != -1) this.loadFont(key,URL); else {

@@ -77,7 +77,7 @@ class RCAssets {
 	}
 	
 	public function set (key:String, URL:String, ?newDomain:Bool=true) :Bool {
-		trace("set "+key+", "+URL);
+		//trace("set "+key+", "+URL);
 		max ++;
 		
 		if (key == null)
@@ -112,7 +112,7 @@ class RCAssets {
 		return true;
 	}
 	function loadPhoto (key:String, URL:String) :Void {
-		trace("load photo "+key+", "+URL);
+		//trace("load photo "+key+", "+URL);
 		var photo = new RCImage (0, 0, URL);
 			photo.onProgress = callback (progressHandler, key, photo);
 			photo.onComplete = callback (completeHandler, key, photo);
@@ -126,13 +126,12 @@ class RCAssets {
 			swf.onError = callback (errorHandler, key, swf);
 	}
 	function loadText (key:String, URL:String) :Void {
-		trace("load text "+key+", "+URL);
+		//trace("load text "+key+", "+URL);
 		var data = new RCHttp();
-		#if nme
+#if nme
 			// Search for the asset in NME library first
 			data.result = nme.Assets.getText ( URL );
-			trace(data.result);
-		#end
+#end
 		if (data.result == null) {
 			// If NME assets didn't contained the asset, load it with a Http request
 			data.onProgress = callback (progressHandler, key, data);

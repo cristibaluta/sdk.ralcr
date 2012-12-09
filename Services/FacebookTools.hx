@@ -18,7 +18,7 @@ class FacebookTools {
 		Facebook.sharedFacebook().api ("me/friends", func, null, "GET");
 	}
 	public static function requestProfilePictureForUserId (userId:String, func:Dynamic) {
-		Facebook.sharedFacebook().api (userId + "/picture?type=square&redirect=0&", func, null, "GET");
+		Facebook.sharedFacebook().api (userId + "/picture?type=large&redirect=0&", func, null, "GET");
 	}
     public static function postData (method:String, _callback:Dynamic, params:Dynamic) {
 		Facebook.sharedFacebook().api (method, _callback, params, "POST");
