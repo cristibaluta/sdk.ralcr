@@ -19,10 +19,11 @@ class GKSprite extends RCView {
 	inline public static var GRAVITY = 0.98;
 	
 	public var mass :Float;
+	public var gravity :Float;
 	public var vx :Float;// Velocity
 	public var vy :Float;
-	public var aX :Float;// Acceleration
-	public var aY :Float;
+	public var ax :Float;// Acceleration
+	public var ay :Float;
 	public var bounceX :Float;
 	public var bounceY :Float;
 	public var frictionX :Float;

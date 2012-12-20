@@ -12,6 +12,7 @@ typedef RCSkinElements = {
 	var image :RCView;
 	var otherView :RCView;
 	var colors :RCSkinColors;
+	var scale :Float;
 }
 typedef RCSkinColors = {
 	var background :Null<Int>;
@@ -40,10 +41,10 @@ class RCSkin {
 	*/
 	public function new (?colors : Array<Null<Int>>)
 	{
-		normal		= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}};
-		highlighted	= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}};
-		disabled	= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}};
-		selected	= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}};
+		normal		= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}, scale:1};
+		highlighted	= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}, scale:1};
+		disabled	= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}, scale:1};
+		selected	= {background:null, label:null, image:null, otherView:null, colors:{background:null, label:null, image:null, otherView:null}, scale:1};
 		
 		if (colors != null) {
 			normal.colors.background = colors[0];

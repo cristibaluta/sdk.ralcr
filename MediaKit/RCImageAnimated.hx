@@ -18,6 +18,7 @@ class RCImageAnimated extends RCView {
 	public var errorMessage :String;
 	public var fps (default, set_fps) :Int;
 	public var reverse :Bool;
+	public var repeat :Bool;
 	var nr :Int;
 	var max :Int;
 	var timer :Timer;
@@ -49,6 +50,7 @@ class RCImageAnimated extends RCView {
 		currentFrame = 0;
 		_fps = 10;
 		reverse = false;
+		repeat = false;
 		nr = 0;
 		max = 0;
 		
@@ -70,13 +72,20 @@ class RCImageAnimated extends RCView {
 	// Controlling the animation
 	
 	public function gotoAndStop (f:Int) :Void {
+		trace("gotoAndStop "+currentFrame+", "+f);
+		if (f == 0 || f > images.length) {
+			if (f > images.length && repeat)
+				f = 1;
+			else
+				stop();
+		}
+		if (currentFrame > 0) removeChild ( images[currentFrame-1] );
 		
-		if (f == 0 || f > images.length)
-			f = 1;
-		if (currentFrame > 0)
-		removeChild ( images[currentFrame-1] );
 		addChild ( images[f-1] );
 		currentFrame = f;
+	}
+	public function gotoLastFrame () :Void {
+		gotoAndStop ( images.length );
 	}
 	
 	public function play (?newFPS:Null<Int>) :Void {
@@ -85,6 +94,8 @@ class RCImageAnimated extends RCView {
 			_fps = newFPS;
 			stop();
 		}
+		if (currentFrame >= images.length && !repeat)
+			gotoAndStop ( 1 );
 		
 		if (timer == null) {
 			timer = new Timer ( Math.round ( 1000/_fps) );

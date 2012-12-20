@@ -100,8 +100,20 @@ class Facebook {
 			options.oauth = true;
 		
 #if nme
+
+		if (accessToken != null) {
+			session = generateSession ( {accessToken : accessToken} );
+		}
+		else {
+			session = generateSession ( null );
+			session.accessToken = RCUserDefaults.stringForKey ( "accessToken" );
+			//session.expireDate = RCUserDefaults.intForKey ( expireDate );
+		}
+			
+		//verifyAccessToken();
 	
 #elseif (flash || js)
+		
 		new FacebookJSBridge();
 
 		ExternalInterface.addCallback ('authResponseChange', handleAuthResponseChange);
@@ -109,6 +121,7 @@ class Facebook {
 		ExternalInterface.addCallback ('uiResponse', handleUI);
         ExternalInterface.call ('FBAS.init', options);
 #end
+	
 		if (accessToken != null) {
 			authResponse = {
 				uid : null,
@@ -147,10 +160,8 @@ class Facebook {
 			client_id : applicationId,
 			redirect_uri : redirectUri,
 			display : display,
-			scope : null
+			scope : (extendedPermissions != null) ? extendedPermissions.join(",") : null
 		}
-		if (extendedPermissions != null)
-			data.scope = extendedPermissions.join(",");
 		var req = new RCHttp();
 			req.navigateToURL (AUTH_URL, data, "GET", "_self");
     }
@@ -241,6 +252,18 @@ class Facebook {
 			accessToken : json.access_token != null ? json.access_token : json.accessToken,
 			signedRequest : json.signedRequest
 		}
+	}
+	function generateSession (json:Dynamic) :FacebookSession {
+        return {
+ 			uid : json != null ? json.uid : null,
+			user : null,
+			sessionKey : json != null ? json.session_key : null,
+			expireDate : json != null ? Date.fromString ( json.expires ) : null,
+			accessToken : json != null ? json.access_token : null,
+			secret : json != null ? json.secret : null,
+ 			sig : json != null ? json.sig : null,
+			availablePermissions : []
+        }
 	}
 	
     /**

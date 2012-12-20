@@ -18,10 +18,10 @@ class RCMath {
 								);
 	}
 	
-	public static function radians (deg:Float) :Float {
+	inline public static function radians (deg:Float) :Float {
 		return deg * Math.PI / 180;
 	}
-	public static function degrees (rad:Float) :Float {
+	inline public static function degrees (rad:Float) :Float {
 		return rad * 180 / Math.PI;
 	}
 	

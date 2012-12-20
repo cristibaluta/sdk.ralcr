@@ -1671,11 +1671,12 @@ RCRectangle.prototype = $extend(RCDraw.prototype,{
 		return w;
 	}
 	,redraw: function() {
+		var dpi = RCDevice.currentDevice().dpiScale;
 		var fillColorStyle = this.color.fillColorStyle;
 		var strokeColorStyle = this.color.strokeColorStyle;
 		this.layer.style.margin = "0px 0px 0px 0px";
-		this.layer.style.width = this.size.width * RCDevice.currentDevice().dpiScale + "px";
-		this.layer.style.height = this.size.height * RCDevice.currentDevice().dpiScale + "px";
+		this.layer.style.width = this.size.width * dpi + "px";
+		this.layer.style.height = this.size.height * dpi + "px";
 		this.layer.style.backgroundColor = fillColorStyle;
 		if(strokeColorStyle != null) {
 			this.layer.style.borderStyle = "solid";
@@ -1683,8 +1684,8 @@ RCRectangle.prototype = $extend(RCDraw.prototype,{
 			this.layer.style.borderColor = strokeColorStyle;
 		}
 		if(this.roundness != null) {
-			this.layer.style.MozBorderRadius = this.roundness * RCDevice.currentDevice().dpiScale / 2 + "px";
-			this.layer.style.borderRadius = this.roundness * RCDevice.currentDevice().dpiScale / 2 + "px";
+			this.layer.style.MozBorderRadius = this.roundness * dpi / 2 + "px";
+			this.layer.style.borderRadius = this.roundness * dpi / 2 + "px";
 		}
 	}
 	,roundness: null

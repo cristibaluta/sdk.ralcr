@@ -178,11 +178,20 @@ class RCRequest {
 	
 	// Utils
 	function createRequest (URL:String, variables:URLVariables, method:String) :URLRequest {
+		#if nme
+		URL += "?";
+		for (f in Reflect.fields (variables))
+			URL += f + "=" + Reflect.field (variables, f) + "&";
+		#end
+		
 		var request = new URLRequest ( URL );
 		#if (flash || nme)
 			request.data = variables;
+		#if flash
 			request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
 		#end
+		#end
+			trace(request);trace(request.url);
 		return request;
 	}
 	function createVariables (variables_list:Dynamic) :URLVariables {

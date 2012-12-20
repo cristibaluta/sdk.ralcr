@@ -41,7 +41,7 @@ class RCStringTools {
 		return ( str.substr (0, limit) + fin );
 	}
 	public static function cutStringAtLine (textfield:RCTextView, line:Int) :String {
-		#if flash
+		#if (flash || nme)
 			var index = textfield.target.getLineOffset ( line );
 			return ( textfield.text.substr (0, index) + " ..." );
 		#elseif js

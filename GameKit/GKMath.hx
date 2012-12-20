@@ -51,16 +51,11 @@ class GKMath {
 		var dx = B.x - A.x;
 		var dy = B.y - A.y;
 		var u = ((point.x - A.x) * dx + (point.y - A.y) * dy) / (dx * dx + dy * dy);
-		var closest :RCPoint;
-		if (u < 0) {
-			closest = new RCPoint (A.x, A.y);
-		}
-		else if (u > 1) {
-			closest = new RCPoint (B.x, B.y);
-		}
-		else closest = new RCPoint (A.x + u * dx, A.y + u * dy);
-			
-		return closest;
+		
+		return
+		if (u < 0) new RCPoint (A.x, A.y);
+		else if (u > 1) new RCPoint (B.x, B.y);
+		else new RCPoint (A.x + u * dx, A.y + u * dy);
 	}
 	
 }

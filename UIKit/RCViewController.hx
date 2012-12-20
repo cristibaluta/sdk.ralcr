@@ -10,6 +10,7 @@ class RCViewController extends RCView {
 	
 	
 	public function new (x, y, ?w, ?h) {
+		
 		super (x, y, w, h);
 		
 		RCNotificationCenter.addObserver ("orientationWillChange", orientationWillChange);

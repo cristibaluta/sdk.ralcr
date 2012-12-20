@@ -2,7 +2,8 @@
 #if (flash || nme)
 	import flash.events.MouseEvent;
 	import flash.display.DisplayObjectContainer;
-#elseif js
+#end
+#if js
 	import js.Dom;
 	private typedef MouseEvent = Event;
 	private typedef DisplayObjectContainer = HtmlDom;

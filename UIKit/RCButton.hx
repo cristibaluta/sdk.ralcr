@@ -21,18 +21,54 @@ class RCButton extends RCControl {
 	
 	public function new (x, y, skin:RCSkin) {
 		
-		this.skin = skin;
-		this.skin.hit.alpha = 0;
-		
-		fixSkin();
-		
+		setup ( skin );
 		super (x, y, currentBackground.width, currentBackground.height);
 	}
 	
+	
+	// Make sure that all the skin elements neccesary for the button exists
+	function setup (skin:RCSkin) {
+		
+		this.skin = skin;
+		
+		if (skin.hit != null)
+			skin.hit.alpha = 0;
+		
+		// We need a label, if it's missing replace with the image or otherView
+		if (skin.normal.label == null)
+			skin.normal.label = skin.normal.image;
+		if (skin.normal.label == null)
+			skin.normal.label = skin.normal.otherView;
+		
+		// Iterate over all states of the button
+		for (key in Reflect.fields(skin.normal)) {
+			if (key == "colors") continue;
+			
+			// When the HIGHLIGHTED state is missing, replace with the NORMAL state
+			if (Reflect.field (skin.highlighted, key) == null)
+				Reflect.setField (skin.highlighted, key, Reflect.field (skin.normal, key));
+			
+			// When the SELECTED state is missing, replace with the HIGHLIGHTED state
+			if (Reflect.field (skin.selected, key) == null)
+				Reflect.setField (skin.selected, key, Reflect.field (skin.highlighted, key));
+			
+			// When the DISABLED state is missing, replace with the NORMAL state
+			if (Reflect.field (skin.disabled, key) == null)
+				Reflect.setField (skin.disabled, key, Reflect.field (skin.normal, key));
+		}
+		
+		currentBackground = skin.normal.background;
+		currentImage = skin.normal.label;
+	}
+	
+	
+	/**
+	*  Set the state of the button
+	*/
 	override public function setState (state:RCControlState) {
 		//trace("setState "+state);
 		if (state_ == state) return;
-		
+		try{
 		// Remove current state from display list
 		Fugu.safeRemove ( [currentBackground, currentImage] );
 		
@@ -53,46 +89,18 @@ class RCButton extends RCControl {
 				currentBackground = skin.selected.background;
 				currentImage = skin.selected.label;
 		}
-		addChild ( currentBackground );
-		addChild ( currentImage );
-		addChild ( skin.hit );
+		
+		if (currentBackground != null) addChild ( currentBackground );
+		if (currentImage != null) addChild ( currentImage );
+		if (skin.hit != null) addChild ( skin.hit );
 		
 		// Set the width of the button
 		// FF and Opera can't get it automatically
-		size.width = currentBackground.width;
-		size.height = currentBackground.height;
+		size.width = (currentBackground != null) ? currentBackground.width : currentImage.width;
+		size.height = (currentBackground != null) ? currentBackground.height : currentImage.height;
 		
 		super.setState ( state );
-	}
-	
-	// Make sure that all the skin elements neccesary for a button exists
-	function fixSkin () {
-		
-		// We need a label, if it's missing replace with the image or otherView
-		if (skin.normal.label == null)
-			skin.normal.label = skin.normal.image;
-		if (skin.normal.label == null)
-			skin.normal.label = skin.normal.otherView;
-		
-		// Iterate over all states of the button
-		for (key in Reflect.fields(skin.normal)) {
-			if (key == "colors") continue;
-			
-			// The properties of the HIGHLIGHTED state inherits from the NORMAL state
-			if (Reflect.field (skin.highlighted, key) == null)
-				Reflect.setField (skin.highlighted, key, Reflect.field (skin.normal, key));
-			
-			// The properties of the SELECTED state inherits from the HIGHLIGHTED state
-			if (Reflect.field (skin.selected, key) == null)
-				Reflect.setField (skin.selected, key, Reflect.field (skin.highlighted, key));
-			
-			// The properties of the DISABLED state inherits from the NORMAL state
-			if (Reflect.field (skin.disabled, key) == null)
-				Reflect.setField (skin.disabled, key, Reflect.field (skin.normal, key));
-		}
-		
-		currentBackground = skin.normal.background;
-		currentImage = skin.normal.label;
+		}catch(e:Dynamic){trace(e);}
 	}
 	
 	

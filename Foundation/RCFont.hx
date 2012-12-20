@@ -10,11 +10,11 @@
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
-	#if (cpp || neko)
+	#if (cpp || neko || js)
 		private typedef TextFormatDisplay = Dynamic;
 		private typedef StyleSheet = Dynamic;
 		private typedef AntiAliasType = Dynamic;
-	#else
+	#elseif flash
 		import flash.text.TextFormatDisplay;
 		import flash.text.StyleSheet;
 		import flash.text.AntiAliasType;

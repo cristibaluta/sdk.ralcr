@@ -63,7 +63,7 @@ class RCControl extends RCView {
 		
 		super (x, y, w, h);
 		
-		#if flash
+		#if (flash || nme)
 			this.layer.mouseChildren = false;
 		#end
 		configureDispatchers();
@@ -116,14 +116,14 @@ class RCControl extends RCView {
 	}
 	public function setState (state:RCControlState) {
 		state_ = state;//trace("current state is "+state_);
-		#if js
+#if js
 		switch (state_) {
 			case NORMAL: js.Lib.document.body.style.cursor = "auto";
 			case HIGHLIGHTED: js.Lib.document.body.style.cursor = "pointer";
 			case DISABLED: js.Lib.document.body.style.cursor = "auto";
 			case SELECTED: js.Lib.document.body.style.cursor = "auto";
 		}
-		#end
+#end
 	}
 	
 	

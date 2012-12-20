@@ -22,14 +22,16 @@ class RCRectangle extends RCDraw, implements RCDrawInterface {
 	
 	public function redraw() :Void {
 		
+		var dpi :Float = RCDevice.currentDevice().dpiScale;
+		
 #if (flash || nme)
-	
+		
 		layer.graphics.clear();
 		configure();
 		
 		(roundness != null)
-		? layer.graphics.drawRoundRect (0, 0, size.width*RCDevice.currentDevice().dpiScale, size.height*RCDevice.currentDevice().dpiScale, roundness*RCDevice.currentDevice().dpiScale)
-		: layer.graphics.drawRect (0, 0, size.width*RCDevice.currentDevice().dpiScale, size.height*RCDevice.currentDevice().dpiScale);
+		? layer.graphics.drawRoundRect (0, 0, size.width * dpi, size.height * dpi, roundness * dpi)
+		: layer.graphics.drawRect (0, 0, size.width * dpi, size.height * dpi);
 		
 		layer.graphics.endFill();
 		
@@ -39,8 +41,8 @@ class RCRectangle extends RCDraw, implements RCDrawInterface {
 		var strokeColorStyle :Null<Int> = color.strokeColorStyle;
 		
 		layer.style.margin = "0px 0px 0px 0px";
-		layer.style.width = size.width * RCDevice.currentDevice().dpiScale + "px";
-		layer.style.height = size.height * RCDevice.currentDevice().dpiScale + "px";
+		layer.style.width = size.width * dpi + "px";
+		layer.style.height = size.height * dpi + "px";
 		layer.style.backgroundColor = fillColorStyle;
 		
 		if (strokeColorStyle != null) {
@@ -49,8 +51,8 @@ class RCRectangle extends RCDraw, implements RCDrawInterface {
 			layer.style.borderColor = strokeColorStyle;
 		}
 		if (roundness != null) {
-			untyped layer.style.MozBorderRadius = roundness * RCDevice.currentDevice().dpiScale/2 + "px";
-			untyped layer.style.borderRadius = roundness * RCDevice.currentDevice().dpiScale/2 + "px";
+			untyped layer.style.MozBorderRadius = roundness * dpi / 2 + "px";
+			untyped layer.style.borderRadius = roundness * dpi / 2 + "px";
 		}
 		
 #end

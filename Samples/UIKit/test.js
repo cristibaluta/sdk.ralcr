@@ -450,12 +450,12 @@ EVMouse.__super__ = RCSignal;
 EVMouse.prototype = $extend(RCSignal.prototype,{
 	destroy: function(pos) {
 		this.removeEventListener();
-		RCSignal.prototype.destroy.call(this,{ fileName : "EVMouse.hx", lineNumber : 207, className : "EVMouse", methodName : "destroy"});
+		RCSignal.prototype.destroy.call(this,{ fileName : "EVMouse.hx", lineNumber : 208, className : "EVMouse", methodName : "destroy"});
 	}
 	,MouseScroll: function(e) {
 		if(Reflect.field(e,"wheelDelta") != null) this.delta = e.wheelDelta; else if(Reflect.field(e,"detail") != null) this.delta = -Math.round(e.detail * 5);
 		this.e = e;
-		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 199, className : "EVMouse", methodName : "MouseScroll"});
+		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 200, className : "EVMouse", methodName : "MouseScroll"});
 	}
 	,mouseScrollHandler: null
 	,removeWheelListener: function() {
@@ -476,7 +476,7 @@ EVMouse.prototype = $extend(RCSignal.prototype,{
 	,mouseHandler: function(e) {
 		if(e == null) e = js.Lib.window.event;
 		this.e = e;
-		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 142, className : "EVMouse", methodName : "mouseHandler"});
+		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 143, className : "EVMouse", methodName : "mouseHandler"});
 	}
 	,removeEventListener: function() {
 		switch(this.type) {
@@ -511,7 +511,7 @@ EVMouse.prototype = $extend(RCSignal.prototype,{
 		while( $it0.hasNext() ) {
 			var t = $it0.next();
 			if(t.target == this.target && t.type == this.type) {
-				haxe.Log.trace("Target already in use by this event type. Called from " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 85, className : "EVMouse", methodName : "addEventListener"});
+				haxe.Log.trace("Target already in use by this event type. Called from " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 86, className : "EVMouse", methodName : "addEventListener"});
 				return;
 			}
 		}
@@ -541,7 +541,7 @@ EVMouse.prototype = $extend(RCSignal.prototype,{
 			this.addWheelListener();
 			break;
 		default:
-			haxe.Log.trace("The mouse event you're trying to add does not exist. " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 100, className : "EVMouse", methodName : "addEventListener"});
+			haxe.Log.trace("The mouse event you're trying to add does not exist. " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 101, className : "EVMouse", methodName : "addEventListener"});
 		}
 	}
 	,targets: null
@@ -2178,9 +2178,7 @@ RCControl.prototype = $extend(JSView.prototype,{
 	,__properties__: $extend(JSView.prototype.__properties__,{set_enabled:"setEnabled",get_enabled:"getEnabled",get_highlighted:"getHighlighted",get_selected:"getSelected"})
 });
 var RCButton = $hxClasses["RCButton"] = function(x,y,skin) {
-	this.skin = skin;
-	this.skin.hit.setAlpha(0);
-	this.fixSkin();
+	this.setup(skin);
 	RCControl.call(this,x,y,this.currentBackground.getWidth(),this.currentBackground.getHeight());
 };
 RCButton.__name__ = ["RCButton"];
@@ -2195,48 +2193,54 @@ RCButton.prototype = $extend(RCControl.prototype,{
 	}
 	,setTitle: function(title,state) {
 	}
-	,fixSkin: function() {
-		if(this.skin.normal.label == null) this.skin.normal.label = this.skin.normal.image;
-		if(this.skin.normal.label == null) this.skin.normal.label = this.skin.normal.otherView;
-		var _g = 0, _g1 = Reflect.fields(this.skin.normal);
+	,setState: function(state) {
+		if(this.state_ == state) return;
+		try {
+			Fugu.safeRemove([this.currentBackground,this.currentImage]);
+			switch( (state)[1] ) {
+			case 0:
+				this.currentBackground = this.skin.normal.background;
+				this.currentImage = this.skin.normal.label;
+				break;
+			case 1:
+				this.currentBackground = this.skin.highlighted.background;
+				this.currentImage = this.skin.highlighted.label;
+				break;
+			case 2:
+				this.currentBackground = this.skin.disabled.background;
+				this.currentImage = this.skin.disabled.label;
+				break;
+			case 3:
+				this.currentBackground = this.skin.selected.background;
+				this.currentImage = this.skin.selected.label;
+				break;
+			}
+			if(this.currentBackground != null) this.addChild(this.currentBackground);
+			if(this.currentImage != null) this.addChild(this.currentImage);
+			if(this.skin.hit != null) this.addChild(this.skin.hit);
+			this.size.width = this.currentBackground != null?this.currentBackground.getWidth():this.currentImage.getWidth();
+			this.size.height = this.currentBackground != null?this.currentBackground.getHeight():this.currentImage.getHeight();
+			RCControl.prototype.setState.call(this,state);
+		} catch( e ) {
+			haxe.Log.trace(e,{ fileName : "RCButton.hx", lineNumber : 103, className : "RCButton", methodName : "setState"});
+		}
+	}
+	,setup: function(skin) {
+		this.skin = skin;
+		if(skin.hit != null) skin.hit.setAlpha(0);
+		if(skin.normal.label == null) skin.normal.label = skin.normal.image;
+		if(skin.normal.label == null) skin.normal.label = skin.normal.otherView;
+		var _g = 0, _g1 = Reflect.fields(skin.normal);
 		while(_g < _g1.length) {
 			var key = _g1[_g];
 			++_g;
 			if(key == "colors") continue;
-			if(Reflect.field(this.skin.highlighted,key) == null) this.skin.highlighted[key] = Reflect.field(this.skin.normal,key);
-			if(Reflect.field(this.skin.selected,key) == null) this.skin.selected[key] = Reflect.field(this.skin.highlighted,key);
-			if(Reflect.field(this.skin.disabled,key) == null) this.skin.disabled[key] = Reflect.field(this.skin.normal,key);
+			if(Reflect.field(skin.highlighted,key) == null) skin.highlighted[key] = Reflect.field(skin.normal,key);
+			if(Reflect.field(skin.selected,key) == null) skin.selected[key] = Reflect.field(skin.highlighted,key);
+			if(Reflect.field(skin.disabled,key) == null) skin.disabled[key] = Reflect.field(skin.normal,key);
 		}
-		this.currentBackground = this.skin.normal.background;
-		this.currentImage = this.skin.normal.label;
-	}
-	,setState: function(state) {
-		if(this.state_ == state) return;
-		Fugu.safeRemove([this.currentBackground,this.currentImage]);
-		switch( (state)[1] ) {
-		case 0:
-			this.currentBackground = this.skin.normal.background;
-			this.currentImage = this.skin.normal.label;
-			break;
-		case 1:
-			this.currentBackground = this.skin.highlighted.background;
-			this.currentImage = this.skin.highlighted.label;
-			break;
-		case 2:
-			this.currentBackground = this.skin.disabled.background;
-			this.currentImage = this.skin.disabled.label;
-			break;
-		case 3:
-			this.currentBackground = this.skin.selected.background;
-			this.currentImage = this.skin.selected.label;
-			break;
-		}
-		this.addChild(this.currentBackground);
-		this.addChild(this.currentImage);
-		this.addChild(this.skin.hit);
-		this.size.width = this.currentBackground.getWidth();
-		this.size.height = this.currentBackground.getHeight();
-		RCControl.prototype.setState.call(this,state);
+		this.currentBackground = skin.normal.background;
+		this.currentImage = skin.normal.label;
 	}
 	,currentBackground: null
 	,currentImage: null
@@ -2910,6 +2914,8 @@ RCRequest.prototype = {
 	}
 	,createRequest: function(URL,variables,method) {
 		var request = new haxe.Http(URL);
+		haxe.Log.trace(request,{ fileName : "RCRequest.hx", lineNumber : 194, className : "RCRequest", methodName : "createRequest"});
+		haxe.Log.trace(request.url,{ fileName : "RCRequest.hx", lineNumber : 194, className : "RCRequest", methodName : "createRequest"});
 		return request;
 	}
 	,ioErrorHandler: function(e) {
@@ -2987,6 +2993,10 @@ RCHttp.prototype = $extend(RCRequest.prototype,{
 	navigateToURL: function(URL,variables_list,method,target) {
 		if(target == null) target = "_self";
 		if(method == null) method = "POST";
+		haxe.Log.trace(URL,{ fileName : "RCHttp.hx", lineNumber : 52, className : "RCHttp", methodName : "navigateToURL"});
+		haxe.Log.trace(variables_list,{ fileName : "RCHttp.hx", lineNumber : 52, className : "RCHttp", methodName : "navigateToURL"});
+		haxe.Log.trace(method,{ fileName : "RCHttp.hx", lineNumber : 52, className : "RCHttp", methodName : "navigateToURL"});
+		haxe.Log.trace(target,{ fileName : "RCHttp.hx", lineNumber : 52, className : "RCHttp", methodName : "navigateToURL"});
 		var variables = this.createVariables(variables_list);
 	}
 	,call: function(script,variables_list,method) {
@@ -3465,11 +3475,12 @@ RCRectangle.prototype = $extend(RCDraw.prototype,{
 		return w;
 	}
 	,redraw: function() {
+		var dpi = RCDevice.currentDevice().dpiScale;
 		var fillColorStyle = this.color.fillColorStyle;
 		var strokeColorStyle = this.color.strokeColorStyle;
 		this.layer.style.margin = "0px 0px 0px 0px";
-		this.layer.style.width = this.size.width * RCDevice.currentDevice().dpiScale + "px";
-		this.layer.style.height = this.size.height * RCDevice.currentDevice().dpiScale + "px";
+		this.layer.style.width = this.size.width * dpi + "px";
+		this.layer.style.height = this.size.height * dpi + "px";
 		this.layer.style.backgroundColor = fillColorStyle;
 		if(strokeColorStyle != null) {
 			this.layer.style.borderStyle = "solid";
@@ -3477,8 +3488,8 @@ RCRectangle.prototype = $extend(RCDraw.prototype,{
 			this.layer.style.borderColor = strokeColorStyle;
 		}
 		if(this.roundness != null) {
-			this.layer.style.MozBorderRadius = this.roundness * RCDevice.currentDevice().dpiScale / 2 + "px";
-			this.layer.style.borderRadius = this.roundness * RCDevice.currentDevice().dpiScale / 2 + "px";
+			this.layer.style.MozBorderRadius = this.roundness * dpi / 2 + "px";
+			this.layer.style.borderRadius = this.roundness * dpi / 2 + "px";
 		}
 	}
 	,roundness: null
@@ -3917,10 +3928,10 @@ RCSize.prototype = {
 	,__class__: RCSize
 }
 var RCSkin = $hxClasses["RCSkin"] = function(colors) {
-	this.normal = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}};
-	this.highlighted = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}};
-	this.disabled = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}};
-	this.selected = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}};
+	this.normal = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}, scale : 1};
+	this.highlighted = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}, scale : 1};
+	this.disabled = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}, scale : 1};
+	this.selected = { background : null, label : null, image : null, otherView : null, colors : { background : null, label : null, image : null, otherView : null}, scale : 1};
 	if(colors != null) {
 		this.normal.colors.background = colors[0];
 		this.normal.colors.label = colors[1];
