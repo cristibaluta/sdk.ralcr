@@ -7,18 +7,21 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
+#if objc
+	import ios.ui.UITableView;
+#end
+	
 class RCTableView extends RCView {
 	
-	public var backgroundView :RCRectangle;
-	var contentView :RCView;
-	var scrollIndicator :RCRectangle;
+	public var backgroundView :RCView;
+	public var contentView :RCView;// Cells are added here
+	public var scrollIndicator :RCRectangle;
+	public var indexPath :RCIndexPath;// indexPath of the last updated cell
 	
-	var cells :Array<RCTableViewCell>;
-	public var indexes :Array<String>;
-	public var delegate :Dynamic;
-	public var indexPath :RCIndexPath;
 	var anim :CATween;
-	var maxCells :Int;
+	var cells :Array<RCTableViewCell>;
+	var cellForRowAtIndexPath :RCIndexPath->RCTableViewCell->RCTableViewCell;
+	var numberOfRowsInSection :Int->Int;
 	
 	// Dragging and Throwing
 	var vy :Float;
@@ -30,28 +33,32 @@ class RCTableView extends RCView {
 	var mousePress_ :EVMouse;
 	var mouseMove_ :EVMouse;
 	var mouseUp_ :EVMouse;
+	var cell_min_h :Float;
 	
 	
-	public function new (x, y, w, h) {
+	public function new (x, y, w, h, cellForRowAtIndexPath : RCIndexPath->RCTableViewCell->RCTableViewCell, numberOfRowsInSection : Int->Int) {
 		
-		super (x, y);
+		super (x, y, w, h);
 		
-		size.width = w;
-		size.height = h;
+		this.cellForRowAtIndexPath = cellForRowAtIndexPath;
+		this.numberOfRowsInSection = numberOfRowsInSection;
 		this.indexPath = new RCIndexPath (0, 0);
 		this.inertia = 0.95;
 		this.dragging = false;
 		this.vy = 0;
 		this.oldY = 0;
+		this.cell_min_h = Math.POSITIVE_INFINITY;
 		
-		backgroundView = new RCRectangle (0, 0, size.width, size.height, 0x999999, 1, 32);
+		backgroundView = new RCView (0,0,w,h);
+		//RCRectangle (0, 0, size.width, size.height, 0x999999, 1, 32);
 		this.addChild ( backgroundView );
 		
-		contentView = new RCRectangle (1, 1, size.width-2, size.height-2, 0xFFFFFF, 1, 30);
+		contentView = new RCView (1,1,w-2,h-2);
+		//new RCRectangle (1, 1, size.width-2, size.height-2, 0xFFFFFF, 1, 30);
 		this.addChild ( contentView );
 		contentView.clipsToBounds = true;
 		
-		scrollIndicator = new RCRectangle (size.width-10, 1, 6, 50, 0xffffff, .6, 6);
+		scrollIndicator = new RCRectangle (w-10, 1, 6, 50, 0xffffff, .6, 6);
 		scrollIndicator.alpha = 0;
 		this.addChild ( scrollIndicator );
 		
@@ -64,46 +71,58 @@ class RCTableView extends RCView {
 	
 	override public function init () :Void {
 		
-		maxCells = Math.ceil (size.height/44+1);
+		var max_h = 0.0, i = 0;
 		
-		for (i in 0...maxCells) {
-			var cell :RCTableViewCell = delegate.cellForRowAtIndexPath ( new RCIndexPath (0, i) );
+		while (max_h < size.height) {
+			// Ask the external function to provide a new cell
+			var cell :RCTableViewCell = this.cellForRowAtIndexPath ( new RCIndexPath (0, i), null );
+				cell.indexPath = new RCIndexPath (0, i);
+				cell.y = max_h;
 			cells.push ( cell );
 			contentView.addChild ( cell );
+			max_h += cell.height;
+			if (cell.height < cell_min_h)
+				cell_min_h = cell.height;
+			i ++;
 		}
 		
-		reloadData();
 		mousePress_.add ( startDragCells );
+		mouseMove_.add ( mouseMoveHandler );
+		mouseUp_.add ( stopDragCells );
 	}
 	
-	public function reloadData () {
-		for (i in indexPath.row...(indexPath.row + maxCells)) {
-			cells[i].indexPath.row = i;
-			dataForCell ( i );
+	// Reload cells
+	public function reloadData () :Void {
+		
+		for (cell in cells) {
+			// This will cause the cell to be updated with new data
+			this.cellForRowAtIndexPath ( cell.indexPath, cell );
 		}
 	}
-	function dataForCell (i:Int) :Void {
-		try {
-			delegate.dataForCell ( cells[i] );
-		}
-		catch(e:Dynamic){ trace("There's no method called 'dataForCell(cell:RCTableViewCell)' in the delegate class"); }
+	
+	
+	public function scrollToRowAtIndexPath (indexPath:RCIndexPath, scrollPosition:Int=0) :Void {
+	
 	}
+	
+	
+	// Dragging
 	
 	function startDragCells (e:EVMouse) {
 		dragging = true;
+		mouseMove_.enabled = true;
+		mouseUp_.enabled = true;
 		oldY = this.mouseY;
 		vy = 0;
-		mouseMove_.add ( mouseMoveHandler );
-		mouseUp_.add ( stopDragCells );
 		startLoop();
 	}
+	
 	function stopDragCells (e:EVMouse) {
 		dragging = false;
+		mouseMove_.enabled = false;
+		mouseUp_.enabled = false;
+		
 		//CoreAnimation.remove ( anim );
-		
-		mouseMove_.remove ( mouseMoveHandler );
-		mouseUp_.remove ( stopDragCells );
-		
 /*		if (contentView.y > 0) {
 			anim = new CATween (contentView, {y:0}, 0.5, 0, caequations.Cubic.OUT);
 			CoreAnimation.add ( anim );
@@ -118,19 +137,22 @@ class RCTableView extends RCView {
 		if (dragging) {
 			vy = this.mouseY - oldY;
 			oldY = this.mouseY;
-			if (vy > 44)
-				vy = 44;
-			if (vy < -44)
-				vy = -44;
+			if (vy > cell_min_h)
+				vy = cell_min_h;
+			if (vy < -cell_min_h)
+				vy = -cell_min_h;
 		}
 		//e.updateAfterEvent();
 	}
+	
+	
+	
 	public function mouseWheel (delta:Int) {
 		vy = delta;
-		if (vy > 44)
-			vy = 44;
-		if (vy < -44)
-			vy = -44;
+		if (vy > cell_min_h)
+			vy = cell_min_h;
+		if (vy < -cell_min_h)
+			vy = -cell_min_h;
 		startLoop();
 	}
 	function startLoop () {
@@ -154,51 +176,51 @@ class RCTableView extends RCView {
 			// From up to down
 			if (cells[0].y > 1) {
 				if (cells[0].indexPath.row == 0) {
+					// TODO: Create bouncing
 					vy = 0;//-Math.abs(vy);
 					cells[0].y = 0;
 				}
 				else {
+					// Take the last cell and add it to the top
 					var cell = cells.pop();
-						cell.indexPath.row = (cells[0].indexPath.row - 1);
-					indexPath = cell.indexPath;
-					//cells[maxCells - 1].indexPath.row = cells[maxCells - 1].indexPath.row - maxCells + 1;
 					cells.unshift ( cell );
+					// Init the cell with new data
+					cell.indexPath.row = cells[1].indexPath.row - 1;
+					indexPath = cell.indexPath;
 					cells[0].y = Math.round (cells[1].y - cells[0].height);
-					dataForCell ( 0 );
+					cell = cellForRowAtIndexPath ( cell.indexPath, cell );
 				}
 			}
 			
 			// From down to up
 			else if (cells[0].y < -cells[0].height-1) {
-				if (indexPath.row >= delegate.numberOfRowsInSection(0)) {
+				if (indexPath.row >= numberOfRowsInSection(0)) {
 					cells[0].y -= vy;
+					// TODO: Create bouncing
 					vy = 0;//-Math.abs(vy);
 					//cells[0].y = 0;
 				}
 				else {
+					// Take the first cell and push it to the bottom
 					var cell = cells.shift();
-						cell.indexPath.row += maxCells;
 					cells.push ( cell );
+					// Init the cell with new data
+					cell.indexPath.row = cells[cells.length-2].indexPath.row + 1;
+					cell = cellForRowAtIndexPath ( cell.indexPath, cell );
+					cell.y = Math.round ( cells[cells.length-2].y + cells[cells.length-2].height );
 					indexPath = cell.indexPath;
-					//cells[maxCells - 1].y = Math.round (cells[maxCells - 2].y + cells[maxCells - 2].height);
-					dataForCell ( maxCells - 1 );
 					loop();
 					break;
 				}
 			}
 		}
-		if (!dragging) {
-			vy *= inertia;
-			if (Math.abs (vy) < 1) {
-				stopLoop();
-				scrollIndicator.alpha = 0;
-			}
-		}
-		else {
-			vy *= inertia;
+		vy *= inertia;
+		if (!dragging && Math.abs (vy) < 1) {
+			stopLoop();
+			scrollIndicator.alpha = 0;
 		}
 		
-		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, delegate.numberOfRowsInSection(0));
+		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
 	}
 	
 	
@@ -209,6 +231,15 @@ class RCTableView extends RCView {
 	}*/
 	override public function destroy () {
 		stopLoop();
+		Fugu.safeDestroy ( cells );
+		Fugu.safeDestroy ( [backgroundView, contentView, scrollIndicator, mousePress_, mouseMove_, mouseUp_] );
+		cells = null;
+		backgroundView = null;
+		contentView = null;
+		scrollIndicator = null;
+		mousePress_ = null;
+		mouseMove_ = null;
+		mouseUp_ = null;
 		super.destroy();
 	}
 }

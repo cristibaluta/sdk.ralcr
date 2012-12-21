@@ -17,6 +17,10 @@ class RCIndexPath {
 		return this;
 	}
 	
+	public function copy () :RCIndexPath {
+		return new RCIndexPath (section, row);
+	}
+	
 	public function toString () :String {
 		return ("[RCIndexPath section : "+section+", row : "+row+"]");
 	}

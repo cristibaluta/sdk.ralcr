@@ -74,21 +74,20 @@ class Main {
 		trace(indexes);
 		RCWindow.sharedWindow().addChild ( new RCTextView (30, 6, null, null, "Hello in any language", RCFontManager.getFont("system", {color:0x000000})) );
 		
-		tableView = new RCTableView(20, 30, 300, 500);
-		tableView.delegate = Main;
+		tableView = new RCTableView(20, 30, 300, 500, cellForRowAtIndexPath, numberOfRowsInSection);
 		tableView.init();
 		RCWindow.sharedWindow().addChild ( tableView );
 	}
 	
-	public static function cellForRowAtIndexPath (indexPath:RCIndexPath) :RCTableViewCell {
-		var cell = new RCTableViewCell (300, 44);
-			cell.indexPath = indexPath;
-			cell.y = 44*indexPath.row;
-		return cell;
-	}
-	public static function dataForCell (cell:RCTableViewCell) :Void {
+	public static function cellForRowAtIndexPath (indexPath:RCIndexPath, reuseCell:RCTableViewCell) :RCTableViewCell {
+		var cell = reuseCell;
+		if (cell == null)
+			cell = new RCTableViewCell (300, 44);
+		
 		var arr = hellos[cell.indexPath.section][cell.indexPath.row].split("*");
 		cell.titleView.text = arr[4]+arr[0] + " ("+arr[1]+") '"+arr[3]+"'";
+		
+		return cell;
 	}
 	public static function numberOfRowsInSection(section:Int) :Int {
 		return hellos[section].length;

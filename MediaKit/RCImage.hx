@@ -81,10 +81,11 @@ class RCImage extends RCView {
 	/**
 	 *  This will create a RCImage based on a BitmapData. onComplete event is dispatched after
 	 *  10ms to keep the asyncronous operations compatible.
+	 *  The bitmapdata is cloned because when the RCImage is destroyed the bitmapdata is disposed
 	 **/
 	public static function imageWithBitmapData (bitmapBata:BitmapData) :RCImage {
 		var im = new RCImage (0,0,null);// Create a blank image
-			im.bitmapData = bitmapBata;// Set the BitmapData
+			im.bitmapData = bitmapBata.clone();// Set the BitmapData
 			im.completeHandler(null);// Display the image in it's container
 		return im;// Returns it
 	}

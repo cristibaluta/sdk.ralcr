@@ -8,7 +8,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme || cpp || neko || objc)
+#if (flash || nme || cpp || neko)
 
 import flash.display.Sprite;
 import flash.display.Graphics;
@@ -166,4 +166,9 @@ class RCView extends RCDisplayObject {
 
 typedef RCView = JSView;
 
+#elseif objc
+
+typedef RCView = OBJCView;
+
 #end
+

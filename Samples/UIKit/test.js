@@ -3157,6 +3157,9 @@ RCIndexPath.prototype = {
 	toString: function() {
 		return "[RCIndexPath section : " + this.section + ", row : " + this.row + "]";
 	}
+	,copy: function() {
+		return new RCIndexPath(this.section,this.row);
+	}
 	,next: function() {
 		return this;
 	}

@@ -19,11 +19,10 @@ class RCTableViewCell extends RCControl {
 	public function new (w, h) {
 		super (0, 0, w, h);
 		init();
+		setup();
 	}
 	
-	override public function init () {
-		
-		super.init();
+	public function setup () {
 		
 		backgroundView = new RCRectangle (0, 0, size.width, size.height-1, 0xFFFFFF, 1);
 		this.addChild ( backgroundView );
@@ -47,4 +46,14 @@ class RCTableViewCell extends RCControl {
 		backgroundView.redraw();
 		super.rollOutHandler( e );
 	}
+	
+	override public function destroy () {
+		Fugu.safeDestroy ([backgroundView, separatorView, titleView]);
+		backgroundView = null;
+		separatorView = null;
+		titleView = null;
+		
+		super.destroy();
+	}
 }
+
