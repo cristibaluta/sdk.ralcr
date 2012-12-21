@@ -23,6 +23,7 @@ class RCSegmentedControl extends RCView {
 	
 	
 	public function new (x, y, w:Int, h:Int, ?skin:Class<RCSkin>) {
+		
 		super (x, y, w, h);
 		
 		//selectedIndex = -1;
@@ -35,9 +36,16 @@ class RCSegmentedControl extends RCView {
 			skin = ios.SKSegment;// If not otherwise specified use by default this Skin Class
 		this.skin = skin;
 	}
+	
+	/**
+	 *  Init the SegmentedControl with labels
+	 *  @param equalSizes - if the segments are split equaly on the provided width
+	 **/
 	public function initWithLabels (labels:Array<String>, ?equalSizes:Bool=true) :Void {
+		
 		this.labels = labels;
-		segmentsWidth = new Array<Int>();
+		this.segmentsWidth = new Array<Int>();
+		
 		if (equalSizes) {
 			var segmentWidth = Math.round (size.width / labels.length);
 			for (l in labels)
@@ -75,6 +83,7 @@ class RCSegmentedControl extends RCView {
 				b.onClick = callback (clickHandler, label);
 				//b.click.add ( clickHandler );
 			this.addChild ( b );
+			b.init();
 			
 			// Keep the button into a hash table
 			items.set( label, b);
@@ -125,7 +134,7 @@ class RCSegmentedControl extends RCView {
 	}
 
 	/**
-	 * Add and remove buttons
+	 *	Remove button with label
 	 */
 	public function remove (label:String) :Void {
 		//trace("REMOVE FROM HASH: "+label);

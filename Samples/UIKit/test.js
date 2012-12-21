@@ -3752,18 +3752,18 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 			var $it0 = this.items.keys();
 			while( $it0.hasNext() ) {
 				var key = $it0.next();
-				Fugu.safeDestroy(this.items.get(key),null,{ fileName : "RCSegmentedControl.hx", lineNumber : 231, className : "RCSegmentedControl", methodName : "destroy"});
+				Fugu.safeDestroy(this.items.get(key),null,{ fileName : "RCSegmentedControl.hx", lineNumber : 240, className : "RCSegmentedControl", methodName : "destroy"});
 			}
 		}
 		this.items = null;
-		this.click.destroy({ fileName : "RCSegmentedControl.hx", lineNumber : 233, className : "RCSegmentedControl", methodName : "destroy"});
-		this.itemAdded.destroy({ fileName : "RCSegmentedControl.hx", lineNumber : 234, className : "RCSegmentedControl", methodName : "destroy"});
-		this.itemRemoved.destroy({ fileName : "RCSegmentedControl.hx", lineNumber : 235, className : "RCSegmentedControl", methodName : "destroy"});
+		this.click.destroy({ fileName : "RCSegmentedControl.hx", lineNumber : 242, className : "RCSegmentedControl", methodName : "destroy"});
+		this.itemAdded.destroy({ fileName : "RCSegmentedControl.hx", lineNumber : 243, className : "RCSegmentedControl", methodName : "destroy"});
+		this.itemRemoved.destroy({ fileName : "RCSegmentedControl.hx", lineNumber : 244, className : "RCSegmentedControl", methodName : "destroy"});
 		JSView.prototype.destroy.call(this);
 	}
 	,clickHandler: function(label) {
 		this.setSelectedIndex(this.items.indexForKey(label));
-		this.click.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 225, className : "RCSegmentedControl", methodName : "clickHandler"});
+		this.click.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 234, className : "RCSegmentedControl", methodName : "clickHandler"});
 	}
 	,disable: function(label) {
 		this.items.get(label).setEnabled(false);
@@ -3788,7 +3788,7 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 	}
 	,select: function(label,can_unselect) {
 		if(can_unselect == null) can_unselect = true;
-		haxe.Log.trace("select " + label + ", " + Std.string(can_unselect),{ fileName : "RCSegmentedControl.hx", lineNumber : 164, className : "RCSegmentedControl", methodName : "select"});
+		haxe.Log.trace("select " + label + ", " + Std.string(can_unselect),{ fileName : "RCSegmentedControl.hx", lineNumber : 173, className : "RCSegmentedControl", methodName : "select"});
 		if(this.items.exists(label)) {
 			this.items.get(label).toggle();
 			if(can_unselect) this.items.get(label).setEnabled(false); else this.items.get(label).setEnabled(true);
@@ -3812,14 +3812,14 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 	}
 	,remove: function(label) {
 		if(this.items.exists(label)) {
-			Fugu.safeDestroy(this.items.get(label),null,{ fileName : "RCSegmentedControl.hx", lineNumber : 133, className : "RCSegmentedControl", methodName : "remove"});
+			Fugu.safeDestroy(this.items.get(label),null,{ fileName : "RCSegmentedControl.hx", lineNumber : 142, className : "RCSegmentedControl", methodName : "remove"});
 			this.items.remove(label);
 		}
 		this.keepButtonsArranged();
-		this.itemRemoved.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 141, className : "RCSegmentedControl", methodName : "remove"});
+		this.itemRemoved.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 150, className : "RCSegmentedControl", methodName : "remove"});
 	}
 	,setSelectedIndex: function(i) {
-		haxe.Log.trace("setIndex " + i,{ fileName : "RCSegmentedControl.hx", lineNumber : 118, className : "RCSegmentedControl", methodName : "setSelectedIndex"});
+		haxe.Log.trace("setIndex " + i,{ fileName : "RCSegmentedControl.hx", lineNumber : 127, className : "RCSegmentedControl", methodName : "setSelectedIndex"});
 		if(this.selectedIndex_ == i) return i;
 		this.selectedIndex_ = i;
 		this.select(this.labels[i]);
@@ -3896,8 +3896,9 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 				};
 			})($bind(this,this.clickHandler),label);
 			this.addChild(b);
+			b.init();
 			this.items.set(label,b);
-			this.itemAdded.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 83, className : "RCSegmentedControl", methodName : "initWithLabels"});
+			this.itemAdded.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 92, className : "RCSegmentedControl", methodName : "initWithLabels"});
 			i++;
 		}
 		this.keepButtonsArranged();
