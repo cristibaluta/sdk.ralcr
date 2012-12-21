@@ -37,13 +37,17 @@ class RCTableViewCell extends RCControl {
 	}
 	
 	override function rollOverHandler (e:EVMouse) :Void {
-		backgroundView.color.fillColor = 0x578ccb;
-		backgroundView.redraw();
+		if (backgroundView != null) {
+			backgroundView.color.fillColor = 0x578ccb;
+			backgroundView.redraw();
+		}
 		super.rollOverHandler( e );
 	}
 	override function rollOutHandler (e:EVMouse) :Void {
-		backgroundView.color.fillColor = 0xffffff;
-		backgroundView.redraw();
+		if (backgroundView != null) {
+			backgroundView.color.fillColor = 0xffffff;
+			backgroundView.redraw();
+		}
 		super.rollOutHandler( e );
 	}
 	

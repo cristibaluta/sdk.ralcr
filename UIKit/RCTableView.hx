@@ -89,6 +89,8 @@ class RCTableView extends RCView {
 		mousePress_.add ( startDragCells );
 		mouseMove_.add ( mouseMoveHandler );
 		mouseUp_.add ( stopDragCells );
+		mouseMove_.enabled = false;
+		mouseUp_.enabled = false;
 	}
 	
 	// Reload cells
@@ -240,6 +242,7 @@ class RCTableView extends RCView {
 		mousePress_ = null;
 		mouseMove_ = null;
 		mouseUp_ = null;
+		
 		super.destroy();
 	}
 }
