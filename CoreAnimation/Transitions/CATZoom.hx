@@ -9,6 +9,15 @@
 
 class CATZoom extends CAObject, implements CATransitionInterface {
 	
+	/**
+	 *  Predefined zoom types that you can use: {zoom:zoomType}
+	 *  zoominin - 
+	 *  zoomoutin - From a big scale to normal scale
+	 *  zoominout - 
+	 *  zoomoutout - 
+	 *  spinin - 
+	 *  spinout - 
+	 **/
 	override public function init () :Void {
 		
 		var fromScale = 1.;
@@ -92,7 +101,12 @@ class CATZoom extends CAObject, implements CATransitionInterface {
 	
 	override public function animate (time_diff:Float) :Void {
 		// Iterate over properties that should be tweened for this object
-		for (prop in Reflect.fields (toValues))
-			Reflect.setField (target, prop, calculate (time_diff, prop));
+		for (prop in Reflect.fields (toValues)) {
+			//Reflect.setField (target, prop, calculate (time_diff, prop));
+			var setter = "set"+prop.substr(0,1).toUpperCase()+prop.substr(1);
+			if (setter != null)
+				Reflect.callMethod (target, Reflect.field(target,setter), [calculate (time_diff, prop)]);
+			
+		}
 	}
 }

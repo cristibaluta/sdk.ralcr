@@ -72,7 +72,7 @@ class RCImageAnimated extends RCView {
 	// Controlling the animation
 	
 	public function gotoAndStop (f:Int) :Void {
-		trace("gotoAndStop "+currentFrame+", "+f);
+		//trace("gotoAndStop "+currentFrame+", "+f);
 		if (f == 0 || f > images.length) {
 			if (f > images.length && repeat)
 				f = 1;

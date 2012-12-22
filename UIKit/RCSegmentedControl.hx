@@ -26,7 +26,7 @@ class RCSegmentedControl extends RCView {
 		
 		super (x, y, w, h);
 		
-		//selectedIndex = -1;
+		selectedIndex_ = -1;// Init this with -1
 		items = new HashArray<RCButtonRadio>();
 		click = new RCSignal<RCSegmentedControl->Void>();
 		itemAdded = new RCSignal<RCSegmentedControl->Void>();
@@ -124,7 +124,7 @@ class RCSegmentedControl extends RCView {
 		return selectedIndex_;
 	}
 	public function setSelectedIndex (i:Int) :Int {
-		trace("setIndex "+i);
+		trace("setIndex "+selectedIndex_ +" > "+i);
 		if (selectedIndex_ == i) return i;
 			selectedIndex_ = i;
 			

@@ -3737,6 +3737,7 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 });
 var RCSegmentedControl = $hxClasses["RCSegmentedControl"] = function(x,y,w,h,skin) {
 	JSView.call(this,x,y,w,h);
+	this.selectedIndex_ = -1;
 	this.items = new HashArray();
 	this.click = new RCSignal();
 	this.itemAdded = new RCSignal();
@@ -3819,7 +3820,7 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 		this.itemRemoved.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 150, className : "RCSegmentedControl", methodName : "remove"});
 	}
 	,setSelectedIndex: function(i) {
-		haxe.Log.trace("setIndex " + i,{ fileName : "RCSegmentedControl.hx", lineNumber : 127, className : "RCSegmentedControl", methodName : "setSelectedIndex"});
+		haxe.Log.trace("setIndex " + this.selectedIndex_ + " > " + i,{ fileName : "RCSegmentedControl.hx", lineNumber : 127, className : "RCSegmentedControl", methodName : "setSelectedIndex"});
 		if(this.selectedIndex_ == i) return i;
 		this.selectedIndex_ = i;
 		this.select(this.labels[i]);
