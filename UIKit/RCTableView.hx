@@ -158,9 +158,10 @@ class RCTableView extends RCView {
 		startLoop();
 	}
 	function startLoop () {
-		stopLoop();
-		timer = new haxe.Timer(10);
-		timer.run = loop;
+		if (timer == null) {
+			timer = new haxe.Timer(10);
+			timer.run = loop;
+		}
 	}
 	function stopLoop () {
 		if (timer != null) {
