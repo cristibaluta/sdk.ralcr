@@ -127,13 +127,13 @@ class Fugu {
 	
 	
 	/**
-	 *	Align an object in the specified width and height, with a margin of x and y px
-	 *	alignment string is of form: B,M or 20,20 or T,20
+	 *	Align an object in the specified width and height, with a margin of x and y
+	 *	@param alignment - string of form: B,M or 20,20 or T,20
 	 */
 	public static function align (	obj:RCView, alignment:String,
 									constraint_w:Float, constraint_h:Float,
 									?obj_w:Null<Float>, ?obj_h:Null<Float>,
-									?delay_x:Int=0, ?delay_y:Int=0)
+									?margin_x:Int=0, ?margin_y:Int=0)
 	{
 		
 		if (obj == null) return;
@@ -143,15 +143,15 @@ class Fugu {
 		if (obj_h == null) obj_h = obj.height;
 		
 		obj.x = switch ( arr[0] ) {
-			case "l": delay_x;
+			case "l": margin_x;
 			case "m": Math.round ((constraint_w - obj_w) / 2);
-			case "r": Math.round ( constraint_w - obj_w - delay_x);
+			case "r": Math.round ( constraint_w - obj_w - margin_x);
 			default : Std.parseInt ( arr[0] );
 		}
 		obj.y = switch ( arr[1] ) {
-			case "t": delay_y;
+			case "t": margin_y;
 			case "m": Math.round ((constraint_h - obj_h) / 2);
-			case "b": Math.round ( constraint_h - obj_h - delay_y);
+			case "b": Math.round ( constraint_h - obj_h - margin_y);
 			default : Std.parseInt ( arr[1] );
 		}
 	}

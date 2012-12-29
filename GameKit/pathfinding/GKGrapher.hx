@@ -59,8 +59,8 @@ class GKGrapher {
 					if (nc == -8 && i == -1 && j == 1) continue;
 					
 					
-					var nodeIdx:Int = col*cellsY + row;
-					var nIdx:Int = nodeX*cellsY + nodeY;
+					var nodeIdx:Int = Math.round (col * cellsY + row);
+					var nIdx:Int = Math.round (nodeX * cellsY + nodeY);
 					var nodePos = n_graph.getNode( nodeIdx ).pos;
 					var neighbourPos = n_graph.getNode( nIdx ).pos;
 					

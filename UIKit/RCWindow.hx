@@ -48,6 +48,10 @@ class RCWindow extends RCView {
 	public var modalView :RCView;// Modal views are added to the window. Can be only one at a time
 	
 	
+	/**
+	 *  Create a new Window
+	 *  @param id - Used only in js, the id of your div
+	 **/
 	public function new (id:String) {
 		
 		if (sharedWindow_ != null) {
@@ -221,25 +225,30 @@ class RCWindow extends RCView {
 	
 	
 	/**
-	 *  Add or remove a modal view controller
+	 *  Add a modal view controller. This is a window that stays on top of everything
 	 *  Only one can exist at a given time
-	 *  It requires any RCView but is your responsability to dismiss it
-	 *  When the fade out animation finishes it is destroyed
+	 *  @param view - it can be any view. It will be animated from bottom to top
 	 **/
 	public function addModalViewController (view:RCView) :Void {
+		if (modalView != null) return;
 		modalView = view;
 		modalView.x = 0;//RCWindow.getCenterX ( view.width );
 		
 		CoreAnimation.add ( new CATween (modalView, {y:{fromValue:height, toValue:0}}, 0.5, 0, caequations.Cubic.IN_OUT) );
 		addChild ( modalView );
 	}
+	/**
+	 *  Remove the modalView id we have one
+	 *  When the fade out animation finishes it is destroyed and removed from window
+	 **/
 	public function dismissModalViewController () :Void {
 		if (modalView == null) return;
 		var anim = new CATween (modalView, {y:height}, 0.3, 0, caequations.Cubic.IN);
 			anim.delegate.animationDidStop = destroyModalViewController;
 		CoreAnimation.add ( anim );
 	}
-	private function destroyModalViewController () :Void {
+	function destroyModalViewController () :Void {
+		modalView.removeFromSuperView();
 		modalView.destroy();
 		modalView = null;
 	}
@@ -247,7 +256,8 @@ class RCWindow extends RCView {
 	
 	
 	/**
-	 * Utilities
+	 *	Return the x and y of an object that should be centered in the window
+	 *  @param w - the with of the object
 	 */
 	public function getCenterX (w:Float) :Int {
 		return Math.round (width/2 - w/RCDevice.currentDevice().dpiScale/2);

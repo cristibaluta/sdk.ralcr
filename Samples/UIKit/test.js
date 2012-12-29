@@ -620,9 +620,9 @@ Fugu.resetColor = function(target) {
 }
 Fugu.brightness = function(target,brightness) {
 }
-Fugu.align = function(obj,alignment,constraint_w,constraint_h,obj_w,obj_h,delay_x,delay_y) {
-	if(delay_y == null) delay_y = 0;
-	if(delay_x == null) delay_x = 0;
+Fugu.align = function(obj,alignment,constraint_w,constraint_h,obj_w,obj_h,margin_x,margin_y) {
+	if(margin_y == null) margin_y = 0;
+	if(margin_x == null) margin_x = 0;
 	if(obj == null) return;
 	var arr = alignment.toLowerCase().split(",");
 	if(obj_w == null) obj_w = obj.getWidth();
@@ -631,13 +631,13 @@ Fugu.align = function(obj,alignment,constraint_w,constraint_h,obj_w,obj_h,delay_
 		var $r;
 		switch(arr[0]) {
 		case "l":
-			$r = delay_x;
+			$r = margin_x;
 			break;
 		case "m":
 			$r = Math.round((constraint_w - obj_w) / 2);
 			break;
 		case "r":
-			$r = Math.round(constraint_w - obj_w - delay_x);
+			$r = Math.round(constraint_w - obj_w - margin_x);
 			break;
 		default:
 			$r = Std.parseInt(arr[0]);
@@ -648,13 +648,13 @@ Fugu.align = function(obj,alignment,constraint_w,constraint_h,obj_w,obj_h,delay_
 		var $r;
 		switch(arr[1]) {
 		case "t":
-			$r = delay_y;
+			$r = margin_y;
 			break;
 		case "m":
 			$r = Math.round((constraint_h - obj_h) / 2);
 			break;
 		case "b":
-			$r = Math.round(constraint_h - obj_h - delay_y);
+			$r = Math.round(constraint_h - obj_h - margin_y);
 			break;
 		default:
 			$r = Std.parseInt(arr[1]);
@@ -4390,7 +4390,7 @@ RCTextView.prototype = $extend(JSView.prototype,{
 var RCWindow = $hxClasses["RCWindow"] = function(id) {
 	if(RCWindow.sharedWindow_ != null) {
 		var err = "RCWindow is a singletone, create and access it with RCWindow.sharedWindow(?id)";
-		haxe.Log.trace(err,{ fileName : "RCWindow.hx", lineNumber : 55, className : "RCWindow", methodName : "new"});
+		haxe.Log.trace(err,{ fileName : "RCWindow.hx", lineNumber : 59, className : "RCWindow", methodName : "new"});
 		throw err;
 	}
 	JSView.call(this,0.0,0.0,0.0,0.0);
@@ -4418,19 +4418,21 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		return Math.round(this.getWidth() / 2 - w / RCDevice.currentDevice().dpiScale / 2);
 	}
 	,destroyModalViewController: function() {
+		this.modalView.removeFromSuperView();
 		this.modalView.destroy();
 		this.modalView = null;
 	}
 	,dismissModalViewController: function() {
 		if(this.modalView == null) return;
-		var anim = new CATween(this.modalView,{ y : this.getHeight()},0.3,0,caequations.Cubic.IN,{ fileName : "RCWindow.hx", lineNumber : 238, className : "RCWindow", methodName : "dismissModalViewController"});
+		var anim = new CATween(this.modalView,{ y : this.getHeight()},0.3,0,caequations.Cubic.IN,{ fileName : "RCWindow.hx", lineNumber : 246, className : "RCWindow", methodName : "dismissModalViewController"});
 		anim.delegate.animationDidStop = $bind(this,this.destroyModalViewController);
 		CoreAnimation.add(anim);
 	}
 	,addModalViewController: function(view) {
+		if(this.modalView != null) return;
 		this.modalView = view;
 		this.modalView.setX(0);
-		CoreAnimation.add(new CATween(this.modalView,{ y : { fromValue : this.getHeight(), toValue : 0}},0.5,0,caequations.Cubic.IN_OUT,{ fileName : "RCWindow.hx", lineNumber : 233, className : "RCWindow", methodName : "addModalViewController"}));
+		CoreAnimation.add(new CATween(this.modalView,{ y : { fromValue : this.getHeight(), toValue : 0}},0.5,0,caequations.Cubic.IN_OUT,{ fileName : "RCWindow.hx", lineNumber : 237, className : "RCWindow", methodName : "addModalViewController"}));
 		this.addChild(this.modalView);
 	}
 	,supportsFullScreen: function() {
@@ -4495,7 +4497,7 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		}
 		this.size.width = this.target.scrollWidth;
 		this.size.height = this.target.scrollHeight;
-		haxe.Log.trace(this.size,{ fileName : "RCWindow.hx", lineNumber : 120, className : "RCWindow", methodName : "setTarget"});
+		haxe.Log.trace(this.size,{ fileName : "RCWindow.hx", lineNumber : 124, className : "RCWindow", methodName : "setTarget"});
 		this.target.appendChild(this.layer);
 	}
 	,resizeHandler: function(w,h) {

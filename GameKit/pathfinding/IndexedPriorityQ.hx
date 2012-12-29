@@ -2,8 +2,8 @@ package pathfinding;
 
 class IndexedPriorityQ {
 	
-	var keys:Array<Float>;
-	var data:Array<Int>;
+	var keys :Array<Float>;
+	var data :Array<Int>;
 	
 	
 	public function new (n_keys:Array<Float>) {
@@ -29,11 +29,13 @@ class IndexedPriorityQ {
 	
 	public function reorderUp () :Void {
 		
-		for (a in data.length-1...0) {
+		var a = data.length - 1;
+		while (a > 0) {
 			if (keys[data[a]] < keys[data[a-1]]) {
 				var tmp:Int=data[a];
 				data[a]=data[a-1];
 				data[a-1]=tmp;
+				a--;
 			}
 			else return;
 		}

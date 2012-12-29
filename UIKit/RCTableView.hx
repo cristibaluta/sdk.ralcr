@@ -103,7 +103,7 @@ class RCTableView extends RCView {
 	}
 	
 	
-	public function scrollToRowAtIndexPath (indexPath:RCIndexPath, scrollPosition:Int=0) :Void {
+	public function scrollToRowAtIndexPath (indexPath:RCIndexPath, cellPosition:Int=0) :Void {
 	
 	}
 	
@@ -169,6 +169,7 @@ class RCTableView extends RCView {
 		}
 	}
 	function loop () {
+		//trace("loop");
 		scrollIndicator.alpha = 1;
 		
 		for (i in 0...cells.length) {

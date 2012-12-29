@@ -70,9 +70,9 @@ class RCControl extends RCView {
 		setEnabled ( true );// This will configure the right mouse listeners
 	}
 	
-	// You must init only after you've added it as a child
+	// In JS you must init only after you've added it as a child
 	override public function init () :Void {
-		setState ( NORMAL );
+		if (state_ == null) setState ( NORMAL );
 	}
 	
 	function configureDispatchers () {
@@ -152,7 +152,7 @@ class RCControl extends RCView {
 		release.enabled = enabled_;
 		over.enabled = enabled_;
 		out.enabled = enabled_;
-		#if flash
+		#if (flash || nme)
 			layer.useHandCursor = enabled_;
 			layer.buttonMode = enabled_;
 		#end

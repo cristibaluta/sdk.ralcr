@@ -8,11 +8,9 @@
 
 class RCTableViewCell extends RCControl {
 	
-	public var identifier :String;
 	public var indexPath :RCIndexPath;
-	
-	var backgroundView :RCRectangle;
-	var separatorView :RCRectangle;
+	public var backgroundView :RCRectangle;
+	public var separatorView :RCRectangle;
 	public var titleView :RCTextView;
 	
 	
@@ -58,6 +56,10 @@ class RCTableViewCell extends RCControl {
 		titleView = null;
 		
 		super.destroy();
+	}
+	
+	override public function toString () {
+		return "[RCTableViewCell indexPath="+indexPath+"]";
 	}
 }
 
