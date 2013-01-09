@@ -1,6 +1,6 @@
 -js Samples/UIKit/test.js
 -cp Samples/UIKit
-all.hxml
+sdk.ralcr.hxml
 -main Main
 
 --next
@@ -8,5 +8,5 @@ all.hxml
 -swf-version 9
 -swf-header 1000:600:60:dddddd
 -cp Samples/UIKit
-all.hxml
+sdk.ralcr.hxml
 -main Main

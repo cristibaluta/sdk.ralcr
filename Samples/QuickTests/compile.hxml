@@ -3,5 +3,5 @@
 -swf-header 1000:330:50
 -main Main.hx
 -cp Samples/QuickTests
-all.hxml
+sdk.ralcr.hxml
 --dead-code-elimination

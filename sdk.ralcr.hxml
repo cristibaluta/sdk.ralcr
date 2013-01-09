@@ -1,0 +1,15 @@
+-cp /usr/lib/haxe/lib/ralcr/0,9/Animation
+-cp /usr/lib/haxe/lib/ralcr/0,9/Animation/Transitions
+-cp /usr/lib/haxe/lib/ralcr/0,9/Draw
+-cp /usr/lib/haxe/lib/ralcr/0,9/Events
+-cp /usr/lib/haxe/lib/ralcr/0,9/Foundation
+-cp /usr/lib/haxe/lib/ralcr/0,9/GameKit
+-cp /usr/lib/haxe/lib/ralcr/0,9/IOKit
+-cp /usr/lib/haxe/lib/ralcr/0,9/Media
+-cp /usr/lib/haxe/lib/ralcr/0,9/Network
+-cp /usr/lib/haxe/lib/ralcr/0,9/Physics
+-cp /usr/lib/haxe/lib/ralcr/0,9/Services
+-cp /usr/lib/haxe/lib/ralcr/0,9/Skins
+-cp /usr/lib/haxe/lib/ralcr/0,9/UIKit
+-cp /usr/lib/haxe/lib/ralcr/0,9/UnitTests
+-cp /usr/lib/haxe/lib/ralcr/0,9/Utils

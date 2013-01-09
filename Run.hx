@@ -1,0 +1,79 @@
+using StringTools;
+
+import sys.FileSystem;
+import sys.io.File;
+
+class Run {
+	
+	public static var output = "";
+	public static var me = "";
+	public static function main() {
+		
+		loop(".");
+		
+		var args = Sys.args();
+		
+		if (args.length > 0) {
+			var last:String = (new neko.io.Path(args.pop())).toString();
+			var slash = last.substr(-1);
+			if (slash=="/"|| slash=="\\") 
+			    me = last.substr(0,last.length-1);
+			if (args[0] == "new") {
+				generateNewProject();
+			}
+		}
+		
+		File.saveContent ( me + "/sdk.ralcr.hxml", output);
+	}
+	static function loop (path:String) {
+		var files = FileSystem.readDirectory(path);
+		for (f in files) {
+			try{
+			//if (FileSystem.isDirectory ( FileSystem.fullPath ( f ))) {//Neko error on files
+			if (f.indexOf(".") == -1) {
+				if (!isPackage( f ) && 
+					!f.startsWith(".") && 
+					!f.endsWith(".hx") && 
+					f != "Samples" && 
+					f != "Resources")
+				{
+					output += "-cp " + FileSystem.fullPath ( path + "/" + f ) + "\n";
+					loop(path+"/"+f);
+				}
+			}
+			}catch(e:Dynamic){trace(e);}
+		}
+	}
+	inline static function isPackage(path:String) :Bool {
+		return !(path.substr(0,1) == path.substr(0,1).toUpperCase());
+	}
+	
+	
+	
+	static function generateNewProject () {
+		var paths = me.split("/");
+		var projName = paths.pop();trace(projName);
+		for (dir in ["Publish","Resources","src","src/com","src/com/ralcr","src/com/ralcr/"+projName.toLowerCase(),"src/Controller","src/Model","src/View"]) {
+			//trace("Generating "+dir);
+			if(!FileSystem.exists ( me + "/" + dir))
+				FileSystem.createDirectory ( me + "/" + dir);
+		}
+		var files = [
+			["Resources/Template/compile.hxml", me + "/compile.hxml"],
+			["Resources/Template/compile.nmml", me + "/compile.nmml"],
+			["Resources/Template/index.html", me + "/Publish/index.html"],
+			["Resources/Template/swfobject.js", me + "/Publish/swfobject.js"],
+			["Resources/Template/AppController.hx", me + "/src/Controller/AppController.hx"],
+			["Resources/Template/Initialization.hx", me + "/src/Model/Initialization.hx"],
+			["Resources/Template/RegisterFonts.hx", me + "/src/Model/RegisterFonts.hx"],
+			["Resources/Template/Main.hx", me + "/src/com/ralcr/"+projName.toLowerCase() + "/Main.hx"]
+		];
+		//File.saveContent ( me + "/compile.hxml", hxml);
+		
+		for (f in files) {
+			if (!FileSystem.exists (f[1])) {
+				File.copy (f[0], f[1]);
+			}
+		}
+	}
+}

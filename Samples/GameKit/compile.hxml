@@ -3,5 +3,5 @@
 -swf-version 9
 -swf-header 1000:600:60:dddddd
 -cp Samples/GameKit
-all.hxml
+sdk.ralcr.hxml
 -main Main

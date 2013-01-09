@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="::app_name::" package="::package::" version="1.0.0" company="ralcr" />
+	<app file="::app_name::" main="::package::.Main" path="Export" />
+	
+	<icon name="Publish/Icon.png" width="57" height="57" />
+	<icon name="Publish/Icon@2x.png" width="114" height="114" />
+	<icon name="Publish/Icon-72.png" width="72" height="72" />
+	<icon name="Publish/Icon-72@2x.png" width="144" height="144" />
+	<launchImage path="Publish/Default.png" width="320" height="480" />
+	<launchImage path="Publish/Default@2x.png" width="640" height="960" />
+	<launchImage path="Publish/Default-Portrait~ipad.png" width="768" height="1024" />
+	<launchImage path="Publish/Default-Portrait@2x~ipad.png" width="1536" height="2048" />
+	<launchImage path="Publish/Default-Landscape~ipad.png" width="1024" height="768" />
+	<launchImage path="Publish/Default-Landscape@2x~ipad.png" width="2048" height="1536" />
+	
+	<window width="640" height="1136" fps="60" orientation="portrait" resizable="false" />
+
+	<set name="BUILD_DIR" value="Export" />
+
+	<classpath name="src/Controller" />
+	<classpath name="src/Model" />
+	<classpath name="src/View" />
+	<classpath name="src" />
+	::classpaths::
+	
+	<haxelib name="nme" />
+	<!-- <extension name="WebView" path="WebView" /> -->
+	
+	<assets path="Publish/assets" rename="assets" include="*" />
+
+	<ndll name="std" />
+	<ndll name="regexp" />
+	<ndll name="zlib" />
+	<ndll name="nme" haxelib="nme" />
+	
+	<section if="release-sign">
+		<certificate path="Resources/eclecticdesignstudio.keystore" if="android" />
+		<certificate path="Resources/author.p12" if="blackberry" />
+	</section>
+		
+</project>

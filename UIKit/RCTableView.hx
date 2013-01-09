@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if objc
+#if (objc && ios)
 	import ios.ui.UITableView;
 #end
 	
@@ -15,6 +15,7 @@ class RCTableView extends RCView {
 	
 	public var backgroundView :RCView;
 	public var contentView :RCView;// Cells are added here
+	public var scrollView :RCView;
 	public var scrollIndicator :RCRectangle;
 	public var indexPath :RCIndexPath;// indexPath of the last updated cell
 	
@@ -58,13 +59,17 @@ class RCTableView extends RCView {
 		this.addChild ( contentView );
 		contentView.clipsToBounds = true;
 		
+		scrollView = new RCView (0,0);
+		scrollView.layer.cacheAsBitmap = true;
+		contentView.addChild ( scrollView );
+		
 		scrollIndicator = new RCRectangle (w-10, 1, 6, 50, 0xffffff, .6, 6);
 		scrollIndicator.alpha = 0;
 		this.addChild ( scrollIndicator );
 		
 		cells = [];
 		
-		mousePress_ = new EVMouse (EVMouse.DOWN, contentView);
+		mousePress_ = new EVMouse (EVMouse.DOWN, scrollView);
 		mouseMove_ = new EVMouse (EVMouse.MOVE, this);
 		mouseUp_ = new EVMouse (EVMouse.UP, RCWindow.sharedWindow().stage);
 	}
@@ -79,7 +84,7 @@ class RCTableView extends RCView {
 				cell.indexPath = new RCIndexPath (0, i);
 				cell.y = max_h;
 			cells.push ( cell );
-			contentView.addChild ( cell );
+			scrollView.addChild ( cell );
 			max_h += cell.height;
 			if (cell.height < cell_min_h)
 				cell_min_h = cell.height;
@@ -125,11 +130,13 @@ class RCTableView extends RCView {
 		mouseUp_.enabled = false;
 		
 		//CoreAnimation.remove ( anim );
-/*		if (contentView.y > 0) {
-			anim = new CATween (contentView, {y:0}, 0.5, 0, caequations.Cubic.OUT);
+		if (scrollView.y > 0) {
+			anim = new CATween (scrollView, {y:0}, 0.5, 0, caequations.Cubic.OUT);
 			CoreAnimation.add ( anim );
+			vy = 0;
+			stopLoop();
 		}
-		else if (contentView.y < 260-contentView.height) {
+/*		else if (contentView.y < 260-contentView.height) {
 			anim = new CATween (contentView, {y:260-contentView.height}, 0.5, 0, caequations.Cubic.OUT);
 			CoreAnimation.add ( anim );
 		}*/
@@ -143,6 +150,8 @@ class RCTableView extends RCView {
 				vy = cell_min_h;
 			if (vy < -cell_min_h)
 				vy = -cell_min_h;
+			if (scrollView.y > 0)
+				vy = vy * 0.24;
 		}
 		//e.updateAfterEvent();
 	}
@@ -170,6 +179,48 @@ class RCTableView extends RCView {
 		}
 	}
 	function loop () {
+		//trace("loop "+vy);
+		scrollIndicator.alpha = 1;
+		scrollView.layer.y = Math.round (scrollView.layer.y + vy);
+		
+		// Reuse cells when out of view
+		// Scrolling down
+		if (cells[0].y + scrollView.y > 1) {
+			if (cells[0].indexPath.row > 0) {
+				// Take the last cell and add it on top
+				var cell = cells.pop();
+				cells.unshift ( cell );
+				// Init the cell with new data
+				cell.indexPath.row = cells[1].indexPath.row - 1;
+				indexPath = cell.indexPath;
+				cells[0].y = Math.round (cells[1].y - cells[0].height);
+				cell = cellForRowAtIndexPath ( cell.indexPath, cell );
+			}
+		}
+		// Scrolling up
+		else if (cells[0].y + scrollView.y  < -cells[0].height-1) {
+			if (indexPath.row < numberOfRowsInSection(0)) {
+				// Take the first cell and push it to the bottom
+				var cell = cells.shift();
+				cells.push ( cell );
+				// Init the cell with new data
+				cell.indexPath.row = cells[cells.length-2].indexPath.row + 1;
+				cell = cellForRowAtIndexPath ( cell.indexPath, cell );
+				cell.y = Math.round ( cells[cells.length-2].y + cells[cells.length-2].height );
+				indexPath = cell.indexPath;
+				loop();
+			}
+		}
+		
+		vy *= inertia;
+		if (!dragging && Math.abs (vy) < 1) {
+			stopLoop();
+			scrollIndicator.alpha = 0;
+		}
+		
+		//scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
+	}
+	function loop_old () {
 		//trace("loop");
 		scrollIndicator.alpha = 1;
 		

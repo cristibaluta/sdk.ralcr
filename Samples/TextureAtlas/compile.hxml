@@ -1,6 +1,6 @@
 # -js Samples/UIKit/test.js
 # -cp Samples/UIKit
-# all.hxml
+# sdk.ralcr.hxml
 # -main Main
 # 
 # --next
@@ -8,5 +8,5 @@
 -swf-version 9
 -swf-header 600:300:60:333333
 -cp Samples/TextureAtlas
-all.hxml
+sdk.ralcr.hxml
 -main Main

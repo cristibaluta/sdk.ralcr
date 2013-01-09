@@ -2,5 +2,5 @@
 -swf9 Samples/CameraMotion/camera.swf
 -swf-header 1000:600:40
 -cp Samples/CameraMotion
-all.hxml
+sdk.ralcr.hxml
 -main Main.hx

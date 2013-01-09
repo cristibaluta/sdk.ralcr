@@ -2,5 +2,5 @@
 -swf9 Samples/Draw/drawings.swf
 -swf-header 1000:600:40
 -cp Samples/Draw
-all.hxml
+sdk.ralcr.hxml
 -main Main.hx

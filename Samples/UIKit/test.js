@@ -2148,7 +2148,7 @@ RCControl.prototype = $extend(JSView.prototype,{
 		this.out.addFirst($bind(this,this.rollOutHandler),{ fileName : "RCControl.hx", lineNumber : 91, className : "RCControl", methodName : "configureDispatchers"});
 	}
 	,init: function() {
-		this.setState(RCControlState.NORMAL);
+		if(this.state_ == null) this.setState(RCControlState.NORMAL);
 	}
 	,onOut: function() {
 	}
