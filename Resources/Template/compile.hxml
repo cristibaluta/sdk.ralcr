@@ -1,22 +1,21 @@
--swf Publish/icegame.swf
+-swf Publish/::app_name::.swf
 -swf-version 10
 -swf-header 640:1136:50:333333
--swf-lib Resources/resources.swf
+# -swf-lib Resources/resources.swf
 -cp src
 -cp src/Model
 -cp src/View
 -cp src/Controller
 -lib ralcr
 sdk.ralcr.hxml
--main com.ralcr.icegame.Main
+-main ::package::.Main
 #--dead-code-elimination
 
-# --next
-# -js Publish/whacker.js
-# -cp src
-# -cp src/Model
-# -cp src/View
-# -cp src/Controller
-# ../sdk.ralcr.hxml
-# -main com.ralcr.whacktheagency.Main
-# 
+--next
+-js Publish/::app_name::.js
+-cp src
+-cp src/Model
+-cp src/View
+-cp src/Controller
+sdk.ralcr.hxml
+-main ::package::.Main

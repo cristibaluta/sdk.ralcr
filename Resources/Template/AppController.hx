@@ -17,6 +17,8 @@ class AppController extends RCAppDelegate {
 			
 	function initializationReady () {
 		
+		var title = new RCTextView (0,0,RCWindow.sharedWindow().width, 50, "Hello World", RCFont.systemFontOfSize(30));
+		addChild ( title );
 	}
 	
 	override public function resize (w:Float, h:Float) :Void {

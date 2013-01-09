@@ -52,8 +52,19 @@ class Run {
 	
 	static function generateNewProject () {
 		var paths = me.split("/");
-		var projName = paths.pop();trace(projName);
-		for (dir in ["Publish","Resources","src","src/com","src/com/ralcr","src/com/ralcr/"+projName.toLowerCase(),"src/Controller","src/Model","src/View"]) {
+		var projName = paths.pop();
+		var directories = [
+			"Publish",
+			"Resources",
+			"src",
+			"src/com",
+			"src/com/ralcr",
+			"src/com/ralcr/"+projName.toLowerCase(),
+			"src/Controller",
+			"src/Model",
+			"src/View"
+		];
+		for (dir in directories) {
 			//trace("Generating "+dir);
 			if(!FileSystem.exists ( me + "/" + dir))
 				FileSystem.createDirectory ( me + "/" + dir);
@@ -68,12 +79,14 @@ class Run {
 			["Resources/Template/RegisterFonts.hx", me + "/src/Model/RegisterFonts.hx"],
 			["Resources/Template/Main.hx", me + "/src/com/ralcr/"+projName.toLowerCase() + "/Main.hx"]
 		];
-		//File.saveContent ( me + "/compile.hxml", hxml);
-		
 		for (f in files) {
-			if (!FileSystem.exists (f[1])) {
+			var str = File.getContent(f[0]);
+			str = StringTools.replace (str, "::app_name::", projName);
+			str = StringTools.replace (str, "::package::", "com.ralcr."+projName.toLowerCase());
+			File.saveContent ( f[1], str);
+/*			if (!FileSystem.exists (f[1])) {
 				File.copy (f[0], f[1]);
-			}
+			}*/
 		}
 	}
 }
