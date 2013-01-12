@@ -60,7 +60,7 @@ class RCTableView extends RCView {
 		contentView.clipsToBounds = true;
 		
 		scrollView = new RCView (0,0);
-		scrollView.layer.cacheAsBitmap = true;
+		//scrollView.layer.cacheAsBitmap = true;
 		contentView.addChild ( scrollView );
 		
 		scrollIndicator = new RCRectangle (w-10, 1, 6, 50, 0xffffff, .6, 6);
@@ -128,7 +128,7 @@ class RCTableView extends RCView {
 		dragging = false;
 		mouseMove_.enabled = false;
 		mouseUp_.enabled = false;
-		
+		trace("stop scrollView "+scrollView.y);
 		//CoreAnimation.remove ( anim );
 		if (scrollView.y > 0) {
 			anim = new CATween (scrollView, {y:0}, 0.5, 0, caequations.Cubic.OUT);
@@ -181,7 +181,7 @@ class RCTableView extends RCView {
 	function loop () {
 		//trace("loop "+vy);
 		scrollIndicator.alpha = 1;
-		scrollView.layer.y = Math.round (scrollView.layer.y + vy);
+		scrollView.y = Math.round (scrollView.y + vy);
 		
 		// Reuse cells when out of view
 		// Scrolling down
@@ -217,8 +217,10 @@ class RCTableView extends RCView {
 			stopLoop();
 			scrollIndicator.alpha = 0;
 		}
-		
-		//scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
+		#if cpp
+		trace("Classes in uses: " + cpp.vm.Gc.trace( ScoreTableViewCell, false ) );
+		#end
+		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
 	}
 	function loop_old () {
 		//trace("loop");

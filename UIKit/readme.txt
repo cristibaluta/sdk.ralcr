@@ -1,1 +1,0 @@
-RC stands for RalCr

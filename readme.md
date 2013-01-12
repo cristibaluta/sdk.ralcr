@@ -21,7 +21,7 @@ The run script for haxelib has a new command to build a template with all the ba
 
 	mkdir MyProject
 	cd MyProject
-	haxelib run new
+	haxelib run ralcr new
 	
 Voila, open the project with your preferred editor and compile. By now you should be able to compile for flash and javascript by running compile.hxml, and for Mac, iOS and Android by running compile.nmml with nme
 

@@ -23,6 +23,7 @@
 	<classpath name="src/Model" />
 	<classpath name="src/View" />
 	<classpath name="src" />
+	<haxeflag name="../../../../sdk.ralcr.hxml" /><!-- This is a relative path from nme final hxml to the root of the project -->
 	
 	
 	<haxelib name="nme" />
