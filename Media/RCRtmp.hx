@@ -5,6 +5,7 @@
 //  Copyright (c) 2007 http://ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.NetStatusEvent;
@@ -92,3 +93,4 @@ class RCRtmp extends RCVideo, implements RCVideoInterface {
 		}
 	}
 }
+#end

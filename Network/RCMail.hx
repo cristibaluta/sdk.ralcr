@@ -9,31 +9,22 @@
  *  Sent mails through the mail php script
  **/
 
-#if (flash || (flash && nme))
-	import flash.net.URLVariables;
-#else
-	private class URLVariables implements Dynamic { public function new(){} }
-#end
-
-
 class RCMail extends RCRequest {
 	
-	var scripts_path :String;
+	var apiPath :String;
 	
 	
-	public function new (scripts_path:String) {
-		this.scripts_path = scripts_path;
+	public function new (apiPath:String) {
+		this.apiPath = apiPath;
+		if (apiPath != "" && ! StringTools.endsWith (apiPath, "/"))
+			this.apiPath += "/";
 		super();
 	}
 	
 	public function send (to:String, subject:String, message:String, from:String) :Void {
 		
-		var variables = new URLVariables();
-			variables.to = to;
-			variables.subject = subject;
-			variables.message = message;
-			variables.from = from;
+		var variables = createVariables ({to : to, subject : subject, message : message, from : from});
 		
-		load (scripts_path + "others/sendMail.php", variables, "POST");
+		load (apiPath + "others/sendMail.php", variables, "POST");
 	}
 }

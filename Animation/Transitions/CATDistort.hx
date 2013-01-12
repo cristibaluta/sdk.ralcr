@@ -11,6 +11,7 @@
  *  Available for flash only
  **/
 
+#if flash
 import flash.geom.Point;
 import flash.display.DisplayObjectContainer;
 
@@ -63,3 +64,4 @@ class CATDistort extends CAObject, implements CATransitionInterface {
 		
 	}
 }
+#end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2010 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-
+#if flash
 class RCStar extends RCDraw, implements RCDrawInterface {
 	
 	public var points :Int;
@@ -69,3 +69,4 @@ class RCStar extends RCDraw, implements RCDrawInterface {
 		}
 	}
 }
+#end

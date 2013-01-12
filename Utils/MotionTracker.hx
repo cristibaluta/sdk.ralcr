@@ -1,4 +1,4 @@
-﻿/**		
+/**		
  * 
  *	MotionTracker
  *	
@@ -11,6 +11,7 @@
  *	http://blog.soulwire.co.uk/code/actionscript-3/webcam-motion-detection-tracking
  *  
  **/
+#if flash
 import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.filters.BlurFilter;
@@ -222,3 +223,4 @@ class MotionTracker extends Point {
 		return b;
 	}
 }
+#end

@@ -30,6 +30,7 @@ class GKCharacter extends GKSprite {
 	
 	public function setState (key:String, sprite:Dynamic) :Void {
 		try{
+		#if flash
 		var mc = new MovieClip();
 		if (Std.is (sprite, MovieClip)) {
 			mc = sprite;
@@ -41,12 +42,14 @@ class GKCharacter extends GKSprite {
 			mc.addChild ( sprite );
 		
 		frames.set (key, mc);
+		#end
 		}
 		catch(e:Dynamic){ trace(e);Fugu.stack(); }
 	}
 	
 	public function showState (key:String) {
 		//trace("show "+key);
+		#if flash
 		for (k in frames.keys()) {
 			if (k == key) {
 				layer.addChild ( frames.get ( k ));
@@ -57,6 +60,7 @@ class GKCharacter extends GKSprite {
 		// Keep the collisionArea in front
 		if (collisionArea != null)
 			this.layer.addChild ( collisionArea );
+		#end
 	}
 	
 	override public function destroy () :Void {

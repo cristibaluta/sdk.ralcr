@@ -5,6 +5,7 @@
 //	Copyright (c) 2009 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
 import flash.display.Sprite;
 import flash.display.Loader;
 import flash.events.Event;
@@ -241,3 +242,4 @@ class YouTube extends RCVideo, implements RCVideoInterface, implements RCAudioIn
 		}
 	}
 }
+#end

@@ -10,6 +10,7 @@
  * This transition is available for flash only.
  */
 
+#if flash
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.display.Bitmap;
@@ -112,3 +113,4 @@ class CATPixelator extends CAObject, implements CATransitionInterface {
 		}
 	}
 }
+#end

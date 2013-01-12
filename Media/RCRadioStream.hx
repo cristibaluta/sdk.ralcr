@@ -6,6 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 // buggy in flash player 9
+#if flash
 import flash.events.Event;
 import flash.events.ErrorEvent;
 import flash.events.IOErrorEvent;
@@ -99,3 +100,4 @@ class RCRadioStream extends flash.display.Sprite {
 		stop();
 	}
 }
+#end

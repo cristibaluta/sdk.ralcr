@@ -5,6 +5,7 @@
 //  Copyright (c) 2008 www.lib.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
 import flash.events.Event;
 import flash.events.ProgressEvent;
 import flash.events.IOErrorEvent;
@@ -167,3 +168,4 @@ class RCFileTransfer {
 		_file_reference.removeEventListener (SecurityErrorEvent.SECURITY_ERROR, securityHandler);
 	}
 }
+#end

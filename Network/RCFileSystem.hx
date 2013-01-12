@@ -13,14 +13,6 @@
 *  
 */
 
-#if (flash || nme)
-	import flash.net.URLVariables;
-#elseif js
-	private class URLVariables implements Dynamic { public function new(){} }
-#end
-
-
-
 class RCFileSystem extends RCHttp {
 	
 	public function new (apiPath:String) {
@@ -33,9 +25,7 @@ class RCFileSystem extends RCHttp {
 	 */
 	public function createDirectory (directory:String) :Void {
 		
-		var variables = new URLVariables();
-		variables.path = directory;
-		variables.apiPath = apiPath;
+		var variables = createVariables ({path : directory, apiPath : apiPath});
 		
 		load ( apiPath + "filesystem/createDirectory.php", variables );
 	}
@@ -46,9 +36,7 @@ class RCFileSystem extends RCHttp {
 	 */
 	public function deleteDirectory (directory:String) :Void {
 		
-		var variables = new URLVariables();
-		variables.path = directory;
-		variables.apiPath = apiPath;
+		var variables = createVariables ({path : directory, apiPath : apiPath});
 		
 		load ( apiPath + "filesystem/deleteDirectory.php", variables );
 	}
@@ -59,9 +47,7 @@ class RCFileSystem extends RCHttp {
 	 */
 	public function deleteFile (file:String) :Void {
 		
-		var variables = new URLVariables();
-		variables.path = file;
-		variables.apiPath = apiPath;
+		var variables = createVariables ({path : file, apiPath : apiPath});
 		
 		load ( apiPath + "filesystem/deleteFile.php", variables );
 	}
@@ -72,10 +58,7 @@ class RCFileSystem extends RCHttp {
 	 */
 	public function rename (file:String, new_file:String) :Void {
 		
-		var variables = new URLVariables();
-		variables.path = file;
-		variables.new_path = new_file;
-		variables.apiPath = apiPath;
+		var variables = createVariables ({path : file, new_path : new_file, apiPath : apiPath});
 		
 		load ( apiPath + "filesystem/rename.php", variables );
 	}

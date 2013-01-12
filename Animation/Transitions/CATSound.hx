@@ -11,6 +11,7 @@
  *  Available for flash only
  **/
 
+#if flash
 import flash.media.SoundTransform;
 
 
@@ -51,3 +52,4 @@ class CATSound extends CAObject, implements CATransitionInterface {
 		soundObject.soundTransform = sndTransform;
 	}
 }
+#end

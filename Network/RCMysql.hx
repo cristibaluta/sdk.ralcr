@@ -5,8 +5,6 @@
 //  Copyright (c) 2008 milc.ro. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-import flash.net.URLVariables;
-
 
 class RCMysql extends RCRequest {
 	
@@ -80,8 +78,7 @@ class RCMysql extends RCRequest {
 	 * Calls a custom script
 	 */
 	public function call (script:String, variables_list:Dynamic) :Void {
-		var variables :URLVariables = createVariables (variables_list);trace(variables_list);
-		load ( script, variables );
+		load ( script, createVariables (variables_list) );
 	}
 	
 	

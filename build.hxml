@@ -7,6 +7,11 @@
 sdk.ralcr.hxml
 
 --next
+-js build/sdk.ralcr.js
+-main Main.hx
+sdk.ralcr.hxml
+
+--next
 -cp .
 -neko run.n
 -main Run

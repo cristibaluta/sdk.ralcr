@@ -36,6 +36,7 @@
 /*
 	Ported to Haxe by Baluta Cristian (http://ralcr.com/jpgencoder/)
 */
+#if flash
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.utils.ByteArray;
@@ -135,3 +136,4 @@ class PNGEncoder {
 		png.writeUnsignedInt (c);
 	}
 }
+#end

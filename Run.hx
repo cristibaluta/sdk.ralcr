@@ -23,6 +23,8 @@ class Run {
 			}
 		}
 		
+		trace("Generating "+me + "/sdk.ralcr.hxml with content:\n"+output);
+		
 		File.saveContent ( me + "/sdk.ralcr.hxml", output);
 	}
 	static function loop (path:String) {
@@ -34,7 +36,7 @@ class Run {
 				if (!isPackage( f ) && 
 					!f.startsWith(".") && 
 					!f.endsWith(".hx") && 
-					f != "Samples" && 
+					f != "samples" && 
 					f != "Resources")
 				{
 					output += "-cp " + FileSystem.fullPath ( path + "/" + f ) + "\n";
@@ -51,6 +53,9 @@ class Run {
 	
 	
 	static function generateNewProject () {
+		
+		trace("Generating project structure...");
+		
 		var paths = me.split("/");
 		var projName = paths.pop();
 		var directories = [
@@ -88,5 +93,9 @@ class Run {
 				File.copy (f[0], f[1]);
 			}*/
 		}
+		
+		// Open the project in TextMate if present
+		trace("Attempting to open the project in TextMate...");
+		Sys.command ("mate", ["."]);
 	}
 }

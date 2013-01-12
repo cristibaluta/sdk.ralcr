@@ -110,9 +110,8 @@ import CATZoom;
 //import CATBezier;
 
 
-// Services
+// Social
 import Flickr;
-import FlickrURL;
 import YouTube;
 
 // UIKit

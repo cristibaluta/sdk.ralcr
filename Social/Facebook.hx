@@ -26,8 +26,10 @@ class Facebook {
 	inline public static var GRAPH_URL = 'https://graph.facebook.com';
 	inline static var API_URL = 'https://api.facebook.com';
 	inline static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
-	inline static var LOGOUT_URL = '"http://m.facebook.com/logout.php"';
-	inline static var VIDEO_URL = 'https://graph-video.facebook.com';
+	inline static var LOGOUT_URL = 'http://m.facebook.com/logout.php';
+	inline static var LOGIN_URL = 'https://login.facebook.com/login.php';
+	inline static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
+	
 	
     static var _instance :Facebook;
 	
@@ -165,17 +167,6 @@ class Facebook {
 		var req = new RCHttp();
 			req.navigateToURL (AUTH_URL, data, "GET", "_self");
     }
-	public function mobileLogout(redirectUri:String) {
-		
-		authResponse = null;
-		
-		var data = {
-			confirm : 1,
-			next : redirectUri
-		}
-		var req = new RCHttp();
-			req.navigateToURL (LOGOUT_URL, data, "GET", "_self");			
-	}
 	
 
     
@@ -214,19 +205,37 @@ class Facebook {
      * http://developers.facebook.com/docs/reference/javascript/FBAS.login
      */
 	public function login (_callback:Dynamic, options:Dynamic) {
-		_loginCallback = _callback;
-#if nme
 		
+		_loginCallback = _callback;
+		
+#if nme
+	
+		var bundle_id = options.bundle_identifier;
+
 #elseif (flash || js)
+	
 		ExternalInterface.call ('FBAS.login', options);
 #end
     }
 	
 	public function logout (_callback:Dynamic) {
+		
 		_logoutCallback = _callback;
+		
 #if nme
 		
+		authResponse = null;
+		
+		var data = {
+			confirm : 1,
+			next : redirectUri,
+			access_token : ""
+		}
+		var req = new RCHttp();
+		req.navigateToURL (LOGOUT_URL, data, "GET", "_self");
+		
 #elseif (flash || js)
+	
 		ExternalInterface.call('FBAS.logout');
 #end
     }

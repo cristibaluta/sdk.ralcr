@@ -1,4 +1,4 @@
-﻿/*
+/*
 	Adobe Systems Incorporated(r) Source Code License Agreement
 	Copyright(c) 2005 Adobe Systems Incorporated. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
@@ -37,6 +37,7 @@
 /*
 	Ported to Haxe by Baluta Cristian (http://ralcr.com/jpgencoder/)
 */
+#if flash
 import flash.display.BitmapData;
 import flash.utils.ByteArray;
 	
@@ -631,3 +632,4 @@ class JPGEncoder {
 		}
 	}
 }
+#end

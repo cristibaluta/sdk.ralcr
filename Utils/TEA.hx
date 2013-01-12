@@ -12,7 +12,7 @@
 
 class TEA {
 	
-	inline public static var DELTA:UInt = 0x9E3779B9;
+	inline public static var DELTA = 0x9E3779B9;
 	
 	/**
 	* Encrypts a string with the specified key.
@@ -26,8 +26,8 @@ class TEA {
 		if (n == 0) return "";
 		if (n == 1) v[n++] = 0;
 		
-		var z:UInt = v[n-1], y:UInt = v[0];
-		var mx:Int, e:Int, q:Int = Math.floor(6+52/n), sum:UInt = 0;
+		var z:Int = v[n-1], y:Int = v[0];
+		var mx:Int, e:Int, q:Int = Math.floor(6+52/n), sum:Int = 0;
 		
 		while (q-- > 0) {
 			sum += DELTA;
@@ -59,7 +59,7 @@ class TEA {
 		
 		var z:Int = v[n-1], y:Int = v[0];
 		var mx:Int, e:Int, q:Int = Math.floor(6 + 52/n);
-		var sum:UInt = q*DELTA;
+		var sum:Int = q*DELTA;
 		
 		while (sum != 0) {
 			e = sum>>>2 & 3;

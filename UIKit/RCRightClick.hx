@@ -5,6 +5,7 @@
 //  Copyright (c) 2007 http://ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if flash
 import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.events.ContextMenuEvent;
@@ -65,3 +66,4 @@ class RCRightClick {
 		else trace("Contextual menu cannot be added to stage!");
 	}
 }
+#end

@@ -20,6 +20,7 @@ limitations under the License.
 * http://www.rubenswieringa.com/blog/distortimage
 * Ported to haxe by Băluță Cristian ( http://ralcr.com/ports/distortimage )
 */
+#if flash
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Shape;
@@ -296,3 +297,4 @@ private class Triangle {
 		this.tMat = tMat;			
 	}
 }
+#end

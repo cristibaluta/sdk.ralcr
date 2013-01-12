@@ -6,7 +6,7 @@
 //  Copyright (c) 2008 milc.ro. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-
+#if flash
 import flash.display.GradientType;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
@@ -42,3 +42,4 @@ class RCCircularProgressIndicator extends RCView {
 		super.destroy();
 	}
 }
+#end
