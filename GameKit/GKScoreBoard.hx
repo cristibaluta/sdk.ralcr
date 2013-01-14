@@ -13,7 +13,7 @@ class GKScoreBoard extends RCRequest {
 	 *  @param userId - Your user id
 	 **/
 	public function new (api:String, userId:String) {
-	
+		super();
 	}
 	
 	// Scores

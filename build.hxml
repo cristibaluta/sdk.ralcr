@@ -12,9 +12,7 @@ sdk.ralcr.hxml
 sdk.ralcr.hxml
 
 --next
--cp .
 -neko run.n
 -main Run
 
-
-# Samples/build_samples.hxml
+# samples/build_samples.hxml

@@ -30,7 +30,7 @@ class Fugu {
 				}
 			}
 			if (Std.is (o, RCView)) {
-				cast (o, RCView).removeFromSuperView();// This cast will help DCE to compile removeFromSuperView method
+				cast (o, RCView).removeFromSuperview();// This cast will help DCE to compile removeFromSuperview method
 			}
 			else {
 				// This must be a native flash display object

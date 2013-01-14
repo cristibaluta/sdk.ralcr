@@ -153,7 +153,7 @@ class RCView extends RCDisplayObject {
 		child.parent = null;
 		child.viewDidDisappear.dispatch();
 	}
-	public function removeFromSuperView () :Void {
+	public function removeFromSuperview () :Void {
 		var parent = null;
 		try{parent = layer.parent; } catch (e:Dynamic) { null; }
 		if (parent != null)

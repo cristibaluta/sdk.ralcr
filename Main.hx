@@ -111,6 +111,7 @@ import CATZoom;
 
 
 // Social
+import Facebook;
 import Flickr;
 import YouTube;
 
@@ -182,6 +183,7 @@ import GKCharacter;
 import GKHealth;
 import GKMath;
 import GKPathFinding;
+import GKScoreBoard;
 import GKScore;
 import GKSound;
 import GKSprite;

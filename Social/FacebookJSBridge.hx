@@ -1,3 +1,4 @@
+#if flash
 import flash.external.ExternalInterface;
 
 class FacebookJSBridge {
@@ -78,3 +79,4 @@ class FacebookJSBridge {
 		};
 	}";
 }
+#end

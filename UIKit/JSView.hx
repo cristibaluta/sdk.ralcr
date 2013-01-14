@@ -77,7 +77,7 @@ class JSView extends RCDisplayObject {
 		layer.removeChild ( child.layer );
 		child.viewDidDisappear.dispatch();
 	}
-	public function removeFromSuperView () :Void {
+	public function removeFromSuperview () :Void {
 		
 		if (parent != null)
 			parent.removeChild ( this );

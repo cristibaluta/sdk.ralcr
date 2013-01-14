@@ -583,7 +583,7 @@ Fugu.safeDestroy = function(obj,destroy,pos) {
 			haxe.Log.trace("[Error when destroying object: " + Std.string(o) + ", called from " + Std.string(pos) + "]",{ fileName : "Fugu.hx", lineNumber : 28, className : "Fugu", methodName : "safeDestroy"});
 			haxe.Log.trace(Fugu.stack(),{ fileName : "Fugu.hx", lineNumber : 29, className : "Fugu", methodName : "safeDestroy"});
 		}
-		if(js.Boot.__instanceof(o,JSView)) (js.Boot.__cast(o , JSView)).removeFromSuperView(); else {
+		if(js.Boot.__instanceof(o,JSView)) (js.Boot.__cast(o , JSView)).removeFromSuperview(); else {
 			var parent = null;
 			try {
 				parent = o.parent;
@@ -1534,7 +1534,7 @@ JSView.prototype = $extend(RCDisplayObject.prototype,{
 		this.layer.style.backgroundColor = "rgb(" + red + "," + green + "," + blue + ")";
 		return color;
 	}
-	,removeFromSuperView: function() {
+	,removeFromSuperview: function() {
 		if(this.parent != null) this.parent.removeChild(this);
 	}
 	,removeChild: function(child) {
@@ -4418,7 +4418,7 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		return Math.round(this.getWidth() / 2 - w / RCDevice.currentDevice().dpiScale / 2);
 	}
 	,destroyModalViewController: function() {
-		this.modalView.removeFromSuperView();
+		this.modalView.removeFromSuperview();
 		this.modalView.destroy();
 		this.modalView = null;
 	}

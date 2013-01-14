@@ -1,7 +1,7 @@
-
+#if flash
 import flash.external.ExternalInterface;
+#end
 import haxe.Json;
-//import FacebookRequest;// and Session
 
 typedef FacebookAuthResponse = {
 	var uid :String;
@@ -26,10 +26,16 @@ class Facebook {
 	inline public static var GRAPH_URL = 'https://graph.facebook.com';
 	inline static var API_URL = 'https://api.facebook.com';
 	inline static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
-	inline static var LOGOUT_URL = 'http://m.facebook.com/logout.php';
+	inline static var AUTH_URL_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
 	inline static var LOGIN_URL = 'https://login.facebook.com/login.php';
-	inline static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
+	inline static var LOGOUT_URL = 'http://m.facebook.com/logout.php';
 	
+/*	public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
+	public static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
+	public static var LOGIN_FAIL_URL = 'http://www.facebook.com/connect/login_success.html?error_reason';
+	public static var LOGIN_FAIL_SECUREURL = 'https://www.facebook.com/connect/login_success.html?error_reason';
+	public static var LOGIN_URL = 'https://login.facebook.com/login.php';
+	public static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';*/
 	
     static var _instance :Facebook;
 	
@@ -103,18 +109,18 @@ class Facebook {
 		
 #if nme
 
-		if (accessToken != null) {
+/*		if (accessToken != null) {
 			session = generateSession ( {accessToken : accessToken} );
 		}
 		else {
 			session = generateSession ( null );
 			session.accessToken = RCUserDefaults.stringForKey ( "accessToken" );
 			//session.expireDate = RCUserDefaults.intForKey ( expireDate );
-		}
+		}*/
 			
 		//verifyAccessToken();
 	
-#elseif (flash || js)
+#elseif flash
 		
 		new FacebookJSBridge();
 
@@ -122,6 +128,7 @@ class Facebook {
 		ExternalInterface.addCallback ('logout', handleLogout);
 		ExternalInterface.addCallback ('uiResponse', handleUI);
         ExternalInterface.call ('FBAS.init', options);
+#elseif js
 #end
 	
 		if (accessToken != null) {
@@ -140,59 +147,16 @@ class Facebook {
 		}
 	}
 	
-    /**
-     * Re-directs the user to a mobile-friendly login form.
-     *
-     * @param redirectUri After a successful login,
-     * Facebook will redirect the user back to this URL,
-     * where the underlying Javascript SDK will notify this swf
-     * that a valid login has occurred.
-     *
-     * @param display Type of login form to show to the user: touch/wap
-	 * 
-	 * @param extendedPermissions (Optional) Array of extended permissions
-     * to ask the user for once they are logged in.
-     *
-     * @see http://developers.facebook.com/docs/guides/mobile/
-     *
-     */
-    public function mobileLogin (redirectUri:String, ?display:String='touch', ?extendedPermissions:Array<String>) {
-		
-		var data = {
-			client_id : applicationId,
-			redirect_uri : redirectUri,
-			display : display,
-			scope : (extendedPermissions != null) ? extendedPermissions.join(",") : null
-		}
-		var req = new RCHttp();
-			req.navigateToURL (AUTH_URL, data, "GET", "_self");
-    }
-	
-
     
-	/**
-     * Asks if another page exists after this result object.
-     *
-     * @param data The result object.
-     *
-     * @see http://developers.facebook.com/docs/api#reading
-     *
-     */
-	public function hasNext (data:Dynamic) :Bool {
-		var result:Dynamic = getRawResult( data );
-		return (result.paging != null && result.paging.next != null);
-	}
-	
-	public function hasPrevious (data:Dynamic) :Bool {
-		var result:Dynamic = getRawResult ( data );
-		return (result.paging != null && result.paging.previous != null);
-	}
-	
     /**
     * Asynchronous method to get the user's current session from Facebook.
     */
     public function getLoginStatus () {
+#if nme
+#elseif flash
 		ExternalInterface.call('FBAS.getLoginStatus');
+#elseif js
+#end
     }
 
     /**
@@ -209,38 +173,59 @@ class Facebook {
 		_loginCallback = _callback;
 		
 #if nme
-	
-		var bundle_id = options.bundle_identifier;
+		
+/*		var bundle_id = options.bundle_identifier;
+		var data = {
+			client_id : applicationId,
+			redirect_uri : redirectUri,
+			display : "touch",
+			scope : (extendedPermissions != null) ? extendedPermissions.join(",") : null
+		}
+		var req = new RCHttp();
+			req.navigateToURL (AUTH_URL, data, "GET", "_self");*/
 
-#elseif (flash || js)
-	
+#elseif flash
+		
 		ExternalInterface.call ('FBAS.login', options);
+#elseif js
 #end
     }
 	
+	// if a user logs out explicitly, we delete any cached token information, and next
+	// time they run the applicaiton they will be presented with log in UX again; most
+	// users will simply close the app or switch away, without logging out; this will
+	// cause the implicit cached-token login to occur on next launch of the application
 	public function logout (_callback:Dynamic) {
 		
 		_logoutCallback = _callback;
 		
 #if nme
 		
-		authResponse = null;
-		
-		var data = {
+/*		var data = {
 			confirm : 1,
 			next : redirectUri,
 			access_token : ""
 		}
 		var req = new RCHttp();
-		req.navigateToURL (LOGOUT_URL, data, "GET", "_self");
+		req.navigateToURL (LOGOUT_URL, data, "GET", "_self");*/
 		
-#elseif (flash || js)
+		session = null;
+		authResponse = null;
+		
+#elseif flash
 	
 		ExternalInterface.call('FBAS.logout');
+#elseif js
 #end
     }
+    
 	
 	function getAuthResponse () :FacebookAuthResponse {
+
+#if nme
+		
+		
+#elseif flash
 		
 		var result:String = ExternalInterface.call('FBAS.getAuthResponse');
 		var authResponseObj:Dynamic;
@@ -252,6 +237,8 @@ class Facebook {
 		trace("authResponseObj: "+authResponseObj);
 		this.authResponse = generateAuthResponse ( authResponseObj );
 		
+#elseif js
+#end		
 		return authResponse;
 	}
 	function generateAuthResponse (json:Dynamic) :FacebookAuthResponse {
@@ -274,33 +261,6 @@ class Facebook {
 			availablePermissions : []
         }
 	}
-	
-    /**
-     * Shows a Facebook sharing dialog.
-     */
-	 public function ui (method:String, data:Dynamic, ?_callback:Dynamic, ?display:String) {
-
-		 data.method = method;
-
-/*	  if (_callback != null)
-		  openUICalls[method] = _callback;*/
-	  
-		if (display != null)
-			data.display = display;
-
-		ExternalInterface.call('FBAS.ui', Json.stringify(data));
-	}
-	
-	function handleUI( result:String, method:String ) {
-		trace("handleUI "+result);trace(method);
-		var decodedResult:Dynamic = (result != null) ? Json.parse(result) : null;
-		var uiCallback:Dynamic = openUICalls.get(method);
-		if (uiCallback != null)
-			uiCallback ( decodedResult );
-		openUICalls.remove ( method );
-	}
-
-
 	function handleLogout() {
 		authResponse = null;
 		if (_logoutCallback != null) {
@@ -342,7 +302,7 @@ class Facebook {
 			_loginCallback = null;
 		}
 	}
-			
+	
 	function accessToken () :String {
 		if ((oauth2 && authResponse != null) || session != null) {
 			return oauth2 ? authResponse.accessToken : session.accessToken;
@@ -350,6 +310,39 @@ class Facebook {
 			return null;
 		}
 	}
+	
+	
+	
+    /**
+     * Shows a Facebook sharing dialog.
+     */
+	 public function ui (method:String, data:Dynamic, ?_callback:Dynamic, ?display:String) {
+		 
+		data.method = method;
+
+/*	  if (_callback != null)
+		  openUICalls[method] = _callback;*/
+	  
+		if (display != null)
+			data.display = display;
+#if nme
+#elseif flash
+		ExternalInterface.call ('FBAS.ui', Json.stringify(data));
+#elseif js
+#end
+	}
+	
+	function handleUI( result:String, method:String ) {
+		trace("handleUI "+result);trace(method);
+		var decodedResult:Dynamic = (result != null) ? Json.parse(result) : null;
+		var uiCallback:Dynamic = openUICalls.get(method);
+		if (uiCallback != null)
+			uiCallback ( decodedResult );
+		openUICalls.remove ( method );
+	}
+
+
+	
     /**
      * Makes a new request on the Facebook Graph API.
      *
@@ -447,6 +440,23 @@ class Facebook {
 	public function getRawResult (data:Dynamic) :Dynamic {
 		return resultHash[data];
 	}
+    
+	/**
+     * Asks if another page exists after this result object.
+     *
+     * @param data The result object.
+     * @see http://developers.facebook.com/docs/api#reading
+     *
+     */
+	public function hasNext (data:Dynamic) :Bool {
+		var result:Dynamic = getRawResult ( data );
+		return (result.paging != null && result.paging.next != null);
+	}
+	
+	public function hasPrevious (data:Dynamic) :Bool {
+		var result:Dynamic = getRawResult ( data );
+		return (result.paging != null && result.paging.previous != null);
+	}
 	
 	/**
      * Retrieves the next page that is associated with result object passed in.
@@ -468,7 +478,7 @@ class Facebook {
 		}
 		return req;
 	}
-	public function previousPage(data:Dynamic, _callback:Dynamic) :RCHttp {
+	public function previousPage (data:Dynamic, _callback:Dynamic) :RCHttp {
 		
 		var req :RCHttp = null;
 		var rawObj :Dynamic = getRawResult(data);
@@ -568,7 +578,7 @@ class Facebook {
 		for (n in Reflect.fields(values)) {
 			//query = query.replace ( new RegExp('\\{'+n+'\\}', 'g'), Reflect.field(values, n));
 		}
-			
+		
 		callRestAPI ('fql.query', _callback, {query:query});
 	}
 	

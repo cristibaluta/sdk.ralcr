@@ -248,7 +248,7 @@ class RCWindow extends RCView {
 		CoreAnimation.add ( anim );
 	}
 	function destroyModalViewController () :Void {
-		modalView.removeFromSuperView();
+		modalView.removeFromSuperview();
 		modalView.destroy();
 		modalView = null;
 	}
