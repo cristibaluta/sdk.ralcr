@@ -132,6 +132,7 @@ class RCView extends RCDisplayObject {
 	 *  This method is usually overriten by the super class.
 	 */
 	override public function destroy () :Void {
+		layer.graphics.clear();
 		super.destroy();
 	}
 	
