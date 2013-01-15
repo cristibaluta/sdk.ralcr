@@ -43,8 +43,10 @@ class RCStats extends RCRectangle {
 			fps = Math.round (ticks / delta * 1000);
 			ticks = 0;
 			last = now;
-			#if (flash || nme)
+			#if flash
 				currMemory = Math.round ( flash.system.System.totalMemory / (1024*1024) );
+			#else if cpp
+				currMemory = Math.round ( cpp.vm.Gc.memUsage() / (1024*1024) );
 			#end
 			txt.text = fps + " FPS,  " + currMemory + " Mbytes";
 		}
