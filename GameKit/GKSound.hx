@@ -21,9 +21,9 @@ class GKSound {
 	}
 	
 	
-	public static function registerSound (id:String, linkage:String) {
+/*	public static function registerSound (id:String, linkage:String) {
 		
-	}
+	}*/
 	public static function registerMp3 (id:String, mp3:RCAudio) {
 		mp3s.set (id, mp3);
 	}

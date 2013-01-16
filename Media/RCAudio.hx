@@ -64,11 +64,12 @@ class RCAudio implements RCAudioInterface {
 	}
 	
 	public function init () :Void {
+		
+		if (sound != null) return;
+		
 		#if nme
-		sound = nme.Assets.getSound ( URL );
-		#end
-		if (sound == null) {
-			// Create a sound object from scratch
+			sound = nme.Assets.getSound ( URL );
+		#else
 			sound = new Sound();
 			sound.addEventListener (Event.COMPLETE, completeHandler);
 			sound.addEventListener (Event.ID3, id3Handler);
@@ -76,7 +77,7 @@ class RCAudio implements RCAudioInterface {
 			sound.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 			sound.addEventListener (ProgressEvent.PROGRESS, progressHandler);
 			sound.load ( new URLRequest ( URL ) );
-		}
+		#end
 		
 		timer = new Timer ( updateTime );
 		timer.addEventListener (TimerEvent.TIMER, loop);
@@ -87,11 +88,15 @@ class RCAudio implements RCAudioInterface {
 	 */
 	public function start (?time:Null<Int>) :Void {
 		
-		if (sound == null) init();
-		if (channel != null) stop();
-		
-		channel = sound.play ( time == null ? 0 : Math.round (time * 1000) );
-		channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+		if (sound == null) return;
+		if (channel == null) {
+			channel = sound.play ( time == null ? 0 : Math.round (time * 1000) );
+			if (channel != null)
+			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+		}
+		else {
+			sound.play ( time == null ? 0 : Math.round (time * 1000) );
+		}
 		
 		timer.start();
 		setVolume ( _volume );
@@ -101,16 +106,13 @@ class RCAudio implements RCAudioInterface {
 	
 	public function stop () :Void {
 		
-		if (channel == null) return;
-		
-		channel.stop();
-		channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-		channel = null;
-		time = 0;
+		if (channel != null)
+			channel.stop();
 		
 		if (timer != null)
 			timer.stop();
-		
+
+		time = 0;
 		soundDidStopPlaying();
 	}
 	
@@ -147,6 +149,7 @@ class RCAudio implements RCAudioInterface {
 	
 	// Loop
 	function loop (e:TimerEvent) :Void {
+		if (channel != null)
 		time = Math.round ( channel.position / 1000 );
 		duration = Math.round ( sound.length / 1000 );
 		percentPlayed = Math.round ( time * 100 / duration );
@@ -174,16 +177,27 @@ class RCAudio implements RCAudioInterface {
 	 * Stop the playing sound and remove event listeners
 	 */
 	public function destroy () :Void {
-		stop();
 		
-		sound.removeEventListener (Event.COMPLETE, completeHandler);
-		sound.removeEventListener (Event.ID3, id3Handler);
-		sound.removeEventListener (ErrorEvent.ERROR, errorHandler);
-		sound.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
-		sound.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
+		if (channel != null) {
+			channel.stop();
+			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+			channel = null;
+		}
 		
-		timer.removeEventListener (TimerEvent.TIMER, loop);
-		timer = null;
+		if (sound != null) {
+			sound.removeEventListener (Event.COMPLETE, completeHandler);
+			sound.removeEventListener (Event.ID3, id3Handler);
+			sound.removeEventListener (ErrorEvent.ERROR, errorHandler);
+			sound.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
+			sound.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
+			sound = null;
+		}
+		
+		if (timer != null) {
+			timer.stop();
+			timer.removeEventListener (TimerEvent.TIMER, loop);
+			timer = null;
+		}
 	}
 }
 

@@ -1,4 +1,4 @@
-#if (flash || nme7)
+#if flash
 	typedef Ticker = flash.display.Sprite;
 #else
 	typedef Ticker = haxe.Timer;
@@ -8,16 +8,17 @@
 class EVLoop {
 	
 	var ticker :Ticker;
-	public var run (default, setFuncToCall) :Void->Void;
+	var _run :Void->Void;
+	public var run (null, setFuncToCall) :Void->Void;
 	public static var FPS :Int = 60;
 	
-	public function new (?pos:haxe.PosInfos) { /*trace("new "+pos);*/ }
+	public function new (?pos:haxe.PosInfos) { trace("new "+pos); }
 	
 	public function setFuncToCall (func:Void->Void) :Void->Void {
 		//trace("setFunction");
 		stop();
-		run = func;
-		#if (flash || nme7)
+		_run = func;
+		#if flash
 			ticker = new Ticker();
 			ticker.addEventListener (flash.events.Event.ENTER_FRAME, loop);
 		#else
@@ -27,23 +28,24 @@ class EVLoop {
 		return func;
 	}
 	
-	function loop (#if (flash || nme7) _ #end) {
-		if (run != null) run();
+	function loop (#if flash _ #end) {
+		//trace(_run);
+		if (_run != null) _run();
 	}
 	
-	public function stop (?pos:haxe.PosInfos) {
-		//trace("stop "+pos);
+	public function stop () {
 		if (ticker == null) return;
-		#if (flash || nme7)
+		#if flash
 			ticker.removeEventListener (flash.events.Event.ENTER_FRAME, loop);
+			//if (!ticker.hasEventListener (flash.events.Event.ENTER_FRAME))
+			ticker = null;
 		#else
 			ticker.stop();
+			ticker = null;
 		#end
-		ticker = null;
 	}
 	
 	public function destroy () {
-		//trace("destroy");
 		stop();
 	}
 }
