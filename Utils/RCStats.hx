@@ -32,6 +32,13 @@ class RCStats extends RCRectangle {
 		last = CoreAnimation.timestamp();
 		e = new EVLoop();
 		e.run = loop;
+		
+		#if nme
+			addChild ( new RCRectangle (155, 1, 40, 16, 0x333333, 0.3, 16) );
+			var fps = new nme.display.FPS();
+				fps.x = 162;
+			layer.addChild ( fps );
+		#end
 	}
 	
 	function loop () {
@@ -40,13 +47,14 @@ class RCStats extends RCRectangle {
 		delta = now - last;
 		
 		if (delta >= 1000) {
+			trace("loop "+delta);
 			fps = Math.round (ticks / delta * 1000);
 			ticks = 0;
 			last = now;
 			#if flash
 				currMemory = Math.round ( flash.system.System.totalMemory / (1024*1024) );
-			#else if cpp
-				currMemory = Math.round ( cpp.vm.Gc.memUsage() / (1024*1024) );
+			#elseif cpp
+				currMemory = Math.round ( cpp.vm.Gc.memUsage() / (/*1024**/1024) );
 			#end
 			txt.text = fps + " FPS,  " + currMemory + " Mbytes";
 		}
@@ -54,7 +62,10 @@ class RCStats extends RCRectangle {
 	
 	override public function destroy () {
 		e.destroy();
+		txt.removeFromSuperview();
 		txt.destroy();
+		e = null;
+		txt = null;
 		super.destroy();
 	}
 }
