@@ -187,7 +187,11 @@ class RCTextView extends RCView {
 	}
 	
 	override public function destroy () :Void {
+		#if (flash || nme)
+			layer.removeChild ( target );
+		#end
 		target = null;
+		rcfont = null;
 		super.destroy();
 	}
 }
