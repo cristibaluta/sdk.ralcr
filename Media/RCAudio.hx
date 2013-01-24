@@ -89,7 +89,13 @@ class RCAudio implements RCAudioInterface {
 	 * Controls for audio
 	 */
 	public function start (?time:Null<Int>) :Void {
-		
+		trace("start");
+		if (channel != null) {
+			channel.stop();
+			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+			channel = null;
+		}
+		trace(sound);
 		if (sound == null) return;
 		channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
 		channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
@@ -97,7 +103,7 @@ class RCAudio implements RCAudioInterface {
 		else {
 			sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
 		}*/
-		
+			trace(channel);
 		timer.start();
 		setVolume ( _volume );
 		
@@ -106,8 +112,11 @@ class RCAudio implements RCAudioInterface {
 	
 	public function stop () :Void {
 		
-		if (channel != null)
+		if (channel != null) {
 			channel.stop();
+			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+			channel = null;
+		}
 		
 		if (timer != null)
 			timer.stop();

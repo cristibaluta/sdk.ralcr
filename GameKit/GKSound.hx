@@ -8,41 +8,67 @@
 
 class GKSound {
 	
-	static var mp3s :Hash<RCAudio>;
+	static var sounds :Hash<RCAudio>;
 	static var muted :Bool;
 	
 	public static function init () :Void {
 		
-		if (mp3s != null) return;
-		
-		//sounds = new Hash<Sound>();
-		mp3s = new Hash<RCAudio>();
-		muted = false;
+		if (sounds == null) {
+			sounds = new Hash<RCAudio>();
+			muted = false;
+		}
 	}
 	
 	
-/*	public static function registerSound (id:String, linkage:String) {
-		
-	}*/
-	public static function registerMp3 (id:String, mp3:RCAudio) {
-		mp3s.set (id, mp3);
+	/**
+	 *  In NME you can specify when is a background music and iPhone will use a
+	 *  hardware decoder. It is good performance for long sounds
+	 **/
+	public static function preloadBackgroundMusic (id:String, url:String) :Void {
+		var snd = new RCAudio (url #if nme , true #end);
+			snd.init();
+		sounds.set (id, snd);
 	}
 	
-	public static function playMp3 (id:String) :Void {
-		//trace("start "+id);
-		if (mp3s.get ( id ) != null && !muted)
-			mp3s.get ( id ).start();
+	/**
+	 *  An effect sound is a very short sound. It is decoded software
+	 **/
+	public static function preloadEffectSound (id:String, url:String) :Void {
+		var snd = new RCAudio (url);
+			snd.init();
+		sounds.set (id, snd);
 	}
-	public static function stopMp3 (id:String) :Void {
-		//trace("stop "+id);
-		if (mp3s.get ( id ) != null)
-			mp3s.get ( id ).stop();
+	
+	public static function playBackgroundMusic (id:String, repeat:Bool=true) {
+		if (!muted) {
+			var snd = sounds.get ( id );
+			if (snd != null) {
+				snd.repeat = repeat;
+				snd.start();
+			}
+		}
+	}
+	public static function playEffectSound (id:String, repeat:Bool=false) {
+		if (!muted) {
+			var snd = sounds.get ( id );
+			if (snd != null) {
+				snd.repeat = repeat;
+				snd.start();trace("start: "+id);
+			}
+		}
+	}
+	
+	public static function stopSound (id:String) :Void {
+		var snd = sounds.get ( id );
+		if (snd != null) {
+			snd.stop();
+		}
 	}
 	
 	public static function mute (b:Bool) :Void {
 		muted = b;
-		for (mp3 in mp3s)
-			if (muted) mp3.stop();
+		for (snd in sounds)
+			if (muted) snd.stop();
 	}
 	public static function isMuted () :Bool {
 		return muted;
