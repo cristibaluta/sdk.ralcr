@@ -9,6 +9,18 @@ private typedef FrameData = {
 
 class RCTextureAtlas {
 	
+	static var textures :Hash<RCTextureAtlas>;
+	public static function set (key:String, texture:RCTextureAtlas) :Void {
+		if (textures == null)
+			textures = new Hash<RCTextureAtlas>();
+		textures.set (key, texture);
+	}
+	public static function get (key:String) :RCTextureAtlas {
+		if (textures == null) return null;
+		return textures.get ( key );
+	}
+	
+	
 	private var _texture :RCImage;
 	private var _textures :Hash<FrameData>;
 	
@@ -141,11 +153,15 @@ class RCTextureAtlas {
 	
     public function imageNamed (name:String) :RCImage {
 		
-        var texture_data = _textures.get ( name );
+		if (!_textures.exists ( name ))
+			name = name + ".png";
+        
+		var texture_data = _textures.get ( name );
 		
         if (texture_data != null) {
 			return RCImage.imageWithRegionOfImage (_texture, texture_data.sourceSize, texture_data.frame, texture_data.sourceColorRect);
 		}
+		trace( "err: imageNamed '"+name+"' does not exist in the texture");
 		return null;
     }
     

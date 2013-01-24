@@ -191,7 +191,7 @@ class RCRequest {
 			request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
 		#end
 		#end
-			trace(request);trace(request.url);
+			//trace(request);trace(request.url);
 		return request;
 	}
 	function createVariables (variables_list:Dynamic) :URLVariables {
