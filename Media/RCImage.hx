@@ -113,6 +113,8 @@ class RCImage extends RCView {
 		var im = new RCImage (0, 0, null);
 			im.bitmapData = bitmapData;
 			im.layer.addChild ( bitmap );
+			im.size.width = bitmap.width;// Update the size of the image
+			im.size.height = bitmap.height;
 		return im;
 		
 #elseif js
