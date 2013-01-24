@@ -22,10 +22,10 @@ class RCStats extends RCRectangle {
 		
 		super (x, y, 152, 18, 0xffffff, 0.9, 16);
 		
-		addChild ( new RCRectangle (1, 1, 150, 16, 0x333333, 0.3, 16) );
+		addChild ( new RCRectangle (1, 1, 150, 16, 0xFFFFFF, 0.8, 16) );
 		
 		var f = RCFont.systemFontOfSize(12);
-			f.color = 0x333333;
+			f.color = 0x000000;
 		txt = new RCTextView (6, #if (flash || nme) 1 #else 3 #end, null, 20, "Calculating...", f);
 		addChild ( txt );
 		
@@ -34,9 +34,10 @@ class RCStats extends RCRectangle {
 		e.run = loop;
 		
 		#if nme
-			addChild ( new RCRectangle (155, 1, 40, 16, 0x333333, 0.3, 16) );
+			addChild ( new RCRectangle (155, 1, 60, 16, 0xFFFFFF, 0.8, 16) );
 			var fps = new nme.display.FPS();
 				fps.x = 162;
+				fps.y = 0;
 			layer.addChild ( fps );
 		#end
 	}
@@ -47,7 +48,7 @@ class RCStats extends RCRectangle {
 		delta = now - last;
 		
 		if (delta >= 1000) {
-			trace("loop "+delta);
+			//trace("loop "+delta);
 			fps = Math.round (ticks / delta * 1000);
 			ticks = 0;
 			last = now;

@@ -218,7 +218,8 @@ class RCTableView extends RCView {
 			scrollIndicator.alpha = 0;
 		}
 		#if cpp
-		trace("Classes in uses: " + cpp.vm.Gc.trace( ScoreTableViewCell, false ) );
+			//crashes
+		//trace("Classes in uses: " + cpp.vm.Gc.trace( ScoreTableViewCell, false ) );
 		#end
 		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
 	}

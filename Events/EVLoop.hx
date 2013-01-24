@@ -12,7 +12,7 @@ class EVLoop {
 	public var run (null, setFuncToCall) :Void->Void;
 	public static var FPS :Int = 60;
 	
-	public function new (?pos:haxe.PosInfos) { trace("new "+pos); }
+	public function new (?pos:haxe.PosInfos) { }
 	
 	public function setFuncToCall (func:Void->Void) :Void->Void {
 		//trace("setFunction");

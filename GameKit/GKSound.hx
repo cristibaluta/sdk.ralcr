@@ -29,10 +29,12 @@ class GKSound {
 	}
 	
 	public static function playMp3 (id:String) :Void {
+		//trace("start "+id);
 		if (mp3s.get ( id ) != null && !muted)
 			mp3s.get ( id ).start();
 	}
 	public static function stopMp3 (id:String) :Void {
+		//trace("stop "+id);
 		if (mp3s.get ( id ) != null)
 			mp3s.get ( id ).stop();
 	}
@@ -41,5 +43,8 @@ class GKSound {
 		muted = b;
 		for (mp3 in mp3s)
 			if (muted) mp3.stop();
+	}
+	public static function isMuted () :Bool {
+		return muted;
 	}
 }

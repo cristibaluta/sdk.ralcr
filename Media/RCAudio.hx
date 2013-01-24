@@ -31,6 +31,7 @@ class RCAudio implements RCAudioInterface {
 	var channel :SoundChannel;
 	var timer :Timer;
 	var _volume :Float;
+	var decodeByHardware :Bool;
 	
 	public var errorMessage :String;
 	public var percentLoaded :Int;
@@ -56,8 +57,9 @@ class RCAudio implements RCAudioInterface {
 	dynamic public function soundDidStopPlaying () :Void {}
 	
 	
-	public function new (URL:String) {
+	public function new (URL:String, decodeByHardware:Bool=false) {
 		this.URL = URL;
+		this.decodeByHardware = decodeByHardware;
 		this.updateTime = DISPLAY_TIMER_UPDATE_DELAY;
 		this.repeat = false;
 		this._volume = 1;
@@ -76,7 +78,7 @@ class RCAudio implements RCAudioInterface {
 			sound.addEventListener (ErrorEvent.ERROR, errorHandler);
 			sound.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 			sound.addEventListener (ProgressEvent.PROGRESS, progressHandler);
-			sound.load ( new URLRequest ( URL ) );
+			sound.load ( new URLRequest ( URL ) #if nme , null, decodeByHardware #end );
 		#end
 		
 		timer = new Timer ( updateTime );
@@ -89,14 +91,12 @@ class RCAudio implements RCAudioInterface {
 	public function start (?time:Null<Int>) :Void {
 		
 		if (sound == null) return;
-		if (channel == null) {
-			channel = sound.play ( time == null ? 0 : Math.round (time * 1000) );
-			if (channel != null)
-			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-		}
+		channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
+		channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+/*		}
 		else {
-			sound.play ( time == null ? 0 : Math.round (time * 1000) );
-		}
+			sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
+		}*/
 		
 		timer.start();
 		setVolume ( _volume );
@@ -137,10 +137,11 @@ class RCAudio implements RCAudioInterface {
 		percentLoaded = Math.round (e.target.bytesLoaded * 100 / e.target.bytesTotal);
 		onLoadingProgress();
 	}
-	function soundCompleteHandler (e:Event) :Void {trace(e);
-		if (repeat)
+	function soundCompleteHandler (e:Event) :Void {
+		//trace(e);
+/*		if (repeat)
 			start ( 0 );
-		else if (sound.length > 0) {
+		else */if (sound.length > 0) {
 			if (timer != null)
 				timer.stop();
 			soundDidFinishPlaying();
@@ -185,6 +186,7 @@ class RCAudio implements RCAudioInterface {
 		}
 		
 		if (sound != null) {
+			sound.close();
 			sound.removeEventListener (Event.COMPLETE, completeHandler);
 			sound.removeEventListener (Event.ID3, id3Handler);
 			sound.removeEventListener (ErrorEvent.ERROR, errorHandler);

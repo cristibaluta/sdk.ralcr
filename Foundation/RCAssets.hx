@@ -223,12 +223,15 @@ class RCAssets {
 	 *	@param key - The key on which the asset was registered
 	 *  @param returnAsBitmap - When the asset is from an external swf you can force it to return as a Bitmap
 	 */
-	public function get (key:String, returnAsBitmap:Bool=true) :Dynamic {
+	public function get (key:String, returnAsBitmap:Bool=true, returnACopy:Bool=true) :Dynamic {
 		init();
 		//trace("get key "+key);//trace(swfList.exists ( key ));
 		// Search for assets in the Hash of imagesList first
 		if (imagesList.exists ( key )) {
-			return imagesList.get( key ).copy();// Returns RCImage
+			if (returnACopy)
+				return imagesList.get( key ).copy();// Returns RCImage
+			else
+				return imagesList.get( key );// Returns RCImage
 		}
 		
 		else if (dataList.exists ( key )) {

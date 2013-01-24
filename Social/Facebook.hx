@@ -30,12 +30,12 @@ class Facebook {
 	inline static var LOGIN_URL = 'https://login.facebook.com/login.php';
 	inline static var LOGOUT_URL = 'http://m.facebook.com/logout.php';
 	
-/*	public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
+	public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
 	public static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
 	public static var LOGIN_FAIL_URL = 'http://www.facebook.com/connect/login_success.html?error_reason';
 	public static var LOGIN_FAIL_SECUREURL = 'https://www.facebook.com/connect/login_success.html?error_reason';
-	public static var LOGIN_URL = 'https://login.facebook.com/login.php';
-	public static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';*/
+	//public static var LOGIN_URL = 'https://login.facebook.com/login.php';
+	public static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
 	
     static var _instance :Facebook;
 	
@@ -51,8 +51,9 @@ class Facebook {
 	var locale :String;
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
-	
-	
+#if (nme && !mac)
+	var webView :NMEWebView;
+#end
 	
 	
     //Public API
@@ -109,14 +110,14 @@ class Facebook {
 		
 #if nme
 
-/*		if (accessToken != null) {
+		if (accessToken != null) {
 			session = generateSession ( {accessToken : accessToken} );
 		}
 		else {
 			session = generateSession ( null );
 			session.accessToken = RCUserDefaults.stringForKey ( "accessToken" );
 			//session.expireDate = RCUserDefaults.intForKey ( expireDate );
-		}*/
+		}
 			
 		//verifyAccessToken();
 	
@@ -151,7 +152,7 @@ class Facebook {
     /**
     * Asynchronous method to get the user's current session from Facebook.
     */
-    public function getLoginStatus () {
+    public function getLoginStatus () :Void {
 #if nme
 #elseif flash
 		ExternalInterface.call('FBAS.getLoginStatus');
@@ -172,24 +173,28 @@ class Facebook {
 		
 		_loginCallback = _callback;
 		
-#if nme
+#if (nme && !mac)
 		
-/*		var bundle_id = options.bundle_identifier;
+		var bundle_id = options.bundle_identifier;
 		var data = {
 			client_id : applicationId,
-			redirect_uri : redirectUri,
+			redirect_uri : LOGIN_SUCCESS_URL,
 			display : "touch",
-			scope : (extendedPermissions != null) ? extendedPermissions.join(",") : null
+			type : "user_agent",
+			scope : options.scope
 		}
-		var req = new RCHttp();
-			req.navigateToURL (AUTH_URL, data, "GET", "_self");*/
-
+		webView = new NMEWebView (15, 15, 290, 450, AUTH_URL+"?client_id="+data.client_id+"&redirect_uri="+data.redirect_uri+"&display="+data.display+"&type="+data.type+"&scope="+data.scope);
+		webView.didFinishLoad.add ( webViewDidFinishLoad );
+		
 #elseif flash
 		
 		ExternalInterface.call ('FBAS.login', options);
 #elseif js
 #end
     }
+	function webViewDidFinishLoad (url:String) :Void {
+	
+	}
 	
 	// if a user logs out explicitly, we delete any cached token information, and next
 	// time they run the applicaiton they will be presented with log in UX again; most
