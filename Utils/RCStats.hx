@@ -18,6 +18,11 @@ class RCStats extends RCRectangle {
 	var e :EVLoop;
 	
 	
+	/**
+	 *  In flash the memory reported is from all flash player instances running.
+	 *  In cpp the memory reportd is from the Haxe objects managed by the garbage collector.
+	 *  NME bitmaps are not included
+	 **/
 	public function new (?x=0, ?y=0) {
 		
 		super (x, y, 152, 18, 0xffffff, 0.9, 16);
@@ -55,7 +60,7 @@ class RCStats extends RCRectangle {
 			#if flash
 				currMemory = Math.round ( flash.system.System.totalMemory / (1024*1024) );
 			#elseif cpp
-				currMemory = Math.round ( cpp.vm.Gc.memUsage() / (/*1024**/1024) );
+				currMemory = Math.round ( cpp.vm.Gc.memUsage() / (1024*1024) * 100 ) / 100;
 			#end
 			txt.text = fps + " FPS,  " + currMemory + " Mbytes";
 		}
