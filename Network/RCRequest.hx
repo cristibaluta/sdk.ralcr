@@ -179,7 +179,7 @@ class RCRequest {
 	// Utils
 	function createRequest (URL:String, variables:URLVariables, method:String) :URLRequest {
 		#if nme
-		URL += "?";
+		if (method=="GET") URL += "?";
 		for (f in Reflect.fields (variables))
 			URL += f + "=" + Reflect.field (variables, f) + "&";
 		#end
@@ -195,6 +195,8 @@ class RCRequest {
 		return request;
 	}
 	function createVariables (variables_list:Dynamic) :URLVariables {
+		
+		if (variables_list == null) return null;
 		
 		var variables = new URLVariables();
 		
