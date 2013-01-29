@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<classpath name="." />
+	<ndll name="ralcr" />
+	<dependency name="GameKit.framework" if="ios"/>
+	<dependency name="StoreKit.framework" if="ios"/>
+	<dependency name="MapKit.framework" if="ios"/>
+		
+</project>
