@@ -13,7 +13,7 @@ class RCStats extends RCRectangle {
 	var delta :Float;
 	var ticks :Int;
 	var fps :Int;
-	var currMemory :Int;
+	var currMemory :Float;
 	var txt :RCTextView;
 	var e :EVLoop;
 	
