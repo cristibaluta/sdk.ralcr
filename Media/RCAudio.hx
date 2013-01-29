@@ -89,21 +89,26 @@ class RCAudio implements RCAudioInterface {
 	 * Controls for audio
 	 */
 	public function start (?time:Null<Int>) :Void {
-		trace("start");
+		
 		if (channel != null) {
 			channel.stop();
 			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
 			channel = null;
 		}
-		trace(sound);
+		
 		if (sound == null) return;
-		channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
-		channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-/*		}
+		
+		// If we have background music
+		// or if the sound is repeating
+		// We need to be ble to stop it, so we create the channel
+		if (decodeByHardware || repeat) {
+			channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
+			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+		}
 		else {
-			sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
-		}*/
-			trace(channel);
+			sound.play ( time == null ? 0 : Math.round (time * 1000) );
+		}
+		
 		timer.start();
 		setVolume ( _volume );
 		
@@ -147,10 +152,7 @@ class RCAudio implements RCAudioInterface {
 		onLoadingProgress();
 	}
 	function soundCompleteHandler (e:Event) :Void {
-		//trace(e);
-/*		if (repeat)
-			start ( 0 );
-		else */if (sound.length > 0) {
+		if (sound.length > 0) {
 			if (timer != null)
 				timer.stop();
 			soundDidFinishPlaying();

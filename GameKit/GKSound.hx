@@ -53,7 +53,7 @@ class GKSound {
 			var snd = sounds.get ( id );
 			if (snd != null) {
 				snd.repeat = repeat;
-				snd.start();trace("start: "+id);
+				snd.start();
 			}
 		}
 	}
