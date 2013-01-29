@@ -30,12 +30,10 @@ class Facebook {
 	inline static var LOGIN_URL = 'https://login.facebook.com/login.php';
 	inline static var LOGOUT_URL = 'http://m.facebook.com/logout.php';
 	
-	public static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
-	public static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
-	public static var LOGIN_FAIL_URL = 'http://www.facebook.com/connect/login_success.html?error_reason';
-	public static var LOGIN_FAIL_SECUREURL = 'https://www.facebook.com/connect/login_success.html?error_reason';
-	//public static var LOGIN_URL = 'https://login.facebook.com/login.php';
-	public static var AUTHORIZE_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
+	inline static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
+	inline static var LOGIN_SUCCESS_SECUREURL = 'https://www.facebook.com/connect/login_success.html';
+	inline static var LOGIN_FAIL_URL = 'http://www.facebook.com/connect/login_success.html?error_reason';
+	inline static var LOGIN_FAIL_SECUREURL = 'https://www.facebook.com/connect/login_success.html?error_reason';
 	
     static var _instance :Facebook;
 	
@@ -53,6 +51,7 @@ class Facebook {
 	var resultHash :Array<Dynamic>;
 #if (nme && !mac)
 	var webView :NMEWebView;
+	var ignoreFirstEvent :Bool;
 #end
 	
 	
@@ -142,7 +141,8 @@ class Facebook {
 		}
 		if (options.status != false) {
 			getLoginStatus();
-		} else if (_initCallback != null) {
+		}
+		else if (_initCallback != null) {
 			_initCallback (authResponse, null);
 			_initCallback = null;
 		}
@@ -154,6 +154,7 @@ class Facebook {
     */
     public function getLoginStatus () :Void {
 #if nme
+		
 #elseif flash
 		ExternalInterface.call('FBAS.getLoginStatus');
 #elseif js
@@ -174,7 +175,8 @@ class Facebook {
 		_loginCallback = _callback;
 		
 #if (nme && !mac)
-		
+
+		ignoreFirstEvent = true;
 		var bundle_id = options.bundle_identifier;
 		var data = {
 			client_id : applicationId,
@@ -183,7 +185,15 @@ class Facebook {
 			type : "user_agent",
 			scope : options.scope
 		}
-		webView = new NMEWebView (15, 15, 290, 450, AUTH_URL+"?client_id="+data.client_id+"&redirect_uri="+data.redirect_uri+"&display="+data.display+"&type="+data.type+"&scope="+data.scope);
+		//https://graph.facebook.com/oauth/authorize?client_id=456093077787894&redirect_uri=http://www.facebook.com/connect/login_success.html&display=touch&response_type=token
+		var params = 
+			"?client_id="+data.client_id+
+			"&redirect_uri="+data.redirect_uri+
+			"&display="+data.display+
+			"&type="+data.type+
+			"&scope="+data.scope+
+			"&response_type=token";
+		webView = new NMEWebView (10, 10, 300, 460, AUTH_URL+params);
 		webView.didFinishLoad.add ( webViewDidFinishLoad );
 		
 #elseif flash
@@ -192,9 +202,38 @@ class Facebook {
 #elseif js
 #end
     }
-	function webViewDidFinishLoad (url:String) :Void {
 	
+#if (nme && !mac)
+	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
+	function webViewDidFinishLoad (url:String) :Void {
+		trace(url);
+		if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
+			//webView.destroy();
+			//webView = null;
+		}
+		else if (url.indexOf(LOGIN_SUCCESS_URL) == 0 || url.indexOf(LOGIN_SUCCESS_SECUREURL) == 0) {
+			webView.destroy();
+			webView = null;
+			
+			var comps :Array<String> = url.split(LOGIN_SUCCESS_SECUREURL+"#").pop().split("&");
+			var access_token = "";
+			var expires_in = "";
+			var code = "";
+			for (s in comps) {
+				var a = s.split("=");
+				switch (a[0]) {
+					case "access_token" : access_token = a[1];
+					case "expires_in" : expires_in = a[1];
+					case "code" : code = a[1];
+				}
+			}
+			trace(access_token);
+			trace(expires_in);
+			trace(code);
+		}
 	}
+#end
+	
 	
 	// if a user logs out explicitly, we delete any cached token information, and next
 	// time they run the applicaiton they will be presented with log in UX again; most
