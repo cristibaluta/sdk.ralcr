@@ -76,9 +76,9 @@ class RCTableView extends RCView {
 	
 	override public function init () :Void {
 		
-		var max_h = 0.0, i = 0;
+		var max_h = 0.0, i = 0, rows = this.numberOfRowsInSection(0);
 		
-		while (max_h < size.height) {
+		while (max_h < size.height && i < rows) {
 			// Ask the external function to provide a new cell
 			var cell :RCTableViewCell = this.cellForRowAtIndexPath ( new RCIndexPath (0, i), null );
 				cell.indexPath = new RCIndexPath (0, i);
@@ -152,6 +152,10 @@ class RCTableView extends RCView {
 				vy = -cell_min_h;
 			if (scrollView.y > 0)
 				vy = vy * 0.24;
+			else if (scrollView.y < size.height-numberOfRowsInSection(0)*cell_min_h) {
+				scrollView.y = size.height-numberOfRowsInSection(0)*cell_min_h;
+				vy = 0;
+			}
 		}
 		//e.updateAfterEvent();
 	}
@@ -196,10 +200,11 @@ class RCTableView extends RCView {
 				cells[0].y = Math.round (cells[1].y - cells[0].height);
 				cell = cellForRowAtIndexPath ( cell.indexPath, cell );
 			}
+			else if (!dragging) vy *= -0.5;
 		}
 		// Scrolling up
 		else if (cells[0].y + scrollView.y  < -cells[0].height-1) {
-			if (indexPath.row < numberOfRowsInSection(0)) {
+			if (indexPath.row < numberOfRowsInSection(0)-1) {
 				// Take the first cell and push it to the bottom
 				var cell = cells.shift();
 				cells.push ( cell );
@@ -210,6 +215,7 @@ class RCTableView extends RCView {
 				indexPath = cell.indexPath;
 				loop();
 			}
+			else if (!dragging) vy *= -0.5;
 		}
 		
 		vy *= inertia;
@@ -221,63 +227,6 @@ class RCTableView extends RCView {
 			//crashes
 		//trace("Classes in uses: " + cpp.vm.Gc.trace( ScoreTableViewCell, false ) );
 		#end
-		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
-	}
-	function loop_old () {
-		//trace("loop");
-		scrollIndicator.alpha = 1;
-		
-		for (i in 0...cells.length) {
-			cells[i].y = (i==0) ? Math.round (cells[i].y + vy) : Math.round (cells[i-1].y + cells[i-1].height);
-			
-			// Decide direction
-			// From up to down
-			if (cells[0].y > 1) {
-				if (cells[0].indexPath.row == 0) {
-					// TODO: Create bouncing
-					vy = 0;//-Math.abs(vy);
-					cells[0].y = 0;
-				}
-				else {
-					// Take the last cell and add it to the top
-					var cell = cells.pop();
-					cells.unshift ( cell );
-					// Init the cell with new data
-					cell.indexPath.row = cells[1].indexPath.row - 1;
-					indexPath = cell.indexPath;
-					cells[0].y = Math.round (cells[1].y - cells[0].height);
-					cell = cellForRowAtIndexPath ( cell.indexPath, cell );
-				}
-			}
-			
-			// From down to up
-			else if (cells[0].y < -cells[0].height-1) {
-				if (indexPath.row >= numberOfRowsInSection(0)) {
-					cells[0].y -= vy;
-					// TODO: Create bouncing
-					vy = 0;//-Math.abs(vy);
-					//cells[0].y = 0;
-				}
-				else {
-					// Take the first cell and push it to the bottom
-					var cell = cells.shift();
-					cells.push ( cell );
-					// Init the cell with new data
-					cell.indexPath.row = cells[cells.length-2].indexPath.row + 1;
-					cell = cellForRowAtIndexPath ( cell.indexPath, cell );
-					cell.y = Math.round ( cells[cells.length-2].y + cells[cells.length-2].height );
-					indexPath = cell.indexPath;
-					loop();
-					break;
-				}
-			}
-		}
-		vy *= inertia;
-		if (!dragging && Math.abs (vy) < 1) {
-			stopLoop();
-			scrollIndicator.alpha = 0;
-		}
-		
 		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
 	}
 	
