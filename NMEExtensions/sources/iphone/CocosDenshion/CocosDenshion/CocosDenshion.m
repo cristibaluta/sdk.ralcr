@@ -158,7 +158,8 @@ static BOOL _mixerRateSet = NO;
 		}
 	}
 	//Mark the rest of the sources as not usable
-	for (int i=sourceTotal_; i < CD_SOURCE_LIMIT; i++) {
+	int i;
+	for (i=sourceTotal_; i < CD_SOURCE_LIMIT; i++) {
 		_sources[i].usable = false;
 	}
 }
@@ -166,7 +167,8 @@ static BOOL _mixerRateSet = NO;
 -(void) _generateBuffers:(int) startIndex endIndex:(int) endIndex {
 	if (_buffers) {
 		alGetError();
-		for (int i=startIndex; i <= endIndex; i++) {
+		int i;
+		for (i=startIndex; i <= endIndex; i++) {
 			alGenBuffers(1, &_buffers[i].bufferId);
 			_buffers[i].bufferData = NULL;
 			if (alGetError() == AL_NO_ERROR) {
@@ -234,7 +236,8 @@ static BOOL _mixerRateSet = NO;
 
 	// Delete the Sources
 	CDLOGINFO(@"Denshion::CDSoundEngine - deleting sources.");
-	for (int i=0; i < sourceTotal_; i++) {
+	int i;
+	for (i=0; i < sourceTotal_; i++) {
 		alSourcei(_sources[i].sourceId, AL_BUFFER, 0);//Detach from current buffer
 	    alDeleteSources(1, &(_sources[i].sourceId));
 		if((lastErrorCode_ = alGetError()) != AL_NO_ERROR) {
@@ -244,7 +247,7 @@ static BOOL _mixerRateSet = NO;
 
 	// Delete the Buffers
 	CDLOGINFO(@"Denshion::CDSoundEngine - deleting buffers.");
-	for (int i=0; i < bufferTotal; i++) {
+	for (i=0; i < bufferTotal; i++) {
 		alDeleteBuffers(1, &_buffers[i].bufferId);
 #ifdef CD_USE_STATIC_BUFFERS
 		if (_buffers[i].bufferData) {
@@ -280,7 +283,8 @@ static BOOL _mixerRateSet = NO;
 {
 	CDLOGINFO(@"Denshion::CDSoundEngine freeing source groups");
 	if(_sourceGroups) {
-		for (int i=0; i < _sourceGroupTotal; i++) {
+		int i;
+		for (i=0; i < _sourceGroupTotal; i++) {
 			if (_sourceGroups[i].sourceStatuses) {
 				free(_sourceGroups[i].sourceStatuses);
 				CDLOGINFO(@"Denshion::CDSoundEngine freed source statuses %i",i);
@@ -311,7 +315,9 @@ static BOOL _mixerRateSet = NO;
 
 	_sourceGroupTotal = total;
 	int sourceCount = 0;
-	for (int i=0; i < _sourceGroupTotal; i++) {
+	int i;
+	int j;
+	for (i=0; i < _sourceGroupTotal; i++) {
 
 		_sourceGroups[i].startIndex = 0;
 		_sourceGroups[i].currentIndex = _sourceGroups[i].startIndex;
@@ -320,7 +326,7 @@ static BOOL _mixerRateSet = NO;
 		_sourceGroups[i].totalSources = definitions[i];
 		_sourceGroups[i].sourceStatuses = malloc(sizeof(_sourceGroups[i].sourceStatuses[0]) * _sourceGroups[i].totalSources);
 		if (_sourceGroups[i].sourceStatuses) {
-			for (int j=0; j < _sourceGroups[i].totalSources; j++) {
+			for (j=0; j < _sourceGroups[i].totalSources; j++) {
 				//First bit is used to indicate whether source is locked, index is shifted back 1 bit
 				_sourceGroups[i].sourceStatuses[j] = (sourceCount + j) << 1;
 			}
@@ -356,7 +362,7 @@ static BOOL _mixerRateSet = NO;
 - (id)init
 {
 	if ((self = [super init])) {
-
+		NSLog(@"@init CDSoundEngine");
 		//Create mutexes
 		_mutexBufferLoad = [[NSObject alloc] init];
 
@@ -401,7 +407,8 @@ static BOOL _mixerRateSet = NO;
 	}
 
 	//Before a buffer can be deleted any sources that are attached to it must be stopped
-	for (int i=0; i < sourceTotal_; i++) {
+	int i;
+	for (i=0; i < sourceTotal_; i++) {
 		//Note: tried getting the AL_BUFFER attribute of the source instead but doesn't
 		//appear to work on a device - just returned zero.
 		if (_buffers[soundId].bufferId == _sources[i].attachedBufferId) {
@@ -580,7 +587,7 @@ static BOOL _mixerRateSet = NO;
  */
 - (BOOL) loadBuffer:(int) soundId filePath:(NSString*) filePath
 {
-
+	NSLog(@"CDSoundEngine loadBuffer %i %@", soundId, filePath);
 	ALvoid* data;
 	ALenum  format;
 	ALsizei size;
@@ -590,13 +597,18 @@ static BOOL _mixerRateSet = NO;
 
 	CFURLRef fileURL = nil;
 	NSString *path = [CDUtilities fullPathFromRelativePath:filePath];
+	NSLog(@"path %@", path);
 	if (path) {
 		fileURL = (CFURLRef)[[NSURL fileURLWithPath:path] retain];
 	}
-
+	NSLog(@"fileURL %@", fileURL);
 	if (fileURL)
 	{
 		data = CDGetOpenALAudioData(fileURL, &size, &format, &freq);
+		//NSLog(@"data %@", data);
+		NSLog(@"format %i", format);
+		NSLog(@"size %i", size);
+		NSLog(@"freq %i", freq);
 		CFRelease(fileURL);
 		BOOL result = [self loadBufferFromData:soundId soundData:data format:format size:size freq:freq];
 #ifndef CD_USE_STATIC_BUFFERS
@@ -726,9 +738,11 @@ static BOOL _mixerRateSet = NO;
 
 -(void) _lockSource:(int) sourceIndex lock:(BOOL) lock {
 	BOOL found = NO;
-	for (int i=0; i < _sourceGroupTotal && !found; i++) {
+	int i;
+	int j;
+	for (i=0; i < _sourceGroupTotal && !found; i++) {
 		if (_sourceGroups[i].sourceStatuses) {
-			for (int j=0; j < _sourceGroups[i].totalSources && !found; j++) {
+			for (j=0; j < _sourceGroups[i].totalSources && !found; j++) {
 				//First bit is used to indicate whether source is locked, index is shifted back 1 bit
 				if((_sourceGroups[i].sourceStatuses[j] >> 1)==sourceIndex) {
 					if (lock) {
@@ -818,7 +832,7 @@ static BOOL _mixerRateSet = NO;
  *
  */
 - (ALuint)playSound:(int) soundId sourceGroupId:(int)sourceGroupId pitch:(float) pitch pan:(float) pan gain:(float) gain loop:(BOOL) loop {
-
+NSLog(@"CDSoundEngine playSound %i", soundId);
 #ifdef CD_DEBUG
 	//Sanity check parameters - only in DEBUG
 	NSAssert(soundId >= 0, @"soundId can not be negative");
@@ -862,6 +876,7 @@ static BOOL _mixerRateSet = NO;
 		alSourcePlay(source);
 		if((lastErrorCode_ = alGetError()) == AL_NO_ERROR) {
 			//Everything was okay
+			NSLog(@"CDSoundEngine Everything was okay");
 			_sources[sourceIndex].attachedBufferId = buffer;
 			return source;
 		} else {
@@ -944,7 +959,8 @@ static BOOL _mixerRateSet = NO;
 		return;
 	}
 	int sourceCount = _sourceGroups[sourceGroupId].totalSources;
-	for (int i=0; i < sourceCount; i++) {
+	int i;
+	for (i=0; i < sourceCount; i++) {
 		int sourceIndex = _sourceGroups[sourceGroupId].sourceStatuses[i] >> 1;
 		alSourceStop(_sources[sourceIndex].sourceId);
 	}
@@ -964,7 +980,8 @@ static BOOL _mixerRateSet = NO;
 }
 
 - (void) stopAllSounds {
-	for (int i=0; i < sourceTotal_; i++) {
+	int i;
+	for (i=0; i < sourceTotal_; i++) {
 		alSourceStop(_sources[i].sourceId);
 	}
 	alGetError();//Clear error in case we stopped any sounds that couldn't be stopped

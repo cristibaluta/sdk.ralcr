@@ -131,6 +131,7 @@ static CDBufferManager *bufferManager = nil;
 -(ALuint) playEffect:(NSString*) filePath pitch:(Float32) pitch pan:(Float32) pan gain:(Float32) gain
 {
 	int soundId = [bufferManager bufferForFile:filePath create:YES];
+	NSLog(@"SimpleSoundEngine playEffect %@ %i", filePath, soundId);
 	if (soundId != kCDNoBuffer) {
 		return [soundEngine playSound:soundId sourceGroupId:0 pitch:pitch pan:pan gain:gain loop:false];
 	} else {

@@ -13,15 +13,24 @@
 		<dependency name="UIKit.framework"/>
 		<depend name="${HXCPP}/include/hx/Macros.h"/>
 		<depend name="${HXCPP}/include/hx/CFFI.h"/>
-		<compilerflag value="-IiPhone/include"/>
-		<compilerflag value="-Iinclude"/>
+		<depend name="iphone/CocosDenshion/CocosDenshion/CDAudioManager.h"/>
+		<depend name="iphone/CocosDenshion/CocosDenshion/CDConfig.h"/>
+		<depend name="iphone/CocosDenshion/CocosDenshion/CDOpenALSupport.h"/>
+		<depend name="iphone/CocosDenshion/CocosDenshion/CocosDenshion.h"/>
+		<depend name="iphone/CocosDenshion/CocosDenshion/SimpleAudioEngine.h"/>
+		<compilerflag value="-IiPhone/iphone"/>
+		<compilerflag value="-Iiphone"/>
 		<file name="iphone/WebView.mm"/>
 		<file name="iphone/AlertView.mm"/>
 		<file name="iphone/AudioEngine.mm"/>
+		<file name="iphone/CocosDenshion/CocosDenshion/CDAudioManager.m"/>
+		<file name="iphone/CocosDenshion/CocosDenshion/CDOpenALSupport.m"/>
+		<file name="iphone/CocosDenshion/CocosDenshion/CocosDenshion.m"/>
+		<file name="iphone/CocosDenshion/CocosDenshion/SimpleAudioEngine.m"/>
 	</files>
 	
 	<files id="common">
-		<compilerflag value="-Iinclude"/>
+		<compilerflag value="-Iiphone"/>
 		<file name="common/ExternalInterface.cpp"/>
 	</files>
 	

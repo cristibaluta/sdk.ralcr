@@ -27,6 +27,7 @@ class RCAudio implements RCAudioInterface {
 	public static var DISPLAY_TIMER_UPDATE_DELAY :Int = 1000;
 	
 	var URL :String;
+	//var NME_URL :String;
 	var sound :Sound;
 	var channel :SoundChannel;
 	var timer :Timer;
@@ -70,7 +71,14 @@ class RCAudio implements RCAudioInterface {
 		if (sound != null) return;
 		
 		#if nme
+			#if ios
+				if (decodeByHardware)
+				NMESimpleAudioEngine.preloadBackgroundMusic ( URL );
+				else
+				NMESimpleAudioEngine.preloadEffect ( URL );
+			#else
 			sound = nme.Assets.getSound ( URL );
+			#end
 		#else
 			sound = new Sound();
 			sound.addEventListener (Event.COMPLETE, completeHandler);
@@ -90,6 +98,12 @@ class RCAudio implements RCAudioInterface {
 	 */
 	public function start (?time:Null<Int>) :Void {
 		
+		#if (nme && ios)
+			if (decodeByHardware)
+			NMESimpleAudioEngine.playBackgroundMusic (URL, true);
+			else
+			NMESimpleAudioEngine.playEffect ( URL );
+		#else
 		if (channel != null) {
 			channel.stop();
 			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
@@ -111,12 +125,18 @@ class RCAudio implements RCAudioInterface {
 		
 		timer.start();
 		setVolume ( _volume );
-		
+		#end
 		soundDidStartPlaying();
 	}
 	
 	public function stop () :Void {
 		
+		#if (nme && ios)
+			if (decodeByHardware)
+			NMESimpleAudioEngine.stopBackgroundMusic();
+			//else
+			//NMESimpleAudioEngine.stopEffect ( int );
+		#else
 		if (channel != null) {
 			channel.stop();
 			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
@@ -127,6 +147,7 @@ class RCAudio implements RCAudioInterface {
 			timer.stop();
 
 		time = 0;
+		#end
 		soundDidStopPlaying();
 	}
 	
@@ -189,7 +210,12 @@ class RCAudio implements RCAudioInterface {
 	 * Stop the playing sound and remove event listeners
 	 */
 	public function destroy () :Void {
-		
+		#if (nme && ios)
+			if (decodeByHardware)
+			NMESimpleAudioEngine.stopBackgroundMusic();
+			else
+			NMESimpleAudioEngine.unloadEffect ( URL );
+		#else
 		if (channel != null) {
 			channel.stop();
 			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
@@ -211,6 +237,7 @@ class RCAudio implements RCAudioInterface {
 			timer.removeEventListener (TimerEvent.TIMER, loop);
 			timer = null;
 		}
+		#end
 	}
 }
 

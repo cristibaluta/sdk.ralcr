@@ -10,36 +10,35 @@ class NMESimpleAudioEngine {
 	public static function preloadBackgroundMusic (filePath:String) {
 		ralcr_preload_background_music ( filePath );
 	}
-
 	public static function playBackgroundMusic (filePath:String, loop:Bool) {
 		ralcr_play_background_music (filePath, loop);
 	}
 	public static function stopBackgroundMusic () {
-		
+		ralcr_stop_background_music();
 	}
 	public static function pauseBackgroundMusic () {
-		
+		ralcr_pause_background_music();
 	}
 	public static function resumeBackgroundMusic () {
-		
+		ralcr_resume_background_music();
 	}
 	public static function rewindBackgroundMusic () {
-		
+		ralcr_rewind_background_music();
 	}
 	public static function isBackgroundMusicPlaying () :Bool {
-		return false;
+		return ralcr_is_background_music_playing();
 	}
 	public static function playEffect (filePath:String) {
-		
+		ralcr_play_effect (filePath);
 	}
 	public static function stopEffect (soundId:Int) {
 		
 	}
 	public static function preloadEffect (filePath:String) {
-		
+		ralcr_preload_effect (filePath);
 	}
 	public static function unloadEffect (filePath:String) {
-		
+		ralcr_unload_effect (filePath);
 	}
     
 	static var ralcr_preload_background_music = nme.Loader.load("ralcr_preload_background_music", 1);
