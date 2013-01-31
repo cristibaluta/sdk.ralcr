@@ -151,7 +151,7 @@ class RCTextureAtlas {
 	}
 	
 	
-    public function imageNamed (name:String) :RCImage {
+    public function imageNamed (name:String, ?pos:haxe.PosInfos) :RCImage {
 		
 		if (!_textures.exists ( name ))
 			name = name + ".png";
@@ -161,7 +161,7 @@ class RCTextureAtlas {
         if (texture_data != null) {
 			return RCImage.imageWithRegionOfImage (_texture, texture_data.sourceSize, texture_data.frame, texture_data.sourceColorRect);
 		}
-		trace( "err: imageNamed '"+name+"' does not exist in the texture");
+		trace( "err: imageNamed '"+name+"' does not exist in the texture. Called from "+pos);
 		return null;
     }
     
