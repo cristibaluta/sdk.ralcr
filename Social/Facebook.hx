@@ -39,9 +39,9 @@ class Facebook {
 	
 	var openUICalls :Hash<Dynamic>;
     var applicationId :String;
-    var _initCallback :Dynamic;
-    var _loginCallback :Dynamic;
-    var _logoutCallback :Dynamic;
+    var _initCallback :FacebookSession->Dynamic->Void;
+    var _loginCallback :Dynamic->Dynamic->Void;
+    var _logoutCallback :Bool->Void;
 	
     var session :FacebookSession;
 	var authResponse :FacebookAuthResponse;
@@ -80,15 +80,15 @@ class Facebook {
 		if (_instance == null) throw ("Call Facebook.init before obtaining the instance");
 		return _instance;
 	}
-    public static function init (applicationId:String, _callback:Dynamic, ?options:Dynamic, ?accessToken:String) :Facebook {
+    public static function init (applicationId:String, _callback:FacebookSession->Dynamic->Void, ?options:Dynamic) :Facebook {
     	if (_instance == null)
-			_instance = new Facebook (applicationId, _callback, options, accessToken);
+			_instance = new Facebook (applicationId, _callback, options);
 		return _instance;
     }
 	
 	
 	
-    public function new (applicationId:String, _callback:Dynamic, options:Dynamic, accessToken:String) {
+    public function new (applicationId:String, _callback:FacebookSession->Dynamic->Void, options:Dynamic) {
 		
 		if (_instance != null) {
 			throw ( 'Facebook is a singleton and cannot be instantiated.' );
@@ -98,7 +98,8 @@ class Facebook {
 		requests = new Array<RCHttp>();
 
         _initCallback = _callback;
-	  
+		var accessToken = RCUserDefaults.stringForKey ( "SocialFacebookAccessToken" );
+		this.session = generateSession ( {access_token : accessToken} );
 		this.applicationId = applicationId;
 		this.oauth2 = true;
 
@@ -109,15 +110,7 @@ class Facebook {
 			options.oauth = true;
 		
 #if nme
-
-		if (accessToken != null) {
-			session = generateSession ( {accessToken : accessToken} );
-		}
-		else {
-			session = generateSession ( null );
-			session.accessToken = RCUserDefaults.stringForKey ( "accessToken" );
-			//session.expireDate = RCUserDefaults.intForKey ( expireDate );
-		}
+		
 		//verifyAccessToken();
 	
 #elseif flash
@@ -143,7 +136,7 @@ class Facebook {
 			getLoginStatus();
 		}
 		else if (_initCallback != null) {
-			_initCallback (authResponse, null);
+			_initCallback (session, null);
 			_initCallback = null;
 		}
 	}
@@ -161,7 +154,7 @@ class Facebook {
 #end
     }
 	public function isConnected () :Bool {
-		return accessToken() != null;
+		return getAccessToken() != null;
 	}
 
     /**
@@ -173,13 +166,12 @@ class Facebook {
      * @param options Values to modify the behavior of the login window.
      * http://developers.facebook.com/docs/reference/javascript/FBAS.login
      */
-	public function login (_callback:Dynamic, options:Dynamic) {
+	public function login (_callback:Dynamic->Dynamic->Void, options:Dynamic) {
 		
 		_loginCallback = _callback;
 		
-#if (nme && !mac)
-
-		ignoreFirstEvent = true;
+#if (nme && (ios || android))
+		
 		var bundle_id = options.bundle_identifier;
 		var data = {
 			client_id : applicationId,
@@ -208,13 +200,17 @@ class Facebook {
 	
 #if (nme && (ios || android))
 	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
+
 	function webViewDidFinishLoad (url:String) :Void {
 		trace(url);
+		AppController.debugger.log(url);
 		if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
 			//webView.destroy();
 			//webView = null;
+			AppController.debugger.log("FAIL");
 		}
 		else if (url.indexOf(LOGIN_SUCCESS_URL) == 0 || url.indexOf(LOGIN_SUCCESS_SECUREURL) == 0) {
+			AppController.debugger.log("SUCCESS");
 			webView.destroy();
 			webView = null;
 			
@@ -230,11 +226,14 @@ class Facebook {
 					case "code" : code = a[1];
 				}
 			}
-			trace(access_token);
-			trace(expires_in);
-			trace(code);
-			session = generateSession ( {accessToken : access_token} );
-			_loginCallback (session, null);
+/*			AppController.debugger.log(access_token);
+			AppController.debugger.log(expires_in);
+			AppController.debugger.log("");
+			AppController.debugger.log(Std.string(_loginCallback));*/
+			session = generateSession ( {access_token : access_token} );
+/*			AppController.debugger.log(Std.string(session));*/
+			_loginCallback ({accessToken : access_token}, null);
+/*			AppController.debugger.log("login called. did it get it?");*/
 		}
 	}
 #end
@@ -244,7 +243,7 @@ class Facebook {
 	// time they run the applicaiton they will be presented with log in UX again; most
 	// users will simply close the app or switch away, without logging out; this will
 	// cause the implicit cached-token login to occur on next launch of the application
-	public function logout (_callback:Dynamic) {
+	public function logout (_callback:Bool->Void) {
 		
 		_logoutCallback = _callback;
 		
@@ -299,14 +298,19 @@ class Facebook {
 		}
 	}
 	function generateSession (json:Dynamic) :FacebookSession {
+		
+		if (json == null)
+			json = {};
+		var expireTimestamp = Date.now().getTime() + (json!=null?Std.int(json.expires):0);
+		var expireDate = Date.fromTime ( expireTimestamp );
         return {
- 			uid : json != null ? json.uid : null,
+ 			uid : json.uid,
 			user : null,
-			sessionKey : json != null ? json.session_key : null,
-			expireDate : json != null ? Date.fromString ( json.expires ) : null,
-			accessToken : json != null ? json.access_token : null,
-			secret : json != null ? json.secret : null,
- 			sig : json != null ? json.sig : null,
+			sessionKey : json.session_key,
+			expireDate : expireDate,
+			accessToken : json.access_token,
+			secret : json.secret,
+ 			sig : json.sig,
 			availablePermissions : []
         }
 	}
@@ -318,7 +322,7 @@ class Facebook {
 		}
 	}
 	function handleAuthResponseChange(result:String) {
-		//trace(result);
+		trace(result);
 		var resultObj :Dynamic = null;
 		var success = true;
 		
@@ -342,22 +346,24 @@ class Facebook {
 		}
 		
 		if (_initCallback != null) {
-			_initCallback (authResponse, null);
+			_initCallback (session, null);
 			_initCallback = null;
 		}
 		
 		if (_loginCallback != null) {
-			_loginCallback (authResponse, null);
+			_loginCallback (session, null);
 			_loginCallback = null;
 		}
 	}
 	
-	function accessToken () :String {
-		if ((oauth2 && authResponse != null) || session != null) {
-			return oauth2 ? authResponse.accessToken : session.accessToken;
-		} else {
-			return null;
+	function getAccessToken () :String {
+		if (oauth2 && authResponse != null) {
+			return authResponse.accessToken;
 		}
+		else if (session != null) {
+			return session.accessToken;
+		}
+		return null;
 	}
 	
 	
@@ -415,15 +421,15 @@ class Facebook {
      * @see http://developers.facebook.com/docs/api
      *
      */
-	public function api (method:String, _callback:Dynamic, ?params:Dynamic, ?requestMethod:String='GET') {
+	public function api (method:String, _callback:Dynamic->Dynamic->Void, ?params:Dynamic, ?requestMethod:String='GET') {
   		
 		if (method.indexOf('/') != 0) method = '/' + method;
 		
-		if (accessToken() != null) {
+		if (getAccessToken() != null) {
 			if (params == null)
 				params = {};
 			if (params.access_token == null)
-				params.access_token = accessToken();
+				params.access_token = getAccessToken();
 		}
 		if (locale != null)
 			params.locale = locale;
@@ -434,8 +440,8 @@ class Facebook {
 			req.call (GRAPH_URL + method, params, requestMethod);
 		requests.push ( req );
     }
-	function completeHandler (req:RCHttp, _callback:Dynamic) {
-		/*trace(req.result);*/
+	function completeHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
+		//trace(req.result);
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
@@ -447,7 +453,7 @@ class Facebook {
 		
 		_callback (parsedData.data, null);
 	}
-	function errorHandler (req:RCHttp, _callback:Dynamic) {
+	function errorHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
 		trace(req.result);
 		var parsedData = Json.parse ( req.result );
 		_callback (null, parsedData);
@@ -572,7 +578,7 @@ class Facebook {
 		} else {
 			_callback (null, json);
 		}
-
+		
 		requests.remove ( req );
     }
     /**
@@ -593,7 +599,7 @@ class Facebook {
 			values = {};
 			values.format = 'json';
 
-		if (accessToken() != null) values.access_token = accessToken();
+		if (getAccessToken() != null) values.access_token = getAccessToken();
 		if (locale != null) values.locale = locale;
 
 /*        var req = new FacebookRequest();
