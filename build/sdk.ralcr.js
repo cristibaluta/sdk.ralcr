@@ -609,6 +609,8 @@ CATZoom.prototype = $extend(CAObject.prototype,{
 		this.target.alpha = fromAlpha;
 		this.fromValues = { x : this.target.x, y : this.target.y, width : this.target.width, height : this.target.height, alpha : fromAlpha};
 		this.toValues = { x : f_x, y : f_y, width : f_w, height : f_h, alpha : toAlpha};
+		haxe.Log.trace(this.fromValues,{ fileName : "CATZoom.hx", lineNumber : 100, className : "CATZoom", methodName : "init"});
+		haxe.Log.trace(this.toValues,{ fileName : "CATZoom.hx", lineNumber : 100, className : "CATZoom", methodName : "init"});
 	}
 	,__class__: CATZoom
 });
@@ -1600,6 +1602,7 @@ var Facebook = $hxClasses["Facebook"] = function(applicationId,_callback,options
 Facebook.__name__ = ["Facebook"];
 Facebook._instance = null;
 Facebook.sharedFacebook = function() {
+	if(Facebook._instance == null) throw "Call Facebook.init before obtaining the instance";
 	return Facebook._instance;
 }
 Facebook.init = function(applicationId,_callback,options,accessToken) {
@@ -1676,7 +1679,7 @@ Facebook.prototype = {
 		return this.resultHash[data];
 	}
 	,errorHandler: function(req,_callback) {
-		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 436, className : "Facebook", methodName : "errorHandler"});
+		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 451, className : "Facebook", methodName : "errorHandler"});
 		var parsedData = haxe.Json.parse(req.result);
 		_callback(null,parsedData);
 	}
@@ -1714,8 +1717,8 @@ Facebook.prototype = {
 		this.requests.push(req);
 	}
 	,handleUI: function(result,method) {
-		haxe.Log.trace("handleUI " + result,{ fileName : "Facebook.hx", lineNumber : 370, className : "Facebook", methodName : "handleUI"});
-		haxe.Log.trace(method,{ fileName : "Facebook.hx", lineNumber : 370, className : "Facebook", methodName : "handleUI"});
+		haxe.Log.trace("handleUI " + result,{ fileName : "Facebook.hx", lineNumber : 385, className : "Facebook", methodName : "handleUI"});
+		haxe.Log.trace(method,{ fileName : "Facebook.hx", lineNumber : 385, className : "Facebook", methodName : "handleUI"});
 		var decodedResult = result != null?haxe.Json.parse(result):null;
 		var uiCallback = this.openUICalls.get(method);
 		if(uiCallback != null) uiCallback(decodedResult);
@@ -1773,6 +1776,9 @@ Facebook.prototype = {
 	}
 	,login: function(_callback,options) {
 		this._loginCallback = _callback;
+	}
+	,isConnected: function() {
+		return this.accessToken() != null;
 	}
 	,getLoginStatus: function() {
 	}
@@ -11563,8 +11569,10 @@ Facebook.AUTH_URL = "https://graph.facebook.com/oauth/authorize";
 Facebook.AUTH_URL_CANCEL = "https://graph.facebook.com/oauth/authorize_cancel";
 Facebook.LOGIN_URL = "https://login.facebook.com/login.php";
 Facebook.LOGOUT_URL = "http://m.facebook.com/logout.php";
-Facebook.CHECK_LOGIN_SUCCESS_URL = "facebook.com/connect/login_success.html";
-Facebook.CHECK_LOGIN_FAIL_URL = "facebook.com/connect/login_success.html?error_reason";
+Facebook.LOGIN_SUCCESS_URL = "http://www.facebook.com/connect/login_success.html";
+Facebook.LOGIN_SUCCESS_SECUREURL = "https://www.facebook.com/connect/login_success.html";
+Facebook.LOGIN_FAIL_URL = "http://www.facebook.com/connect/login_success.html?error_reason";
+Facebook.LOGIN_FAIL_SECUREURL = "https://www.facebook.com/connect/login_success.html?error_reason";
 GKSprite.GRAVITY = 0.98;
 JSExternalInterface.available = true;
 HXAddress._init = false;

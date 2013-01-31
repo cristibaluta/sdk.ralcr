@@ -65,10 +65,10 @@ class CATZoom extends CAObject, implements CATransitionInterface {
 		// Set the properties that are used to zoom the object: x, y, width, height, alpha
 		// >>
 		// Get the original properties of the object
-		var i_w = target.width;
-		var i_h = target.height;
-		var i_x = target.x;
-		var i_y = target.y;
+		var i_w = target.getWidth();
+		var i_h = target.getHeight();
+		var i_x = target.getX();
+		var i_y = target.getY();
 		
 		// Final values we should zoom to
 		var f_w = i_w * toScale;
@@ -77,17 +77,17 @@ class CATZoom extends CAObject, implements CATransitionInterface {
 		var f_y = Math.round (i_y + (i_h - f_h) / 2);
 		
 		// Set the object properties to their starting position
-		target.width *= fromScale;
-		target.height *= fromScale;
-		target.x = Math.round (i_x + (i_w - target.width) / 2);
-		target.y = Math.round (i_y + (i_h - target.height)/ 2);
-		target.alpha = fromAlpha;
+		target.setWidth ( i_w * fromScale );
+		target.setHeight ( i_h * fromScale );
+		target.setX ( Math.round (i_x + (i_w - target.getWidth()) / 2));
+		target.setY ( Math.round (i_y + (i_h - target.getHeight())/ 2));
+		target.setAlpha ( fromAlpha );
 		
 		// Set the starting and ending properties to the CAObject also
-		fromValues = {	x		: target.x,
-						y		: target.y,
-						width	: target.width,
-						height	: target.height,
+		fromValues = {	x		: target.getX(),
+						y		: target.getY(),
+						width	: target.getWidth(),
+						height	: target.getHeight(),
 						alpha	: fromAlpha
 					};
 		
