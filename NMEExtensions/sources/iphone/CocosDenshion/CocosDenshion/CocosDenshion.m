@@ -362,7 +362,6 @@ static BOOL _mixerRateSet = NO;
 - (id)init
 {
 	if ((self = [super init])) {
-		NSLog(@"@init CDSoundEngine");
 		//Create mutexes
 		_mutexBufferLoad = [[NSObject alloc] init];
 
@@ -587,7 +586,6 @@ static BOOL _mixerRateSet = NO;
  */
 - (BOOL) loadBuffer:(int) soundId filePath:(NSString*) filePath
 {
-	NSLog(@"CDSoundEngine loadBuffer %i %@", soundId, filePath);
 	ALvoid* data;
 	ALenum  format;
 	ALsizei size;
@@ -597,18 +595,14 @@ static BOOL _mixerRateSet = NO;
 
 	CFURLRef fileURL = nil;
 	NSString *path = [CDUtilities fullPathFromRelativePath:filePath];
-	NSLog(@"path %@", path);
+	
 	if (path) {
 		fileURL = (CFURLRef)[[NSURL fileURLWithPath:path] retain];
 	}
-	NSLog(@"fileURL %@", fileURL);
+	
 	if (fileURL)
 	{
 		data = CDGetOpenALAudioData(fileURL, &size, &format, &freq);
-		//NSLog(@"data %@", data);
-		NSLog(@"format %i", format);
-		NSLog(@"size %i", size);
-		NSLog(@"freq %i", freq);
 		CFRelease(fileURL);
 		BOOL result = [self loadBufferFromData:soundId soundData:data format:format size:size freq:freq];
 #ifndef CD_USE_STATIC_BUFFERS

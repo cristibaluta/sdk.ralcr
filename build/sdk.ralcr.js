@@ -2478,7 +2478,6 @@ RCRequest.prototype = {
 	,load: function(URL,variables,method) {
 		if(method == null) method = "POST";
 		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(variables,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
 		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
@@ -4758,6 +4757,7 @@ RCHttp.prototype = $extend(RCRequest.prototype,{
 	}
 	,call: function(script,variables_list,method) {
 		if(method == null) method = "POST";
+		haxe.Log.trace(variables_list,{ fileName : "RCHttp.hx", lineNumber : 48, className : "RCHttp", methodName : "call"});
 		this.load(this.apiPath + script,this.createVariables(variables_list),method);
 	}
 	,readDirectory: function(directoryName) {

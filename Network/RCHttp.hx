@@ -45,6 +45,7 @@ class RCHttp extends RCRequest {
 	 * Call an url and pass some variables
 	 */
 	public function call (script:String, variables_list:Dynamic, ?method:String="POST") :Void {
+		trace(variables_list);
 		load (apiPath + script, createVariables (variables_list), method);
 	}
 	

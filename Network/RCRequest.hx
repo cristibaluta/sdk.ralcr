@@ -65,7 +65,7 @@ class RCRequest {
 	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
-		trace(URL);trace(variables);trace(method);
+		trace(URL);trace(method);
 		#if (flash || nme)
 			loader = new URLLoader();
 			addListeners ( loader );

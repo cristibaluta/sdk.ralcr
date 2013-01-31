@@ -840,38 +840,31 @@ static BOOL configured = FALSE;
 	if(soundId == nil)
 	{
 		if (create) {
-			NSLog(@"bufferForFile create");
 			NSNumber* bufferId = nil;
 			//First try to get a buffer from the free buffers
 			if ([freedBuffers count] > 0) {
-				NSLog(@"First try to get a buffer from the free buffers");
 				bufferId = [[[freedBuffers lastObject] retain] autorelease];
 				[freedBuffers removeLastObject];
 				CDLOGINFO(@"Denshion::CDBufferManager reusing buffer id %i",[bufferId intValue]);
 			} else {
-				NSLog(@"nextBufferId %i", nextBufferId);
 				bufferId = [[NSNumber alloc] initWithInt:nextBufferId];
 				[bufferId autorelease];
 				CDLOGINFO(@"Denshion::CDBufferManager generating new buffer id %i",[bufferId intValue]);
 				nextBufferId++;
-				NSLog(@"new nextBufferId %i", nextBufferId);
 			}
 
 			if ([soundEngine loadBuffer:[bufferId intValue] filePath:filePath]) {
 				//File successfully loaded
-				NSLog(@"File successfully loaded %@", bufferId);
 				CDLOGINFO(@"Denshion::CDBufferManager buffer loaded %@ %@",bufferId,filePath);
 				[loadedBuffers setObject:bufferId forKey:filePath];
 				return [bufferId intValue];
 			} else {
 				//File didn't load, put buffer id on free list
-				NSLog(@"File didn't load, put buffer id on free list %i", nextBufferId);
 				[freedBuffers addObject:bufferId];
 				return kCDNoBuffer;
 			}
 		} else {
 			//No matching buffer was found
-			NSLog(@"No matching buffer was found");
 			return kCDNoBuffer;
 		}
 	} else {
