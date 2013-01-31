@@ -11,15 +11,28 @@ typedef FacebookFriendPhoto = {
 
 class FacebookTools {
 	
+	/**
+	*  @param func - should be of type Dynamic->Dynamic->Void
+	*/
 	public static function requestInfoForUserId (userId:String, func:Dynamic) {
 		Facebook.sharedFacebook().api (userId, func, null, "GET");
 	}
+	
+	/**
+	*  Returns in func an array of FacebookFriend
+	*/
 	public static function requestFriends (func:Dynamic) {
 		Facebook.sharedFacebook().api ("me/friends", func, null, "GET");
 	}
+	
+	/**
+	*  Returns in func a FacebookFriendPhoto
+	*/
 	public static function requestProfilePictureForUserId (userId:String, func:Dynamic) {
 		Facebook.sharedFacebook().api (userId + "/picture?type=large&redirect=0&", func, null, "GET");
 	}
+	
+	
     public static function postData (method:String, _callback:Dynamic, params:Dynamic) {
 		Facebook.sharedFacebook().api (method, _callback, params, "POST");
     }

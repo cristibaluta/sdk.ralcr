@@ -49,9 +49,8 @@ class Facebook {
 	var locale :String;
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
-#if (nme && !mac)
+#if (nme && (ios || android))
 	var webView :NMEWebView;
-	var ignoreFirstEvent :Bool;
 #end
 	
 	
@@ -78,6 +77,7 @@ class Facebook {
      *
      */
 	public static function sharedFacebook () :Facebook {
+		if (_instance == null) throw ("Call Facebook.init before obtaining the instance");
 		return _instance;
 	}
     public static function init (applicationId:String, _callback:Dynamic, ?options:Dynamic, ?accessToken:String) :Facebook {
@@ -102,8 +102,9 @@ class Facebook {
 		this.applicationId = applicationId;
 		this.oauth2 = true;
 
-        if (options == null)
+        if (options == null) {
 			options = {};
+		}
         	options.appId = applicationId;
 			options.oauth = true;
 		
@@ -117,20 +118,19 @@ class Facebook {
 			session.accessToken = RCUserDefaults.stringForKey ( "accessToken" );
 			//session.expireDate = RCUserDefaults.intForKey ( expireDate );
 		}
-			
 		//verifyAccessToken();
 	
 #elseif flash
 		
 		new FacebookJSBridge();
-
+		
 		ExternalInterface.addCallback ('authResponseChange', handleAuthResponseChange);
 		ExternalInterface.addCallback ('logout', handleLogout);
 		ExternalInterface.addCallback ('uiResponse', handleUI);
         ExternalInterface.call ('FBAS.init', options);
 #elseif js
 #end
-	
+		
 		if (accessToken != null) {
 			authResponse = {
 				uid : null,
@@ -160,6 +160,9 @@ class Facebook {
 #elseif js
 #end
     }
+	public function isConnected () :Bool {
+		return accessToken() != null;
+	}
 
     /**
      * Shows the Facebook login window to the end user.
@@ -203,7 +206,7 @@ class Facebook {
 #end
     }
 	
-#if (nme && !mac)
+#if (nme && (ios || android))
 	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
 	function webViewDidFinishLoad (url:String) :Void {
 		trace(url);
@@ -230,6 +233,8 @@ class Facebook {
 			trace(access_token);
 			trace(expires_in);
 			trace(code);
+			session = generateSession ( {accessToken : access_token} );
+			_loginCallback (session, null);
 		}
 	}
 #end
