@@ -85,11 +85,15 @@ value ralcr_rewind_background_music () { rewind_background_music(); return alloc
 DEFINE_PRIM (ralcr_rewind_background_music, 0);
 value ralcr_is_background_music_playing () { return alloc_bool ( is_background_music_playing() ); }
 DEFINE_PRIM (ralcr_is_background_music_playing, 0);
-value ralcr_play_effect (value filePath) {
-	play_effect ( val_string(filePath) );
+value ralcr_play_effect (value filePath, value loop) {
+	return alloc_int ( play_effect ( val_string(filePath), val_bool(loop) ));
+}
+DEFINE_PRIM (ralcr_play_effect, 2);
+value ralcr_stop_effect (value soundId) {
+	stop_effect ( val_int(soundId) );
 	return alloc_null();
 }
-DEFINE_PRIM (ralcr_play_effect, 1);
+DEFINE_PRIM (ralcr_stop_effect, 1);
 value ralcr_preload_effect (value filePath) {
 	preload_effect ( val_string(filePath) );
 	return alloc_null();

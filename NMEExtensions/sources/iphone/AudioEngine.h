@@ -18,9 +18,9 @@ namespace ralcr {
 	bool is_background_music_playing ();
 
 	/** plays an audio effect with a file path*/
-	/* -(ALuint)*/ void play_effect (const char *filePath);
+	int play_effect (const char *filePath, bool loop);
 	/** stop a sound that is playing, note you must pass in the soundId that is returned when you started playing the sound with playEffect */
-	//void stopEffect:(ALuint) soundId;
+	void stop_effect (int soundId);
 	/** plays an audio effect with a file path, pitch, pan and gain */
 	//-(ALuint) playEffect:(NSString*) filePath pitch:(Float32) pitch pan:(Float32) pan gain:(Float32) gain;
 	/** preloads an audio effect */

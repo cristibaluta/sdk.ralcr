@@ -12,3 +12,4 @@
 --next Samples/Facebook/compile.hxml
 --next Samples/TextureAtlas/compile.hxml
 #-cmd haxe Samples/cpp/compile.hxml
+	dfg fd

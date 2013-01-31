@@ -594,23 +594,21 @@ CATZoom.prototype = $extend(CAObject.prototype,{
 				if(_toRot != null) toRotation = _toRot;
 			}
 		}
-		var i_w = this.target.width;
-		var i_h = this.target.height;
-		var i_x = this.target.x;
-		var i_y = this.target.y;
+		var i_w = this.target.getWidth();
+		var i_h = this.target.getHeight();
+		var i_x = this.target.getX();
+		var i_y = this.target.getY();
 		var f_w = i_w * toScale;
 		var f_h = i_h * toScale;
 		var f_x = Math.round(i_x + (i_w - f_w) / 2);
 		var f_y = Math.round(i_y + (i_h - f_h) / 2);
-		this.target.width *= fromScale;
-		this.target.height *= fromScale;
-		this.target.x = Math.round(i_x + (i_w - this.target.width) / 2);
-		this.target.y = Math.round(i_y + (i_h - this.target.height) / 2);
-		this.target.alpha = fromAlpha;
-		this.fromValues = { x : this.target.x, y : this.target.y, width : this.target.width, height : this.target.height, alpha : fromAlpha};
+		this.target.setWidth(i_w * fromScale);
+		this.target.setHeight(i_h * fromScale);
+		this.target.setX(Math.round(i_x + (i_w - this.target.getWidth()) / 2));
+		this.target.setY(Math.round(i_y + (i_h - this.target.getHeight()) / 2));
+		this.target.setAlpha(fromAlpha);
+		this.fromValues = { x : this.target.getX(), y : this.target.getY(), width : this.target.getWidth(), height : this.target.getHeight(), alpha : fromAlpha};
 		this.toValues = { x : f_x, y : f_y, width : f_w, height : f_h, alpha : toAlpha};
-		haxe.Log.trace(this.fromValues,{ fileName : "CATZoom.hx", lineNumber : 100, className : "CATZoom", methodName : "init"});
-		haxe.Log.trace(this.toValues,{ fileName : "CATZoom.hx", lineNumber : 100, className : "CATZoom", methodName : "init"});
 	}
 	,__class__: CATZoom
 });
@@ -1582,12 +1580,14 @@ Evaluate.parseInt = function(str,rect) {
 		return $r;
 	}(this)));
 }
-var Facebook = $hxClasses["Facebook"] = function(applicationId,_callback,options,accessToken) {
+var Facebook = $hxClasses["Facebook"] = function(applicationId,_callback,options) {
 	if(Facebook._instance != null) throw "Facebook is a singleton and cannot be instantiated.";
 	this.openUICalls = new Hash();
 	this.resultHash = new Array();
 	this.requests = new Array();
 	this._initCallback = _callback;
+	var accessToken = RCUserDefaults.stringForKey("SocialFacebookAccessToken");
+	this.session = this.generateSession({ access_token : accessToken});
 	this.applicationId = applicationId;
 	this.oauth2 = true;
 	if(options == null) options = { };
@@ -1595,7 +1595,7 @@ var Facebook = $hxClasses["Facebook"] = function(applicationId,_callback,options
 	options.oauth = true;
 	if(accessToken != null) this.authResponse = { uid : null, expireDate : null, accessToken : accessToken, signedRequest : null};
 	if(options.status != false) this.getLoginStatus(); else if(this._initCallback != null) {
-		this._initCallback(this.authResponse,null);
+		this._initCallback(this.session,null);
 		this._initCallback = null;
 	}
 };
@@ -1605,8 +1605,8 @@ Facebook.sharedFacebook = function() {
 	if(Facebook._instance == null) throw "Call Facebook.init before obtaining the instance";
 	return Facebook._instance;
 }
-Facebook.init = function(applicationId,_callback,options,accessToken) {
-	if(Facebook._instance == null) Facebook._instance = new Facebook(applicationId,_callback,options,accessToken);
+Facebook.init = function(applicationId,_callback,options) {
+	if(Facebook._instance == null) Facebook._instance = new Facebook(applicationId,_callback,options);
 	return Facebook._instance;
 }
 Facebook.prototype = {
@@ -1626,7 +1626,7 @@ Facebook.prototype = {
 		if(requestMethod == null) requestMethod = "GET";
 		if(values == null) values = { };
 		values.format = "json";
-		if(this.accessToken() != null) values.access_token = this.accessToken();
+		if(this.getAccessToken() != null) values.access_token = this.getAccessToken();
 		if(this.locale != null) values.locale = this.locale;
 	}
 	,handleRequestLoad: function(req,_callback,success) {
@@ -1679,7 +1679,7 @@ Facebook.prototype = {
 		return this.resultHash[data];
 	}
 	,errorHandler: function(req,_callback) {
-		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 451, className : "Facebook", methodName : "errorHandler"});
+		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 457, className : "Facebook", methodName : "errorHandler"});
 		var parsedData = haxe.Json.parse(req.result);
 		_callback(null,parsedData);
 	}
@@ -1697,9 +1697,9 @@ Facebook.prototype = {
 	,api: function(method,_callback,params,requestMethod) {
 		if(requestMethod == null) requestMethod = "GET";
 		if(method.indexOf("/") != 0) method = "/" + method;
-		if(this.accessToken() != null) {
+		if(this.getAccessToken() != null) {
 			if(params == null) params = { };
-			if(params.access_token == null) params.access_token = this.accessToken();
+			if(params.access_token == null) params.access_token = this.getAccessToken();
 		}
 		if(this.locale != null) params.locale = this.locale;
 		var req = new RCHttp();
@@ -1717,8 +1717,8 @@ Facebook.prototype = {
 		this.requests.push(req);
 	}
 	,handleUI: function(result,method) {
-		haxe.Log.trace("handleUI " + result,{ fileName : "Facebook.hx", lineNumber : 385, className : "Facebook", methodName : "handleUI"});
-		haxe.Log.trace(method,{ fileName : "Facebook.hx", lineNumber : 385, className : "Facebook", methodName : "handleUI"});
+		haxe.Log.trace("handleUI " + result,{ fileName : "Facebook.hx", lineNumber : 391, className : "Facebook", methodName : "handleUI"});
+		haxe.Log.trace(method,{ fileName : "Facebook.hx", lineNumber : 391, className : "Facebook", methodName : "handleUI"});
 		var decodedResult = result != null?haxe.Json.parse(result):null;
 		var uiCallback = this.openUICalls.get(method);
 		if(uiCallback != null) uiCallback(decodedResult);
@@ -1728,10 +1728,12 @@ Facebook.prototype = {
 		data.method = method;
 		if(display != null) data.display = display;
 	}
-	,accessToken: function() {
-		if(this.oauth2 && this.authResponse != null || this.session != null) return this.oauth2?this.authResponse.accessToken:this.session.accessToken; else return null;
+	,getAccessToken: function() {
+		if(this.oauth2 && this.authResponse != null) return this.authResponse.accessToken; else if(this.session != null) return this.session.accessToken;
+		return null;
 	}
 	,handleAuthResponseChange: function(result) {
+		haxe.Log.trace(result,{ fileName : "Facebook.hx", lineNumber : 325, className : "Facebook", methodName : "handleAuthResponseChange"});
 		var resultObj = null;
 		var success = true;
 		if(result != null) try {
@@ -1741,11 +1743,11 @@ Facebook.prototype = {
 		} else success = false;
 		if(success) this.authResponse = this.generateAuthResponse(resultObj);
 		if(this._initCallback != null) {
-			this._initCallback(this.authResponse,null);
+			this._initCallback(this.session,null);
 			this._initCallback = null;
 		}
 		if(this._loginCallback != null) {
-			this._loginCallback(this.authResponse,null);
+			this._loginCallback(this.session,null);
 			this._loginCallback = null;
 		}
 	}
@@ -1757,7 +1759,16 @@ Facebook.prototype = {
 		}
 	}
 	,generateSession: function(json) {
-		return { uid : json != null?json.uid:null, user : null, sessionKey : json != null?json.session_key:null, expireDate : json != null?HxOverrides.strDate(json.expires):null, accessToken : json != null?json.access_token:null, secret : json != null?json.secret:null, sig : json != null?json.sig:null, availablePermissions : []};
+		if(json == null) json = { };
+		var expireTimestamp = new Date().getTime() + (json != null?json.expires | 0:0);
+		var expireDate = (function($this) {
+			var $r;
+			var d = new Date();
+			d.setTime(expireTimestamp);
+			$r = d;
+			return $r;
+		}(this));
+		return { uid : json.uid, user : null, sessionKey : json.session_key, expireDate : expireDate, accessToken : json.access_token, secret : json.secret, sig : json.sig, availablePermissions : []};
 	}
 	,generateAuthResponse: function(json) {
 		return { uid : json.userID, expireDate : (function($this) {
@@ -1778,7 +1789,7 @@ Facebook.prototype = {
 		this._loginCallback = _callback;
 	}
 	,isConnected: function() {
-		return this.accessToken() != null;
+		return this.getAccessToken() != null;
 	}
 	,getLoginStatus: function() {
 	}
@@ -2466,6 +2477,9 @@ RCRequest.prototype = {
 	}
 	,load: function(URL,variables,method) {
 		if(method == null) method = "POST";
+		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
+		haxe.Log.trace(variables,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
+		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);
@@ -7555,15 +7569,15 @@ RCTextureAtlas.prototype = {
 		while(_g < names.length) {
 			var name = names[_g];
 			++_g;
-			textures.push(this.imageNamed(name));
+			textures.push(this.imageNamed(name,{ fileName : "RCTextureAtlas.hx", lineNumber : 181, className : "RCTextureAtlas", methodName : "imagesWithPrefix"}));
 		}
 		return textures;
 	}
-	,imageNamed: function(name) {
+	,imageNamed: function(name,pos) {
 		if(!this._textures.exists(name)) name = name + ".png";
 		var texture_data = this._textures.get(name);
 		if(texture_data != null) return RCImage.imageWithRegionOfImage(this._texture,texture_data.sourceSize,texture_data.frame,texture_data.sourceColorRect);
-		haxe.Log.trace("err: imageNamed '" + name + "' does not exist in the texture",{ fileName : "RCTextureAtlas.hx", lineNumber : 164, className : "RCTextureAtlas", methodName : "imageNamed"});
+		haxe.Log.trace("err: imageNamed '" + name + "' does not exist in the texture. Called from " + Std.string(pos),{ fileName : "RCTextureAtlas.hx", lineNumber : 164, className : "RCTextureAtlas", methodName : "imageNamed"});
 		return null;
 	}
 	,parseJSON: function(json) {

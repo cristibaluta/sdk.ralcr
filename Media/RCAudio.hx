@@ -30,6 +30,7 @@ class RCAudio implements RCAudioInterface {
 	//var NME_URL :String;
 	var sound :Sound;
 	var channel :SoundChannel;
+	var soundId :Int;//Reference for extension effect sound so we can stop it
 	var timer :Timer;
 	var _volume :Float;
 	var decodeByHardware :Bool;
@@ -100,9 +101,9 @@ class RCAudio implements RCAudioInterface {
 		
 		#if (nme && ios)
 			if (decodeByHardware)
-			NMESimpleAudioEngine.playBackgroundMusic (URL, true);
+			NMESimpleAudioEngine.playBackgroundMusic (URL, repeat);
 			else
-			NMESimpleAudioEngine.playEffect ( URL );
+			soundId = NMESimpleAudioEngine.playEffect ( URL, repeat );
 		#else
 		if (channel != null) {
 			channel.stop();
@@ -134,8 +135,8 @@ class RCAudio implements RCAudioInterface {
 		#if (nme && ios)
 			if (decodeByHardware)
 			NMESimpleAudioEngine.stopBackgroundMusic();
-			//else
-			//NMESimpleAudioEngine.stopEffect ( int );
+			else
+			NMESimpleAudioEngine.stopEffect ( soundId );
 		#else
 		if (channel != null) {
 			channel.stop();

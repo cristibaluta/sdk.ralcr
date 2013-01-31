@@ -26,11 +26,28 @@ If you've added a new extension and is using some framework that NME does not in
 	<dependency name="StoreKit.framework" if="ios"/>
 	
 
+##About extensions
 
-###CocosDenshion
+####WebView
+You can create a native UIWebView at a specified position and size, and you can listen for a signal event when the page was loaded which returns its URL
 
-CocosDenshion is an extension for playing sounds on ios. The library is from Cocos2D and performs very well. Read all about CocosDenshion here http://cocos2d-iphone.org/wiki/doku.php/cocosdenshion%3afaq
+####AlertView
+You can only set a UIAlertView with a title, a description and an OK button
 
-Use this command line to convert to caff format
+####CocosDenshion
+CocosDenshion is an extension for playing sounds on ios. The library is from Cocos2D framework and performs very well. Read all about CocosDenshion here http://cocos2d-iphone.org/wiki/doku.php/cocosdenshion%3afaq
+
+Due to the way NME handles resources, there's a low level C call in CocosDenshion that fails for files without extension, and NME resources are files without extensions. This happens only for effect sounds but here is a workaround to fix it:
+1. Do not add your sounds through NME
+2. Play the sounds in your app as you normaly do by sending the name of the file
+3. Compile the app for ios. At this point there will be no sound
+4. Open the xcode project with
+	
+	nme update ios
+	
+5. Add your sounds to xcode and press the build and run button.
+Now you have sound. The good news is that the next time you compile the app the sounds will not be removed, so you don't need to repeat the steps 4 and 5. Unless you remove it from the device and will be a fresh install of course.
+
+Not sure which audio formats are the best yet but i use caff. Use this osx command line to convert to caff format
 
 	afconvert -f caff -d ima4 mysound.wav
