@@ -41,12 +41,12 @@ Due to the way NME handles resources, there's a low level C call in CocosDenshio
 * Do not add your sounds through NME
 * Use the sounds in your app with their full name
 
-	NMESimpleAudioEngine.preloadBackgroundMusic("background_music.mp3");
+		NMESimpleAudioEngine.preloadBackgroundMusic("background_music.mp3");
 
 * Compile the app for ios. At this point there will be no sound because you didn't add them
 * Open the xcode project with
 	
-	nme update ios
+		nme update ios
 	
 * Add your sounds to xcode and press the build and run button.
 Now you have sound. The good news is that the next time you compile the app the sounds will not be removed, so you don't need to repeat the steps 4 and 5. Unless you remove it from the device and will be a fresh install of course.
@@ -57,6 +57,9 @@ Not sure which audio formats are the best yet but i use caff. Use this osx comma
 
 ###Https
 In NME URLRequest does not work when using POST
+
 In haxe.Http the Https requests are not working at all
+
 This extension solves all this problems on ios
+
 (Feb 1 2013)
