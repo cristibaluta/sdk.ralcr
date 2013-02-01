@@ -7,26 +7,13 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
-	import flash.events.Event;
-	import flash.events.IEventDispatcher;
-	import flash.events.ProgressEvent;
-	import flash.events.SecurityErrorEvent;
-	import flash.events.IOErrorEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
-	private typedef Result = Event;
-	#if flash
-		import flash.events.HTTPStatusEvent;
-		import flash.net.URLVariables;
-		import flash.net.URLRequestMethod;
-	#else
-		private typedef HTTPStatusEvent = Dynamic;
-		private typedef URLRequestMethod = Dynamic;
-		private class URLVariables implements Dynamic { public function new(){} }
+#if (js || cpp || neko || objc)
+	#if js
+		import js.Dom;
 	#end
-#elseif js
-	import js.Dom;
+	#if (cpp || neko || objc)
+		private typedef Event = String;
+	#end
 	import haxe.Http;
 	private typedef URLLoader = Http;
 	private typedef URLRequest = Http;
@@ -37,6 +24,18 @@
 	private typedef Result = String;
 	private typedef HTTPStatusEvent = Int;
 	private class URLVariables implements Dynamic { public function new(){} }
+#elseif flash
+	import flash.events.Event;
+	import flash.events.IEventDispatcher;
+	import flash.events.ProgressEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.events.IOErrorEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.events.HTTPStatusEvent;
+	import flash.net.URLVariables;
+	import flash.net.URLRequestMethod;
+	private typedef Result = flash.events.Event;
 #end
 
 class RCRequest {
@@ -45,6 +44,9 @@ class RCRequest {
 	public var result :String; // Returned data or error message
 	public var status :Int; //
 	public var percentLoaded :Int;
+	#if (nme && ios)
+		var nme_req :NMEHttps;
+	#end
 	
 	/**
 	 * Dispatch events by overriding this functions
@@ -60,24 +62,31 @@ class RCRequest {
 	
 	/**
 	 * Execute a request
-	 *	@param URL - the url of the reuest
+	 *	@param URL - the url of the request
 	 *	@param varaibles - An object containing the variables to send along the request
 	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
 		trace(URL);trace(method);
-		#if (flash || nme)
-			loader = new URLLoader();
-			addListeners ( loader );
-			loader.load ( createRequest (URL, variables, method) );
-		#elseif js
+		#if (nme && ios)
+			nme_req = new NMEHttps();
+			nme_req.didFinishLoad.add( function(e:String){ result = e; onComplete(); } );
+			nme_req.didFinishWithError.add( function(e:String){ result = e; onError(); } );
+			nme_req.call (URL, variables, method);
+		#elseif (js || cpp || neko || objc)
 			loader = new Http ( URL );
-			loader.async = true;
+			#if js
+				loader.async = true;
+			#end
 			for (key in Reflect.fields(variables)) {
 				loader.setParameter (key, Reflect.field (variables, key));
 			}
 			addListeners ( loader );
 			loader.request ( method == "POST" ? true : false );
+		#elseif flash
+			loader = new URLLoader();
+			addListeners ( loader );
+			loader.load ( createRequest (URL, variables, method) );
 		#end
 	}
 	
@@ -87,36 +96,34 @@ class RCRequest {
 	 * Configure and remove listeners
 	 */
 	function addListeners (dispatcher:IEventDispatcher) :Void {
-		#if (flash || nme)
+		if (dispatcher == null) return;
+		#if (js || cpp || neko || objc)
+			dispatcher.onData = completeHandler;
+			dispatcher.onError = securityErrorHandler;
+			dispatcher.onStatus = httpStatusHandler;
+		#elseif flash
 			dispatcher.addEventListener (Event.OPEN, openHandler);
 			dispatcher.addEventListener (Event.COMPLETE, completeHandler);
 			dispatcher.addEventListener (ProgressEvent.PROGRESS, progressHandler);
 			dispatcher.addEventListener (SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 			dispatcher.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
-			#if flash
-				dispatcher.addEventListener (HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
-			#end
-		#elseif js
-			dispatcher.onData = completeHandler;
-			dispatcher.onError = securityErrorHandler;
-			dispatcher.onStatus = httpStatusHandler;
+			dispatcher.addEventListener (HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 		#end
     }
 
 	function removeListeners (dispatcher:IEventDispatcher) :Void {
-		#if (flash || nme)
+		if (dispatcher == null) return;
+		#if (js || cpp || neko || objc)
+			dispatcher.onData = null;
+			dispatcher.onError = null;
+			dispatcher.onStatus = null;
+		#elseif flash
 			dispatcher.removeEventListener (Event.OPEN, openHandler);
 			dispatcher.removeEventListener (Event.COMPLETE, completeHandler);
 			dispatcher.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
 			dispatcher.removeEventListener (SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 			dispatcher.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
-			#if flash
-				dispatcher.removeEventListener (HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
-			#end
-		#elseif js
-			dispatcher.onData = null;
-			dispatcher.onError = null;
-			dispatcher.onStatus = null;
+			dispatcher.removeEventListener (HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 		#end
     }
 	
@@ -129,13 +136,13 @@ class RCRequest {
 	}
 	
 	function completeHandler (e:Result) :Void {
-		#if (flash || nme)
-			result = e.target.data;
-		#elseif js
+		#if (js || cpp || neko || objc)
 			result = e;
+		#elseif flash
+			result = e.target.data;
 		#end
 		
-		// ralcr error convention, put error:: in front of the result
+		// ralcr framework error convention, put error:: in front of the result
 		(result.indexOf("error::") != -1)
 		? {
 			result = result.split("error::").pop();
@@ -145,55 +152,60 @@ class RCRequest {
 	}
 	
 	function progressHandler (e:ProgressEvent) :Void {
-		#if (flash || nme)
+		#if flash
 			percentLoaded = Math.round ( e.bytesLoaded / e.bytesTotal * 100 );
 			onProgress ();
 		#end
     }
 	function securityErrorHandler (e:SecurityErrorEvent) :Void {
-		#if (flash || nme)
-			result = e.text;
-		#elseif js
+		#if (js || cpp || neko || objc)
 			result = e;
+		#elseif flash
+			result = e.text;
 		#end
 		onError();
     }
 	function httpStatusHandler (e:HTTPStatusEvent) :Void {
-		#if (flash || nme)
-			status = e.status;
-		#elseif js
+		#if (js || cpp || neko || objc)
 			status = e;
+		#elseif flash
+			status = e.status;
 		#end
 		onStatus();
     }
 	function ioErrorHandler (e:IOErrorEvent) :Void {
-		#if (flash || nme)
-			result = e.text;
-		#elseif js
+		#if (js || cpp || neko || objc)
 			result = e;
+		#elseif flash
+			result = e.text;
 		#end
 		onError();
     }
 	
 	
 	// Utils
+	
+	/**
+	*  
+	*/
 	function createRequest (URL:String, variables:URLVariables, method:String) :URLRequest {
 		#if nme
-		if (method=="GET") URL += "?";
-		for (f in Reflect.fields (variables))
-			URL += f + "=" + Reflect.field (variables, f) + "&";
+			if (method=="GET") URL += "?";
+			for (f in Reflect.fields (variables))
+				URL += f + "=" + Reflect.field (variables, f) + "&";
 		#end
-		
-		var request = new URLRequest ( URL );
-		#if (flash || nme)
-			request.data = variables;
 		#if flash
-			request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
+			var request = new URLRequest ( URL );
+				request.data = variables;
+				request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;
+			return request;
 		#end
-		#end
-			//trace(request);trace(request.url);
-		return request;
+			return null;
 	}
+	
+	/**
+	*  Get the fields of an anonymous objects and put then into an URLVariables
+	*/
 	function createVariables (variables_list:Dynamic) :URLVariables {
 		
 		if (variables_list == null) return null;
@@ -215,5 +227,8 @@ class RCRequest {
 		removeListeners ( loader );
 		//try { loader.close(); } catch (e:Dynamic) { }
 		loader = null;
+		#if (nme && ios)
+			if (nme_req != null) nme_req.destroy(); nme_req = null;
+		#end
 	}
 }

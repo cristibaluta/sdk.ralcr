@@ -5,6 +5,7 @@
 #include "AlertView.h"
 #include "WebView.h"
 #include "AudioEngine.h"
+#include "Https.h"
 
 
 using namespace ralcr;
@@ -106,3 +107,15 @@ value ralcr_unload_effect (value filePath) {
 DEFINE_PRIM (ralcr_unload_effect, 1);
 #endif
 
+
+
+// Https
+
+#ifdef IPHONE
+value ralcr_https_post (value url, value vars) { https_post ( val_string(url), val_string(vars) ); return alloc_null(); }
+DEFINE_PRIM (ralcr_https_post, 2);
+value ralcr_https_get (value url, value vars) { https_get ( val_string(url), val_string(vars) ); return alloc_null(); }
+DEFINE_PRIM (ralcr_https_get, 2);
+value ralcr_https_cancel () { https_cancel(); }
+DEFINE_PRIM (ralcr_https_cancel, 0);
+#endif

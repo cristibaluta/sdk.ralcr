@@ -1679,7 +1679,7 @@ Facebook.prototype = {
 		return this.resultHash[data];
 	}
 	,errorHandler: function(req,_callback) {
-		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 457, className : "Facebook", methodName : "errorHandler"});
+		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 458, className : "Facebook", methodName : "errorHandler"});
 		var parsedData = haxe.Json.parse(req.result);
 		_callback(null,parsedData);
 	}
@@ -2438,8 +2438,7 @@ RCRequest.prototype = {
 		return variables;
 	}
 	,createRequest: function(URL,variables,method) {
-		var request = new haxe.Http(URL);
-		return request;
+		return null;
 	}
 	,ioErrorHandler: function(e) {
 		this.result = e;
@@ -2466,19 +2465,21 @@ RCRequest.prototype = {
 		this.onOpen();
 	}
 	,removeListeners: function(dispatcher) {
+		if(dispatcher == null) return;
 		dispatcher.onData = null;
 		dispatcher.onError = null;
 		dispatcher.onStatus = null;
 	}
 	,addListeners: function(dispatcher) {
+		if(dispatcher == null) return;
 		dispatcher.onData = $bind(this,this.completeHandler);
 		dispatcher.onError = $bind(this,this.securityErrorHandler);
 		dispatcher.onStatus = $bind(this,this.httpStatusHandler);
 	}
 	,load: function(URL,variables,method) {
 		if(method == null) method = "POST";
-		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 68, className : "RCRequest", methodName : "load"});
+		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
+		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);
@@ -4757,7 +4758,6 @@ RCHttp.prototype = $extend(RCRequest.prototype,{
 	}
 	,call: function(script,variables_list,method) {
 		if(method == null) method = "POST";
-		haxe.Log.trace(variables_list,{ fileName : "RCHttp.hx", lineNumber : 48, className : "RCHttp", methodName : "call"});
 		this.load(this.apiPath + script,this.createVariables(variables_list),method);
 	}
 	,readDirectory: function(directoryName) {

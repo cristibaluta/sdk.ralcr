@@ -203,7 +203,7 @@ class Facebook {
 
 	function webViewDidFinishLoad (url:String) :Void {
 		trace(url);
-		AppController.debugger.log(url);
+		//AppController.debugger.log(url);
 		if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
 			//webView.destroy();
 			//webView = null;
@@ -442,6 +442,7 @@ class Facebook {
     }
 	function completeHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
 		//trace(req.result);
+		//new NMEAlertView("Facebook ok", req.result);
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
@@ -455,6 +456,7 @@ class Facebook {
 	}
 	function errorHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
 		trace(req.result);
+		#if nme new NMEAlertView("Facebook err", req.result); #end
 		var parsedData = Json.parse ( req.result );
 		_callback (null, parsedData);
 	}

@@ -42,10 +42,10 @@ class RCHttp extends RCRequest {
 	
 	
 	/**
-	 * Call an url and pass some variables
+	 *	Call an url and pass some variables
+	 *  In ios we use the NMEHttps request because haxe-cpp does not support https
 	 */
 	public function call (script:String, variables_list:Dynamic, ?method:String="POST") :Void {
-		trace(variables_list);
 		load (apiPath + script, createVariables (variables_list), method);
 	}
 	
@@ -53,7 +53,7 @@ class RCHttp extends RCRequest {
 		//trace(URL);trace(variables_list);trace(method);trace(target);
 		var variables = createVariables ( variables_list );
 		#if (flash || nme)
-			flash.Lib.getURL ( createRequest (URL, variables, method), target);
+			//flash.Lib.getURL ( createRequest (URL, variables, method), target);
 		#end
 	}
 }

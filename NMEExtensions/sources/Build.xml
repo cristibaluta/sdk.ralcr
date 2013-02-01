@@ -22,6 +22,7 @@
 		<compilerflag value="-Iiphone"/>
 		<file name="iphone/WebView.mm"/>
 		<file name="iphone/AlertView.mm"/>
+		<file name="iphone/Https.mm"/>
 		<file name="iphone/AudioEngine.mm"/>
 		<file name="iphone/CocosDenshion/CocosDenshion/CDAudioManager.m"/>
 		<file name="iphone/CocosDenshion/CocosDenshion/CDOpenALSupport.m"/>
