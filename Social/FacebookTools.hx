@@ -19,7 +19,7 @@ class FacebookTools {
 	}
 	
 	/**
-	*  Returns in func an array of FacebookFriend
+	*  Returns in func an Array<FacebookFriend>
 	*/
 	public static function requestFriends (func:Dynamic->Dynamic->Void) {
 		Facebook.sharedFacebook().api ("me/friends", func, null, "GET");
@@ -32,10 +32,13 @@ class FacebookTools {
 		Facebook.sharedFacebook().api (userId + "/picture?type=large&redirect=0&", func, null, "GET");
 	}
 	
-	
-    public static function postData (method:String, _callback:Dynamic->Dynamic->Void, params:Dynamic) {
-		Facebook.sharedFacebook().api (method, _callback, params, "POST");
+	/**
+	*  Returns an Object containing an 'id'
+	*/
+    public static function postData (method:String, func:Dynamic->Dynamic->Void, params:Dynamic) {
+		Facebook.sharedFacebook().api (method, func, params, "POST");
     }
+	
     /**
      * Utility method to format a picture URL, in order to load an image from Facebook.
      *

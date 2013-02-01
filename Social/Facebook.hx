@@ -441,22 +441,34 @@ class Facebook {
 		requests.push ( req );
     }
 	function completeHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
-		//trace(req.result);
-		//new NMEAlertView("Facebook ok", req.result);
+		trace(req.result);
+		// Possible results:
+		// When calling me/feed:
+		// {"id":"100001416751627_494402473950307"}
+		// {"data":[{"name":"Renee Jim","id":"120811039"},.....
+		// {"error":{"message":"(#506) Duplicate status message","type":"OAuthException","code":506,"error_data":{"kError":1455006}}}
+		
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
-		} catch (e:Dynamic) {
+			
+			if (parsedData.error != null) {
+				_callback (null, parsedData.error);
+			}
+			else if (parsedData.data != null) {
+				_callback (parsedData.data, null);
+			}
+			else {
+				_callback (parsedData, null);
+			}
+		}
+		catch (e:Dynamic) {
 			parsedData = req.result;
 			errorHandler (req, _callback);
-			return;
 		}
-		
-		_callback (parsedData.data, null);
 	}
 	function errorHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
 		trace(req.result);
-		#if nme new NMEAlertView("Facebook err", req.result); #end
 		var parsedData = Json.parse ( req.result );
 		_callback (null, parsedData);
 	}

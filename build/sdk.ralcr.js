@@ -1679,20 +1679,20 @@ Facebook.prototype = {
 		return this.resultHash[data];
 	}
 	,errorHandler: function(req,_callback) {
-		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 458, className : "Facebook", methodName : "errorHandler"});
+		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 471, className : "Facebook", methodName : "errorHandler"});
 		var parsedData = haxe.Json.parse(req.result);
 		_callback(null,parsedData);
 	}
 	,completeHandler: function(req,_callback) {
+		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 444, className : "Facebook", methodName : "completeHandler"});
 		var parsedData = null;
 		try {
 			parsedData = haxe.Json.parse(req.result);
+			if(parsedData.error != null) _callback(null,parsedData.error); else if(parsedData.data != null) _callback(parsedData.data,null); else _callback(parsedData,null);
 		} catch( e ) {
 			parsedData = req.result;
 			this.errorHandler(req,_callback);
-			return;
 		}
-		_callback(parsedData.data,null);
 	}
 	,api: function(method,_callback,params,requestMethod) {
 		if(requestMethod == null) requestMethod = "GET";
@@ -2479,7 +2479,6 @@ RCRequest.prototype = {
 	,load: function(URL,variables,method) {
 		if(method == null) method = "POST";
 		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);

@@ -67,7 +67,7 @@ class RCRequest {
 	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
-		trace(URL);trace(method);
+		trace(URL);
 		#if (nme && ios)
 			nme_req = new NMEHttps();
 			nme_req.didFinishLoad.add( function(e:String){ result = e; onComplete(); } );

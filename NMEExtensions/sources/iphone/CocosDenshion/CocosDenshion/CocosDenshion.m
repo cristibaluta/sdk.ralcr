@@ -826,7 +826,7 @@ static BOOL _mixerRateSet = NO;
  *
  */
 - (ALuint)playSound:(int) soundId sourceGroupId:(int)sourceGroupId pitch:(float) pitch pan:(float) pan gain:(float) gain loop:(BOOL) loop {
-NSLog(@"CDSoundEngine playSound %i", soundId);
+
 #ifdef CD_DEBUG
 	//Sanity check parameters - only in DEBUG
 	NSAssert(soundId >= 0, @"soundId can not be negative");
@@ -870,7 +870,6 @@ NSLog(@"CDSoundEngine playSound %i", soundId);
 		alSourcePlay(source);
 		if((lastErrorCode_ = alGetError()) == AL_NO_ERROR) {
 			//Everything was okay
-			NSLog(@"CDSoundEngine Everything was okay");
 			_sources[sourceIndex].attachedBufferId = buffer;
 			return source;
 		} else {
