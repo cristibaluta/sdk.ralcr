@@ -2,6 +2,7 @@
 #include <hx/CFFI.h>
 #include <hxcpp.h>
 
+#include "ActivityIndicator.h"
 #include "AlertView.h"
 #include "WebView.h"
 #include "AudioEngine.h"
@@ -39,6 +40,15 @@ extern "C" int ralcr_register_prims(){
 
 void ralcr_show_alert_view (value title, value description){ show_alert_view (val_string(title), val_string(description)); }
 DEFINE_PRIM (ralcr_show_alert_view, 2);
+
+
+
+// ActivityIndicator
+
+void ralcr_new_activity_indicator (value x, value y, value white, value large){ new_activity_indicator (val_int(x), val_int(y), val_bool(white), val_bool(large)); }
+DEFINE_PRIM (ralcr_new_activity_indicator, 4);
+void ralcr_destroy_activity_indicator (){ destroy_activity_indicator(); }
+DEFINE_PRIM (ralcr_destroy_activity_indicator, 4);
 
 
 

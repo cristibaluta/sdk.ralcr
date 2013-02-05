@@ -4,7 +4,7 @@
 
 namespace ralcr {
 	
-    void show_alert_view (const char *title,const char *message) {	
+    void show_alert_view (const char *title, const char *message) {	
         
         UIAlertView* alert= [[UIAlertView alloc] initWithTitle:[[NSString alloc] initWithUTF8String:title] 
 														message:[[NSString alloc] initWithUTF8String:message] 
