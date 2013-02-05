@@ -10,40 +10,56 @@ foreach($_GET as $key=>$value) {
 
 // Create variables
 $userId = $_GET['userId'];
+$includeFriends = $_GET['includeFriends'];
 $min_timestamp = $_GET['timestamp'];
-$timestamp = date_timestamp_get(date_create());
-echo $timestamp;
+$timestamp = date_timestamp_get(date_create()) - 100000;
+//echo $timestamp;
 
 
-if (isset($_GET['userId']) || isset($_GET['ids'])) {
-	// Instantiate the database 
-	require_once('../../config.php');
-	require_once("../../classes/database_php$php_version.php");
-	$db = new Database ($db_host, $db_user, $db_pass, $db_name, 1);
-}
-if ( isset($_GET['userId']) ) {
+// Instantiate the database 
+require_once('../../config.php');
+require_once("../../classes/database_php$php_version.php");
+$db = new Database ($db_host, $db_user, $db_pass, $db_name, 1);
+
+// Return friends top score
+if (isset($_GET['userId']) && isset($_GET['includeFriends'])) {
 	
 	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends ON ($userId = friends.user_id) 
-					WHERE friends.friend_id = scoreboard.user_id AND scoreboard.timestamp >= $timestamp 
+					WHERE (friends.friend_id = scoreboard.user_id) AND scoreboard.timestamp >= $timestamp 
+					ORDER BY scoreboard.score DESC
+					LIMIT 15";// OR $userId = scoreboard.user_id
+	$id_to_return = "friend_id";
+}
+// Return only your scores
+else if (isset($_GET['userId'])) {
+	
+	$sql_string = "SELECT * FROM scoreboard
+					WHERE $userId = user_id AND scoreboard.timestamp >= $timestamp 
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";
+	$id_to_return = "user_id";
+}
+// Return all users top score
+else {
 	
-	// Extract data from database
-	$sql = $db->query($sql_string);
-	
-	//if a match is found
-	if ($sql->num_rows > 0) {
-		$arr = array();
-		while ($row = $sql->fetch_assoc()) {
-			array_push($arr, "{\"id\": \"".$row["user_id"]."\", \"score:\": \"".$row["score"]."\"}");
-		}
+	$sql_string = "SELECT * FROM scoreboard
+					ORDER BY scoreboard.score DESC
+					LIMIT 15";
+	$id_to_return = "user_id";
+}
+
+// Extract data from database
+$sql = $db->query($sql_string);
+
+//if a match is found
+if ($sql->num_rows > 0) {
+	$arr = array();
+	while ($row = $sql->fetch_assoc()) {
+		array_push($arr, "{\"id\": \"".$row[$id_to_return]."\", \"score\": \"".$row["score"]."\"}");
+	}
 		
-		echo implode (", ", $arr);
-	}
-	else {
-		echo 'error::No fields found';
-	}
+	echo "[".implode (", ", $arr)."]";
 }
 else {
-	echo 'error::Invalid GET data';
+	echo 'error::No fields found';
 }

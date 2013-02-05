@@ -57,9 +57,10 @@ class GKScoreBoard extends RCRequest {
 	 *  @param ids - An array with userIds to get top scores for
 	 *  @param minDate - Read the scores from this date onwards
 	 **/
-	public function requestTopScoreForIds (ids:Array<String>, ?minDate:Date) {
+	public function requestFriendsTopScore (?minDate:Date) {
 		var vars = {
-			ids : ids.join("*"),
+			userId : userId,
+			includeFriends : true,
 			timestamp : minDate != null ? minDate.getTime() : Date.now().getTime()
 		}
 		load (apiPath + "gamekit/scoreboard/read.php", createVariables ( vars ), "GET");
@@ -69,7 +70,7 @@ class GKScoreBoard extends RCRequest {
 	 *  Read the score
 	 *  @param minDate - Read the scores from this date onwards
 	 **/
-	public function requestTopScoreForAll (?minDate:Date) {
+	public function requestGeneralTopScore (?minDate:Date) {
 		var vars = {
 			timestamp : minDate != null ? minDate.getTime() : Date.now().getTime()
 		}

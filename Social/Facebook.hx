@@ -157,6 +157,9 @@ class Facebook {
 	public function isConnected () :Bool {
 		return getAccessToken() != null;
 	}
+	public function myId () :String {
+		return session.uid;
+	}
 
     /**
      * Shows the Facebook login window to the end user.
@@ -451,7 +454,7 @@ class Facebook {
 		requests.push ( req );
     }
 	function completeHandler (req:RCHttp, _callback:Dynamic->Dynamic->Void) {
-		trace(req.result);
+		//trace(req.result);
 		// Possible results:
 		// When calling me/feed:
 		// {"id":"100001416751627_494402473950307"}
