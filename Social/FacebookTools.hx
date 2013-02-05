@@ -20,8 +20,10 @@ class FacebookTools {
 	
 	/**
 	*  Returns in func an Array<FacebookFriend>
+	*  all = If there are too many items facebook will return you only a part of it and a link to the next part
+	*  If 'all' is true i'll request the other parts for you and func will get all the friends
 	*/
-	public static function requestFriends (func:Dynamic->Dynamic->Void) {
+	public static function requestFriends (func:Dynamic->Dynamic->Void, all:Bool=true) {
 		Facebook.sharedFacebook().api ("me/friends", func, null, "GET");
 	}
 	

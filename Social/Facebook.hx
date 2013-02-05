@@ -146,6 +146,7 @@ class Facebook {
     * Asynchronous method to get the user's current session from Facebook.
     */
     public function getLoginStatus () :Void {
+		trace("getLoginStatus");
 #if nme
 		
 #elseif flash
@@ -167,7 +168,7 @@ class Facebook {
      * http://developers.facebook.com/docs/reference/javascript/FBAS.login
      */
 	public function login (_callback:Dynamic->Dynamic->Void, options:Dynamic) {
-		
+		trace("login");
 		_loginCallback = _callback;
 		
 #if (nme && (ios || android))
@@ -232,7 +233,7 @@ class Facebook {
 			AppController.debugger.log(Std.string(_loginCallback));*/
 			session = generateSession ( {access_token : access_token} );
 /*			AppController.debugger.log(Std.string(session));*/
-			_loginCallback ({accessToken : access_token}, null);
+			_loginCallback (session, null);
 /*			AppController.debugger.log("login called. did it get it?");*/
 		}
 	}
@@ -269,7 +270,7 @@ class Facebook {
     
 	
 	function getAuthResponse () :FacebookAuthResponse {
-
+		trace("getAuthResponse: ");
 #if nme
 		
 		
@@ -290,6 +291,7 @@ class Facebook {
 		return authResponse;
 	}
 	function generateAuthResponse (json:Dynamic) :FacebookAuthResponse {
+		
 		return {
 			uid : json.userID,
 			expireDate : Date.fromTime ( Date.now().getTime() + json.expiresIn * 1000),
@@ -301,8 +303,10 @@ class Facebook {
 		
 		if (json == null)
 			json = {};
+			
 		var expireTimestamp = Date.now().getTime() + (json!=null?Std.int(json.expires):0);
 		var expireDate = Date.fromTime ( expireTimestamp );
+		
         return {
  			uid : json.uid,
 			user : null,
@@ -321,7 +325,11 @@ class Facebook {
 			_logoutCallback = null;
 		}
 	}
+	
+	// {"accessToken":"AAAGe0HHi1P..","userID":"100001416751627","expiresIn":5581,"signedRequest":"lVB1..SvAdULf-EiDc..."}
+	
 	function handleAuthResponseChange(result:String) {
+		trace("handleAuthResponseChange");
 		trace(result);
 		var resultObj :Dynamic = null;
 		var success = true;
@@ -338,6 +346,8 @@ class Facebook {
 		
 		if (success) {
 			authResponse = generateAuthResponse ( resultObj );
+			session = generateSession ( authResponse );
+			trace(authResponse);
 /*			if (authResponse == null) {
 				authResponse = FacebookAuthResponse.fromJson( resultObj );
 			} else {
@@ -643,7 +653,7 @@ class Facebook {
 	 * 
 	 */	
 	public function fqlQuery (query:String, _callback:Dynamic, values:Dynamic) {
-			
+		
 		for (n in Reflect.fields(values)) {
 			//query = query.replace ( new RegExp('\\{'+n+'\\}', 'g'), Reflect.field(values, n));
 		}
