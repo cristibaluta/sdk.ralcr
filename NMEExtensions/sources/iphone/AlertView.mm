@@ -1,5 +1,6 @@
-#include <AlertView.h>
 #import <UIKit/UIKit.h>
+#include <AlertView.h>
+#include <hx/CFFI.h>
 
 namespace ralcr {
 	
@@ -8,8 +9,13 @@ namespace ralcr {
         UIAlertView* alert= [[UIAlertView alloc] initWithTitle:[[NSString alloc] initWithUTF8String:title] 
 														message:[[NSString alloc] initWithUTF8String:message] 
                                                        delegate:NULL cancelButtonTitle:@"OK" 
-											otherButtonTitles:NULL] ;//autorelease];
+											otherButtonTitles:NULL];
         [alert show];
-        //[alert release];
+        [alert release];
     }
+	
+	// void ralcr_show_alert_view (value title, value description){
+	// 	show_alert_view (val_string(title), val_string(description));
+	// }
+	// DEFINE_PRIM (ralcr_show_alert_view, 2);
 }

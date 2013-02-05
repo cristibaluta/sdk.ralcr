@@ -5,17 +5,35 @@ class NMEWebView {
 	
 #if android
 	
-	public function new (x, y, w, h, url:String) {
-		var _showAlert_func = nme.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
-		_showAlert_func ( [title, msg] );
-	}
-	public function destroy() :Void {
+	var ralcr_show_web_view :Dynamic;
+	var ralcr_hide_web_view :Dynamic;
+	var ralcr_set_did_finish_load_handle :Dynamic;
+	
+	public function new (x:Float, y:Float, w:Float, h:Float, url:String) {
 		
+		didFinishLoad = new RCSignal<String->Void>();
+		
+		if (ralcr_set_did_finish_load_handle == null)
+			ralcr_set_did_finish_load_handle = nme.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
+		ralcr_set_did_finish_load_handle ( [didFinishLoadHandler] );
+		
+		if (ralcr_show_web_view == null)
+			ralcr_show_web_view = nme.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
+		ralcr_show_web_view ( [x, y, w, h, url] );
+	}
+	function didFinishLoadHandler (e:Dynamic) {
+		didFinishLoad.dispatch ( Std.string(e) );
+	}
+    
+	public function destroy() :Void {
+		if (ralcr_hide_web_view == null)
+			ralcr_hide_web_view = nme.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
+		ralcr_hide_web_view();
 	}
     
 #else
 	
-	public function new (x, y, w, h, url:String) {
+	public function new (x:Float, y:Float, w:Float, h:Float, url:String) {
 		
 		didFinishLoad = new RCSignal<String->Void>();
 		
