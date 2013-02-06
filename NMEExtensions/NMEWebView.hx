@@ -38,18 +38,18 @@ class NMEWebView {
 		didFinishLoad = new RCSignal<String->Void>();
 		
 		ralcr_set_did_finish_load_handle ( didFinishLoadHandler );
-		ralcr_show_web_view (x, y, w, h, url);
+		ralcr_new_web_view (x, y, w, h, url);
 	}
 	function didFinishLoadHandler (e:Dynamic) {
 		didFinishLoad.dispatch ( Std.string(e) );
 	}
     
 	public function destroy() :Void {
-		ralcr_hide_web_view();
+		ralcr_destroy_web_view();
 	}
     
-	static var ralcr_show_web_view = nme.Loader.load("ralcr_show_web_view", 5);
-	static var ralcr_hide_web_view = nme.Loader.load("ralcr_hide_web_view", 0);
+	static var ralcr_new_web_view = nme.Loader.load("ralcr_new_web_view", 5);
+	static var ralcr_destroy_web_view = nme.Loader.load("ralcr_destroy_web_view", 0);
 	static var ralcr_set_did_finish_load_handle = nme.Loader.load("ralcr_set_did_finish_load_handle", 1);
 #end
 }

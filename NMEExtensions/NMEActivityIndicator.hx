@@ -3,7 +3,7 @@ class NMEActivityIndicator {
 	
 #if android
 	
-	public function new (x, y, white:Bool=false, large:Bool=false) {
+	public function new (x:Float, y:Float, white:Bool=false, large:Bool=false) {
 		
 	}
 	public function destroy() :Void {
@@ -12,7 +12,7 @@ class NMEActivityIndicator {
     
 #else
 	
-	public function new (x, y, white:Bool, large:Bool) {
+	public function new (x:Float, y:Float, ?white:Bool=false, ?large:Bool=false) {
 		ralcr_new_activity_indicator (x, y, white, large);
 	}
 	public function destroy() :Void {

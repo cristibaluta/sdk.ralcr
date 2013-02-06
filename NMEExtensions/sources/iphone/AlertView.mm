@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 #include <AlertView.h>
-#include <hx/CFFI.h>
+//#include <hx/CFFI.h>
 
 namespace ralcr {
 	

@@ -18,7 +18,7 @@ namespace ralcr {
 			style = UIActivityIndicatorViewStyleGray;
 		}
 		
-		UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
+		activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
 		CGRect rect = activityIndicator.frame;
 		rect.origin.x = x - rect.size.width/2;
 		rect.origin.y = y - rect.size.height/2;
@@ -29,12 +29,10 @@ namespace ralcr {
     }
 	
 	void destroy_activity_indicator(){
-	
+		
 		[activityIndicator stopAnimating];
 		[activityIndicator removeFromSuperview];
 		[activityIndicator release];
 		activityIndicator = nil;
 	}
 }
-
-

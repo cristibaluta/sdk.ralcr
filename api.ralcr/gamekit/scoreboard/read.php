@@ -12,7 +12,7 @@ foreach($_GET as $key=>$value) {
 $userId = $_GET['userId'];
 $includeFriends = $_GET['includeFriends'];
 $min_timestamp = $_GET['timestamp'];
-$timestamp = date_timestamp_get(date_create()) - 100000;
+$timestamp = time() - 100000;
 //echo $timestamp;
 
 

@@ -4,9 +4,9 @@
 
 #include "ActivityIndicator.h"
 #include "AlertView.h"
-#include "WebView.h"
 #include "AudioEngine.h"
 #include "Https.h"
+#include "WebView.h"
 
 
 using namespace ralcr;
@@ -48,20 +48,18 @@ DEFINE_PRIM (ralcr_show_alert_view, 2);
 void ralcr_new_activity_indicator (value x, value y, value white, value large){ new_activity_indicator (val_int(x), val_int(y), val_bool(white), val_bool(large)); }
 DEFINE_PRIM (ralcr_new_activity_indicator, 4);
 void ralcr_destroy_activity_indicator (){ destroy_activity_indicator(); }
-DEFINE_PRIM (ralcr_destroy_activity_indicator, 4);
+DEFINE_PRIM (ralcr_destroy_activity_indicator, 0);
 
 
 
 // WebView
 
-value ralcr_show_web_view (value x, value y, value w, value h, value url) {
-	show_web_view ( val_int(x), val_int(y), val_int(w), val_int(h), val_string(url) );
-	return alloc_null();
+void ralcr_new_web_view (value x, value y, value w, value h, value url) {
+	new_web_view ( val_int(x), val_int(y), val_int(w), val_int(h), val_string(url) );
 }
-DEFINE_PRIM (ralcr_show_web_view, 5);
-
-value ralcr_hide_web_view(){ hide_web_view(); return alloc_null(); }
-DEFINE_PRIM (ralcr_hide_web_view, 0);
+DEFINE_PRIM (ralcr_new_web_view, 5);
+void ralcr_destroy_web_view(){ destroy_web_view(); }
+DEFINE_PRIM (ralcr_destroy_web_view, 0);
 
 
 

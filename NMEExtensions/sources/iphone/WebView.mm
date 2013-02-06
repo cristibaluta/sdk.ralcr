@@ -25,9 +25,7 @@ namespace ralcr {
 	
 	//extern "C" void nme_extensions_send_event(Event &inEvent);
 	
-	void show_web_view (int x, int y, int w, int h, const char *url) {
-		
-		//nme_app_set_active(FALSE);
+	void new_web_view (int x, int y, int w, int h, const char *url) {
 		
 		webViewDelegate = [[WebViewDelegate alloc] init];
 		webViewDelegate.loadFinished = &loadFinishedHandler;
@@ -37,12 +35,17 @@ namespace ralcr {
 		NSURL *_url = [[NSURL alloc] initWithString: [[NSString alloc] initWithUTF8String:url]];
 		NSURLRequest *req = [[NSURLRequest alloc] initWithURL:_url];
 		[webView loadRequest:req];
+		
 		[[[UIApplication sharedApplication] keyWindow] addSubview:webView];
+		
+		//nme_app_set_active(FALSE);
 	}
-	void hide_web_view () {
+	void destroy_web_view () {
 		[webView stopLoading];
 		[webView removeFromSuperview];
+		[webView release];
 		webView = nil;
+		[webViewDelegate release];
 		webViewDelegate = nil;
 		
 		// http://www.nme.io/community/forums/bugs/ios-extensions-touch-release-issue/
@@ -52,7 +55,7 @@ namespace ralcr {
 	
 	/** Notify Haxe of an Event */
 	void loadFinishedHandler () {
-		NSLog(@"loadFinishedHandler %@", webView.request.URL.absoluteString);
+		//NSLog(@"loadFinishedHandler %@", webView.request.URL.absoluteString);
 		val_call1 (eventHandle->get(), alloc_string([webView.request.URL.absoluteString cStringUsingEncoding:NSUTF8StringEncoding]));
 	}
 	

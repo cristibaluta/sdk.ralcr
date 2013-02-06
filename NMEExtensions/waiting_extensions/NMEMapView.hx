@@ -15,21 +15,21 @@ class NMEWebView {
     
 #else
 	
-	public function new (x, y, w, h, url:String) {
+	public function new (x, y, w, h) {
 		
 		didFinishLoad = new RCSignal<String->Void>();
-		haxe.Timer.delay (function(){ show_web_view (x, y, w, h, url); }, 100);
+		new_web_view (x, y, w, h, url);
 	}
 	function didFinishLoadHandler () {
 		didFinishLoad.dispatch ( "url" );
 	}
     
 	public function destroy() :Void {
-		hide_web_view();
+		destroy_web_view();
 	}
     
-	static var show_web_view = nme.Loader.load("show_web_view", 5);
-	static var hide_web_view = nme.Loader.load("hide_web_view", 0);
+	static var new_web_view = nme.Loader.load("new_web_view", 5);
+	static var destroy_web_view = nme.Loader.load("destroy_web_view", 0);
 #end
 }
 #end

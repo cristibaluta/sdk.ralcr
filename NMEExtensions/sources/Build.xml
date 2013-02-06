@@ -25,14 +25,15 @@
 		<depend name="iphone/CocosDenshion/CocosDenshion/SimpleAudioEngine.h"/>
 		<compilerflag value="-IiPhone/iphone"/>
 		<compilerflag value="-Iiphone"/>
-		<file name="iphone/WebView.mm"/>
+		<file name="iphone/ActivityIndicator.mm"/>
 		<file name="iphone/AlertView.mm"/>
-		<file name="iphone/Https.mm"/>
 		<file name="iphone/AudioEngine.mm"/>
 		<file name="iphone/CocosDenshion/CocosDenshion/CDAudioManager.m"/>
 		<file name="iphone/CocosDenshion/CocosDenshion/CDOpenALSupport.m"/>
 		<file name="iphone/CocosDenshion/CocosDenshion/CocosDenshion.m"/>
 		<file name="iphone/CocosDenshion/CocosDenshion/SimpleAudioEngine.m"/>
+		<file name="iphone/Https.mm"/>
+		<file name="iphone/WebView.mm"/>
 	</files>
 	
 	<files id="common">
