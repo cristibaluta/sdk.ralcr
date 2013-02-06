@@ -8,16 +8,18 @@ foreach($_POST as $key=>$value) {
 	}
 }
 
+// For testing purpose
+//$_POST['userId'] = "0";
+//$_POST['friends'] = "1->eu,2->tu,3->el,4->ea";
+
 // Create variables
 $userId = $_POST['userId'];
 $friends_list = explode(",", $_POST['friends']);
 $table = "friends";
-// For testing purpose
-// $userId = "11117";
-// $friends_list = explode(",", "1,2,3,4,5,6,54,65,6,3,4,6666,23,32,5,2222,54,6,6");
 
 // check correct variables have been received through the POST array
 if (isset($_POST['userId']) && isset($_POST['friends'])) {
+	
 	// include the Database classes
 	require_once('../../config.php');
 	require_once("../../classes/database_php$php_version.php");
@@ -26,15 +28,21 @@ if (isset($_POST['userId']) && isset($_POST['friends'])) {
 	
 	// Create columns and values to insert
 	// Extract values for columns that should be checked for duplication
-	foreach ($friends_list as $f_id) {
+	foreach ($friends_list as $f) {
+		
+		$friend_details = explode("->", $f);
+		$fi = mysql_real_escape_string($friend_details[0]);
+		$fn = mysql_real_escape_string($friend_details[1]);
 		
 		// Search for duplicates
-		$sql = $db->query("SELECT * FROM ".$table." WHERE user_id='".$userId."' AND friend_id='".$f_id."'");
+		$sql = $db->query("SELECT * FROM ".$table." WHERE user_id='$userId' AND friend_id='$fi'");
 		
 		//echo $sql->num_rows;
 		if ($sql->num_rows == 0) {
 			// Insert new friend into table
-			$db->query("INSERT INTO $table (user_id, friend_id) VALUES ($userId, $f_id)");
+			$sql_str = "INSERT INTO $table (user_id, friend_id, friend_name) VALUES ($userId, '$fi', '$fn')";
+			//print_r($sql_str);
+			$db->query($sql_str);
 			$friendsAdded ++;
 		}
 	}

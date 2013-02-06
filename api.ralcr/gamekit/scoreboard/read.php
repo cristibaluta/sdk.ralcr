@@ -28,7 +28,6 @@ if (isset($_GET['userId']) && isset($_GET['includeFriends'])) {
 					WHERE (friends.friend_id = scoreboard.user_id) AND scoreboard.timestamp >= $timestamp 
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";// OR $userId = scoreboard.user_id
-	$id_to_return = "friend_id";
 }
 // Return only your scores
 else if (isset($_GET['userId'])) {
@@ -37,15 +36,14 @@ else if (isset($_GET['userId'])) {
 					WHERE $userId = user_id AND scoreboard.timestamp >= $timestamp 
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";
-	$id_to_return = "user_id";
 }
 // Return all users top score
 else {
 	
-	$sql_string = "SELECT * FROM scoreboard
+	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends
+					WHERE (friends.friend_id = scoreboard.user_id)
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";
-	$id_to_return = "user_id";
 }
 
 // Extract data from database
@@ -55,7 +53,7 @@ $sql = $db->query($sql_string);
 if ($sql->num_rows > 0) {
 	$arr = array();
 	while ($row = $sql->fetch_assoc()) {
-		array_push($arr, "{\"id\": \"".$row[$id_to_return]."\", \"score\": \"".$row["score"]."\"}");
+		array_push($arr, "{\"name\": \"".$row["friend_name"]."\", \"score\": \"".$row["score"]."\"}");
 	}
 		
 	echo "[".implode (", ", $arr)."]";
