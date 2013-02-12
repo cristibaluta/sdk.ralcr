@@ -25,9 +25,10 @@ class Facebook {
 
 	inline public static var GRAPH_URL = 'https://graph.facebook.com';
 	inline static var API_URL = 'https://api.facebook.com';
-	inline static var AUTH_URL = 'https://graph.facebook.com/oauth/authorize';
+	inline static var AUTH_URL_SECURE = 'https://graph.facebook.com/oauth/authorize';
+	inline static var LOGIN_URL = 'http://m.facebook.com/login.php';
+	inline static var LOGIN_URL_SECURE = 'https://login.facebook.com/login.php';
 	inline static var AUTH_URL_CANCEL = 'https://graph.facebook.com/oauth/authorize_cancel';
-	inline static var LOGIN_URL = 'https://login.facebook.com/login.php';
 	inline static var LOGOUT_URL = 'http://m.facebook.com/logout.php';
 	
 	inline static var LOGIN_SUCCESS_URL = 'http://www.facebook.com/connect/login_success.html';
@@ -49,7 +50,7 @@ class Facebook {
 	var locale :String;
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
-#if (nme && (ios || android))
+#if (nme && (ios || android1))
 	var webView :NMEWebView;
 #end
 	
@@ -174,7 +175,7 @@ class Facebook {
 		trace("login");
 		_loginCallback = _callback;
 		
-#if (nme && (ios || android))
+#if (nme && (ios || android1))
 		
 		var bundle_id = options.bundle_identifier;
 		var data = {
@@ -192,7 +193,7 @@ class Facebook {
 			"&type="+data.type+
 			"&scope="+data.scope+
 			"&response_type=token";
-		webView = new NMEWebView (10, 10, 300, 460, AUTH_URL+params);
+		webView = new NMEWebView (10, 10, 300, 460, AUTH_URL_SECURE+params);// try a secure login
 		webView.didFinishLoad.add ( webViewDidFinishLoad );
 		
 #elseif flash
@@ -202,23 +203,30 @@ class Facebook {
 #end
     }
 	
-#if (nme && (ios || android))
+#if (nme && (ios || android1))
 	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
 
 	function webViewDidFinishLoad (url:String) :Void {
 		trace(url);
-		//AppController.debugger.log(url);
-		if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
-			//webView.destroy();
-			//webView = null;
+		AppController.debugger.log(url);
+		if (url.indexOf(LOGIN_URL) == 0) {
+			trace("redirect login to nonsecure page");
+			AppController.debugger.log("redirect login to nonsecure page");
+		}
+		else if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
+			webView.destroy();
+			webView = null;
 			AppController.debugger.log("FAIL");
+			_loginCallback (null, {});
 		}
 		else if (url.indexOf(LOGIN_SUCCESS_URL) == 0 || url.indexOf(LOGIN_SUCCESS_SECUREURL) == 0) {
 			AppController.debugger.log("SUCCESS");
 			webView.destroy();
 			webView = null;
 			
-			var comps :Array<String> = url.split(LOGIN_SUCCESS_SECUREURL+"#").pop().split("&");
+			var url_to_split = url.indexOf(LOGIN_SUCCESS_URL) == 0 ? LOGIN_SUCCESS_URL : LOGIN_SUCCESS_SECUREURL;
+			var comps :Array<String> = url.split(url_to_split+"#").pop().split("&");
+			AppController.debugger.log(comps.join(", "));
 			var access_token = "";
 			var expires_in = "";
 			var code = "";
@@ -235,6 +243,7 @@ class Facebook {
 			AppController.debugger.log("");
 			AppController.debugger.log(Std.string(_loginCallback));*/
 			session = generateSession ( {access_token : access_token} );
+			AppController.debugger.log( Std.string(session) );
 /*			AppController.debugger.log(Std.string(session));*/
 			_loginCallback (session, null);
 /*			AppController.debugger.log("login called. did it get it?");*/
@@ -441,12 +450,13 @@ class Facebook {
 		if (getAccessToken() != null) {
 			if (params == null)
 				params = {};
-			if (params.access_token == null)
+			//if (params.access_token == null)
 				params.access_token = getAccessToken();
 		}
 		if (locale != null)
 			params.locale = locale;
-		
+		AppController.debugger.log(GRAPH_URL + method);
+		AppController.debugger.log(params);
 		var req = new RCHttp();
 			req.onComplete = callback (completeHandler, req, _callback);
 			req.onError = callback (errorHandler, req, _callback);

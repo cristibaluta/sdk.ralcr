@@ -15,7 +15,7 @@ $table = "scoreboard";
 // For testing purpose
 // $userId ="4353245";
 // $score = "555";
-$timestamp = date_timestamp_get(date_create());
+$timestamp = time();
 
 // check correct variables have been received through the POST array
 if (isset($_POST['userId']) && isset($_POST['score'])) {

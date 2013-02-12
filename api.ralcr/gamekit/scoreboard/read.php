@@ -32,8 +32,8 @@ if (isset($_GET['userId']) && isset($_GET['includeFriends'])) {
 // Return only your scores
 else if (isset($_GET['userId'])) {
 	
-	$sql_string = "SELECT * FROM scoreboard
-					WHERE $userId = user_id AND scoreboard.timestamp >= $timestamp 
+	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends ON ($userId = friends.friend_id) 
+					WHERE scoreboard.user_id = $userId AND scoreboard.timestamp >= $timestamp 
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";
 }
