@@ -60,7 +60,7 @@ class GKScoreBoard extends RCRequest {
 	public function requestFriendsTopScore (?minDate:Date) {
 		var vars = {
 			userId : userId,
-			includeFriends : true,
+			includeFriends : "true",
 			timestamp : minDate != null ? minDate.getTime() : Date.now().getTime()
 		}
 		load (apiPath + "gamekit/scoreboard/read.php", createVariables ( vars ), "GET");

@@ -53,7 +53,12 @@ class NMEWebView extends WebView
    {
       Log.e("NMEWebView","==========Create================");
       View view = new NMEWebView(GameActivity.getContext(),inURL);
+	  view.layout(0, 50, 0, 50);
+	  //view.setAlpha(0.5);
+	  //view.setTop ( 100 );
+	  //view.setY ( 100 );
       // TODO: May need new activity
+      //GameActivity.addChild_(view);
       GameActivity.pushView(view);
       return view;
    }

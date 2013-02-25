@@ -19,7 +19,7 @@ class RCDebugger extends RCView {
 	public function new (x, y, w, h) {
 		
 		super (x, y, w, h);
-		//return;
+		return;
 		var f = RCFont.systemFontOfSize(12);
 			f.color = 0x000000;
 		txt = new RCTextView (0, 0, w, h, "Debugger...\n", f);
@@ -27,7 +27,7 @@ class RCDebugger extends RCView {
 	}
 	
 	public function log (str:String) {
-		//return;
+		return;
 		txt.text = txt.text + str + "\n -> ";
 	}
 	

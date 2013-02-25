@@ -51,5 +51,7 @@ class RCMath {
 		return f1;
 	}
 	
-	
+	inline public static function random (min:Int, max:Int) :Int {
+		return Math.round ( min + Math.random()*(max-min) );
+	}
 }

@@ -72,7 +72,7 @@ class RCSignal<T> {
 			Reflect.callMethod (null, listener, args);
 		}
 		catch (e:Dynamic) {
-			trace ("[RCSignal error: " + e + ", called from: " + Std.string ( pos ) + "]");
+			trace ("[RCSignal error: " + Std.string ( e ) + ", called from: " + Std.string ( pos ) + "]");
 			Fugu.stack();
 		}
 	}

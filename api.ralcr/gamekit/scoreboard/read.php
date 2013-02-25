@@ -12,7 +12,7 @@ foreach($_GET as $key=>$value) {
 $userId = $_GET['userId'];
 $includeFriends = $_GET['includeFriends'];
 $min_timestamp = $_GET['timestamp'];
-$timestamp = time() - 100000;
+$timestamp = time() - 1000*30*24*60*60;
 //echo $timestamp;
 
 
@@ -25,7 +25,7 @@ $db = new Database ($db_host, $db_user, $db_pass, $db_name, 1);
 if (isset($_GET['userId']) && isset($_GET['includeFriends'])) {
 	
 	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends ON ($userId = friends.user_id) 
-					WHERE (friends.friend_id = scoreboard.user_id) AND scoreboard.timestamp >= $timestamp 
+					WHERE (friends.friend_id = scoreboard.user_id) AND scoreboard.timestamp >= $timestamp AND friends.friend_id != friends.user_id
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";// OR $userId = scoreboard.user_id
 }
@@ -33,7 +33,7 @@ if (isset($_GET['userId']) && isset($_GET['includeFriends'])) {
 else if (isset($_GET['userId'])) {
 	
 	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends ON ($userId = friends.friend_id) 
-					WHERE scoreboard.user_id = $userId AND scoreboard.timestamp >= $timestamp 
+					WHERE scoreboard.user_id = $userId AND scoreboard.timestamp >= $timestamp AND friends.friend_id != friends.user_id
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";
 }
@@ -41,7 +41,7 @@ else if (isset($_GET['userId'])) {
 else {
 	
 	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends
-					WHERE (friends.friend_id = scoreboard.user_id)
+					WHERE friends.friend_id = scoreboard.user_id AND friends.friend_id != friends.user_id
 					ORDER BY scoreboard.score DESC
 					LIMIT 15";
 }

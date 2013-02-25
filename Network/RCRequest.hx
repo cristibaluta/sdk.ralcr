@@ -44,7 +44,7 @@ class RCRequest {
 	public var result :String; // Returned data or error message
 	public var status :Int; //
 	public var percentLoaded :Int;
-	#if (nme && ios)
+	#if (nme && (ios || android))
 		var nme_req :NMEHttps;
 	#end
 	
@@ -67,11 +67,11 @@ class RCRequest {
 	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
-		trace(URL);
-		#if (nme && ios)
+		trace(URL);trace(Std.string(variables));trace(method);
+		#if (nme && (ios || android_))
 			nme_req = new NMEHttps();
-			nme_req.didFinishLoad.add( function(e:String){ result = e; onComplete(); } );
-			nme_req.didFinishWithError.add( function(e:String){ result = e; onError(); } );
+			nme_req.didFinishLoad.add( completeHandler );
+			nme_req.didFinishWithError.add( ioErrorHandler );
 			nme_req.call (URL, variables, method);
 		#elseif (js || cpp || neko || objc)
 			loader = new Http ( URL );
@@ -227,7 +227,7 @@ class RCRequest {
 		removeListeners ( loader );
 		//try { loader.close(); } catch (e:Dynamic) { }
 		loader = null;
-		#if (nme && ios)
+		#if (nme && (ios || android))
 			if (nme_req != null) nme_req.destroy(); nme_req = null;
 		#end
 	}

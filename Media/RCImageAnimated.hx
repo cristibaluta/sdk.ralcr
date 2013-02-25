@@ -73,6 +73,9 @@ class RCImageAnimated extends RCView {
 	
 	public function gotoAndStop (f:Int) :Void {
 		//trace("gotoAndStop "+currentFrame+", "+f);
+#if nme2
+		//layer.bitmapData = images[f-1].bitmapData;
+#else
 		if (f == 0 || f > images.length) {
 			if (f > images.length && repeat)
 				f = 1;
@@ -83,6 +86,7 @@ class RCImageAnimated extends RCView {
 		
 		addChild ( images[f-1] );
 		currentFrame = f;
+#end
 	}
 	public function gotoLastFrame () :Void {
 		gotoAndStop ( images.length );

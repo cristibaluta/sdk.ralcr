@@ -208,7 +208,6 @@ class Facebook {
 
 	function webViewDidFinishLoad (url:String) :Void {
 		trace(url);
-		AppController.debugger.log(url);
 		if (url.indexOf(LOGIN_URL) == 0) {
 			trace("redirect login to nonsecure page");
 			AppController.debugger.log("redirect login to nonsecure page");
@@ -217,6 +216,7 @@ class Facebook {
 			webView.destroy();
 			webView = null;
 			AppController.debugger.log("FAIL");
+			AppController.debugger.log(url);
 			_loginCallback (null, {});
 		}
 		else if (url.indexOf(LOGIN_SUCCESS_URL) == 0 || url.indexOf(LOGIN_SUCCESS_SECUREURL) == 0) {
@@ -226,7 +226,7 @@ class Facebook {
 			
 			var url_to_split = url.indexOf(LOGIN_SUCCESS_URL) == 0 ? LOGIN_SUCCESS_URL : LOGIN_SUCCESS_SECUREURL;
 			var comps :Array<String> = url.split(url_to_split+"#").pop().split("&");
-			AppController.debugger.log(comps.join(", "));
+			//AppController.debugger.log(comps.join(", "));
 			var access_token = "";
 			var expires_in = "";
 			var code = "";
@@ -467,6 +467,7 @@ class Facebook {
 		//trace(req.result);
 		// Possible results:
 		// When calling me/feed:
+
 		// {"id":"100001416751627_494402473950307"}
 		// {"data":[{"name":"Renee Jim","id":"120811039"},.....
 		// {"error":{"message":"(#506) Duplicate status message","type":"OAuthException","code":506,"error_data":{"kError":1455006}}}
@@ -474,14 +475,19 @@ class Facebook {
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
-			
+
+			AppController.debugger.log("parsedData : ");
 			if (parsedData.error != null) {
 				_callback (null, parsedData.error);
 			}
 			else if (parsedData.data != null) {
+				if (session.uid == null) session.uid = parsedData.id;
+				AppController.debugger.log("session.uid 1 : "+session.uid);
 				_callback (parsedData.data, null);
 			}
 			else {
+				if (session.uid == null) session.uid = parsedData.id;
+				AppController.debugger.log("session.uid 2 : "+session.uid);
 				_callback (parsedData, null);
 			}
 		}
