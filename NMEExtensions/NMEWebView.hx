@@ -14,7 +14,7 @@ class NMEWebView {
 		didFinishLoad = new RCSignal<String->Void>();
 		
 		trace("DEST ========= " + url);
-		var launch:Dynamic = nme.JNI.createStaticMethod("nme/NMEWebView", "nmeCreate", "(Ljava/lang/String;)Landroid/view/View;");
+		var launch:Dynamic = nme.JNI.createStaticMethod("NMEWebView", "nmeCreate", "(Ljava/lang/String;)Landroid/view/View;");
 		trace("LAUNCH ========= " + launch);
 		if (launch!=null)
 			nme.Lib.postUICallback( function() { launch(url); } );

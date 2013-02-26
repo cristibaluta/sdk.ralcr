@@ -1,4 +1,4 @@
-package nme;
+//package nme;
 
 
 import android.app.Activity;
