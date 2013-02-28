@@ -3,7 +3,7 @@ class NMEActivityIndicator {
 	
 #if android
 	
-	public function new (x:Float, y:Float, white:Bool=false, large:Bool=false) {
+	public function new (x:Float, y:Float, ?white:Bool=false, ?large:Bool=false) {
 		
 	}
 	public function destroy() :Void {

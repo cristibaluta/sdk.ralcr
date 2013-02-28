@@ -2,7 +2,7 @@
 *  Feb 1 2013
 *  In NME POST requests are not working
 *  In CPP haxe.Http https requests are not working
-*  This extension fix them all for ios
+*  This extension fix them all for ios and android
 *  Although is called Https you can make Http calls as well
 */
 
@@ -23,21 +23,15 @@ class NMEHttps {
 		
 		// lazy init to avoid crash at startup
 		if (native_new == null) {
-			native_new = nme.JNI.createStaticMethod("mloader/nme/extension/android/HttpLoader", "<init>", "(Ljava/lang/String;)V");
-			native_addHeader = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "addHeader", "(Ljava/lang/String;Ljava/lang/String;)V");
-			native_setUserAgent = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "setUserAgent", "(Ljava/lang/String;)V");
-			ralcr_https_get = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "get", "(Lorg/haxe/nme/HaxeObject;)V");
-			ralcr_https_post = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "post", "(Ljava/lang/String;Lorg/haxe/nme/HaxeObject;)V");
-			ralcr_https_cancel = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "cancel", "()V");
+			native_new = nme.JNI.createStaticMethod("HttpLoader", "<init>", "(Ljava/lang/String;)V");
+			native_addHeader = nme.JNI.createMemberMethod("HttpLoader", "setHeader", "(Ljava/lang/String;Ljava/lang/String;)V");
+			native_setUserAgent = nme.JNI.createMemberMethod("HttpLoader", "setUserAgent", "(Ljava/lang/String;)V");
+			ralcr_https_get = nme.JNI.createMemberMethod("HttpLoader", "get", "(Lorg/haxe/nme/HaxeObject;)V");
+			ralcr_https_post = nme.JNI.createMemberMethod("HttpLoader", "post", "(Ljava/lang/String;Lorg/haxe/nme/HaxeObject;)V");
+			ralcr_https_cancel = nme.JNI.createMemberMethod("HttpLoader", "cancel", "()V");
 		}
 	}
 	public function call (url:String, variables:Dynamic, ?method:String="GET") {
-		request = native_new ( haxe.Utf8.encode ( url));
-		
-		var vars = "";
-		for (f in Reflect.fields (variables))
-			vars += f + "=" + Reflect.field (variables, f) + "&";
-		//trace(vars);
 		
 		if (method == "POST") {
 			// default content type
@@ -46,21 +40,29 @@ class NMEHttps {
 			var data = haxe.Json.stringify ( variables );
 			contentType = "application/json";
 			
+			request = native_new ( haxe.Utf8.encode ( url));
 			native_addHeader (request, "Content-Type", "application/json");
 			
 			var str = haxe.Utf8.encode(Std.string(data));
 			ralcr_https_post ( request, str, this);
-			
-			//ralcr_https_post ( url, vars );
 		}
 		else if (method == "GET") {
 			//ralcr_https_get ( url, vars );
+			var vars = "";
+			for (f in Reflect.fields (variables))
+				vars += f + "=" + Reflect.field (variables, f) + "&";
+			request = native_new ( haxe.Utf8.encode ( url + "?" + vars));
 			ralcr_https_get ( request, this );
 		}
 		else if (method == "DELETE") {
 			//ralcr_https_delete ( url, vars );
 		}
 	}
+	// Delegate methods
+	public function httpStatus(statusCode:Int):Void { trace(statusCode); }
+	public function httpData(result:String):Void { didFinishLoadHandler(result); }
+	public function httpError(error:String):Void { didFinishWithErrorHandler(error); }
+	
 	public function destroy() :Void {
 		ralcr_https_cancel ( request );
 		didFinishLoad.destroy();
@@ -103,6 +105,7 @@ class NMEHttps {
 		else if (method == "DELETE") {
 			//ralcr_https_delete ( url, vars );
 		}
+		trace("fin call");
 	}
 	
 	public function destroy() :Void {
@@ -122,10 +125,10 @@ class NMEHttps {
 	
 	
 	function didFinishLoadHandler (e:String) {
-		didFinishLoad.dispatch ( e );
+		if (didFinishLoad != null) didFinishLoad.dispatch ( e );
 	}
 	function didFinishWithErrorHandler (e:String) {
-		didFinishWithError.dispatch ( e );
+		if (didFinishWithError != null) didFinishWithError.dispatch ( e );
 	}
 	
 }

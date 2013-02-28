@@ -68,12 +68,16 @@ class RCRequest {
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
 		trace(URL);trace(Std.string(variables));trace(method);
-		#if (nme && (ios || android_))
+		
+		#if (nme && (ios || android))
+			
 			nme_req = new NMEHttps();
 			nme_req.didFinishLoad.add( completeHandler );
 			nme_req.didFinishWithError.add( ioErrorHandler );
 			nme_req.call (URL, variables, method);
+			
 		#elseif (js || cpp || neko || objc)
+			
 			loader = new Http ( URL );
 			#if js
 				loader.async = true;
@@ -83,10 +87,13 @@ class RCRequest {
 			}
 			addListeners ( loader );
 			loader.request ( method == "POST" ? true : false );
+			
 		#elseif flash
+			
 			loader = new URLLoader();
 			addListeners ( loader );
 			loader.load ( createRequest (URL, variables, method) );
+			
 		#end
 	}
 	
@@ -96,7 +103,9 @@ class RCRequest {
 	 * Configure and remove listeners
 	 */
 	function addListeners (dispatcher:IEventDispatcher) :Void {
+		
 		if (dispatcher == null) return;
+		
 		#if (js || cpp || neko || objc)
 			dispatcher.onData = completeHandler;
 			dispatcher.onError = securityErrorHandler;
@@ -112,7 +121,9 @@ class RCRequest {
     }
 
 	function removeListeners (dispatcher:IEventDispatcher) :Void {
+		
 		if (dispatcher == null) return;
+		
 		#if (js || cpp || neko || objc)
 			dispatcher.onData = null;
 			dispatcher.onError = null;

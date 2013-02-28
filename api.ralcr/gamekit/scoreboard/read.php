@@ -40,11 +40,14 @@ else if (isset($_GET['userId'])) {
 // Return all users top score
 else {
 	
-	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends
-					WHERE friends.friend_id = scoreboard.user_id AND friends.friend_id != friends.user_id
-					ORDER BY scoreboard.score DESC
+	$sql_string = "SELECT *
+					FROM (select * from scoreboard ORDER BY score DESC) as sb INNER JOIN friends
+					WHERE friends.friend_id = sb.user_id AND friends.friend_id != friends.user_id
+					GROUP BY sb.user_id order by score desc
 					LIMIT 15";
 }
+
+
 
 // Extract data from database
 $sql = $db->query($sql_string);

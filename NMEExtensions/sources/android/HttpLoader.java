@@ -23,6 +23,8 @@
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
+import android.os.Looper;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -96,22 +98,42 @@ public class HttpLoader
 	public void get(final HaxeObject listener)
 	{
 		cancel();
-		activeTask = new HttpLoaderBackgroundTask(url, HttpMethod.GET, headers, userAgent, listener).execute();
+		
+		GameActivity.getInstance().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+            	activeTask = new HttpLoaderBackgroundTask(url, HttpMethod.GET, headers, userAgent, listener).execute();
+            }
+        });
 	}
 	
-	public void post(String payload, final HaxeObject listener)
+	public void post(final String payload, final HaxeObject listener)
 	{
 		cancel();
-		activeTask = new HttpLoaderBackgroundTask(url, HttpMethod.POST, payload, headers, userAgent, listener).execute();
+		
+		GameActivity.getInstance().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+            	activeTask = new HttpLoaderBackgroundTask(url, HttpMethod.POST, payload, headers, userAgent, listener).execute();
+            }
+        });
 	}
 	
 	public void cancel()
 	{
-		if (activeTask != null)
-		{
-			activeTask.cancel(true);
-			activeTask = null;
-		}
+		GameActivity.getInstance().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+            	if (activeTask != null)
+        		{
+        			activeTask.cancel(true);
+        			activeTask = null;
+        		}
+            }
+        });
 	}
 	
 	/**
