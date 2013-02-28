@@ -3,7 +3,7 @@
 //	MediaKit
 //
 //  Created by Baluta Cristian on 2008-07-09.
-//  Copyright (c) 2008 http://ralcr.com. 
+//  Copyright (c) 2013 http://ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
@@ -72,13 +72,13 @@ class RCAudio implements RCAudioInterface {
 		if (sound != null) return;
 		
 		#if nme
-			#if ios
+			#if (ios || android)
 				if (decodeByHardware)
 				NMESimpleAudioEngine.preloadBackgroundMusic ( URL );
 				else
 				NMESimpleAudioEngine.preloadEffect ( URL );
 			#else
-			sound = nme.Assets.getSound ( URL );
+				sound = nme.Assets.getSound ( URL );
 			#end
 		#else
 			sound = new Sound();
@@ -99,56 +99,66 @@ class RCAudio implements RCAudioInterface {
 	 */
 	public function start (?time:Null<Int>) :Void {
 		
-		#if (nme && ios)
+		#if (nme && (ios || android))
+			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.playBackgroundMusic (URL, repeat);
 			else
 			soundId = NMESimpleAudioEngine.playEffect ( URL, repeat );
+			
 		#else
-		if (channel != null) {
-			channel.stop();
-			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-			channel = null;
-		}
+			
+			if (channel != null) {
+				channel.stop();
+				channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+				channel = null;
+			}
 		
-		if (sound == null) return;
+			if (sound == null) return;
 		
-		// If we have background music
-		// or if the sound is repeating
-		// We need to be ble to stop it, so we create the channel
-		if (decodeByHardware || repeat) {
-			channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
-			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-		}
-		else {
-			sound.play ( time == null ? 0 : Math.round (time * 1000) );
-		}
+			// If we have background music
+			// or if the sound is repeating
+			// We need to be ble to stop it, so we create the channel
+			if (decodeByHardware || repeat) {
+				channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
+				channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+			}
+			else {
+				sound.play ( time == null ? 0 : Math.round (time * 1000) );
+			}
 		
-		timer.start();
-		setVolume ( _volume );
+			timer.start();
+			setVolume ( _volume );
+			
 		#end
+		
 		soundDidStartPlaying();
 	}
 	
 	public function stop () :Void {
 		
-		#if (nme && ios)
+		#if (nme && (ios || android))
+			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.stopBackgroundMusic();
 			else
 			NMESimpleAudioEngine.stopEffect ( soundId );
+			
 		#else
-		if (channel != null) {
-			channel.stop();
-			channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-			channel = null;
-		}
-		
-		if (timer != null)
-			timer.stop();
-
-		time = 0;
+			
+			if (channel != null) {
+				channel.stop();
+				channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+				channel = null;
+			}
+			
+			if (timer != null)
+				timer.stop();
+			
+			time = 0;
+			
 		#end
+		
 		soundDidStopPlaying();
 	}
 	
@@ -211,33 +221,37 @@ class RCAudio implements RCAudioInterface {
 	 * Stop the playing sound and remove event listeners
 	 */
 	public function destroy () :Void {
-		#if (nme && ios)
+		
+		#if (nme && (ios || android))
+			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.stopBackgroundMusic();
 			else
 			NMESimpleAudioEngine.unloadEffect ( URL );
+			
 		#else
-		if (channel != null) {
-			channel.stop();
-			channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-			channel = null;
-		}
+			
+			if (channel != null) {
+				channel.stop();
+				channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+				channel = null;
+			}
 		
-		if (sound != null) {
-			sound.close();
-			sound.removeEventListener (Event.COMPLETE, completeHandler);
-			sound.removeEventListener (Event.ID3, id3Handler);
-			sound.removeEventListener (ErrorEvent.ERROR, errorHandler);
-			sound.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
-			sound.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
-			sound = null;
-		}
+			if (sound != null) {
+				sound.close();
+				sound.removeEventListener (Event.COMPLETE, completeHandler);
+				sound.removeEventListener (Event.ID3, id3Handler);
+				sound.removeEventListener (ErrorEvent.ERROR, errorHandler);
+				sound.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
+				sound.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
+				sound = null;
+			}
 		
-		if (timer != null) {
-			timer.stop();
-			timer.removeEventListener (TimerEvent.TIMER, loop);
-			timer = null;
-		}
+			if (timer != null) {
+				timer.stop();
+				timer.removeEventListener (TimerEvent.TIMER, loop);
+				timer = null;
+			}
 		#end
 	}
 }

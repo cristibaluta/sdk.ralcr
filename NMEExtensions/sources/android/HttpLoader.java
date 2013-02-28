@@ -23,7 +23,7 @@
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
-import android.os.Looper;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -69,7 +69,7 @@ public class HttpLoader
 	private final String url;
 	private Map<String, String> headers;
 	private String userAgent;
-	private AsyncTask activeTask;
+	public AsyncTask<Void, Void, HttpResult> activeTask;
 	
 	public HttpLoader(String url)
 	{
@@ -98,7 +98,7 @@ public class HttpLoader
 	public void get(final HaxeObject listener)
 	{
 		cancel();
-		
+		Log.d("http", "get: "+url);
 		GameActivity.getInstance().runOnUiThread(new Runnable() {
 
             @Override
@@ -124,14 +124,16 @@ public class HttpLoader
 	public void cancel()
 	{
 		GameActivity.getInstance().runOnUiThread(new Runnable() {
-
+			
             @Override
             public void run() {
+            	Log.d("http", "cancel "+activeTask);
             	if (activeTask != null)
         		{
-        			activeTask.cancel(true);
-        			activeTask = null;
+            		activeTask.cancel(true);
+            		activeTask = null;
         		}
+            	Log.d("http", "cancel finished");
             }
         });
 	}
@@ -185,6 +187,7 @@ public class HttpLoader
 		@Override
 		protected HttpResult doInBackground(Void... unused)
 		{
+			Log.d("HttpLoaderBackgroundTask", "doInBackground "+url);
 			HttpResult result = null;
 			String errorMessage = null;
 			
@@ -279,9 +282,11 @@ public class HttpLoader
 			 {
 				public void run()
 				{
-					if (result.getStatusCode() != -1) {
-						listener.callD1(HttpLoader.CALLBACK_ID_HTTP_STATUS, result.getStatusCode());
-					}
+					Log.d("onPostExecute", result.getValue());
+					Log.d("onPostExecute", ""+listener);
+//					if (result.getStatusCode() != -1) {
+//						listener.callD1(HttpLoader.CALLBACK_ID_HTTP_STATUS, result.getStatusCode());
+//					}
 					
 					if (result.isSuccessful()) {
 						listener.call1(HttpLoader.CALLBACK_ID_HTTP_DATA, result.getValue());
@@ -291,7 +296,7 @@ public class HttpLoader
 					}
 				}
 			}
-			 );
+			);
 		}
 	}
 	
@@ -303,6 +308,8 @@ public class HttpLoader
 		
 		public HttpResult(boolean isSuccessful, String value, int statusCode)
 		{
+
+			Log.d("HttpResult", isSuccessful+" "+value+" "+statusCode);
 			this.isSuccessful = isSuccessful;
 			this.value = value;
 			this.statusCode = statusCode;
