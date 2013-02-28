@@ -94,7 +94,7 @@ class NMEHttps {
 		var vars = "";
 		for (f in Reflect.fields (variables))
 			vars += f + "=" + Reflect.field (variables, f) + "&";
-		trace(vars);
+		trace("call: "+url+"?"+vars);
 		
 		if (method == "POST") {
 			ralcr_https_post ( url, vars );
@@ -105,10 +105,10 @@ class NMEHttps {
 		else if (method == "DELETE") {
 			//ralcr_https_delete ( url, vars );
 		}
-		trace("fin call");
 	}
 	
 	public function destroy() :Void {
+		trace("destroy");
 		ralcr_https_cancel();
 		didFinishLoad.destroy();
 		didFinishLoad = null;

@@ -128,7 +128,7 @@ public class SoundEngine {
 			}
 		}
 
-		int streamId = sp.play(sndId, 1.0f, 1.0f, 0, 0, 1.0f);
+		int streamId = sp.play (sndId, 1.0f, 1.0f, 0, loop?-1:0, 1.0f);
 		if (effectsVolume != null) {
 			sp.setVolume(streamId, effectsVolume, effectsVolume);
 		}

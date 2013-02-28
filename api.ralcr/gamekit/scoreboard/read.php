@@ -11,9 +11,11 @@ foreach($_GET as $key=>$value) {
 // Create variables
 $userId = $_GET['userId'];
 $includeFriends = $_GET['includeFriends'];
-$min_timestamp = $_GET['timestamp'];
-$timestamp = time() - 1000*30*24*60*60;
-//echo $timestamp;
+//$min_timestamp = $_GET['timestamp'];
+$timestamp = 0;
+if (isset($_GET['timestamp'])) {
+	$timestamp = time() - 1000*30*24*60*60;
+}
 
 
 // Instantiate the database 
@@ -21,13 +23,15 @@ require_once('../../config.php');
 require_once("../../classes/database_php$php_version.php");
 $db = new Database ($db_host, $db_user, $db_pass, $db_name, 1);
 
-// Return friends top score
+// Return you+friends top score
 if (isset($_GET['userId']) && isset($_GET['includeFriends'])) {
 	
-	$sql_string = "SELECT * FROM scoreboard INNER JOIN friends ON ($userId = friends.user_id) 
-					WHERE (friends.friend_id = scoreboard.user_id) AND scoreboard.timestamp >= $timestamp AND friends.friend_id != friends.user_id
-					ORDER BY scoreboard.score DESC
-					LIMIT 15";// OR $userId = scoreboard.user_id
+	$sql_string = "SELECT * 
+					FROM (select * from scoreboard ORDER BY score DESC) as sb INNER JOIN friends ON ($userId = friends.user_id) 
+					WHERE (friends.friend_id = sb.user_id) AND sb.timestamp >= $timestamp
+					GROUP BY sb.user_id
+					ORDER BY score DESC
+					LIMIT 15";// OR $userId = scoreboard.user_id    WHERE AND friends.friend_id != friends.user_id
 }
 // Return only your scores
 else if (isset($_GET['userId'])) {
@@ -43,7 +47,8 @@ else {
 	$sql_string = "SELECT *
 					FROM (select * from scoreboard ORDER BY score DESC) as sb INNER JOIN friends
 					WHERE friends.friend_id = sb.user_id AND friends.friend_id != friends.user_id
-					GROUP BY sb.user_id order by score desc
+					GROUP BY sb.user_id
+					ORDER BY score DESC
 					LIMIT 15";
 }
 
