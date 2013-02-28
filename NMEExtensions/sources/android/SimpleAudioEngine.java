@@ -19,11 +19,11 @@ public class SimpleAudioEngine {
 	public static void preloadEffect(String filename){
 		SoundEngine.sharedEngine().preloadEffect(filename);
 	}
-	public static void playEffect(String filename, boolean loop) {
-		SoundEngine.sharedEngine().playEffect(filename);
+	public static int playEffect(String filename, boolean loop) {
+		return SoundEngine.sharedEngine().playEffect(filename, loop);
 	}
-	public static void stopEffect(String filename) {
-		SoundEngine.sharedEngine().stopEffect(filename);
+	public static void stopEffect(int streamId) {
+		SoundEngine.sharedEngine().stopEffect(streamId);
 	}
 
 	public static void preloadSound(final String filename) {
@@ -52,6 +52,9 @@ public class SimpleAudioEngine {
 	}
 	public static void resumeSound() {
 		SoundEngine.sharedEngine().resumeSound();
+	}
+	public static boolean isBackgroundMusicPlaying() {
+		return true;
 	}
 	public static void rewindSound() {
 		//SoundEngine.sharedEngine().resumeSound();

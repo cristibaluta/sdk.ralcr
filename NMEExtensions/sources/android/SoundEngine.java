@@ -114,7 +114,7 @@ public class SoundEngine {
 		}
 	}
 
-	public int playEffect(String filename) {
+	public int playEffect(String filename, boolean loop) {
 		
 		Context app = org.haxe.nme.GameActivity.getContext();
 		int resId = org.haxe.nme.GameActivity.getResourceID(filename);
@@ -136,15 +136,13 @@ public class SoundEngine {
 		return streamId;
 	}
 
-	public void stopEffect(String filename) {
+	public void stopEffect(int streamId) {
 		
-		Context app = org.haxe.nme.GameActivity.getContext();
-		int resId = org.haxe.nme.GameActivity.getResourceID(filename);
-		
-		Integer sid = streamsMap.get(resId);
-		if (sid != null) {
-			sp.stop(sid);
-		}
+		// Context app = org.haxe.nme.GameActivity.getContext();
+		// int resId = org.haxe.nme.GameActivity.getResourceID(filename);
+		// 
+		// Integer sid = streamsMap.get(resId);
+		sp.stop(streamId);
 	}
 
 	public void preloadSound(String filename) {

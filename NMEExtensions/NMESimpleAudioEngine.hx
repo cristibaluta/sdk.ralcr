@@ -1,26 +1,23 @@
 #if nme
 class NMESimpleAudioEngine {
-	// Signatures http://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/types.html
+	// JNI signatures: http://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/types.html
 	// I = int
 	// Z = boolean
 	
 	public static function configure_jni(){
 		#if android
 		if (ralcr_preload_background_music == null) {
-			trace("jni1");
 			ralcr_preload_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadSound", "(Ljava/lang/String;)V");
-			trace("jni2");
 			ralcr_play_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "playSound", "(Ljava/lang/String;Z)V");
-			trace("jni3");
-/*			ralcr_stop_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
+			ralcr_stop_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
 			ralcr_pause_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
 			ralcr_resume_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()V");
 			ralcr_rewind_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()V");
-			ralcr_is_background_music_playing = nme.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()Ljava/lang/boolean;");
-			ralcr_play_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "playEffect", "(Ljava/lang/String;)Ljava/lang/Int;");
-			ralcr_stop_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "stopEffect", "(Ljava/lang/Int;)V");
+			ralcr_is_background_music_playing = nme.JNI.createStaticMethod("SimpleAudioEngine", "isBackgroundMusicPlaying", "()Z");
+			ralcr_play_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "playEffect", "(Ljava/lang/String;Z)I");
+			ralcr_stop_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "stopEffect", "(I)V");
 			ralcr_preload_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");
-			ralcr_unload_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");*/
+			ralcr_unload_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");
 		}
 		#end
 	}
@@ -37,7 +34,7 @@ class NMESimpleAudioEngine {
 	}
 	public static function stopBackgroundMusic () {
 		configure_jni();
-		//ralcr_stop_background_music();
+		ralcr_stop_background_music();
 	}
 	public static function pauseBackgroundMusic () {
 		configure_jni();
@@ -64,6 +61,7 @@ class NMESimpleAudioEngine {
 		ralcr_stop_effect ( soundId );
 	}
 	public static function preloadEffect (filePath:String) {
+		trace("preload effect "+filePath);
 		configure_jni();
 		ralcr_preload_effect (filePath);
 	}
