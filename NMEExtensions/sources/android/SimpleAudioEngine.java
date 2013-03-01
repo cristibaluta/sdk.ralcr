@@ -27,20 +27,10 @@ public class SimpleAudioEngine {
 	}
 
 	public static void preloadSound(final String filename) {
-		GameActivity.getInstance().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-				SoundEngine.sharedEngine().preloadSound(filename);
-            }
-        });
+		SoundEngine.sharedEngine().preloadSound(filename);
 	}
 	public static void playSound(final String filename, final boolean loop) {
-		GameActivity.getInstance().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-				SoundEngine.sharedEngine().playSound(filename, loop);
-            }
-        });
+		SoundEngine.sharedEngine().playSound(filename, loop);
 	}
 	public static void pauseSound() {
 		GameActivity.getInstance().runOnUiThread(new Runnable() {

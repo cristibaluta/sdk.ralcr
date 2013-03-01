@@ -23,13 +23,16 @@ class NMEHttps {
 		
 		// lazy init to avoid crash at startup
 		if (native_new == null) {
-			native_new = nme.JNI.createStaticMethod("HttpLoader", "<init>", "(Ljava/lang/String;)V");
+			//native_new = nme.JNI.createStaticMethod("HttpLoader", "<init>", "(Ljava/lang/String;)V");
 			native_addHeader = nme.JNI.createMemberMethod("HttpLoader", "setHeader", "(Ljava/lang/String;Ljava/lang/String;)V");
 			native_setUserAgent = nme.JNI.createMemberMethod("HttpLoader", "setUserAgent", "(Ljava/lang/String;)V");
-			ralcr_https_get = nme.JNI.createMemberMethod("HttpLoader", "get", "(Lorg/haxe/nme/HaxeObject;)V");
-			ralcr_https_post = nme.JNI.createMemberMethod("HttpLoader", "post", "(Ljava/lang/String;Lorg/haxe/nme/HaxeObject;)V");
-			ralcr_https_cancel = nme.JNI.createMemberMethod("HttpLoader", "cancel", "()V");
+			
+			ralcr_https_get = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_get", "(Ljava/lang/String;Ljava/lang/String;)V");
+			ralcr_https_post = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_post", "(Ljava/lang/String;Ljava/lang/String;)V");
+			ralcr_https_cancel = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_cancel", "()V");
+			ralcr_https_set_delegate = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_set_delegate", "(Lorg/haxe/nme/HaxeObject;)V");
 		}
+		ralcr_https_set_delegate ( this );
 	}
 	public function call (url:String, variables:Dynamic, ?method:String="GET") {
 		
@@ -37,22 +40,21 @@ class NMEHttps {
 			// default content type
 			var contentType = "application/octet-stream";
 			// stringify and send as application/json
-			var data = haxe.Json.stringify ( variables );
+			var vars = haxe.Json.stringify ( variables );
 			contentType = "application/json";
 			
-			request = native_new ( haxe.Utf8.encode ( url));
-			native_addHeader (request, "Content-Type", "application/json");
-			
-			var str = haxe.Utf8.encode(Std.string(data));
-			ralcr_https_post ( request, str, this);
+			//native_addHeader (request, "Content-Type", "application/json");
+			/*
+			var str = haxe.Utf8.encode( Std.string ( data));
+			*/
+			nme.Lib.postUICallback ( function() { ralcr_https_post (url, vars);});
 		}
 		else if (method == "GET") {
-			//ralcr_https_get ( url, vars );
 			var vars = "";
 			for (f in Reflect.fields (variables))
 				vars += f + "=" + Reflect.field (variables, f) + "&";
-			request = native_new ( haxe.Utf8.encode ( url + "?" + vars));
-			ralcr_https_get ( request, this );
+			
+			nme.Lib.postUICallback ( function() { ralcr_https_get (url, vars);});
 		}
 		else if (method == "DELETE") {
 			//ralcr_https_delete ( url, vars );
@@ -60,23 +62,24 @@ class NMEHttps {
 	}
 	// Delegate methods
 	public function httpStatus(statusCode:Int):Void { trace(statusCode); }
-	public function httpData(result:String):Void { didFinishLoadHandler(result); }
-	public function httpError(error:String):Void { didFinishWithErrorHandler(error); }
 	
 	public function destroy() :Void {
-		ralcr_https_cancel ( request );
+		trace("destroy");
+		nme.Lib.postUICallback ( function() { ralcr_https_cancel();});
 		didFinishLoad.destroy();
 		didFinishLoad = null;
 		didFinishWithError.destroy();
 		didFinishWithError = null;
 	}
 	
-	static var native_new:Dynamic;
-	static var native_addHeader:Dynamic;
-	static var native_setUserAgent:Dynamic;
+	static var native_new :Dynamic;
+	static var native_addHeader :Dynamic;
+	static var native_setUserAgent :Dynamic;
+	
 	static var ralcr_https_get :Dynamic;
 	static var ralcr_https_post :Dynamic;
 	static var ralcr_https_cancel :Dynamic;
+	static var ralcr_https_set_delegate :Dynamic;
     
 #elseif ios
 	
@@ -94,6 +97,7 @@ class NMEHttps {
 		var vars = "";
 		for (f in Reflect.fields (variables))
 			vars += f + "=" + Reflect.field (variables, f) + "&";
+		
 		trace("call: "+url+"?"+vars);
 		
 		if (method == "POST") {
@@ -124,10 +128,12 @@ class NMEHttps {
 #end
 	
 	
-	function didFinishLoadHandler (e:String) {
+	public function didFinishLoadHandler (e:String) {
+		trace("didFinishLoadHandler "+e);
 		if (didFinishLoad != null) didFinishLoad.dispatch ( e );
 	}
-	function didFinishWithErrorHandler (e:String) {
+	public function didFinishWithErrorHandler (e:String) {
+		trace("didFinishWithErrorHandler "+e);
 		if (didFinishWithError != null) didFinishWithError.dispatch ( e );
 	}
 	

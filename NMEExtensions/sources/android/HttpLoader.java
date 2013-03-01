@@ -63,20 +63,51 @@ public class HttpLoader
 	public static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Linux; U; Android 2.2; en-us;)";
 	
 	public static final String CALLBACK_ID_HTTP_STATUS = "httpStatus";
-	public static final String CALLBACK_ID_HTTP_DATA = "httpData";
-	public static final String CALLBACK_ID_HTTP_ERROR = "httpError";
+	public static final String CALLBACK_ID_HTTP_DATA = "didFinishLoadHandler";
+	public static final String CALLBACK_ID_HTTP_ERROR = "didFinishWithErrorHandler";
+
+	static HaxeObject delegate;
+	static HttpLoader loader;
+	static AsyncTask<Void, Void, HttpResult> activeTask;
 	
-	private final String url;
-	private Map<String, String> headers;
-	private String userAgent;
-	public AsyncTask<Void, Void, HttpResult> activeTask;
+	public Map<String, String> headers;
+	public String userAgent;
 	
-	public HttpLoader(String url)
-	{
-		this.url = url;
+	
+	static public void ralcr_https_get (final String url, final String vars) {
+		Log.d("ralcr_https_get", "get: "+url+vars);
+		loader = new HttpLoader (url, vars, delegate);
+		//activeTask = new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, loader.headers, loader.userAgent, delegate).execute();
+	}
+	
+	static public void ralcr_https_post (final String url, final String payload) {
+		//activeTask = new HttpLoaderBackgroundTask (url, HttpMethod.POST, payload, loader.headers, loader.userAgent, delegate).execute();
+	}
+	
+	static public void ralcr_https_cancel() {
+    	Log.d("http", "cancel "+activeTask);
+    	if (activeTask != null) {
+    		activeTask.cancel(true);
+    		activeTask = null;
+		}
+    	Log.d("http", "cancel finished");
+	}
+	
+	public static void ralcr_https_set_delegate (final HaxeObject listener) {
+		delegate = listener;
+		Log.d("ralcr_https_set_delegate", ""+delegate);
+	}
+	
+	
+	
+	
+	public HttpLoader (final String url, final String vars, final HaxeObject listener) {
+		
 		headers = new HashMap<String, String>();
 		userAgent = DEFAULT_USER_AGENT;
 		setDefaultHeaders();
+		Log.d("new HttpLoader", ""+listener);
+		new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, headers, userAgent, listener).execute();
 	}
 	
 	protected void setDefaultHeaders()
@@ -95,48 +126,7 @@ public class HttpLoader
 		this.userAgent = userAgent;
 	}
 	
-	public void get(final HaxeObject listener)
-	{
-		cancel();
-		Log.d("http", "get: "+url);
-		GameActivity.getInstance().runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-            	activeTask = new HttpLoaderBackgroundTask(url, HttpMethod.GET, headers, userAgent, listener).execute();
-            }
-        });
-	}
 	
-	public void post(final String payload, final HaxeObject listener)
-	{
-		cancel();
-		
-		GameActivity.getInstance().runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-            	activeTask = new HttpLoaderBackgroundTask(url, HttpMethod.POST, payload, headers, userAgent, listener).execute();
-            }
-        });
-	}
-	
-	public void cancel()
-	{
-		GameActivity.getInstance().runOnUiThread(new Runnable() {
-			
-            @Override
-            public void run() {
-            	Log.d("http", "cancel "+activeTask);
-            	if (activeTask != null)
-        		{
-            		activeTask.cancel(true);
-            		activeTask = null;
-        		}
-            	Log.d("http", "cancel finished");
-            }
-        });
-	}
 	
 	/**
 	 * Background task to execute http request and then report its outcome back to Haxe listener.
@@ -149,11 +139,6 @@ public class HttpLoader
 		private final String payload;
 		private final HaxeObject listener;
 		private final String userAgent;
-		
-		public HttpLoaderBackgroundTask(String url, HttpMethod method, Map<String, String> headers, String userAgent, HaxeObject listener)
-		{
-			this(url, method, null, headers, userAgent, listener);
-		}
 		
 		public HttpLoaderBackgroundTask(String url, HttpMethod method, String payload, Map<String, String> headers, String userAgent, HaxeObject listener)
 		{
@@ -276,38 +261,29 @@ public class HttpLoader
 		@Override
 		protected void onPostExecute(final HttpResult result)
 		{
-			GameActivity.getInstance().runOnUiThread
-			(
-			 new Runnable()
-			 {
-				public void run()
-				{
-					Log.d("onPostExecute", result.getValue());
-					Log.d("onPostExecute", ""+listener);
-//					if (result.getStatusCode() != -1) {
-//						listener.callD1(HttpLoader.CALLBACK_ID_HTTP_STATUS, result.getStatusCode());
-//					}
+			Log.d("onPostExecute", result.getValue());
+			Log.d("onPostExecute", ""+listener);
+//			if (result.getStatusCode() != -1) {
+//				listener.callD1(HttpLoader.CALLBACK_ID_HTTP_STATUS, result.getStatusCode());
+//			}
 					
-					if (result.isSuccessful()) {
-						listener.call1(HttpLoader.CALLBACK_ID_HTTP_DATA, result.getValue());
-					}
-					else {
-						listener.call1(HttpLoader.CALLBACK_ID_HTTP_ERROR, result.getValue());
-					}
-				}
+			if (result.isSuccessful()) {
+				listener.call1 (HttpLoader.CALLBACK_ID_HTTP_DATA, result.getValue());
 			}
-			);
+			else {
+				listener.call1 (HttpLoader.CALLBACK_ID_HTTP_ERROR, result.getValue());
+			}
+			Log.d("onPostExecute finished", "onPostExecute finished");
 		}
 	}
 	
-	private class HttpResult
-	{
+	private class HttpResult {
+		
 		private boolean isSuccessful;
 		private String value;
 		private int statusCode;
 		
-		public HttpResult(boolean isSuccessful, String value, int statusCode)
-		{
+		public HttpResult(boolean isSuccessful, String value, int statusCode) {
 
 			Log.d("HttpResult", isSuccessful+" "+value+" "+statusCode);
 			this.isSuccessful = isSuccessful;
@@ -315,24 +291,18 @@ public class HttpLoader
 			this.statusCode = statusCode;
 		}
 		
-		public boolean isSuccessful()
-		{
+		public boolean isSuccessful() {
 			return isSuccessful;
 		}
-		
-		public String getValue()
-		{
+		public String getValue() {
 			return value;
 		}
-		
-		public int getStatusCode()
-		{
+		public int getStatusCode() {
 			return statusCode;
 		}
 	}
 	
-	private enum HttpMethod
-	{
+	private enum HttpMethod {
 		GET,
 		POST
 	}

@@ -50,7 +50,7 @@ class Facebook {
 	var locale :String;
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
-#if (nme && (ios || android1))
+#if (nme && (ios || android))
 	var webView :NMEWebView;
 #end
 	
@@ -175,7 +175,7 @@ class Facebook {
 		trace("login");
 		_loginCallback = _callback;
 		
-#if (nme && (ios || android1))
+#if (nme && (ios || android))
 		
 		var bundle_id = options.bundle_identifier;
 		var data = {
@@ -193,7 +193,11 @@ class Facebook {
 			"&type="+data.type+
 			"&scope="+data.scope+
 			"&response_type=token";
+		#if ios
 		webView = new NMEWebView (10, 10, 300, 460, AUTH_URL_SECURE+params);// try a secure login
+		#elseif android
+		webView = new NMEWebView (10, 10, RCWindow.sharedWindow().width-20, RCWindow.sharedWindow().height-20, AUTH_URL_SECURE+params);// try a secure login
+		#end
 		webView.didFinishLoad.add ( webViewDidFinishLoad );
 		
 #elseif flash
@@ -203,20 +207,17 @@ class Facebook {
 #end
     }
 	
-#if (nme && (ios || android1))
+#if (nme && (ios || android))
 	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
 
 	function webViewDidFinishLoad (url:String) :Void {
 		trace(url);
 		if (url.indexOf(LOGIN_URL) == 0) {
 			trace("redirect login to nonsecure page");
-			AppController.debugger.log("redirect login to nonsecure page");
 		}
 		else if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
 			webView.destroy();
 			webView = null;
-			AppController.debugger.log("FAIL");
-			AppController.debugger.log(url);
 			_loginCallback (null, {});
 		}
 		else if (url.indexOf(LOGIN_SUCCESS_URL) == 0 || url.indexOf(LOGIN_SUCCESS_SECUREURL) == 0) {
@@ -238,15 +239,8 @@ class Facebook {
 					case "code" : code = a[1];
 				}
 			}
-/*			AppController.debugger.log(access_token);
-			AppController.debugger.log(expires_in);
-			AppController.debugger.log("");
-			AppController.debugger.log(Std.string(_loginCallback));*/
 			session = generateSession ( {access_token : access_token} );
-			AppController.debugger.log( Std.string(session) );
-/*			AppController.debugger.log(Std.string(session));*/
 			_loginCallback (session, null);
-/*			AppController.debugger.log("login called. did it get it?");*/
 		}
 	}
 #end
