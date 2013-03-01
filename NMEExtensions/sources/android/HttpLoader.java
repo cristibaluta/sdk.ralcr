@@ -19,7 +19,6 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
-//package nme.extension.android;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -68,16 +67,18 @@ public class HttpLoader
 
 	static HaxeObject delegate;
 	static HttpLoader loader;
-	static AsyncTask<Void, Void, HttpResult> activeTask;
 	
+	//public AsyncTask<Void, Void, HttpResult> activeTask;
+	public HttpLoaderBackgroundTask activeTask;
 	public Map<String, String> headers;
 	public String userAgent;
 	
 	
 	static public void ralcr_https_get (final String url, final String vars) {
-		Log.d("ralcr_https_get", "get: "+url+vars);
+		Log.d("ralcr_https_get", "get: "+url+"?"+vars);
 		loader = new HttpLoader (url, vars, delegate);
 		//activeTask = new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, loader.headers, loader.userAgent, delegate).execute();
+		//delegate.call1(HttpLoader.CALLBACK_ID_HTTP_DATA, "[{\"name\": \"Baluta Cristian\", \"score\": \"171794\"}, {\"name\": \"Adrian Batista\", \"score\": \"123600\"}]");
 	}
 	
 	static public void ralcr_https_post (final String url, final String payload) {
@@ -85,10 +86,10 @@ public class HttpLoader
 	}
 	
 	static public void ralcr_https_cancel() {
-    	Log.d("http", "cancel "+activeTask);
-    	if (activeTask != null) {
-    		activeTask.cancel(true);
-    		activeTask = null;
+    	Log.d("http", "cancel "+loader);
+    	if (loader != null) {
+    		loader.destroy();
+    		loader = null;
 		}
     	Log.d("http", "cancel finished");
 	}
@@ -97,34 +98,58 @@ public class HttpLoader
 		delegate = listener;
 		Log.d("ralcr_https_set_delegate", ""+delegate);
 	}
+	// UGLY HACK TO AVOID JNI CRASHES WHEN USING call1. Call this methods from time to time to see if the request is ready
+	static public boolean ralcr_https_is_ready() {
+		if (loader == null) return false;
+		return loader.isReady();
+	}
+	static public boolean ralcr_https_is_successful() {
+		return loader.isSuccessful();
+	}
+	static public String ralcr_https_get_result() {
+		return loader.getResult();
+	}
 	
 	
 	
 	
 	public HttpLoader (final String url, final String vars, final HaxeObject listener) {
-		
+		Log.d("httploader", "new HttpLoader "+url);
 		headers = new HashMap<String, String>();
 		userAgent = DEFAULT_USER_AGENT;
 		setDefaultHeaders();
-		Log.d("new HttpLoader", ""+listener);
-		new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, headers, userAgent, listener).execute();
+		
+		activeTask = new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, headers, userAgent, listener);
+		activeTask.execute();
 	}
-	
-	protected void setDefaultHeaders()
-	{
+	protected void setDefaultHeaders(){
 		setHeader("Content-Type", "application/x-www-form-urlencoded");
 		setHeader("Content-Language", "en-US");
 	}
-	
-	public void setHeader(String name, String value)
-	{
+	public void setHeader(String name, String value){
 		headers.put(name.toLowerCase(), value);
 	}
-	
-	public void setUserAgent(String userAgent)
-	{
+	public void setUserAgent(String userAgent){
 		this.userAgent = userAgent;
 	}
+	public void destroy() {
+	    Log.d("http", "destroy "+activeTask);
+	   	if (activeTask != null) {
+	    	activeTask.cancel(true);
+	    	activeTask = null;
+		}
+		Log.d("http", "destroy finished");
+	}
+	public boolean isReady() {
+		return activeTask.isReady();
+	}
+	public boolean isSuccessful() {
+		return activeTask.isSuccessful();
+	}
+	public String getResult() {
+		return activeTask.getValue();
+	}
+	
 	
 	
 	
@@ -139,6 +164,7 @@ public class HttpLoader
 		private final String payload;
 		private final HaxeObject listener;
 		private final String userAgent;
+		public HttpResult httpresult;
 		
 		public HttpLoaderBackgroundTask(String url, HttpMethod method, String payload, Map<String, String> headers, String userAgent, HaxeObject listener)
 		{
@@ -148,13 +174,22 @@ public class HttpLoader
 			this.userAgent = userAgent;
 			this.payload = payload;
 			this.listener = listener;
+			this.httpresult = null;
+		}
+		public boolean isReady() {
+			return httpresult != null;
+		}
+		public boolean isSuccessful() {
+			return httpresult.isSuccessful();
+		}
+		public String getValue() {
+			return httpresult.getValue();
 		}
 		
 		/**
 		 * Convert url string to URL instance so query parameters are encoded correctly when dispatching a request.
 		 */
-		private URL stringToURL(String url)
-		{
+		private URL stringToURL(String url){
 			try {
 				URL tempUrl = new URL(url);
 				URI tempUri = new URI(tempUrl.getProtocol(), tempUrl.getUserInfo(), tempUrl.getHost(), tempUrl.getPort(), tempUrl.getPath(), tempUrl.getQuery(), tempUrl.getRef());
@@ -170,9 +205,8 @@ public class HttpLoader
 		}
 		
 		@Override
-		protected HttpResult doInBackground(Void... unused)
-		{
-			Log.d("HttpLoaderBackgroundTask", "doInBackground "+url);
+		protected HttpResult doInBackground(Void... unused) {
+			//Log.d("HttpLoaderBackgroundTask", "doInBackground "+url);
 			HttpResult result = null;
 			String errorMessage = null;
 			
@@ -205,21 +239,18 @@ public class HttpLoader
 			return result;
 		}
 		
-		private HttpResult httpGet() throws IOException, URISyntaxException
-		{
+		private HttpResult httpGet() throws IOException, URISyntaxException {
 			HttpGet request = new HttpGet(url.toString());
 			return executeRequest(request);
 		}
 		
-		private HttpResult httpPost() throws IOException, URISyntaxException
-		{
+		private HttpResult httpPost() throws IOException, URISyntaxException {
 			HttpPost request = new HttpPost(url.toString());
 			request.setEntity(new StringEntity(payload));
 			return executeRequest(request);
 		}
 		
-		private HttpResult executeRequest(HttpUriRequest request) throws IOException
-		{
+		private HttpResult executeRequest(HttpUriRequest request) throws IOException {
 			AndroidHttpClient client = AndroidHttpClient.newInstance(userAgent);
 			
 			for (String header : headers.keySet()) {
@@ -235,8 +266,7 @@ public class HttpLoader
 			}
 		}
 		
-		private HttpResult createHttpResult(HttpResponse response)
-		{
+		private HttpResult createHttpResult(HttpResponse response) {
 			int statusCode = response.getStatusLine().getStatusCode();
 			boolean isSuccessful = (statusCode < 400 || statusCode >= 600); // bit brittle?
 			HttpEntity entity = response.getEntity();
@@ -255,23 +285,24 @@ public class HttpLoader
 			else {
 				result = "";
 			}
-			return new HttpResult(isSuccessful, result, statusCode);
+			return new HttpResult (isSuccessful, result, statusCode);
 		}
 		
+		// This method runs in the UI thread
 		@Override
-		protected void onPostExecute(final HttpResult result)
-		{
+		protected void onPostExecute(final HttpResult result) {
 			Log.d("onPostExecute", result.getValue());
 			Log.d("onPostExecute", ""+listener);
 //			if (result.getStatusCode() != -1) {
 //				listener.callD1(HttpLoader.CALLBACK_ID_HTTP_STATUS, result.getStatusCode());
 //			}
-					
+			
+			httpresult = result;
 			if (result.isSuccessful()) {
-				listener.call1 (HttpLoader.CALLBACK_ID_HTTP_DATA, result.getValue());
+				//listener.call1 (HttpLoader.CALLBACK_ID_HTTP_DATA, result.getValue());
 			}
 			else {
-				listener.call1 (HttpLoader.CALLBACK_ID_HTTP_ERROR, result.getValue());
+				//listener.call1 (HttpLoader.CALLBACK_ID_HTTP_ERROR, result.getValue());
 			}
 			Log.d("onPostExecute finished", "onPostExecute finished");
 		}
