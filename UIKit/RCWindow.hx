@@ -45,7 +45,7 @@ class RCWindow extends RCView {
 
 	public var SCREEN_W :Float;
 	public var SCREEN_H :Float;
-	public var modalView :RCView;// Modal views are added to the window. Can be only one at a time
+	var modalView :RCModalViewController;// Can be only one at a time and stays on top of everything
 	
 	
 	/**
@@ -225,17 +225,22 @@ class RCWindow extends RCView {
 	
 	
 	/**
-	 *  Add a modal view controller. This is a window that stays on top of everything
+	 *  Add a modal view controller. This is a view that stays on top of everything
 	 *  Only one can exist at a given time
 	 *  @param view - it can be any view. It will be animated from bottom to top
 	 **/
-	public function addModalViewController (view:RCView) :Void {
+	public function addModalViewController (view:RCModalViewController) :Void {
 		if (modalView != null) return;
-		modalView = view;
-		modalView.x = 0;//RCWindow.getCenterX ( view.width );
+			modalView = view;
+			//modalView.x = 0;//RCWindow.getCenterX ( view.width );
 		
-		CoreAnimation.add ( new CATween (modalView, {y:{fromValue:height, toValue:0}}, 0.5, 0, caequations.Cubic.IN_OUT) );
+		var anim = new CATween (modalView, {y:{fromValue:height, toValue:0}}, 0.5, 0, caequations.Cubic.IN_OUT);
+			anim.delegate.animationDidStop = initModalViewController;
+		CoreAnimation.add ( anim );
 		addChild ( modalView );
+	}
+	function initModalViewController () :Void {
+		modalView.modalViewDidAppear();
 	}
 	/**
 	 *  Remove the modalView id we have one
@@ -243,6 +248,7 @@ class RCWindow extends RCView {
 	 **/
 	public function dismissModalViewController () :Void {
 		if (modalView == null) return;
+			modalView.modalViewWillDisappear();
 		var anim = new CATween (modalView, {y:height}, 0.3, 0, caequations.Cubic.IN);
 			anim.delegate.animationDidStop = destroyModalViewController;
 		CoreAnimation.add ( anim );

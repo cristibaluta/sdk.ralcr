@@ -30,7 +30,9 @@ class RCActivityIndicator extends RCProgressIndicator {
 	
 	// CLEAN MESS
 	override public function destroy() :Void {
-		enterFrame.destroy();
+		if (enterFrame != null)
+			enterFrame.destroy();
+			enterFrame = null;
 		super.destroy();
 	}
 }

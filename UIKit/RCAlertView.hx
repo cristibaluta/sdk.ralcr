@@ -19,7 +19,7 @@ class RCAlertView extends RCView {
 	
 	public function new (skin:RCSkin) {
 		
-		super(0,0);
+		super (0, 0);
 		
 		this.background = skin.normal.background;
 		this.text = skin.normal.label; // all graphical elements are here

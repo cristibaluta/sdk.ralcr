@@ -50,9 +50,8 @@ class Facebook {
 	var locale :String;
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
-#if (nme && (ios || android))
-	var webView :NMEWebView;
-#end
+	var webView :RCWebView;
+	dynamic public function launchWebView (url:String) :RCWebView { return null; }
 	
 	
     //Public API
@@ -172,10 +171,10 @@ class Facebook {
      * http://developers.facebook.com/docs/reference/javascript/FBAS.login
      */
 	public function login (_callback:Dynamic->Dynamic->Void, options:Dynamic) {
-		trace("login");
+		
 		_loginCallback = _callback;
 		
-#if (nme && (ios || android))
+#if nme
 		
 		var bundle_id = options.bundle_identifier;
 		var data = {
@@ -193,11 +192,12 @@ class Facebook {
 			"&type="+data.type+
 			"&scope="+data.scope+
 			"&response_type=token";
-		#if ios
-		webView = new NMEWebView (10, 10, 300, 460, AUTH_URL_SECURE+params);// try a secure login
-		#elseif android
-		webView = new NMEWebView (10, 10, RCWindow.sharedWindow().width-20, RCWindow.sharedWindow().height-20, AUTH_URL_SECURE+params);// try a secure login
-		#end
+		
+		webView = launchWebView ( AUTH_URL_SECURE + params );
+		if (webView == null) {
+			trace("err: Facebook login was interrupted to avoid crashes. You must override the launchWebView facebook method and return a RCWebView");
+			return;
+		}
 		webView.didFinishLoad.add ( webViewDidFinishLoad );
 		
 #elseif flash
@@ -207,13 +207,13 @@ class Facebook {
 #end
     }
 	
-#if (nme && (ios || android))
+#if nme
 	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
 
 	function webViewDidFinishLoad (url:String) :Void {
-		trace(url);
+		trace("webViewDidFinishLoad: "+url);
 		if (url.indexOf(LOGIN_URL) == 0) {
-			trace("redirect login to nonsecure page");
+			trace("Redirecting login to nonsecure page");
 		}
 		else if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
 			webView.destroy();
@@ -221,13 +221,13 @@ class Facebook {
 			_loginCallback (null, {});
 		}
 		else if (url.indexOf(LOGIN_SUCCESS_URL) == 0 || url.indexOf(LOGIN_SUCCESS_SECUREURL) == 0) {
-			AppController.debugger.log("SUCCESS");
+			
 			webView.destroy();
 			webView = null;
 			
 			var url_to_split = url.indexOf(LOGIN_SUCCESS_URL) == 0 ? LOGIN_SUCCESS_URL : LOGIN_SUCCESS_SECUREURL;
 			var comps :Array<String> = url.split(url_to_split+"#").pop().split("&");
-			//AppController.debugger.log(comps.join(", "));
+			
 			var access_token = "";
 			var expires_in = "";
 			var code = "";
@@ -280,6 +280,7 @@ class Facebook {
 #if nme
 		
 		
+		
 #elseif flash
 		
 		var result:String = ExternalInterface.call('FBAS.getAuthResponse');
@@ -293,11 +294,13 @@ class Facebook {
 		this.authResponse = generateAuthResponse ( authResponseObj );
 		
 #elseif js
+		
+		
+		
 #end		
 		return authResponse;
 	}
 	function generateAuthResponse (json:Dynamic) :FacebookAuthResponse {
-		
 		return {
 			uid : json.userID,
 			expireDate : Date.fromTime ( Date.now().getTime() + json.expiresIn * 1000),
@@ -335,8 +338,7 @@ class Facebook {
 	// {"accessToken":"AAAGe0HHi1P..","userID":"100001416751627","expiresIn":5581,"signedRequest":"lVB1..SvAdULf-EiDc..."}
 	
 	function handleAuthResponseChange(result:String) {
-		trace("handleAuthResponseChange");
-		trace(result);
+		
 		var resultObj :Dynamic = null;
 		var success = true;
 		
@@ -354,11 +356,6 @@ class Facebook {
 			authResponse = generateAuthResponse ( resultObj );
 			session = generateSession ( authResponse );
 			trace(authResponse);
-/*			if (authResponse == null) {
-				authResponse = FacebookAuthResponse.fromJson( resultObj );
-			} else {
-				authResponse = FacebookAuthResponse.fromJson( resultObj );
-			}*/
 		}
 		
 		if (_initCallback != null) {
@@ -449,8 +446,7 @@ class Facebook {
 		}
 		if (locale != null)
 			params.locale = locale;
-		AppController.debugger.log(GRAPH_URL + method);
-		AppController.debugger.log(params);
+		
 		var req = new RCHttp();
 			req.onComplete = callback (completeHandler, req, _callback);
 			req.onError = callback (errorHandler, req, _callback);

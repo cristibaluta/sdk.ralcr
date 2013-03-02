@@ -5,28 +5,39 @@ class NMEWebView {
 	public var didFinishWithError :RCSignal<String->Void>;
 	
 #if android
-	
+
+	var checkTimer :haxe.Timer;
 	var ralcr_new_web_view :Dynamic;
 	var ralcr_destroy_web_view :Dynamic;
-	var ralcr_set_did_finish_load_handle :Dynamic;
+	var ralcr_did_finish_load_with_url :Dynamic;
 	
 	public function new (x:Float, y:Float, w:Float, h:Float, url:String) {
 		
-		// This is important to set the delegate before creating a new webview
 		didFinishLoad = new RCSignal<String->Void>();
-		ralcr_set_did_finish_load_handle = nme.JNI.createStaticMethod("NMEWebView", "ralcr_set_did_finish_load_handle", "(Lorg/haxe/nme/HaxeObject;)V");
-		ralcr_set_did_finish_load_handle ( this );// calls the didFinishLoadHandler
 		
-		trace(x);trace(y);trace(w);trace(h);trace(url);
+		ralcr_did_finish_load_with_url = nme.JNI.createStaticMethod("NMEWebView", "ralcr_did_finish_load_with_url", "()Ljava/lang/String;");
 		ralcr_new_web_view = nme.JNI.createStaticMethod("NMEWebView", "ralcr_new_web_view", "(IIIILjava/lang/String;)Landroid/view/View;");
+		
 		nme.Lib.postUICallback ( function() { ralcr_new_web_view (x, y, w, h, url);});
+		
+		checkLoadingStatus();
 	}
-	public function didFinishLoadHandler (e:Dynamic) {
-		trace("didFinishLoadHandler "+e);
-		didFinishLoad.dispatch ( Std.string(e) );
+	function checkLoadingStatus () {
+		
+		if (checkTimer != null)
+			checkTimer.stop();
+		
+		var url = ralcr_did_finish_load_with_url();
+		if (url != null) {
+			didFinishLoad.dispatch ( url );
+		}
+		checkTimer = haxe.Timer.delay (checkLoadingStatus, 100);
 	}
     
 	public function destroy() :Void {
+		if (checkTimer != null)
+			checkTimer.stop();
+			checkTimer = null;
 		ralcr_destroy_web_view = nme.JNI.createStaticMethod("NMEWebView", "ralcr_destroy_web_view", "()V");
 		nme.Lib.postUICallback ( function() { ralcr_destroy_web_view();});
 	}

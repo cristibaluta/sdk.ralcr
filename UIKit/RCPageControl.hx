@@ -29,12 +29,17 @@ class RCPageControl extends RCControl {
 	}
 	
 	
-	// update page display to match the currentPage. ignored if defersCurrentPageDisplay is NO. setting the page value directly will update immediately
+	// update page display to match the currentPage. setting the page value directly will update immediately
 	public function updateCurrentPageDisplay () :Void {
 		
 	}
 	// Returns minimum size required to display dots for given page count. can be used to size control if page count could change
 	public function sizeForNumberOfPages (pageCount:Int) :RCSize {
 		return new RCSize (0, 0);
+	}
+	
+	override public function destroy () {
+		
+		super.destroy();
 	}
 }
