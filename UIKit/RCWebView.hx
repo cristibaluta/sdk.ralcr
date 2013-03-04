@@ -14,6 +14,9 @@ class RCWebView {
 	var h :Float;
 	var url :String;
 	
+	/**
+	 *  Pass all the details of the webview here
+	 **/
 	public function new (x:Float, y:Float, w:Float, h:Float, url:String) {
 		
 		didFinishLoad = new RCSignal<String->Void>();
@@ -25,6 +28,9 @@ class RCWebView {
 		
 	}
 	
+	/**
+	 *  call this method in order to instantiate the WebView itself
+	 **/
 	public function init () {
 		#if nme
 		webView = new NMEWebView (x, y, w, h, url);

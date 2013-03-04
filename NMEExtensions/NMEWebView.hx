@@ -29,7 +29,7 @@ class NMEWebView {
 		
 		var url = ralcr_did_finish_load_with_url();
 		if (url != null) {
-			didFinishLoad.dispatch ( url );
+			if (didFinishLoad != null) didFinishLoad.dispatch ( url );
 		}
 		checkTimer = haxe.Timer.delay (checkLoadingStatus, 100);
 	}
