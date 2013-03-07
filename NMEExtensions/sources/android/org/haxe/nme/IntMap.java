@@ -1,4 +1,4 @@
-//package org.cocos2d.utils.collections;
+package org.haxe.nme;
 
 import java.util.Iterator;
 

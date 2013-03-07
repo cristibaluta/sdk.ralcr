@@ -51,6 +51,7 @@ class Facebook {
     var requests :Array<RCHttp>;
 	var resultHash :Array<Dynamic>;
 	var webView :RCWebView;
+	
 	dynamic public function launchWebView (url:String) :RCWebView { return null; }
 	
 	

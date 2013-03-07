@@ -1,8 +1,6 @@
+package org.haxe.nme;
 
 import java.io.IOException;
-
-//import IntMap.Entry;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;

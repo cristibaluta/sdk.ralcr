@@ -1,5 +1,6 @@
 
 import org.haxe.nme.GameActivity;
+import org.haxe.nme.SoundEngine;
 
 public class SimpleAudioEngine {
 	
@@ -33,12 +34,7 @@ public class SimpleAudioEngine {
 		SoundEngine.sharedEngine().playSound(filename, loop);
 	}
 	public static void pauseSound() {
-		GameActivity.getInstance().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-				SoundEngine.sharedEngine().pauseSound();
-            }
-        });
+		SoundEngine.sharedEngine().pauseSound();
 	}
 	public static void resumeSound() {
 		SoundEngine.sharedEngine().resumeSound();
