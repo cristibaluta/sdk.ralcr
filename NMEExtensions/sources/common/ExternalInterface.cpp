@@ -94,6 +94,8 @@ DEFINE_PRIM (ralcr_unload_effect, 1);
 
 void ralcr_https_post (value url, value vars) { https_post ( val_string(url), val_string(vars) ); }
 DEFINE_PRIM (ralcr_https_post, 2);
+void ralcr_https_put (value url, value vars) { https_put ( val_string(url), val_string(vars) ); }
+DEFINE_PRIM (ralcr_https_put, 2);
 void ralcr_https_get (value url, value vars) { https_get ( val_string(url), val_string(vars) ); }
 DEFINE_PRIM (ralcr_https_get, 2);
 void ralcr_https_cancel () { https_cancel(); }

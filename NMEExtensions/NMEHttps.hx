@@ -49,6 +49,17 @@ class NMEHttps {
 			*/
 			nme.Lib.postUICallback ( function() { ralcr_https_post (url, vars);});
 		}
+		else if (method == "PUT") {
+			var contentType = "application/octet-stream";
+			var vars = haxe.Json.stringify ( variables );
+			contentType = "application/json";
+			
+			//native_addHeader (request, "Content-Type", "application/json");
+			/*
+			var str = haxe.Utf8.encode( Std.string ( data));
+			*/
+			nme.Lib.postUICallback ( function() { ralcr_https_post (url, vars);});
+		}
 		else if (method == "GET") {
 			var vars = "";
 			for (f in Reflect.fields (variables))
@@ -119,16 +130,15 @@ class NMEHttps {
 		for (f in Reflect.fields (variables))
 			vars += f + "=" + Reflect.field (variables, f) + "&";
 		
-		trace("call: "+url+"?"+vars);
+		trace("call: "+url);
+		trace("vars: "+vars);
 		
-		if (method == "POST") {
-			ralcr_https_post ( url, vars );
-		}
-		else if (method == "GET") {
-			ralcr_https_get ( url, vars );
-		}
-		else if (method == "DELETE") {
-			//ralcr_https_delete ( url, vars );
+		switch (method) {
+			case "POST" : ralcr_https_post ( url, vars );
+			case "PUT" : ralcr_https_put ( url, vars );
+			case "GET" : ralcr_https_get ( url, vars );
+/*			case "DELETE" : ralcr_https_delete ( url, vars );*/
+			default : trace("Unknown method "+method);
 		}
 	}
 	
@@ -142,6 +152,7 @@ class NMEHttps {
 	}
     
 	static var ralcr_https_post = nme.Loader.load("ralcr_https_post", 2);
+	static var ralcr_https_put = nme.Loader.load("ralcr_https_put", 2);
 	static var ralcr_https_get = nme.Loader.load("ralcr_https_get", 2);
 	static var ralcr_https_cancel = nme.Loader.load("ralcr_https_cancel", 0);
 	static var ralcr_https_set_did_finish_load_handle = nme.Loader.load("ralcr_https_set_did_finish_load_handle", 1);

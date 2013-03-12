@@ -84,6 +84,22 @@ public class HttpLoader
 	static public void ralcr_https_post (final String url, final String payload) {
 		//activeTask = new HttpLoaderBackgroundTask (url, HttpMethod.POST, payload, loader.headers, loader.userAgent, delegate).execute();
 	}
+	// URL url = new URL("http://www.example.com/resource");
+	// HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+	// httpCon.setDoOutput(true);
+	// httpCon.setRequestMethod("PUT");
+	// OutputStreamWriter out = new OutputStreamWriter(
+	//     httpCon.getOutputStream());
+	// out.write("Resource content");
+	// out.close();
+	// 
+	// URL url = new URL("http://www.example.com/resource");
+	// HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+	// httpCon.setDoOutput(true);
+	// httpCon.setRequestProperty(
+	//     "Content-Type", "application/x-www-form-urlencoded" );
+	// httpCon.setRequestMethod("DELETE");
+	// httpCon.connect();
 	
 	static public void ralcr_https_cancel() {
     	Log.d("http", "cancel "+loader);

@@ -57,6 +57,24 @@ typedef void (*FunctionType)();
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
+	[request setTimeoutInterval:10];
+	
+	[self download:request];
+}
+
+- (void) put:(NSString*)postStr {
+	
+    NSData *postData = [postStr dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+	
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"PUT"];
+    [request setHTTPBody:postData];
+	[request setTimeoutInterval:10];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+	//[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	
 	[self download:request];
 }
@@ -73,6 +91,8 @@ typedef void (*FunctionType)();
 	connection = nil;
 	[receivedData release];
 	receivedData = nil;
+	[result release];
+	result = nil;
 }
 
 
@@ -80,13 +100,11 @@ typedef void (*FunctionType)();
 #pragma mark NSURLConnection delegate methods
 
 - (void)connection:(NSURLConnection *)conn didReceiveResponse:(NSURLResponse *)response {
-	//NSLog(@"Https didReceiveResponse");
 	receivedData = [[NSMutableData data] retain];
 }
 
 // Called when a chunk of data has been downloaded.
 - (void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
-    //NSLog(@"Https didReceiveData");
 	[receivedData appendData:data];
 }
 
@@ -131,17 +149,24 @@ namespace ralcr {
 	
 	void https_get (const char *url, const char *variables) {
 		
-		request = [[HttpsRequest alloc] initWithURL:[NSString stringWithUTF8String:url]];
+		request = [[HttpsRequest alloc] initWithURL: [NSString stringWithUTF8String:url]];
 		request.httpsLoadFinished = &httpsLoadFinishedHandler;
 		request.httpsLoadError = &httpsLoadFinishedWithErrorsHandler;
-		[request get:[NSString stringWithUTF8String:variables]];
+		[request get: [NSString stringWithUTF8String:variables]];
 	}
 	void https_post (const char *url, const char *variables) {
 		
-		request = [[HttpsRequest alloc] initWithURL:[NSString stringWithUTF8String:url]];
+		request = [[HttpsRequest alloc] initWithURL: [NSString stringWithUTF8String:url]];
 		request.httpsLoadFinished = &httpsLoadFinishedHandler;
 		request.httpsLoadError = &httpsLoadFinishedWithErrorsHandler;
-		[request post:[NSString stringWithUTF8String:variables]];
+		[request post: [NSString stringWithUTF8String:variables]];
+	}
+	void https_put (const char *url, const char *variables) {
+		
+		request = [[HttpsRequest alloc] initWithURL: [NSString stringWithUTF8String:url]];
+		request.httpsLoadFinished = &httpsLoadFinishedHandler;
+		request.httpsLoadError = &httpsLoadFinishedWithErrorsHandler;
+		[request put: [NSString stringWithUTF8String:variables]];
 	}
 	void https_cancel () {
 		[request cancel];
@@ -151,11 +176,9 @@ namespace ralcr {
 	
 	/** Notify Haxe of an Event */
 	void httpsLoadFinishedHandler () {
-		//NSLog(@"loadFinishedHandler %@", request.result);
 		val_call1 (eventCompleteHandle->get(), alloc_string([request.result cStringUsingEncoding:NSUTF8StringEncoding]));
 	}
 	void httpsLoadFinishedWithErrorsHandler () {
-		//NSLog(@"loadFinishedWithErrorsHandler %@", request.result);
 		val_call1 (eventErrorHandle->get(), alloc_string([request.result cStringUsingEncoding:NSUTF8StringEncoding]));
 	}
 	
