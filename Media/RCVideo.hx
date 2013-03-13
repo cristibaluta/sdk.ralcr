@@ -21,7 +21,7 @@ import flash.utils.Timer;
 import flash.media.SoundTransform;
 
 
-class RCVideo extends RCView, implements RCVideoInterface {
+class RCVideo extends RCView implements RCVideoInterface {
 	
 	public static var BUFFER_TIME :Int = 2;
 	public static var DEFAULT_VOLUME :Float = 0.8;
@@ -197,8 +197,8 @@ class RCVideo extends RCView, implements RCVideoInterface {
 		
 		} catch (e:Dynamic) {
 			trace(e);
-			var stack = haxe.Stack.exceptionStack();
-			trace (haxe.Stack.toString ( stack ));
+			var stack = haxe.CallStack.exceptionStack();
+			trace (haxe.CallStack.toString ( stack ));
 		}
 	}
 	
@@ -350,8 +350,9 @@ class RCVideo extends RCView, implements RCVideoInterface {
 	 *	Sets the size of the video object and maintains its aspect ratio
 	 */
 	public function setSize (w, h) :Void {
-		size.width = w;
-		size.height = h;
+		
+		size_.width = w;
+		size_.height = h;
 		background.width = w;
 		background.height = h;
 		
@@ -372,8 +373,8 @@ class RCVideo extends RCView, implements RCVideoInterface {
 		}
 		
 		// Center the video object in the provided width and height
-		video.x = Math.round ((w - video.width) / 2);
-		video.y = Math.round ((h - video.height) / 2);
+		video.x = Math.round (w/2 - video.width/2);
+		video.y = Math.round (h/2 - video.height/2);
 	}
 	
 	

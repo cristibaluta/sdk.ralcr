@@ -1,4 +1,4 @@
-﻿/**
+/**
 * ColorMatrix by Grant Skinner. August 8, 2005
 * Updated to AS3 November 19, 2007
 * Visit www.gskinner.com/blog for documentation, updates and more free code.
@@ -16,7 +16,8 @@
 class ColorMatrix {
 	
 	// constant for contrast calculations:
-	inline static var DELTA_INDEX :Array<Float> = [
+	inline static function DELTA_INDEX () :Array<Float> {
+		return [
 		0,    0.01, 0.02, 0.04, 0.05, 0.06, 0.07, 0.08, 0.1,  0.11,
 		0.12, 0.14, 0.15, 0.16, 0.17, 0.18, 0.20, 0.21, 0.22, 0.24,
 		0.25, 0.27, 0.28, 0.30, 0.32, 0.34, 0.36, 0.38, 0.40, 0.42,
@@ -27,18 +28,20 @@ class ColorMatrix {
 		2.37, 2.50, 2.62, 2.75, 2.87, 3.0,  3.2,  3.4,  3.6,  3.8,
 		4.0,  4.3,  4.7,  4.9,  5.0,  5.5,  6.0,  6.5,  6.8,  7.0,
 		7.3,  7.5,  7.8,  8.0,  8.4,  8.7,  9.0,  9.4,  9.6,  9.8, 
-		10.0
-	];
+		10.0];
+	}
 
 	// identity matrix constant:
-	inline static var IDENTITY_MATRIX :Array<Float> = [
+	inline static function IDENTITY_MATRIX () :Array<Float> {
+		return [
 		1,0,0,0,0,
 		0,1,0,0,0,
 		0,0,1,0,0,
 		0,0,0,1,0,
-		0,0,0,0,1.0
-	];
-	static var LENGTH:Int = IDENTITY_MATRIX.length;
+		0,0,0,0,1.0];
+	}
+	
+	static var LENGTH :Int = IDENTITY_MATRIX().length;
 	
 	var arr :Array<Float>;
 	
@@ -47,14 +50,14 @@ class ColorMatrix {
 	public function new (p_matrix:Array<Float>=null) {
 		arr = new Array<Float>();
 		p_matrix = fixMatrix ( p_matrix );
-		copyMatrix (((p_matrix.length == LENGTH) ? p_matrix : IDENTITY_MATRIX));
+		copyMatrix (((p_matrix.length == LENGTH) ? p_matrix : IDENTITY_MATRIX()));
 	}
 	
 	
 // public methods:
 	public function reset() :Void {
 		for (i in 0...LENGTH)
-			arr[i] = IDENTITY_MATRIX[i];
+			arr[i] = IDENTITY_MATRIX()[i];
 	}
 	
 	public function adjustColor (p_brightness:Float, p_contrast:Float, p_saturation:Float, p_hue:Float) :Void {
@@ -86,12 +89,12 @@ class ColorMatrix {
 		else {
 			x = p_val%1;
 			if (x == 0) {
-				x = DELTA_INDEX[Math.round(p_val)];
+				x = DELTA_INDEX()[Math.round(p_val)];
 			}
 			else {
 				//x = DELTA_INDEX[(p_val<<0)]; // this is how the IDE does it.
-				x = untyped DELTA_INDEX[Math.round(p_val<<0)] * (1-x) + 
-					untyped DELTA_INDEX[Math.round((p_val<<0)+1)]*x;
+				x = untyped DELTA_INDEX()[Math.round(p_val<<0)] * (1-x) + 
+					untyped DELTA_INDEX()[Math.round((p_val<<0)+1)]*x;
 				// use linear interpolation for more granularity.
 			}
 			x = x*127+127;
@@ -191,10 +194,10 @@ class ColorMatrix {
 
 	// makes sure matrixes are 5x5 (25 long):
 	function fixMatrix (p_matrix:Array<Float>=null) :Array<Float> {
-		if (p_matrix == null) { return IDENTITY_MATRIX; }
+		if (p_matrix == null) { return IDENTITY_MATRIX(); }
 		if (Std.is (p_matrix, ColorMatrix)) { p_matrix = p_matrix.slice(0); }
 		if (p_matrix.length < LENGTH) {
-			p_matrix = p_matrix.slice (0, p_matrix.length).concat (IDENTITY_MATRIX.slice (p_matrix.length, LENGTH));
+			p_matrix = p_matrix.slice (0, p_matrix.length).concat (IDENTITY_MATRIX().slice (p_matrix.length, LENGTH));
 		}
 		else if (p_matrix.length > LENGTH) {
 			p_matrix = p_matrix.slice (0, LENGTH);

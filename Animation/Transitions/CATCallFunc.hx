@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CATCallFunc extends CAObject, implements CATransitionInterface {
+class CATCallFunc extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class RCDashedLine extends RCDraw, implements RCDrawInterface {
+class RCDashedLine extends RCDraw implements RCDrawInterface {
 	
 	public var dashWidth :Int;
 	public var dashGap :Null<Int>;// If the dashGap is null, use the dashWidth
@@ -26,7 +26,7 @@ class RCDashedLine extends RCDraw, implements RCDrawInterface {
 	
 	public function redraw () :Void {
 		
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 		
 		layer.graphics.clear();
 		this.configure();
@@ -48,7 +48,7 @@ class RCDashedLine extends RCDraw, implements RCDrawInterface {
 			var W = size.width > size.height ? dashWidth : size.width;
 			var H = size.width < size.height ? dashWidth : size.height;
 			
-			#if (flash || nme)
+			#if (flash || (nme && (cpp || neko)))
 				
 				layer.graphics.drawRect (X, Y, W, H);
 				

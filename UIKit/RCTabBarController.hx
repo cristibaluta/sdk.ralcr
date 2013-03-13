@@ -16,7 +16,7 @@ class RCTabBarController extends RCView {
 	public var placeholder :RCView;
 	public var tabBar :RCTabBar;
 	public var viewControllers :Array<RCView>;
-	public var selectedIndex (get_index, set_index) :Int;
+	public var selectedIndex (get_selectedIndex, set_selectedIndex) :Int;
 	
 	public var didSelectViewController :RCSignal<Dynamic->Void>;
 	
@@ -45,7 +45,7 @@ class RCTabBarController extends RCView {
 		this.symbols = symbols;
 		this.controllers = controllers;
 		
-		tabBar = new RCTabBar (0, size.height-50, size.width, 50, constructor_);
+		tabBar = new RCTabBar (0, size_.height-50, size_.width, 50, constructor_);
 		this.addChild ( tabBar );
 		tabBar.add ( labels );
 		tabBar.didSelectItem.add ( didSelectItemHandler );
@@ -69,7 +69,7 @@ class RCTabBarController extends RCView {
 			}
 			i++;
 		}
-		set_index ( i );
+		set_selectedIndex ( i );
 	}
 	
 	
@@ -77,14 +77,14 @@ class RCTabBarController extends RCView {
 	/**
 	 *  selectedIndex getter and setter
 	 **/
-	public function get_index () :Int {
+	public function get_selectedIndex () :Int {
 		return tabBar.selectedIndex;
 	}
-	public function set_index (i:Int) :Int {
+	public function set_selectedIndex (i:Int) :Int {
 		trace("setIndex "+i);
 		if (tabBar.selectedIndex == i) return i;// Can't select twice the same element
 		
-		tabBar.set_index ( i );
+		tabBar.set_selectedIndex ( i );
 		
 		var view = getViewController(i);
 		if (view == null) try{

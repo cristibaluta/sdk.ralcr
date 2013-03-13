@@ -9,7 +9,7 @@
 import flash.geom.Point;
 
 
-class CATBezier extends CAObject, implements CATransitionInterface {
+class CATBezier extends CAObject implements CATransitionInterface {
 	
 	
 	inline static var _RAD2DEG = 180 / Math.PI; //precalculate for speed

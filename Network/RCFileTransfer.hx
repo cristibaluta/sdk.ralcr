@@ -1,11 +1,13 @@
 //
-//  Upload
+//  RCFileTransfer.hx
 //
 //  Created by Baluta Cristian on 2008-07-04.
-//  Copyright (c) 2008 www.lib.com. 
+//  Copyright (c) 2008 www.ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+
 #if flash
+
 import flash.events.Event;
 import flash.events.ProgressEvent;
 import flash.events.IOErrorEvent;
@@ -21,15 +23,15 @@ import flash.net.URLRequestMethod;
 
 class RCFileTransfer {
 	
-	inline public static var IMAGES :FileFilter = new FileFilter ("Images", "*.jpg;*.jpeg;*.png;*.gif");
-	inline public static var MUSIC :FileFilter = new FileFilter ("Mp3 Files", "*.mp3");
-	inline public static var FLASH :FileFilter = new FileFilter ("Flash Files", "*.swf");
-	inline public static var VIDEOS :FileFilter = new FileFilter ("Flash Video", "*.flv;*.f4v;*.mp4");
-	inline public static var TEXT :FileFilter = new FileFilter ("Text", "*.txt");
-	inline public static var ALL :FileFilter = new FileFilter ("All", "*.*");
+	inline public static function IMAGES () :FileFilter { return new FileFilter ("Images", "*.jpg;*.jpeg;*.png;*.gif"); }
+	inline public static function MUSIC () :FileFilter { return new FileFilter ("Mp3 Files", "*.mp3"); }
+	inline public static function FLASH () :FileFilter { return new FileFilter ("Flash Files", "*.swf"); }
+	inline public static function VIDEOS () :FileFilter { return new FileFilter ("Flash Video", "*.flv;*.f4v;*.mp4"); }
+	inline public static function TEXT () :FileFilter { return new FileFilter ("Text", "*.txt"); }
+	inline public static function ALL () :FileFilter { return new FileFilter ("All", "*.*"); }
 	
-	var _file_reference :FileReference;
-	var _scripts_path :String;
+	var fr :FileReference;
+	var apiPath :String;
 	
 	public var name :String;
 	public var size :Int;
@@ -39,9 +41,6 @@ class RCFileTransfer {
 	public var percentLoaded :Int;
 	public var errorMessage :String;
 	
-	/**
-	 * Dispatch events
-	 */
 	dynamic public function onSelect () :Void {}
 	dynamic public function onOpen () :Void {}
 	dynamic public function onComplete () :Void {}
@@ -49,17 +48,17 @@ class RCFileTransfer {
 	dynamic public function onError () :Void {}
 	
 	
-	public function new (scripts_path:String) {
+	public function new (apiPath:String) {
 		
-		_scripts_path = scripts_path;
+		this.apiPath = apiPath;
 		
-		_file_reference = new FileReference();
-		_file_reference.addEventListener (Event.SELECT, selectHandler);
-		_file_reference.addEventListener (Event.OPEN, openHandler);
-		_file_reference.addEventListener (Event.COMPLETE, completeHandler);
-		_file_reference.addEventListener (ProgressEvent.PROGRESS, progressHandler);
-		_file_reference.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
-		_file_reference.addEventListener (SecurityErrorEvent.SECURITY_ERROR, securityHandler);
+		fr = new FileReference();
+		fr.addEventListener (Event.SELECT, selectHandler);
+		fr.addEventListener (Event.OPEN, openHandler);
+		fr.addEventListener (Event.COMPLETE, completeHandler);
+		fr.addEventListener (ProgressEvent.PROGRESS, progressHandler);
+		fr.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
+		fr.addEventListener (SecurityErrorEvent.SECURITY_ERROR, securityHandler);
 	}
 	
 	
@@ -67,7 +66,7 @@ class RCFileTransfer {
 	 * Select a file from the hard drive.
 	 */
 	public function browse (accepted_files:Array<FileFilter>) {
-		_file_reference.browse ( accepted_files );
+		fr.browse ( accepted_files );
 	}
 	
 	
@@ -86,11 +85,11 @@ class RCFileTransfer {
 				Reflect.setField (variables, f, Reflect.field (variables_list, f));
 		
 		
-		var request = new URLRequest (_scripts_path + "filesystem/uploadFile.php");
+		var request = new URLRequest (apiPath + "filesystem/uploadFile.php");
 		request.data = variables;
 		request.method = URLRequestMethod.POST;
 		
-		_file_reference.upload ( request );
+		fr.upload ( request );
 	}
 	
 	
@@ -101,7 +100,7 @@ class RCFileTransfer {
 		
 		var request = new URLRequest ( URL );
 		
-		_file_reference.download (request, new_name);
+		fr.download (request, new_name);
 	}
 	
 	
@@ -109,7 +108,7 @@ class RCFileTransfer {
 	 * Cancel the transfer.
 	 */
 	public function cancel () {
-		_file_reference.cancel();
+		fr.cancel();
 	}
 	
 	
@@ -119,17 +118,17 @@ class RCFileTransfer {
 	function selectHandler (e:Event) {
 		trace("Selected File");
 		try{
-		trace("Name: " + _file_reference.name);
-		trace("Type: " + _file_reference.type);
-		trace("Size: " + _file_reference.size);
-		trace("Created On: " + _file_reference.creationDate);
-		trace("Modified On: " + _file_reference.modificationDate);
+		trace("Name: " + fr.name);
+		trace("Type: " + fr.type);
+		trace("Size: " + fr.size);
+		trace("Created On: " + fr.creationDate);
+		trace("Modified On: " + fr.modificationDate);
 		}catch(e:Dynamic){trace(e);}
 		
-		name = _file_reference.name;
-		size = Math.round ( _file_reference.size );
-		creationDate = _file_reference.creationDate;
-		modificationDate = _file_reference.modificationDate;
+		name = fr.name;
+		size = Math.round ( fr.size );
+		creationDate = fr.creationDate;
+		modificationDate = fr.modificationDate;
 		
 		onSelect ();
 	}
@@ -160,12 +159,12 @@ class RCFileTransfer {
 	
 	
 	public function destroy () {
-		_file_reference.removeEventListener (Event.SELECT, selectHandler);
-		_file_reference.removeEventListener (Event.OPEN, openHandler);
-		_file_reference.removeEventListener (Event.COMPLETE, completeHandler);
-		_file_reference.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
-		_file_reference.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
-		_file_reference.removeEventListener (SecurityErrorEvent.SECURITY_ERROR, securityHandler);
+		fr.removeEventListener (Event.SELECT, selectHandler);
+		fr.removeEventListener (Event.OPEN, openHandler);
+		fr.removeEventListener (Event.COMPLETE, completeHandler);
+		fr.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
+		fr.removeEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
+		fr.removeEventListener (SecurityErrorEvent.SECURITY_ERROR, securityHandler);
 	}
 }
 #end

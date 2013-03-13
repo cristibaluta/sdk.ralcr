@@ -1,0 +1,19 @@
+# -as3 AS3_GENERATED
+-swf build3/sdk.ralcr.swc
+-swf-version 10
+-main Main.hx
+--times
+-dce no
+sdk.ralcr.hxml
+
+--next
+-js build3/sdk.ralcr.js
+-main Main.hx
+-dce no
+sdk.ralcr.hxml
+
+--next
+-neko run.n
+-main Run
+
+# samples/build_samples.hxml

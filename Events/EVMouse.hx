@@ -1,5 +1,5 @@
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.events.MouseEvent;
 	import flash.display.DisplayObjectContainer;
 #end
@@ -67,7 +67,7 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 	
 	function addEventListener (?pos:haxe.PosInfos) :Void {
 		
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			switch (type) {
 				case UP:			layer.addEventListener (MouseEvent.MOUSE_UP, mouseHandler);
 				case DOWN: 			layer.addEventListener (MouseEvent.MOUSE_DOWN, mouseHandler);
@@ -104,7 +104,7 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 	}
 	
 	function removeEventListener () {
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			switch (type) {
 				case UP:			layer.removeEventListener (MouseEvent.MOUSE_UP, mouseHandler);
 				case DOWN:			layer.removeEventListener (MouseEvent.MOUSE_DOWN, mouseHandler);

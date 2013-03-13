@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CATKenBurns extends CAObject, implements CATransitionInterface {
+class CATKenBurns extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

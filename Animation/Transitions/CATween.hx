@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CATween extends CAObject, implements CATransitionInterface {
+class CATween extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		
@@ -37,7 +37,7 @@ class CATween extends CAObject, implements CATransitionInterface {
 		// Iterate over properties that should be tweened for this object
 		for (prop in Reflect.fields (toValues))
 			try {
-/*			#if (flash || nme)
+/*			#if (flash || (nme && (cpp || neko)))
 				Reflect.setField (target, prop, calculate (time_diff, prop));
 			#elseif js*/
 				

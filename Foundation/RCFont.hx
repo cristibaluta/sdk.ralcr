@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
@@ -33,8 +33,8 @@
 class RCFont {
 	
 	public var html :Bool;
-	public var format (getFormat, null) :TextFormat;
-	public var style (getStyleSheet, null) :StyleSheet;
+	public var format (get_format, null) :TextFormat;
+	public var style (get_style, null) :StyleSheet;
 	
 	// TextField properties (only some of them that are more important)
 	public var embedFonts :Bool;
@@ -170,7 +170,7 @@ class RCFont {
 		rightMargin = 0;
 		letterSpacing = 0;
 		
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	#if flash
 		antiAliasType = AntiAliasType.ADVANCED;// ADVANCED-normal fonts(<40px), NORMAL-pixel fonts
 		style = new StyleSheet();
@@ -219,7 +219,7 @@ class RCFont {
 	/**
 	 *  Create a TextFormat from the properties of the RCFont
 	 **/
-	public function getFormat () :TextFormat {
+	public function get_format () :TextFormat {
 		// Copy the right properties from rcfont to the format
 		format.align = null;// This property is replaced in the textfield
 		format.blockIndent = blockIndent;
@@ -236,14 +236,14 @@ class RCFont {
 		format.letterSpacing = letterSpacing;
 		format.rightMargin = rightMargin * RCDevice.currentDevice().dpiScale;
 		format.size = size * RCDevice.currentDevice().dpiScale;
-		format.tabStops = tabStops;
+		//format.tabStops = tabStops;
 		format.target = target;
 		format.underline = underline;
 		format.url = url;
 		
 		return format;
 	}
-	public function getStyleSheet () :StyleSheet {
+	public function get_style () :StyleSheet {
 		return style;
 	}
 }

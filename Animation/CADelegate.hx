@@ -49,8 +49,8 @@ class CADelegate {
 			catch(e:Dynamic){
 				trace(e);
 				trace(pos.className + " -> " + pos.methodName + " -> " + pos.lineNumber);
-				var stack = haxe.Stack.exceptionStack();
-				trace(haxe.Stack.toString ( stack ));
+				var stack = haxe.CallStack.exceptionStack();
+				trace(haxe.CallStack.toString ( stack ));
 			}
 		}
 	}

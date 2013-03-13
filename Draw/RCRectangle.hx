@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class RCRectangle extends RCDraw, implements RCDrawInterface {
+class RCRectangle extends RCDraw implements RCDrawInterface {
 	
 	public var roundness :Null<Int>;// Rounded corners radius
 	
@@ -24,7 +24,7 @@ class RCRectangle extends RCDraw, implements RCDrawInterface {
 		
 		var dpi :Float = RCDevice.currentDevice().dpiScale;
 		
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 		
 		layer.graphics.clear();
 		configure();

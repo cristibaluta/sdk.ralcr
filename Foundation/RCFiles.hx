@@ -2,13 +2,13 @@ using Zeta;
 
 class RCFiles {
 	
-	inline public static var PHOTOS :Array<String> = [".jpg", ".jpeg", ".png", ".gif"];
-	inline public static var MUSIC :Array<String> = [".mp3"];
-	inline public static var FLASH :Array<String> = [".swf"];
-	inline public static var PANO2VR :Array<String> = [".pano2vr"];
-	inline public static var VIDEOS :Array<String> = [".flv", ".f4v", ".mp4", ".m4v", ".webm", ".ogv", ".ytb"];
-	inline public static var TEXT :Array<String> = [".txt", ".data"];
-	inline public static var IGNORE :Array<String> = ['.', '..', '.DS_Store', '_vti_cnf', 'Thumbs.db', '_thumb.jpg'];
+	inline public static function PHOTOS () :Array<String> { return [".jpg", ".jpeg", ".png", ".gif"]; }
+	inline public static function MUSIC () :Array<String> { return [".mp3"]; }
+	inline public static function FLASH () :Array<String> { return [".swf"]; }
+	inline public static function PANO2VR () :Array<String> { return [".pano2vr"]; }
+	inline public static function VIDEOS () :Array<String> { return [".flv", ".f4v", ".mp4", ".m4v", ".webm", ".ogv", ".ytb"]; }
+	inline public static function TEXT () :Array<String> { return [".txt", ".data"]; }
+	inline public static function IGNORE () :Array<String> { return ['.', '..', '.DS_Store', '_vti_cnf', 'Thumbs.db', '_thumb.jpg']; }
 	
 	public var dir :Array<String>;
 	public var media :Array<String>;//all pictures and videos
@@ -34,7 +34,7 @@ class RCFiles {
 	*  If it's not a known file means it's a directory
 	*/
 	public static function isDirectory (file:String) :Bool {
-		return ! file.isIn (PHOTOS.concat(MUSIC).concat(FLASH).concat(VIDEOS).concat(TEXT).concat(PANO2VR), "end");
+		return ! file.isIn (PHOTOS().concat(MUSIC()).concat(FLASH()).concat(VIDEOS()).concat(TEXT()).concat(PANO2VR()), "end");
 	}
 	
 	
@@ -59,28 +59,28 @@ class RCFiles {
 	
 	public function push (file:String) :Void {
 		
-		if (file.isIn (IGNORE, "end")) return;
+		if (file.isIn (IGNORE(), "end")) return;
 		
-		if (file.isIn (PHOTOS, "end")) {
+		if (file.isIn (PHOTOS(), "end")) {
 			images.push ( file );
 			media.push ( file );
 		}
-		else if (file.isIn (MUSIC, "end")) {
+		else if (file.isIn (MUSIC(), "end")) {
 			music.push ( file );
 		}
-		else if (file.isIn (VIDEOS, "end")) {
+		else if (file.isIn (VIDEOS(), "end")) {
 			video.push ( file );
 			media.push ( file );
 		}
-		else if (file.isIn (FLASH, "end")) {
+		else if (file.isIn (FLASH(), "end")) {
 			flash.push ( file );
 			media.push ( file );
 		}
-		else if (file.isIn (PANO2VR, "end")) {
+		else if (file.isIn (PANO2VR(), "end")) {
 			pano2vr.push ( file );
 			media.push ( file );
 		}
-		else if (file.isIn (TEXT, "end")) {
+		else if (file.isIn (TEXT(), "end")) {
 			text.push ( file );
 		}
 		else if (file.isIn ([".xml"], "end")) {

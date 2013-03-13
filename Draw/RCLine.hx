@@ -5,7 +5,7 @@
 //  Copyright (c) 2008-2011 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-class RCLine extends RCDraw, implements RCDrawInterface {
+class RCLine extends RCDraw implements RCDrawInterface {
 	
 	public var lineWeight :Int;
 	
@@ -20,7 +20,7 @@ class RCLine extends RCDraw, implements RCDrawInterface {
 	}
 	
 	public function redraw () :Void {
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 		layer.graphics.clear();
 		layer.graphics.lineStyle (lineWeight, color.fillColor);
 		layer.graphics.moveTo (0, 0);

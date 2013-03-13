@@ -19,7 +19,7 @@ import flash.utils.Timer;
 import flash.media.SoundTransform;
 
 
-class RCRtmp extends RCVideo, implements RCVideoInterface {
+class RCRtmp extends RCVideo implements RCVideoInterface {
 	
 	var file :String;
 	

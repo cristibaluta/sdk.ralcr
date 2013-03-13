@@ -10,7 +10,7 @@
  *  Available for flash only
  **/
 
-class CATMorph extends CAObject, implements CATransitionInterface {
+class CATMorph extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

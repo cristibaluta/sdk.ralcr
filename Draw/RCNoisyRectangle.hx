@@ -11,7 +11,7 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 
 
-class RCNoisyRectangle extends RCDraw, implements RCDrawInterface {
+class RCNoisyRectangle extends RCDraw implements RCDrawInterface {
 	
 	public var roundness :Null<Int>;// Rounded corners radius
 	

@@ -52,7 +52,7 @@ class RCHttp extends RCRequest {
 	public function navigateToURL (URL:String, variables_list:Dynamic, ?method:String="POST", ?target:String="_self") :Void {
 		//trace(URL);trace(variables_list);trace(method);trace(target);
 		var variables = createVariables ( variables_list );
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			//flash.Lib.getURL ( createRequest (URL, variables, method), target);
 		#end
 	}

@@ -10,7 +10,7 @@
 import flash.display.Shape;
 
 
-class RCRandomCurve extends RCDraw, implements RCDrawInterface {
+class RCRandomCurve extends RCDraw implements RCDrawInterface {
 	
 	public var points :Int;// Rounded corners radius
 	

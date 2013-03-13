@@ -63,7 +63,7 @@ class Facebook {
      * @param applicationId The application ID you created at
      * http://www.facebook.com/developers/apps.php
      *
-     * @param callback (Optional)
+     * @param Optional)
 	 * Method to call when initialization is complete.
      * The handler must have the signature of callback(success:Dynamic, fail:Dynamic);
      * Success will be a FacebookSession if successful, or null if not.
@@ -449,8 +449,8 @@ class Facebook {
 			params.locale = locale;
 		
 		var req = new RCHttp();
-			req.onComplete = callback (completeHandler, req, _callback);
-			req.onError = callback (errorHandler, req, _callback);
+			req.onComplete = completeHandler.bind (req, _callback);
+			req.onError = errorHandler.bind (req, _callback);
 			req.call (GRAPH_URL + method, params, requestMethod);
 		requests.push ( req );
     }
@@ -586,8 +586,8 @@ class Facebook {
 		req.callURL (handleRequestLoad, url, locale);*/
 		var params = {locale : locale};
 		var req = new RCHttp();
-			req.onComplete = callback (handleRequestLoad, req, _callback, true);
-			req.onError = callback (handleRequestLoad, req, _callback, false);
+			req.onComplete = handleRequestLoad.bind (req, _callback, true);
+			req.onError = handleRequestLoad.bind (req, _callback, false);
 			req.call (url, params, "GET");
 		requests.push ( req );
 		

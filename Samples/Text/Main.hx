@@ -62,8 +62,8 @@ class Main {
 		var usage:String = "<title>Usage:</title>
 1. Init the RCFontManager and load fonts and/or styles:
 <code>FontManager.onCSSLoaded = initTheApplicationNow;
-FontManager.onFontLoaded = callback (FontManager.loadCSS, 'styles.css');
-FontManager.onInit = callback (FontManager.loadFont, 'lucida_r.swf');
+FontManager.onFontLoaded = FontManager.loadCSS.bind ('styles.css');
+FontManager.onInit = FontManager.loadFont, 'lucida_r.swf');
 FontManager.init();</code>
 
 2. Register loaded fonts(to register a font that you loaded from the swf you need a Class that extends Font Class in the same package with the one from the swf), textformats and stylesheets:

@@ -16,7 +16,7 @@ import flash.geom.Point;
 import flash.display.DisplayObjectContainer;
 
 
-class CATDistort extends CAObject, implements CATransitionInterface {
+class CATDistort extends CAObject implements CATransitionInterface {
 	
 	var distort :DistortImage;
 	

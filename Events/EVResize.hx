@@ -1,4 +1,4 @@
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.events.Event;
 #elseif js
 	import js.Dom;// typedef js.Event
@@ -10,7 +10,7 @@ class EVResize extends RCSignal<Int->Int->Void> {
 		
 		super();
 		
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			flash.Lib.current.stage.addEventListener (Event.RESIZE, resizeHandler);
 		#elseif js
 			js.Lib.window.onresize = resizeHandler;
@@ -19,7 +19,7 @@ class EVResize extends RCSignal<Int->Int->Void> {
 	
 	function resizeHandler (e:Event) {
 		
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			var w = flash.Lib.current.stage.stageWidth;
 			var h = flash.Lib.current.stage.stageHeight;
 		#elseif js

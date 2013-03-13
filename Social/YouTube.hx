@@ -20,7 +20,7 @@ import flash.net.URLRequest;
 import flash.system.Security;
 
 
-class YouTube extends RCVideo, implements RCVideoInterface, implements RCAudioInterface {
+class YouTube extends RCVideo implements RCVideoInterface implements RCAudioInterface {
 	
 	var videoId :String;
 	var loader :Loader;
@@ -89,11 +89,13 @@ class YouTube extends RCVideo, implements RCVideoInterface, implements RCAudioIn
 	function onPlayerStateChange(e:Event):Void {
 		//trace("onPlayerStateChange: "+untyped e.data);
 		// Event.data contains the event parameter, which is the new player state
-		switch ( untyped e.data ) {
+		var data :String = untyped e.data;
+		switch ( data ) {
 			case "0":	videoDidFinishPlaying(); onBufferFull();// video stopped playing (ended)
 			case "1":	onBufferFull();// 1 means is playing
 			case "2":	null;// 2 means Paused
 			case "3":	onBufferEmpty();// 3 means is buffering
+			case _: null;
 		}
 	}
 	

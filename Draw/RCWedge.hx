@@ -13,7 +13,7 @@
 // yRadius = [optional] y radius for wedge.
 // 
 #if flash
-class RCWedge extends RCDraw, implements RCDrawInterface {
+class RCWedge extends RCDraw implements RCDrawInterface {
 	
 	public var arc :Int;
 	

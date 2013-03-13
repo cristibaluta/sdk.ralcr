@@ -13,7 +13,7 @@
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 #end
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -114,16 +114,16 @@ class RCAssets {
 	function loadPhoto (key:String, URL:String) :Void {
 		//trace("load photo "+key+", "+URL);
 		var photo = new RCImage (0, 0, URL);
-			photo.onProgress = callback (progressHandler, key, photo);
-			photo.onComplete = callback (completeHandler, key, photo);
-			photo.onError = callback (errorHandler, key, photo);
+			photo.onProgress = progressHandler.bind (key, photo);
+			photo.onComplete = completeHandler.bind (key, photo);
+			photo.onError = errorHandler.bind (key, photo);
 	}
 	function loadSwf (key:String, URL:String, ?newDomain:Bool=true) :Void {
 		//trace("load swf "+key+", "+URL);
 		var swf = new RCSwf (0, 0, URL, newDomain);
-			swf.onProgress = callback (progressHandler, key, swf);
-			swf.onComplete = callback (completeHandler, key, swf);
-			swf.onError = callback (errorHandler, key, swf);
+			swf.onProgress = progressHandler.bind (key, swf);
+			swf.onComplete = completeHandler.bind (key, swf);
+			swf.onError = errorHandler.bind (key, swf);
 	}
 	function loadText (key:String, URL:String) :Void {
 		//trace("load text "+key+", "+URL);
@@ -134,9 +134,9 @@ class RCAssets {
 #end
 		if (data.result == null) {
 			// If NME assets didn't contained the asset, load it with a Http request
-			data.onProgress = callback (progressHandler, key, data);
-			data.onComplete = callback (completeHandler, key, data);
-			data.onError = callback (errorHandler, key, data);
+			data.onProgress = progressHandler.bind (key, data);
+			data.onComplete = completeHandler.bind (key, data);
+			data.onError = errorHandler.bind (key, data);
 			data.readFile ( URL );
 		}
 		else {
@@ -266,7 +266,7 @@ class RCAssets {
 		return null;
 	}
 	
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	/**
 	 *  Create an instance from an asset found in an external swf
 	 *  For NME the swf was converted to classes already by the compiler

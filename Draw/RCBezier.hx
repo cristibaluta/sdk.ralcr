@@ -5,7 +5,7 @@
 //  Copyright (c) 2011 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-class RCBezier extends RCDraw, implements RCDrawInterface {
+class RCBezier extends RCDraw implements RCDrawInterface {
 	
 	public var lineWeight :Int;
 	

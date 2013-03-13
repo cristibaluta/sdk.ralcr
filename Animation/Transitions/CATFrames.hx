@@ -11,7 +11,7 @@
  *  Available for flash only
  **/
 
-class CATFrames extends CAObject, implements CATransitionInterface {
+class CATFrames extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

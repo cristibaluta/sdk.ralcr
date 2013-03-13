@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 #if flash
-class RCBurst extends RCDraw, implements RCDrawInterface {
+class RCBurst extends RCDraw implements RCDrawInterface {
 	
 	public var sides :Int;
 	public var innerRadius :Int;

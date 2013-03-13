@@ -39,7 +39,7 @@ import js.Lib;
 import haxe.Timer;
 
 
-class JSVideo extends RCView, implements RCVideoInterface {
+class JSVideo extends RCView implements RCVideoInterface {
 	
 	public static var BUFFER_TIME :Int = 2;
 	public static var DEFAULT_VOLUME :Float = 0.8;

@@ -12,7 +12,7 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
 
-class RCPatternFill extends RCDraw, implements RCDrawInterface {
+class RCPatternFill extends RCDraw implements RCDrawInterface {
 	
 	public var pattern :DisplayObjectContainer;// Rounded corners radius
 	

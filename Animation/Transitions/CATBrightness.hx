@@ -11,7 +11,7 @@ import flash.filters.ColorMatrixFilter;
 import flash.display.DisplayObjectContainer;
 
 
-class CATBrightness extends CAObject, implements CATransitionInterface {
+class CATBrightness extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

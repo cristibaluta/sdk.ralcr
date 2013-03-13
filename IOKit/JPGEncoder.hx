@@ -46,7 +46,7 @@ import flash.utils.ByteArray;
  */		
 class JPGEncoder {
 	// Static table initialization
-	inline static var ZigZag :Array<Int> = [
+	inline static function ZigZag () :Array<Int> return [
 			 0, 1, 5, 6,14,15,27,28,
 			 2, 4, 7,13,16,26,29,42,
 			 3, 8,12,17,25,30,41,43,
@@ -175,7 +175,7 @@ class JPGEncoder {
 			else if (t > 255)
 				t = 255;
 				
-			YTable[ZigZag[i]] = t;
+			YTable[ZigZag()[i]] = t;
 		}
 		
 		var UVQT :Array<Int> = [
@@ -196,7 +196,7 @@ class JPGEncoder {
 			else if (t > 255)
 				t = 255;
 			
-			UVTable[ZigZag[i]] = t;
+			UVTable[ZigZag()[i]] = t;
 		}
 		
 		var aasf :Array<Float> = [
@@ -207,8 +207,8 @@ class JPGEncoder {
 		var i :Int = 0;
 		for (row in 0...8) {
 			for (col in 0...8) {
-				fdtbl_Y[i]  = (1.0 / (YTable [ZigZag[i]] * aasf[row] * aasf[col] * 8.0));
-				fdtbl_UV[i] = (1.0 / (UVTable[ZigZag[i]] * aasf[row] * aasf[col] * 8.0));
+				fdtbl_Y[i]  = (1.0 / (YTable [ZigZag()[i]] * aasf[row] * aasf[col] * 8.0));
+				fdtbl_UV[i] = (1.0 / (UVTable[ZigZag()[i]] * aasf[row] * aasf[col] * 8.0));
 				i++;
 			}
 		}
@@ -236,10 +236,10 @@ class JPGEncoder {
 		return HT;
 	}
 
-	inline static var std_dc_luminance_nrcodes :Array<Int> = [0,0,1,5,1,1,1,1,1,1,0,0,0,0,0,0,0];
-	inline static var std_dc_luminance_values :Array<Int> = [0,1,2,3,4,5,6,7,8,9,10,11];
-	inline static var std_ac_luminance_nrcodes :Array<Int> = [0,0,2,1,3,3,2,4,3,5,5,4,4,0,0,1,0x7d];
-	inline static var std_ac_luminance_values :Array<Int> = [
+	inline static function std_dc_luminance_nrcodes () :Array<Int> return [0,0,1,5,1,1,1,1,1,1,0,0,0,0,0,0,0];
+	inline static function std_dc_luminance_values () :Array<Int> return [0,1,2,3,4,5,6,7,8,9,10,11];
+	inline static function std_ac_luminance_nrcodes () :Array<Int> return [0,0,2,1,3,3,2,4,3,5,5,4,4,0,0,1,0x7d];
+	inline static function std_ac_luminance_values () :Array<Int> return [
 		0x01,0x02,0x03,0x00,0x04,0x11,0x05,0x12,
 		0x21,0x31,0x41,0x06,0x13,0x51,0x61,0x07,
 		0x22,0x71,0x14,0x32,0x81,0x91,0xa1,0x08,
@@ -263,10 +263,10 @@ class JPGEncoder {
 		0xf9,0xfa
 	];
 
-	inline static var std_dc_chrominance_nrcodes :Array<Int> = [0,0,3,1,1,1,1,1,1,1,1,1,0,0,0,0,0];
-	inline static var std_dc_chrominance_values :Array<Int> = [0,1,2,3,4,5,6,7,8,9,10,11];
-	inline static var std_ac_chrominance_nrcodes :Array<Int> = [0,0,2,1,2,4,4,3,4,7,5,4,4,0,1,2,0x77];
-	inline static var std_ac_chrominance_values :Array<Int> = [
+	inline static function std_dc_chrominance_nrcodes () :Array<Int> return [0,0,3,1,1,1,1,1,1,1,1,1,0,0,0,0,0];
+	inline static function std_dc_chrominance_values () :Array<Int> return [0,1,2,3,4,5,6,7,8,9,10,11];
+	inline static function std_ac_chrominance_nrcodes () :Array<Int> return [0,0,2,1,2,4,4,3,4,7,5,4,4,0,1,2,0x77];
+	inline static function std_ac_chrominance_values () :Array<Int> return [
 		0x00,0x01,0x02,0x03,0x11,0x04,0x05,0x21,
 		0x31,0x06,0x12,0x41,0x51,0x07,0x61,0x71,
 		0x13,0x22,0x32,0x81,0x08,0x14,0x42,0x91,
@@ -291,10 +291,10 @@ class JPGEncoder {
 	];
 
 	function initHuffmanTbl () :Void {
-		YDC_HT = computeHuffmanTbl (std_dc_luminance_nrcodes, std_dc_luminance_values);
-		UVDC_HT = computeHuffmanTbl (std_dc_chrominance_nrcodes, std_dc_chrominance_values);
-		YAC_HT = computeHuffmanTbl (std_ac_luminance_nrcodes, std_ac_luminance_values);
-		UVAC_HT = computeHuffmanTbl (std_ac_chrominance_nrcodes, std_ac_chrominance_values);
+		YDC_HT = computeHuffmanTbl (std_dc_luminance_nrcodes(), std_dc_luminance_values());
+		UVDC_HT = computeHuffmanTbl (std_dc_chrominance_nrcodes(), std_dc_chrominance_values());
+		YAC_HT = computeHuffmanTbl (std_ac_luminance_nrcodes(), std_ac_luminance_values());
+		UVAC_HT = computeHuffmanTbl (std_ac_chrominance_nrcodes(), std_ac_chrominance_values());
 	}
 
 	var bitcode :Array<BitString>;//(65535);
@@ -529,20 +529,20 @@ class JPGEncoder {
 		writeWord (0x01A2); // length
 
 		writeByte(0); // HTYDCinfo
-		for (i in 0...16) writeByte (std_dc_luminance_nrcodes[i+1]);
-		for (i in 0...12) writeByte (std_dc_luminance_values[i]);
+		for (i in 0...16) writeByte (std_dc_luminance_nrcodes()[i+1]);
+		for (i in 0...12) writeByte (std_dc_luminance_values()[i]);
 
 		writeByte (0x10); // HTYACinfo
-		for (i in 0...16) writeByte (std_ac_luminance_nrcodes[i+1]);
-		for (i in 0...162) writeByte (std_ac_luminance_values[i]);
+		for (i in 0...16) writeByte (std_ac_luminance_nrcodes()[i+1]);
+		for (i in 0...162) writeByte (std_ac_luminance_values()[i]);
 
 		writeByte (1); // HTUDCinfo
-		for (i in 0...16) writeByte (std_dc_chrominance_nrcodes[i+1]);
-		for (i in 0...12) writeByte (std_dc_chrominance_values[i]);
+		for (i in 0...16) writeByte (std_dc_chrominance_nrcodes()[i+1]);
+		for (i in 0...12) writeByte (std_dc_chrominance_values()[i]);
 
 		writeByte (0x11); // HTUACinfo
-		for (i in 0...16) writeByte (std_ac_chrominance_nrcodes[i+1]);
-		for (i in 0...162) writeByte (std_ac_chrominance_values[i]);
+		for (i in 0...16) writeByte (std_ac_chrominance_nrcodes()[i+1]);
+		for (i in 0...162) writeByte (std_ac_chrominance_values()[i]);
 	}
 
 	function writeSOS () :Void {
@@ -569,7 +569,7 @@ class JPGEncoder {
 		var DU_DCT :Array<Int> = fDCTQuant (CDU, fdtbl);
 		
 		//ZigZag reorder
-		for (i in 0...64) DU[ZigZag[i]] = DU_DCT[i];
+		for (i in 0...64) DU[ZigZag()[i]] = DU_DCT[i];
 		
 		var Diff :Int = DU[0] - DC;
 		DC = DU[0];

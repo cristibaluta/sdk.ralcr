@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.display.DisplayObjectContainer;
 #elseif js
 	import js.Dom;
@@ -33,10 +33,13 @@ class RCSliderSync {
 	var decelerationRate :DecelerationRate;
 	var ticker :EVLoop;
 	var mouseWheel :EVMouse;
+	var valueMax_ :Int;
+	var valueStart_ :Int;
+	var valueFinal_ :Int;
 	
-	public var valueMax (default, set_maxValue) :Int;
-	public var valueStart (default, set_startValue) :Int;
-	public var valueFinal (default, set_finalValue) :Int;// the current value between start and max
+	public var valueMax (default, set_valueMax) :Int;
+	public var valueStart (default, set_valueStart) :Int;
+	public var valueFinal (default, set_valueFinal) :Int;// the current value between start and max
 	
 	public var valueChanged :RCSignal<RCSliderSync->Void>;
 	public var contentValueChanged :RCSignal<Void>;
@@ -52,9 +55,9 @@ class RCSliderSync {
 		this.contentView = contentView;
 		this.slider = slider;
 		this.direction = direction == "horizontal" ? HORIZONTAL : VERTICAL;
-		this.valueMax = Math.round ( valueMax );
-		this.valueStart = Math.round ( getContentPosition() );
-		this.valueFinal = valueStart;
+		this.valueMax_ = Math.round ( valueMax );
+		this.valueStart_ = Math.round ( getContentPosition() );
+		this.valueFinal_ = valueStart;
 		this.f = 1;
 		
 		valueChanged = new RCSignal<RCSliderSync->Void>();
@@ -149,16 +152,16 @@ class RCSliderSync {
 	}
 	
 	
-	function set_maxValue (value:Int) :Int {
-		return valueMax = value;
+	function set_valueMax (value:Int) :Int {
+		return valueMax_ = value;
 	}
 	
-	function set_finalValue (value:Int) :Int {
-		return valueFinal = value;
+	function set_valueFinal (value:Int) :Int {
+		return valueFinal_ = value;
 	}
 	
-	function set_startValue (value:Int) :Int {
-		return valueStart = value;
+	function set_valueStart (value:Int) :Int {
+		return valueStart_ = value;
 	}
 	
 	

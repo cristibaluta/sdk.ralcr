@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class RCPolygon extends RCDraw, implements RCDrawInterface {
+class RCPolygon extends RCDraw implements RCDrawInterface {
 	
 	public var points :Array<RCPoint>;
 	
@@ -19,7 +19,7 @@ class RCPolygon extends RCDraw, implements RCDrawInterface {
 	}
 	
 	public function redraw () {
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 		layer.graphics.clear();
 		this.configure();
 		

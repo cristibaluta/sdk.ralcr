@@ -5,7 +5,7 @@
 //  Updated 2008 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-class RCEllipse extends RCDraw, implements RCDrawInterface {
+class RCEllipse extends RCDraw implements RCDrawInterface {
 		
 	public function new (x, y, w, h, color:Dynamic, ?alpha:Float=1.0) {
 		super (x, y, w, h, color, alpha);
@@ -15,7 +15,7 @@ class RCEllipse extends RCDraw, implements RCDrawInterface {
 	
 	public function redraw() :Void {
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 		layer.graphics.clear();
 		this.configure();
 		

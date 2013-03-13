@@ -21,8 +21,8 @@ class RCCircularProgressIndicator extends RCView {
 	public function new (x, y) {
 		super (x, y);
 		
-		var colors = [0x000000, 0xFF0066];
-		var alphas = [0, 1];
+		var colors :Array<UInt> = [0x000000, 0xFF0066];
+		var alphas = [0.0, 1.0];
 		var ratios = [0, 255];
 		var matrix : Matrix = new Matrix();
 			matrix.createGradientBox (RAZA, RAZA, 0, 0, 0);

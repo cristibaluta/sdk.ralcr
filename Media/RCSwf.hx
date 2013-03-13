@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.events.Event;
 	import flash.display.Loader;
 	import flash.net.URLRequest;
@@ -86,8 +86,8 @@ class RCSwf extends RCImage {
 		}
 		catch (e:Dynamic) {
 			trace ( e );
-			var stack = haxe.Stack.exceptionStack();
-			trace ( haxe.Stack.toString ( stack ) );
+			var stack = haxe.CallStack.exceptionStack();
+			trace ( haxe.CallStack.toString ( stack ) );
 		}
 		//loader.close();
 		#if flash

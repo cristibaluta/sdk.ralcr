@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CATZoom extends CAObject, implements CATransitionInterface {
+class CATZoom extends CAObject implements CATransitionInterface {
 	
 	/**
 	 *  Predefined zoom types that you can use: {zoom:zoomType}

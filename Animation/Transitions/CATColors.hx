@@ -9,7 +9,7 @@
 	import flash.geom.ColorTransform;
 #end
 
-class CATColors extends CAObject, implements CATransitionInterface {
+class CATColors extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

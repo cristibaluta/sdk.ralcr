@@ -153,7 +153,7 @@ class FlashView extends RCDisplayObject {
 		child.parent = null;
 		child.viewDidDisappear.dispatch();
 	}
-	public function removeFromSuperview () :Void {
+	@:keep public function removeFromSuperview () :Void {
 		var parent = null;
 		try{parent = layer.parent; } catch (e:Dynamic) { null; }
 		if (parent != null)

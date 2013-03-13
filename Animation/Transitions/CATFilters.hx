@@ -14,15 +14,15 @@ import flash.filters.DropShadowFilter;
 import flash.filters.GlowFilter;
 
 
-class CATFilters extends CAObject, implements CATransitionInterface {
+class CATFilters extends CAObject implements CATransitionInterface {
 	
 	// Only Float properties are animatable
-	inline static var FILTERS = ["glow", "blur", "shadow"];
-	inline static var BLUR_PROPERTIES = ["blurX", "blurY", "quality"];
-	inline static var GLOW_PROPERTIES = ["alpha", "blurX", "blurY", "strength"];
-	inline static var GLOW_FIXED_PROPERTIES = ["color", "quality", "inner"/*Bool*/, "knockout"/*Bool*/];
-	inline static var SHADOW_PROPERTIES = ["distance", "angle", "alpha", "blurX", "blurY", "strength"];
-	inline static var SHADOW_FIXED_PROPERTIES = ["color", "quality", "inner"/*Bool*/, "knockout"/*Bool*/, "hideObject"/*Bool*/];
+	inline static function FILTERS () { return ["glow", "blur", "shadow"]; }
+	inline static function BLUR_PROPERTIES () { return ["blurX", "blurY", "quality"]; }
+	inline static function GLOW_PROPERTIES () { return ["alpha", "blurX", "blurY", "strength"]; }
+	inline static function GLOW_FIXED_PROPERTIES () { return ["color", "quality", "inner"/*Bool*/, "knockout"/*Bool*/]; }
+	inline static function SHADOW_PROPERTIES () { return ["distance", "angle", "alpha", "blurX", "blurY", "strength"]; }
+	inline static function SHADOW_FIXED_PROPERTIES () { return ["color", "quality", "inner"/*Bool*/, "knockout"/*Bool*/, "hideObject"/*Bool*/]; }
 	
 	
 	override public function init () :Void {
@@ -34,7 +34,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 		var fromShadow :DropShadowFilter = null;
 		var toShadow :DropShadowFilter = null;
 		
-		for (filterName in FILTERS) {
+		for (filterName in FILTERS()) {
 			var filterValue :Dynamic = Reflect.field (properties, filterName);
 			
 			if (filterValue != null)
@@ -46,7 +46,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 					toBlur = new BlurFilter (filterValue, filterValue, 3);
 				}
 				// Set the values to be animatable
-				for (prop in BLUR_PROPERTIES) {
+				for (prop in BLUR_PROPERTIES()) {
 					Reflect.setField (fromValues, "blur_" + prop, Reflect.field (fromBlur, prop));
 					Reflect.setField (toValues, "blur_" + prop, Reflect.field (toBlur, prop));
 				}
@@ -71,7 +71,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 					toGlow.knockout = false;
 				}
 				// Set the values to be animatable
-				for (prop in GLOW_PROPERTIES.concat( GLOW_FIXED_PROPERTIES )) {
+				for (prop in GLOW_PROPERTIES().concat( GLOW_FIXED_PROPERTIES() )) {
 					Reflect.setField (fromValues, "glow_" + prop, Reflect.field (fromGlow, prop));
 					Reflect.setField (toValues, "glow_" + prop, Reflect.field (toGlow, prop));
 				}
@@ -101,7 +101,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 					toShadow.hideObject = false;
 				}
 				// Set the values to be animatable
-				for (prop in SHADOW_PROPERTIES.concat( SHADOW_FIXED_PROPERTIES )) {
+				for (prop in SHADOW_PROPERTIES().concat( SHADOW_FIXED_PROPERTIES() )) {
 					Reflect.setField (fromValues, "shadow_" + prop, Reflect.field (fromShadow, prop));
 					Reflect.setField (toValues, "shadow_" + prop, Reflect.field (toShadow, prop));
 				}
@@ -134,7 +134,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 				if (currentGlow == null)
 					currentGlow = new GlowFilter();
 				var p = prop.split("glow_").pop();
-				var v = (GLOW_FIXED_PROPERTIES.join("-").split( p ).length > 1)
+				var v = (GLOW_FIXED_PROPERTIES().join("-").split( p ).length > 1)
 				? Reflect.field (toValues, prop)
 				: value;
 				Reflect.setField (currentGlow, p, v);
@@ -143,7 +143,7 @@ class CATFilters extends CAObject, implements CATransitionInterface {
 				if (currentShadow == null)
 					currentShadow = new DropShadowFilter();
 				var p = prop.split("shadow_").pop();
-				var v = (SHADOW_FIXED_PROPERTIES.join("-").split( p ).length > 1)
+				var v = (SHADOW_FIXED_PROPERTIES().join("-").split( p ).length > 1)
 				? Reflect.field (toValues, prop)
 				: value;
 				Reflect.setField (currentShadow, p, v);

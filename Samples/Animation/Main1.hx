@@ -5,19 +5,6 @@
 //  Copyright (c) 2009 http://ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-import caurina.transitions.Tweener;
-import com.gskinner.motion.GTween;
-import com.gskinner.motion.easing.Linear;	
-import com.gskinner.motion.easing.Quadratic;
-import com.gskinner.motion.easing.Cubic;
-import com.gskinner.motion.easing.Quartic;
-import com.gskinner.motion.easing.Quintic;
-import com.gskinner.motion.easing.Exponential;
-import com.gskinner.motion.easing.Sine;
-import com.gskinner.motion.easing.Circular;
-import com.gskinner.motion.easing.Back;
-import com.gskinner.motion.easing.Bounce;
-import com.gskinner.motion.easing.Elastic;
 import flash.utils.Timer;
 
 
@@ -126,7 +113,7 @@ class Main1 {
 	static function constructButton (index:RCIndexPath) :RCButton {
 		var s = new SKSimpleButtonWithText (TWEENERS[index.row], [0xcccccc, 0x999999, 0x000000, 0xb1e6f0]);
 		var b = new RCButton (0, 0, s);
-		b.onClick = callback (clickHandler, TWEENERS[index.row]);
+		b.onClick = clickHandler.bind (TWEENERS[index.row]);
 		return b;
 	}
 	static function clickHandler (label:String) :Void {

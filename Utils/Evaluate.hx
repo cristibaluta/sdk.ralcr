@@ -39,6 +39,7 @@ class Evaluate {
 			case "-": result - parseInt ( word, rect );
 			case "*": Math.round ( result * parseInt ( word, rect ) );
 			case "/": Math.round ( result / parseInt ( word, rect ) );
+			default : result;
 		}
 	}
 	

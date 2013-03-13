@@ -7,12 +7,12 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
+import RCControl;// imports States
+
 private enum Direction {
 	HORIZONTAL;
 	VERTICAL;
 }
-import RCControl;// imports States
-
 
 class RCScrollBar extends RCControl {
 	

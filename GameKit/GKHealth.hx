@@ -11,10 +11,11 @@ class GKHealth {
 	public var minHealth :Int;
 	public var maxHealth :Int;
 	public var health (get_health, set_health) :Int;
+	var health_ :Int;
 	
 	
 	public function new () {
-		
+		health_ = 0;
 	}
 	
 	public function init () :Void {
@@ -22,10 +23,10 @@ class GKHealth {
 	}
 	
 	public function get_health () :Int {
-		return health;
+		return health_;
 	}
 	public function set_health (h:Int) :Int {
-		return health = h;
+		return health_ = h;
 	}
 	
 	public function destroy () :Void {

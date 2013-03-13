@@ -19,12 +19,13 @@ class RCScrollView extends RCView {
 	var horizScrollBar :RCScrollBar;
 	var vertScrollBarSync :RCSliderSync;
 	var horizScrollBarSync :RCSliderSync;
+	var bounces_ :Bool;
 	
 	public var contentView :RCView;
 	public var dragging :Bool;
 	public var autohideSliders :Bool;
-	public var enableMarginsFade (null, set_marginsFade) :Bool;
-	public var bounces (null, set_bounce) :Bool;
+	public var enableMarginsFade (null, set_enableMarginsFade) :Bool;
+	public var bounces (null, set_bounces) :Bool;
 	public var decelerationRate :Float;
 	public var pagingEnabled :Bool;
 	public var scrollEnabled (null, set_scrollEnabled) :Bool;
@@ -59,15 +60,15 @@ class RCScrollView extends RCView {
 		trace("setScrollEnabled "+b);
 		var colors = [null, null, 0xDDDDDD, 0xFFFFFF];
 		trace("contentSize "+contentView.contentSize);
-		trace(size);
+		trace(size_);
 		
 		// Add or remove the horizontal scrollbar
-		if (contentSize.width > size.width && horizScrollBarSync == null && b && false) {
+		if (contentSize_.width > size_.width && horizScrollBarSync == null && b && false) {
 			trace("add horiz");
-			var scroller_w = Zeta.lineEquationInt (size.width/2, size.width, contentSize.width, size.width*2, size.width);
+			var scroller_w = Zeta.lineEquationInt (size_.width/2, size_.width, contentSize_.width, size_.width*2, size_.width);
 			var skinH = new haxe.SKScrollBar ( colors );
-			horizScrollBar = new RCScrollBar (0, size.height - 10, size.width, 8, scroller_w, skinH);
-			horizScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, horizScrollBar, size.width, "horizontal");
+			horizScrollBar = new RCScrollBar (0, size_.height - 10, size_.width, 8, scroller_w, skinH);
+			horizScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, horizScrollBar, size_.width, "horizontal");
 			horizScrollBarSync.valueChanged.add ( scrollViewDidScrollHandler );
 			addChild ( horizScrollBar );
 		}
@@ -80,12 +81,12 @@ class RCScrollView extends RCView {
 		
 		
 		// Add or remove the vertical scrollbar
-		if (contentView.height > size.height && vertScrollBarSync == null && b) {
+		if (contentView.height > size_.height && vertScrollBarSync == null && b) {
 			trace("add vert");
-			var scroller_h = Zeta.lineEquationInt (size.height/2, size.height, contentSize.height, size.height*2, size.height);
+			var scroller_h = Zeta.lineEquationInt (size_.height/2, size_.height, contentSize_.height, size_.height*2, size_.height);
 			var skinV = new haxe.SKScrollBar ( colors );
-			vertScrollBar = new RCScrollBar (size.width - 10, 0, 8, size.height, scroller_h, skinV);
-			vertScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, vertScrollBar, size.height, "vertical");
+			vertScrollBar = new RCScrollBar (size_.width - 10, 0, 8, size_.height, scroller_h, skinV);
+			vertScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, vertScrollBar, size_.height, "vertical");
 			vertScrollBarSync.valueChanged.add ( scrollViewDidScrollHandler );
 			addChild ( vertScrollBar );
 		}
@@ -112,11 +113,11 @@ class RCScrollView extends RCView {
 		
 	}
 	
-	public function set_bounce (b:Bool) :Bool {
-		bounces = b;
+	public function set_bounces (b:Bool) :Bool {
+		bounces_ = b;
 		return b;
 	}
-	public function set_marginsFade (b:Bool) :Bool {
+	public function set_enableMarginsFade (b:Bool) :Bool {
 		return b;
 	}
 	

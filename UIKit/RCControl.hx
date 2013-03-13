@@ -63,7 +63,7 @@ class RCControl extends RCView {
 		
 		super (x, y, w, h);
 		
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			this.layer.mouseChildren = false;
 		#end
 		configureDispatchers();
@@ -152,7 +152,7 @@ class RCControl extends RCView {
 		release.enabled = enabled_;
 		over.enabled = enabled_;
 		out.enabled = enabled_;
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			layer.useHandCursor = enabled_;
 			layer.buttonMode = enabled_;
 		#end

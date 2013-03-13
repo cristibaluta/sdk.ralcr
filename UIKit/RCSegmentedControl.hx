@@ -80,7 +80,7 @@ class RCSegmentedControl extends RCView {
 			if (items.exists( label )) continue;
 			
 			var b = constructButton ( i );
-				b.onClick = callback (clickHandler, label);
+				b.onClick = clickHandler.bind (label);
 				//b.click.add ( clickHandler );
 			this.addChild ( b );
 			b.init();
@@ -104,11 +104,16 @@ class RCSegmentedControl extends RCView {
 	}
 	function constructButton (i:Int) :RCButtonRadio {
 		
+/*		var last :Int = labels.length - 1;
 		var position = switch (i) {
-			case 0:					"left"; // First
-			case labels.length-1:	"right"; // Last
-			default:				"middle"; // Middle
-		}
+			case 0:		"left"; // First
+			case last:	"right"; // Last
+			case _:	"middle"; // Middle
+		}*/
+		var position = "middle";
+		if (i == 0) position = "left";
+		if (i == labels.length - 1) position = "left";
+		
 		var segmentX = 0;
 		for (j in 0...i) {
 			segmentX += segmentsWidth[j];

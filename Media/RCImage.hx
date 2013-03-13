@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.display.Loader;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -69,7 +69,7 @@ class RCImage extends RCView {
 		return new RCImage (0,0,path);
 	}
 	
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	/**
 	 *  Create an image from the ByteArray. Sync operation
 	 **/
@@ -100,7 +100,7 @@ class RCImage extends RCView {
 	*/
 	public static function imageWithRegionOfImage (image:RCImage, size:RCSize, source_rect:RCRect, draw_at:RCRect) :RCImage {
 		
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 		
 		var color = #if neko {rgb:0x000000, a:0} #else 0x000000ff #end ;
 		var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
@@ -175,20 +175,20 @@ class RCImage extends RCView {
 	 */
 	public function completeHandler (e:Event) :Void {
 		
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			if (bitmapData != null) {
 				// We already have the bitmapData at this point
 				var bitmap = new Bitmap (bitmapData, PixelSnapping.AUTO, true);
-				size.width = bitmapData.width;
-				size.height = bitmapData.height;
+				size_.width = bitmapData.width;
+				size_.height = bitmapData.height;
 				layer.addChild ( bitmap );
 			}
 			else {
 				var w = Math.round (loader.content.width);
 				var h = Math.round (loader.content.height);
 				// Add the image to the view
-				size.width = w;
-				size.height = h;
+				size_.width = w;
+				size_.height = h;
 				layer.addChild ( loader );
 				// Get the BitmapData of the image
 				
@@ -209,18 +209,18 @@ class RCImage extends RCView {
 				layer.addChild ( bitmap );
 			}
 		#elseif js
-			size.width = loader.width;
-			size.height = loader.height;
+			size_.width = loader.width;
+			size_.height = loader.height;
 			layer.appendChild ( loader );
 		#end
 		
-		originalSize = size.copy();
+		originalSize_ = size.copy();
 		this.isLoaded = true;
 		
 		#if js
 			// onload is called too soon in IE if the image is cached
 			if (RCDevice.currentDevice().userAgent == MSIE) {
-				haxe.Timer.delay (function() { onComplete(); }, 1);
+				haxe.Timer.delay (function() { onComplete(); }, 10);
 				return;
 			}
 		#end
@@ -228,7 +228,7 @@ class RCImage extends RCView {
 	}
 	
 	
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	
 	function progressHandler (e:ProgressEvent) :Void {
 		percentLoaded = Math.round (e.target.bytesLoaded * 100 / e.target.bytesTotal);
@@ -251,7 +251,7 @@ class RCImage extends RCView {
 	 *  In JS it loads again the image, hopefully from cache.
 	 */
 	public function copy () :RCImage {
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			return imageWithBitmapData ( bitmapData );
 		#elseif js
 			return new RCImage (0, 0, loader.src);
@@ -259,7 +259,7 @@ class RCImage extends RCView {
 	}
 	
 	function addListeners () :Void {
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			loader.contentLoaderInfo.addEventListener (Event.COMPLETE, completeHandler);
 			loader.contentLoaderInfo.addEventListener (ProgressEvent.PROGRESS, progressHandler);
 			loader.contentLoaderInfo.addEventListener (ErrorEvent.ERROR, errorHandler);
@@ -271,7 +271,7 @@ class RCImage extends RCView {
 	}
 	
 	function removeListeners () :Void {
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			loader.contentLoaderInfo.removeEventListener (Event.COMPLETE, completeHandler);
 			loader.contentLoaderInfo.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
 			loader.contentLoaderInfo.removeEventListener (ErrorEvent.ERROR, errorHandler);
@@ -286,7 +286,7 @@ class RCImage extends RCView {
 	// Clan mess
 	override public function destroy() :Void {
 		removeListeners();
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			//loader.close();
 			loader.unload();
 			if (bitmapData != null)
@@ -302,13 +302,13 @@ class RCImage extends RCView {
 	// In js we need to resize the loader(image) and not only the layer
 	override public function scaleToFit (w:Float, h:Float) :Void {
 		super.scaleToFit (w, h);
-		loader.style.width = size.width + "px";
-		loader.style.height = size.height + "px";
+		loader.style.width = size_.width + "px";
+		loader.style.height = size_.height + "px";
 	}
 	override public function scaleToFill (w:Float, h:Float) :Void {
 		super.scaleToFill (w, h);
-		loader.style.width = size.width + "px";
-		loader.style.height = size.height + "px";
+		loader.style.width = size_.width + "px";
+		loader.style.height = size_.height + "px";
 	}
 #end
 }

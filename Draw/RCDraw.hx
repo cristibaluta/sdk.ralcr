@@ -77,7 +77,7 @@ class RCDraw extends RCView {
 			}
 		}
 		
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	
 		else if (Std.is (color, RCGradient)) {
 			

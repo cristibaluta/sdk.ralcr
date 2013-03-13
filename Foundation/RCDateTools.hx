@@ -8,14 +8,14 @@
 
 class RCDateTools {
 	
-	inline public static var MONTHS:Array<String> = [	"January", "February", "March",
-														"April", "May", "June",
-														"July", "August", "September",
-														"October", "November", "December"];
+	inline public static function MONTHS() :Array<String> {
+		return ["January", "February", "March", "April", "May", "June",
+				"July", "August", "September", "October", "November", "December"];
+	}
 	
-	inline public static var DAYS :Array<String> = [	"Sunday", "Monday", "Tuesday",
-														"Wednesday", "Thursday", "Friday",
-														"Saturday"];
+	inline public static function DAYS () :Array<String> {
+		return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	}
 	
 	
 	/**
@@ -23,7 +23,7 @@ class RCDateTools {
 	 */
 	public static function decodeDate (s:String) :String {
 		var date = Date.fromString ( s );
-		return ( DAYS[date.getDay()] +" "+ date.getDate() +" "+ MONTHS[date.getMonth()] +" "+ date.getFullYear() );
+		return ( DAYS()[date.getDay()] +" "+ date.getDate() +" "+ MONTHS()[date.getMonth()] +" "+ date.getFullYear() );
 	}
 	
 	/**

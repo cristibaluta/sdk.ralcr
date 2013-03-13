@@ -25,7 +25,7 @@
 	private typedef StyleSheet = Dynamic;
 #end
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.events.Event;
 	import flash.text.Font;
 	import flash.text.TextFormat;

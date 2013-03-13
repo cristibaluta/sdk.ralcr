@@ -1,5 +1,5 @@
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 #elseif js
@@ -18,7 +18,7 @@ class EVKey extends RCSignal<EVKey->Void> {
 	
 	
 	public function new () {
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			flash.Lib.current.stage.addEventListener (KeyboardEvent.KEY_DOWN, keyDownHandler);
 			flash.Lib.current.stage.addEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		#elseif js
@@ -39,7 +39,7 @@ class EVKey extends RCSignal<EVKey->Void> {
 	}
 	
 	override public function destroy () :Void {
-		#if (flash || nme)
+		#if (flash || (nme && (cpp || neko)))
 			flash.Lib.current.stage.removeEventListener (KeyboardEvent.KEY_DOWN, keyDownHandler);
 			flash.Lib.current.stage.removeEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		#elseif js

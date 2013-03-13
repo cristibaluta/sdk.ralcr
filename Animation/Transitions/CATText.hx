@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CATText extends CAObject, implements CATransitionInterface {
+class CATText extends CAObject implements CATransitionInterface {
 	
 	var direction :Int;
 	var html :Null<Bool>;

@@ -15,7 +15,7 @@
 import flash.media.SoundTransform;
 
 
-class CATSound extends CAObject, implements CATransitionInterface {
+class CATSound extends CAObject implements CATransitionInterface {
 	
 	override public function init () :Void {
 		

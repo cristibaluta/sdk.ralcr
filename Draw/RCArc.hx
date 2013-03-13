@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 #if flash
-class RCArc extends RCDraw, implements RCDrawInterface {
+class RCArc extends RCDraw implements RCDrawInterface {
 	
 	public var arc :Int;
 	public var startAngle :Int;

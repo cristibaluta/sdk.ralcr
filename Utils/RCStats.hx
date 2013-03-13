@@ -31,7 +31,7 @@ class RCStats extends RCRectangle {
 		
 		var f = RCFont.systemFontOfSize(12);
 			f.color = 0x000000;
-		txt = new RCTextView (6, #if (flash || nme) 1 #else 3 #end, null, 20, "Calculating...", f);
+		txt = new RCTextView (6, #if (flash || (nme && (cpp || neko))) 1 #else 3 #end, null, 20, "Calculating...", f);
 		addChild ( txt );
 		
 		last = CoreAnimation.timestamp();

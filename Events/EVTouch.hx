@@ -1,5 +1,5 @@
 
-#if (flash10_1 || nme)
+#if (flash10_1 || (nme && (cpp || neko)))
 	import flash.events.TouchEvent;
 	import flash.display.DisplayObjectContainer;
 #elseif js
@@ -64,7 +64,7 @@ class EVTouch extends RCSignal<EVMouse->Void> {
 		addEventListener( pos );
 	}
 	function addEventListener (?pos:haxe.PosInfos) :Void {
-		#if (flash10_1 || nme)
+		#if (flash10_1 || (nme && (cpp || neko)))
 			switch (type) {
 				case DOWN:		layer.addEventListener (TouchEvent.TOUCH_BEGIN, touchHandler);
 				case UP: 		layer.addEventListener (TouchEvent.TOUCH_END, touchHandler);
@@ -99,7 +99,7 @@ class EVTouch extends RCSignal<EVMouse->Void> {
 		#end
 	}
 	function removeEventListener () {
-		#if (flash10_1 || nme)
+		#if (flash10_1 || (nme && (cpp || neko)))
 			switch (type) {
 				case DOWN:		layer.removeEventListener (TouchEvent.TOUCH_BEGIN, touchHandler);
 				case UP: 		layer.removeEventListener (TouchEvent.TOUCH_END, touchHandler);

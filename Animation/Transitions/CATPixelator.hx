@@ -20,7 +20,7 @@ import flash.events.Event;
 import flash.geom.Matrix;
 
 
-class CATPixelator extends CAObject, implements CATransitionInterface {
+class CATPixelator extends CAObject implements CATransitionInterface {
 	
 	var extra :Array<Dynamic>;// used by pixelator to store helpful information
 	

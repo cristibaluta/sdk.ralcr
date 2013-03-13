@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CATShake extends CAObject, implements CATransitionInterface {
+class CATShake extends CAObject implements CATransitionInterface {
 	
 	var magnitude :Null<Float>;
 	var originalX :Float;
