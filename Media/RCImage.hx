@@ -7,6 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
+import RCDevice;
 #if (flash || (nme && (cpp || neko)))
 	import flash.display.Loader;
 	import flash.display.Bitmap;
@@ -23,14 +24,13 @@
 		import flash.system.LoaderContext;
 	#end
 #elseif js
-	import js.Dom;
+	import js.html.Event;
 	import RCView;
-	typedef Loader = js.Dom.Image;
+	typedef Loader = js.html.ImageElement;
 	typedef BitmapData = Dynamic;
-	typedef ErrorEvent = Event;
-	typedef IOErrorEvent = Event;
+	typedef ErrorEvent = js.html.Event;
+	typedef IOErrorEvent = js.html.Event;
 #end
-	import RCDevice;
 
 
 class RCImage extends RCView {
@@ -137,7 +137,7 @@ class RCImage extends RCView {
 		#if (nme || flash)
 			loader = new Loader();
 		#elseif js
-			loader = cast js.Lib.document.createElement("img");
+			loader = cast js.Browser.document.createImageElement();
 		#end
 		
 		addListeners();
@@ -164,7 +164,7 @@ class RCImage extends RCView {
 		#elseif flash
 			loader.load ( new URLRequest ( URL ), new LoaderContext ( true ) );
 		#elseif js
-			untyped loader.draggable = false;
+			loader.draggable = false;
 			loader.src = URL;
 		#end
 	}

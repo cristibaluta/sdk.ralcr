@@ -25,14 +25,14 @@ class RCAssets {
 	
 	static var INSTANCE :RCAssets;
 	
-	var imagesList :Hash<RCImage>;
-	var swfList :Hash<RCSwf>;// Keep a reference to the loaded swf Event in order to acces its assets later
-	var dataList :Hash<String>;
+	var imagesList :Map<String,RCImage>;
+	var swfList :Map<String,RCSwf>;// Keep a reference to the loaded swf Event in order to acces its assets later
+	var dataList :Map<String,String>;
 	var nr :Int;
 	var max :Int;
 	
 	public static var errorMessage :String; // Error message that should be accessed after onError is fired
-	public static var currentPercentLoaded :Hash<Int>;
+	public static var currentPercentLoaded :Map<String,Int>;
 	public static var percentLoaded :Int;
 	public static var useCache :Bool;
 	
@@ -45,7 +45,7 @@ class RCAssets {
 	static function init () :Void {
 		if (INSTANCE != null) return;
 			INSTANCE = new RCAssets();
-		currentPercentLoaded = new Hash<Int>();
+		currentPercentLoaded = new Map<String,Int>();
 		useCache = false;
 	}
 	
@@ -69,9 +69,9 @@ class RCAssets {
 	
 	
 	function new () {
-		imagesList = new Hash<RCImage>();
-		swfList = new Hash<RCSwf>();
-		dataList = new Hash<String>();
+		imagesList = new Map<String,RCImage>();
+		swfList = new Map<String,RCSwf>();
+		dataList = new Map<String,String>();
 		nr = 0;
 		max = 0;
 	}
@@ -154,11 +154,11 @@ class RCAssets {
 			fontType = " format(\"truetype\")";*/
 			
 		// Create a 'style' element	
-		var st = js.Lib.document.createElement("style");
+		var st = js.Browser.document.createElement("style");
 			st.innerHTML = "@font-face{font-family:"+key+"; src: url('"+URL+"')" +fontType+ ";}";
 			
 		// Now add this new element to the head tag
-		js.Lib.document.getElementsByTagName("head")[0].appendChild(st);
+		js.Browser.document.getElementsByTagName("head")[0].appendChild(st);
 		// Make the load async by calling onComplete a little later
 		haxe.Timer.delay (onCompleteHandler, 16);
 #end

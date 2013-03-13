@@ -9,13 +9,13 @@
 class HXAddressManager {
 	
 	static var _title :String;
-	static var _pages :Hash<Dynamic>; // [page name, function to call]
+	static var _pages :Map<String,Dynamic>; // [page name, function to call]
 	
 	
 	public static function init (title:String) {
 		_title = title;
 		if (_pages != null) return;
-		_pages = new Hash<Dynamic>();
+		_pages = new Map<String,Dynamic>();
 		HXAddress.change.add (onChangeHandler);
 	}
 	

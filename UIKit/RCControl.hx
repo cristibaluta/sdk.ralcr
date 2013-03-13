@@ -118,10 +118,10 @@ class RCControl extends RCView {
 		state_ = state;//trace("current state is "+state_);
 #if js
 		switch (state_) {
-			case NORMAL: js.Lib.document.body.style.cursor = "auto";
-			case HIGHLIGHTED: js.Lib.document.body.style.cursor = "pointer";
-			case DISABLED: js.Lib.document.body.style.cursor = "auto";
-			case SELECTED: js.Lib.document.body.style.cursor = "auto";
+			case NORMAL: js.Browser.document.body.style.cursor = "auto";
+			case HIGHLIGHTED: js.Browser.document.body.style.cursor = "pointer";
+			case DISABLED: js.Browser.document.body.style.cursor = "auto";
+			case SELECTED: js.Browser.document.body.style.cursor = "auto";
 		}
 #end
 	}

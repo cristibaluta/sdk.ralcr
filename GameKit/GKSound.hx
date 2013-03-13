@@ -8,13 +8,13 @@
 
 class GKSound {
 	
-	static var sounds :Hash<RCAudio>;
+	static var sounds :Map<String,RCAudio>;
 	static var muted :Bool;
 	
 	public static function init () :Void {
 		
 		if (sounds == null) {
-			sounds = new Hash<RCAudio>();
+			sounds = new Map<String,RCAudio>();
 			muted = false;
 		}
 	}

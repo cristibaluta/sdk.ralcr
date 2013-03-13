@@ -1,4 +1,4 @@
-import js.Dom;
+import js.html.Event;
 
 class JSPluginLoader {
 	
@@ -15,12 +15,12 @@ class JSPluginLoader {
 		var fileref = null;
 		
 		if (path.indexOf(".js") != -1) { //if filename is a external JavaScript file
-			fileref = js.Lib.document.createElement('script');
+			fileref = js.Browser.document.createElement('script');
 			fileref.setAttribute("type","text/javascript");
 			fileref.setAttribute("src", path);
 		}
 		else if (path.indexOf(".css") != -1) { //if filename is an external CSS file
-			fileref = js.Lib.document.createElement("link");
+			fileref = js.Browser.document.createElement("link");
 			fileref.setAttribute("rel", "stylesheet");
 			fileref.setAttribute("type", "text/css");
 			fileref.setAttribute("href", path);
@@ -29,7 +29,7 @@ class JSPluginLoader {
 		// After loading the external file add it to the DOM
 		if (fileref != null) {
 			untyped fileref.onload = completeHandler;
-			js.Lib.document.getElementsByTagName("head")[0].appendChild ( fileref );
+			js.Browser.document.getElementsByTagName("head")[0].appendChild ( fileref );
 		}
 	}
 	
@@ -43,7 +43,7 @@ class JSPluginLoader {
 /*		var targetelement=(filetype=="js")? "script" : (filetype=="css") ? "link" : "none";
 		//determine corresponding attribute to test for
 		var targetattr = (filetype == "js")? "src" : (filetype == "css") ? "href" : "none";
-		var allsuspects = js.Lib.document.getElementsByTagName(targetelement);
+		var allsuspects = js.Browser.document.getElementsByTagName(targetelement);
 		//search backwards within nodelist for matching elements to remove
 		for (i in 0...allsuspects.length) {
 			if (allsuspects[i] && 
@@ -71,7 +71,7 @@ class JSPluginLoader {
 		trace(element);
 		var attr = (filename.indexOf(".js") != -1)? "src" : (filename.indexOf(".css") != -1) ? "href" : "none";
 		trace(attr);
-		var collection :HtmlCollection<HtmlDom> = js.Lib.document.getElementsByTagName( element );
+		var collection :HtmlCollection<HtmlDom> = js.Browser.document.getElementsByTagName( element );
 		trace(collection);
 		for (i in 0...collection.length) {
 			trace(collection[i]);

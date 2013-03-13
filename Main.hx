@@ -6,9 +6,9 @@
 import RCFiles;
 import RCFontManager;
 import Fugu;
-import HashArray;
 import HXAddress;
 import HXAddressManager;
+import OrderedMap;
 import RCAppDelegate;
 import RCDateTools;
 import RCFont;

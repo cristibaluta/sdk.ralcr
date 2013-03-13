@@ -19,9 +19,8 @@
 		import flash.text.AntiAliasType;
 	#end
 #elseif js
-	import js.Dom;
 	import RCView;
-	private typedef MouseEvent = Event;
+	private typedef MouseEvent = js.html.Event;
 	private typedef TextField = RCView;
 #end
 
@@ -51,7 +50,7 @@ class RCTextInput extends RCControl {
 			textView.target.selectable = true;*/
 		#elseif js
 			untyped textView.target.layer.contentEditable = "true";
-			//textView.layer = js.Lib.document.createElement("textarea");
+			//textView.layer = js.Browser.document.createElement("textarea");
 			//textView.appendChild ( textView );
 		#end
 	}

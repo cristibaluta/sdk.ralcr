@@ -9,7 +9,7 @@
 
 #if (js || cpp || neko || objc)
 	#if js
-		import js.Dom;
+		import js.html.Event;
 	#end
 	#if (cpp || neko || objc)
 		private typedef Event = String;

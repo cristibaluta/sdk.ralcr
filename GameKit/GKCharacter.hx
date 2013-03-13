@@ -15,7 +15,7 @@
 
 class GKCharacter extends GKSprite {
 	
-	var frames :Hash<MovieClip>;// Different states of the character
+	var frames :Map<String,MovieClip>;// Different states of the character
 	
 	
 	public function new (x, y) {
@@ -25,7 +25,7 @@ class GKCharacter extends GKSprite {
 	
 	override public function init () :Void {
 		super.init();
-		frames = new Hash<MovieClip>();
+		frames = new Map<String,MovieClip>();
 	}
 	
 	public function setState (key:String, sprite:Dynamic) :Void {

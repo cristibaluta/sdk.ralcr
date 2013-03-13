@@ -10,8 +10,7 @@
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 #elseif js
-	import js.Dom;
-	private typedef KeyboardEvent = Event;
+	private typedef KeyboardEvent = js.html.KeyboardEvent;
 #end
 
 
@@ -74,8 +73,8 @@ class RCKeyboardController {
 			flash.Lib.current.stage.addEventListener (KeyboardEvent.KEY_DOWN, keyDownHandler);
 			flash.Lib.current.stage.addEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		#elseif js
-			js.Lib.document.onkeydown = keyDownHandler;
-			js.Lib.document.onkeyup = keyUpHandler;
+			js.Browser.document.onkeydown = keyDownHandler;
+			js.Browser.document.onkeyup = keyUpHandler;
 		#end
 	}
 	
@@ -84,8 +83,8 @@ class RCKeyboardController {
 			flash.Lib.current.stage.removeEventListener (KeyboardEvent.KEY_DOWN, keyDownHandler);
 			flash.Lib.current.stage.removeEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		#elseif js
-			js.Lib.document.onkeydown = null;
-			js.Lib.document.onkeyup = null;
+			js.Browser.document.onkeydown = null;
+			js.Browser.document.onkeyup = null;
 		#end
 	}
 	

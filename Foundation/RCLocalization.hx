@@ -10,7 +10,7 @@
 class RCLocalization {
 	
 	static var inited :Bool = false;
-	public static var hash :Hash<String>;
+	public static var hash :Map<String,String>;
 	public static var list :RCLocalizationProxy;// Has autocomplete
 	
 	
@@ -18,7 +18,7 @@ class RCLocalization {
 		
 		if (inited) return;
 		
-		hash = new Hash<String>();
+		hash = new Map<String,String>();
 		list = new RCLocalizationProxy ( hash.get );
 		inited = true;
 	}
@@ -62,6 +62,6 @@ class RCLocalization {
 	
 	
 	public static function clean () {
-		hash = new Hash<String>();
+		hash = new Map<String,String>();
 	}
 }

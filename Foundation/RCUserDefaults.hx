@@ -11,8 +11,45 @@
 
 #if (flash || (nme && (cpp || neko)))
 	import flash.net.SharedObject;
-#end
+#elseif js
 
+import js.Cookie;
+
+// Simulate the flash SharedObjects with cookies
+class SharedObject {
+	
+	var identifier :String;
+	public var data :Dynamic;// Contains key->value pairs without the identifier added to the key
+	
+	public static function getLocal (identifier:String) :SharedObject {
+		var so = new SharedObject(identifier);
+		return so;
+	}
+	public function new (identifier:String) {
+		this.identifier = identifier;
+		this.data = {};
+		
+		// Gett all the data with this identifier and store it locally in 'data'
+		for (key in Cookie.all().keys()) {
+			
+			if (key.indexOf(identifier) == 0)
+				Reflect.setField (data, key.substr(identifier.length), haxe.Unserializer.run ( Cookie.get ( key)));
+		}
+	}
+	public function flush () :Void {
+		
+		for (key in Reflect.fields(data)) {
+			
+			var value = Reflect.field (data, key);
+			if (value != null)
+				Cookie.set (identifier + key, haxe.Serializer.run( value ), 31536000);
+			else
+				Cookie.remove (identifier + key);
+		}
+	}
+}
+
+#end
 
 class RCUserDefaults {
 	
@@ -69,44 +106,3 @@ class RCUserDefaults {
 		sharedObject.flush();
 	}
 }
-
-
-#if js
-
-import js.Cookie;
-
-// Simulate the flash SharedObjects with cookies
-class SharedObject {
-	
-	var identifier :String;
-	public var data :Dynamic;// Contains key->value pairs without the identifier added to the key
-	
-	public static function getLocal (identifier:String) :SharedObject {
-		var so = new SharedObject(identifier);
-		return so;
-	}
-	public function new (identifier:String) {
-		this.identifier = identifier;
-		this.data = {};
-		
-		// Gett all the data with this identifier and store it locally in 'data'
-		for (key in Cookie.all().keys()) {
-			
-			if (key.indexOf(identifier) == 0)
-				Reflect.setField (data, key.substr(identifier.length), haxe.Unserializer.run ( Cookie.get ( key)));
-		}
-	}
-	public function flush () :Void {
-		
-		for (key in Reflect.fields(data)) {
-			
-			var value = Reflect.field (data, key);
-			if (value != null)
-				Cookie.set (identifier + key, haxe.Serializer.run( value ), 31536000);
-			else
-				Cookie.remove (identifier + key);
-		}
-	}
-}
-
-#end

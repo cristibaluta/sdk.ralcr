@@ -8,18 +8,18 @@
 //
 //	Do not use directly this class, use RCView
 
-import js.Lib;
-import js.Dom;
-import JSCanvas;
+import js.html.DivElement;
+import js.html.CanvasRenderingContext2D;
+import js.html.webgl.RenderingContext;
 import RCDevice;
 
 
 class JSView extends RCDisplayObject {
 	
-	public var layer :HtmlDom;
-	public var layerScrollable :HtmlDom;// Clips to bounds will move all the subviews in this layer
-	public var graphics :CanvasContext;
-	var alpha_ :Float;
+	public var layer :DivElement;
+	public var layerScrollable :DivElement;// Clips to bounds will move all the subviews in this layer
+	public var graphics :CanvasRenderingContext2D;
+	public var gl :RenderingContext;
 	
 	
 	@:keep public function new (x, y, ?w, ?h) {
@@ -31,13 +31,13 @@ class JSView extends RCDisplayObject {
 		scaleX_ = 1;
 		scaleY_ = 1;
 		alpha_ = 1;
-		//visible = true;
 		
 		#if canvas
-			layer = Lib.document.createElement("canvas");
-			graphics = untyped layer.getContext('2d');
+			layer = js.Browser.document.createCanvasElement();
+			graphics = layer.getContext2d();
+			gl = layer.getContextWebGL();
 		#else
-			layer = Lib.document.createElement("div");
+			layer = js.Browser.document.createDivElement();
 		#end
 		
 		// In JS, the div must be positioned absolute
@@ -109,7 +109,7 @@ class JSView extends RCDisplayObject {
 		// When we clip we move all subviews on a different div inside the current div
 		if (clip) {
 			layer.style.overflow = "hidden";
-			layerScrollable = Lib.document.createElement("div");
+			layerScrollable = js.Browser.document.createDivElement();
 			//layerScrollable.style.position = "absolute"; // Using position absolute will cause the div to not show at all
 			layerScrollable.style.width = size.width + "px";
 			layerScrollable.style.height = size.height + "px";

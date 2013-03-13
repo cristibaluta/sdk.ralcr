@@ -1,7 +1,7 @@
 #if (flash || (nme && (cpp || neko)))
 	import flash.events.Event;
 #elseif js
-	import js.Dom;// typedef js.Event
+	import js.html.Event;
 #end
 
 class EVResize extends RCSignal<Int->Int->Void> {
@@ -13,7 +13,7 @@ class EVResize extends RCSignal<Int->Int->Void> {
 		#if (flash || (nme && (cpp || neko)))
 			flash.Lib.current.stage.addEventListener (Event.RESIZE, resizeHandler);
 		#elseif js
-			js.Lib.window.onresize = resizeHandler;
+			js.Browser.window.onresize = resizeHandler;
 		#end
 	}
 	
@@ -24,13 +24,23 @@ class EVResize extends RCSignal<Int->Int->Void> {
 			var h = flash.Lib.current.stage.stageHeight;
 		#elseif js
 			// The size of the app
-			//var w = js.Lib.document.body.scrollWidth;
-			//var h = js.Lib.document.body.scrollHeight;
+			//var w = js.Browser.document.body.scrollWidth;
+			//var h = js.Browser.document.body.scrollHeight;
 			// The size of the window
-			var w = js.Lib.window.innerWidth;
-			var h = js.Lib.window.innerHeight;
+			var w = js.Browser.window.innerWidth;
+			var h = js.Browser.window.innerHeight;
 		#end
 		
 		dispatch ( w, h );
 	}
+	
+	override public function destroy (?pos:haxe.PosInfos) :Void {
+		#if (flash || (nme && (cpp || neko)))
+			flash.Lib.current.stage.removeEventListener (Event.RESIZE, resizeHandler);
+		#elseif js
+			js.Browser.window.onresize = null;
+		#end
+		super.destroy();
+	}
+	
 }

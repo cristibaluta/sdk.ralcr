@@ -10,7 +10,7 @@
 #if (flash || nme || cpp || neko)
 	import flash.ui.Mouse;
 #elseif js
-	import js.Dom;
+	//import js.html.DivElement;
 #end
 
 
@@ -46,9 +46,9 @@ class RCCustomCursor extends RCView {
 			layer.mouseEnabled = false;
 			Mouse.hide();
 		#elseif js
-			//Lib.document.body.style.cursor = "none";
+			//js.Browser.document.body.style.cursor = "none";
 			var x = 0, y=0;
-			js.Lib.document.body.style.cursor = "url(" + obj + ") " + x +" " + y +", auto";
+			js.Browser.document.body.style.cursor = "url(" + obj + ") " + x +" " + y +", auto";
 		#end
 	}
 	
@@ -70,7 +70,7 @@ class RCCustomCursor extends RCView {
 		#if (flash || nme || cpp || neko)
 			Mouse.show();
 		#elseif js
-			js.Lib.document.body.style.cursor = "auto";
+			js.Browser.document.body.style.cursor = "auto";
 		#end
 		
 		//Stage.MC.removeEventListener (Event.MOUSE_LEAVE, hideCustomCursor);

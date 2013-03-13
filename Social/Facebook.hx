@@ -38,7 +38,7 @@ class Facebook {
 	
     static var _instance :Facebook;
 	
-	var openUICalls :Hash<Dynamic>;
+	var openUICalls :Map<String,Dynamic>;
     var applicationId :String;
     var _initCallback :FacebookSession->Dynamic->Void;
     var _loginCallback :Dynamic->Dynamic->Void;
@@ -94,7 +94,7 @@ class Facebook {
 		if (_instance != null) {
 			throw ( 'Facebook is a singleton and cannot be instantiated.' );
 		}
-		openUICalls = new Hash<Dynamic>();
+		openUICalls = new Map<String,Dynamic>();
 		resultHash = new Array<Dynamic>();
 		requests = new Array<RCHttp>();
 

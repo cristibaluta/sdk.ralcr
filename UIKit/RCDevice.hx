@@ -63,7 +63,7 @@ class RCDevice {
 		#else
 			dpiScale = 1;
 			#if js
-				//dpiScale = untyped js.Lib.window.devicePixelRatio;
+				//dpiScale = untyped js.Browser.window.devicePixelRatio;
 				userAgent = detectUserAgent();
 				type = detectType();
 			#end
@@ -77,7 +77,7 @@ class RCDevice {
 		//Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:15.0) Gecko/20100101 Firefox/15.0.1 
 		//Opera/9.80 (Macintosh; Intel Mac OS X 10.7.5; U; en) Presto/2.10.289 Version/12.02
 		//Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17
-		var agent = js.Lib.window.navigator.userAgent.toLowerCase();
+		var agent = js.Browser.window.navigator.userAgent.toLowerCase();
 		if (agent.indexOf("msie") > -1) return MSIE;
 		if (agent.indexOf("msie 9.") > -1) return MSIE9;
 		if (agent.indexOf("webkit") > -1) return WEBKIT;
@@ -88,7 +88,7 @@ class RCDevice {
 	}
 	function detectType() :RCDeviceType {
 		
-		var agent = js.Lib.window.navigator.userAgent.toLowerCase();
+		var agent = js.Browser.window.navigator.userAgent.toLowerCase();
 		if (agent.indexOf("iphone") > -1) return IPhone;
 		if (agent.indexOf("ipad") > -1) return IPad;
 		if (agent.indexOf("ipod") > -1) return IPod;

@@ -20,7 +20,7 @@
 #elseif objc
 	import objc.ios.ui.UIView;
 #elseif js
-	import js.Dom;
+	import js.html.DivElement;
 #end
 	import RCDevice;// RCUserAgent
 
@@ -39,8 +39,8 @@ class RCWindow extends RCView {
 	public var target :MovieClip;
 	public var stage :Stage;
 #elseif js
-	public var target :HtmlDom;
-	public var stage :HtmlDom;
+	public var target :DivElement;
+	public var stage :DivElement;
 #end
 
 	public var SCREEN_W :Float;
@@ -81,11 +81,11 @@ class RCWindow extends RCView {
 			
 		#elseif js
 			
-			stage = js.Lib.document;
+			stage = js.Browser.document.documentElement;
 			setTarget ( id );
 			
-			SCREEN_W = js.Lib.window.screen.width;
-			SCREEN_H = js.Lib.window.screen.height;
+			SCREEN_W = js.Browser.window.screen.width;
+			SCREEN_H = js.Browser.window.screen.height;
 			
 		#end
 		
@@ -106,20 +106,20 @@ class RCWindow extends RCView {
 		#if js
 			
 			if (id != null) {
-				target = js.Lib.document.getElementById( id );
+				target = js.Browser.document.getElementById( id );
 			}
 			else {
-				target = js.Lib.document.body;
+				target = js.Browser.document.body;
 				target.style.margin = "0px 0px 0px 0px";
 				target.style.overflow = "hidden";
 				
 				if (RCDevice.currentDevice().userAgent == MSIE) {
-					target.style.width = untyped js.Lib.document.documentElement.clientWidth + "px";
-					target.style.height = untyped js.Lib.document.documentElement.clientHeight + "px";
+					target.style.width = untyped js.Browser.document.documentElement.clientWidth + "px";
+					target.style.height = untyped js.Browser.document.documentElement.clientHeight + "px";
 				}
 				else {
-					target.style.width = js.Lib.window.innerWidth + "px";
-					target.style.height = js.Lib.window.innerHeight + "px";
+					target.style.width = js.Browser.window.innerWidth + "px";
+					target.style.height = js.Browser.window.innerHeight + "px";
 				}
 			}
 			
@@ -214,7 +214,7 @@ class RCWindow extends RCView {
 		    }
 			// Check for fullscreen support by vendor prefix
 			else for (prefix in ['webkit', 'moz', 'o', 'ms', 'khtml']) {
-				if (Reflect.field (js.Lib.document, prefix + 'CancelFullScreen') != null) {
+				if (Reflect.field (js.Browser.document, prefix + 'CancelFullScreen') != null) {
 					fsprefix = prefix;
 					return true;
 				}

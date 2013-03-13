@@ -18,9 +18,9 @@
 		import flash.text.AntiAliasType;
 	#end
 #elseif js
-	import js.Dom;
+	import js.html.DivElement;
 	import RCView;
-	private typedef MouseEvent = Event;
+	private typedef MouseEvent = js.html.Event;
 	private typedef TextField = RCView;
 #end
 

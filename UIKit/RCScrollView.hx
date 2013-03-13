@@ -10,7 +10,7 @@
  *  
  **/
 #if js
-	 import js.Dom;
+	 import js.html.Event;
 #end
 
 class RCScrollView extends RCView {

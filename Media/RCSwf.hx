@@ -15,7 +15,7 @@
 		import flash.system.ApplicationDomain;
 	#end
 #elseif js
-	import js.Dom;// Includes the js.Event
+	import js.html.Event;// Includes the js.Event
 #end
 
 

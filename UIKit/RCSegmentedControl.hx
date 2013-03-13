@@ -12,7 +12,7 @@ class RCSegmentedControl extends RCView {
 	
 	var skin :Class<RCSkin>;
 	var labels :Array<String>;
-	var items :HashArray<RCButtonRadio>;
+	var items :OrderedMap<RCButtonRadio>;
 	var segmentsWidth :Array<Int>;
 	var selectedIndex_ :Int;
 	
@@ -27,7 +27,7 @@ class RCSegmentedControl extends RCView {
 		super (x, y, w, h);
 		
 		selectedIndex_ = -1;// Init this with -1
-		items = new HashArray<RCButtonRadio>();
+		items = new OrderedMap<RCButtonRadio>();
 		click = new RCSignal<RCSegmentedControl->Void>();
 		itemAdded = new RCSignal<RCSegmentedControl->Void>();
 		itemRemoved = new RCSignal<RCSegmentedControl->Void>();

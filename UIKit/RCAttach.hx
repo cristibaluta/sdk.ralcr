@@ -3,8 +3,8 @@
 #if (flash || (nme && (cpp || neko)))
 	import flash.display.MovieClip;
 #elseif js
-	import js.Dom;
-	private typedef MovieClip = HtmlDom;
+	//import js.Dom;
+	private typedef MovieClip = js.html.DivElement;
 #end
 
 

@@ -54,7 +54,7 @@ class RCDashedLine extends RCDraw implements RCDrawInterface {
 				
 			#elseif js
 				
-				var dash = js.Lib.document.createElement("div");
+				var dash = js.Browser.document.createElement("div");
 					dash.style.position = "absolute";
 					dash.style.margin = "0px 0px 0px 0px";
 					dash.style.left = X + "px";

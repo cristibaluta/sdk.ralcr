@@ -11,7 +11,8 @@
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 #elseif js
-	import js.Dom;
+	import js.html.Event;
+	import js.html.DivElement;
 #end
 
 private enum MovementDirection {

@@ -7,16 +7,16 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (nme || js)
-	private typedef UInt = Int;
-#end
 #if (flash || (nme && (cpp || neko)))
 	import flash.geom.Matrix;
 	import flash.display.LineScaleMode;
 #elseif js
+	import RCView;
 	typedef Matrix = Dynamic;
 	private class LineScaleMode { static public var NONE = null; }
-	import RCView;
+#end
+#if (nme || js)
+	private typedef UInt = Int;
 #end
 
 

@@ -46,7 +46,7 @@
 //
 
 import js.Lib;
-import js.Dom;
+import js.html.AudioElement;
 import haxe.Timer;
 
 
@@ -55,8 +55,8 @@ class JSAudio implements RCAudioInterface {
 	public static var DISPLAY_TIMER_UPDATE_DELAY :Int = 1000;
 	
 	var URL :String;
-	var sound :HtmlDom;
-	var channel :HtmlDom;
+	var sound :AudioElement;
+	var channel :AudioElement;
 	var timer :Timer;
 	var volume_ :Float;
 	var loaded_ :Bool;
@@ -100,7 +100,7 @@ class JSAudio implements RCAudioInterface {
 		this.loaded_ = false;
 		this.playing_ = false;
 
-		sound = js.Lib.document.createElement('audio');
+		sound = js.Browser.document.createElement('audio');
 		untyped sound.preload = true;
 		untyped sound.loop = false;
 		untyped sound.src = URL;

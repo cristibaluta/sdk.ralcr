@@ -35,7 +35,9 @@
 	onwaiting     script	Script to be run when the media has paused but is expected to resume (like when the media pauses to buffer more data)
 */
 
-import js.Lib;
+import js.html.VideoElement;
+import js.html.EventListener;
+import js.html.Event;
 import haxe.Timer;
 
 
@@ -45,7 +47,7 @@ class JSVideo extends RCView implements RCVideoInterface {
 	public static var DEFAULT_VOLUME :Float = 0.8;
 	public static var DISPLAY_TIMER_UPDATE_DELAY :Int = 1000;
 	
-    var video :Dynamic;
+    var video :VideoElement;
 	var videoURL :String;
 	var inited_ :Bool;
 	var loaded_ :Bool;
@@ -63,7 +65,7 @@ class JSVideo extends RCView implements RCVideoInterface {
 	public var percentPlayed :Int;
 	public var statusMessage :String;
 	public var secureToken :String;// This is sent by the server and is stored here for later access
-	public var volume (getVolume, setVolume) :Float;
+	public var volume (get_volume, set_volume) :Float;
 	
 	/**
 	 * Dispatch events
@@ -113,7 +115,7 @@ class JSVideo extends RCView implements RCVideoInterface {
 		timer = new Timer ( updateTime );
 		
 		// Create the video tag element
-		video = Lib.document.createElement("video");
+		video = js.Browser.document.createVideoElement();
         video.setAttribute("preload", "auto");
 		video.autoplay = "autoplay";
 		video.controls = null;//"controls";
@@ -146,12 +148,12 @@ class JSVideo extends RCView implements RCVideoInterface {
 	
 	function initHandler () :Void {
 		
-		setVolume ( volume_ );
+		set_volume ( volume_ );
 		
 		onInit();
 	}
 	
-    function errorHandler (e:Dynamic) :Void {
+    function errorHandler (e:EventListener) :Void {
 		
         statusMessage = e.target.error.code;
 		trace(statusMessage +" : "+ videoURL);
@@ -159,11 +161,11 @@ class JSVideo extends RCView implements RCVideoInterface {
         onError();
     }
 	
-	function onBufferEmptyHandler () {
+	function onBufferEmptyHandler (e:EventListener) {
         onBufferEmpty();
 	}
 	
-	function onBufferFullHandler () {
+	function onBufferFullHandler (e:EventListener) {
 		onBufferFull();
 	}
 	
@@ -196,8 +198,8 @@ class JSVideo extends RCView implements RCVideoInterface {
 		
 		} catch (e:Dynamic) {
 			trace(e);
-			var stack = haxe.Stack.exceptionStack();
-			trace (haxe.Stack.toString ( stack ));
+			var stack = haxe.CallStack.exceptionStack();
+			trace (haxe.CallStack.toString ( stack ));
 		}
 	}
 	
@@ -205,7 +207,7 @@ class JSVideo extends RCView implements RCVideoInterface {
 	/**
 	 *	Listeners for metaData and cuePoints
 	 */
-	function onMetaData () :Void {
+	function onMetaData (e:EventListener) :Void {
 		trace("JSVideo medatada received. Now ready to play.");
 		if (seeking_) return;
 		if (duration != 0) return;
@@ -235,7 +237,7 @@ class JSVideo extends RCView implements RCVideoInterface {
 		videoDidFinishPlaying();
 		timer.stop();
 	}
-	function videoDidStartHandler () :Void {
+	function videoDidStartHandler (e:Event) :Void {
 		trace("videoDidStart");
 		videoDidStart();
 		timer.run = loop;
@@ -310,13 +312,13 @@ class JSVideo extends RCView implements RCVideoInterface {
 	/**
 	 *	Control the volume
 	 */
-	public function getVolume () :Float {
+	public function get_volume () :Float {
 		return volume_;
 	}
 	
-	public function setVolume (volume:Float) :Float {
+	public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
-		video.volume = Std.string ( Math.round (volume * 10) / 10);
+		video.volume = Std.string ( Math.round (volume_ * 10) / 10);
 		return volume_;
 	}
 	
@@ -326,25 +328,25 @@ class JSVideo extends RCView implements RCVideoInterface {
 	 */
 	public function setSize (w, h) :Void {
 		
-		size.width = w;
-		size.height = h;
+		size_.width = w;
+		size_.height = h;
 		background.width = w;
 		background.height = h;
 		
 		var holderAspectRatio = w / h;
 		if (aspectRatio != null) {
 			if (aspectRatio < holderAspectRatio) {
-				video.height = h;
-				video.width = h * aspectRatio;
+				video.height = Math.round (h);
+				video.width = Math.round (h * aspectRatio);
 			}
 			else {
-				video.width = w;
-				video.height = w / aspectRatio;
+				video.width = Math.round (w);
+				video.height = Math.round (w / aspectRatio);
 			}
 		}
 		else {
-			video.width = w;
-			video.height = h;
+			video.width = Math.round (w);
+			video.height = Math.round (h);
 		}
 		
 		// Center the video object in the provided width and height

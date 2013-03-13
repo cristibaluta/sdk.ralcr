@@ -1,7 +1,7 @@
 package;
 
 import haxe.io.Bytes;
-import haxe.Md5;
+import haxe.crypto.Md5;
 import haxe.Serializer;
 
 /**

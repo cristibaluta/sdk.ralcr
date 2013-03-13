@@ -31,7 +31,8 @@
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 #elseif js
-	import js.Dom;
+	import js.html.Event;
+	import js.html.StyleSheet;
 	private typedef ApplicationDomain = Dynamic;
 #end
 
@@ -46,16 +47,16 @@ class RCFontManager {
 	
 	// Store the name of the format and the object with properties
 	// that should later be converted to TextFormat and StyleSheet
-	var hash_style :Hash<Dynamic>;
-	var hash_rcfont :Hash<RCFont>;
+	var hash_style :Map<String,Dynamic>;
+	var hash_rcfont :Map<String,RCFont>;
 	
 	
 	public function new () {}
 	
 	function initDefaults () {
 		
-		hash_style = new Hash<Dynamic>();
-		hash_rcfont = new Hash<RCFont>();
+		hash_style = new Map<String,Dynamic>();
+		hash_rcfont = new Map<String,RCFont>();
 		fontsSwfList = new Array<Event>();
 		
 		_defaultStyleSheetData = {	a_link	:{color:"#999999", textDecoration:"underline"},

@@ -184,7 +184,7 @@ class Main {
 /*			ph.layer.style.height = "50px";
 			ph.layer.style.margin = "50px 50px 50px 50px";
 			
-			var r = js.Lib.document.getElementById("flash");
+			var r = js.Browser.document.getElementById("flash");
 			r.style.height = 20+"px";*/
 		#end
 		

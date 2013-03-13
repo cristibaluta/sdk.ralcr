@@ -18,7 +18,7 @@ class RCMysqlTools extends RCMysql {
 		
 		var login_info = new Array<String>();
 		login_info.push (["user", user].join("="));
-		login_info.push (["parola", haxe.Md5.encode(parola)].join("="));
+		login_info.push (["parola", haxe.crypto.Md5.encode(parola)].join("="));
 		
 		//select ("", ["*"], ["useri"], login_info, "AND", "", "", "0, 1");
 	}

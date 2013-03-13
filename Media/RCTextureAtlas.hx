@@ -9,10 +9,10 @@ private typedef FrameData = {
 
 class RCTextureAtlas {
 	
-	static var textures :Hash<RCTextureAtlas>;
+	static var textures :Map<String,RCTextureAtlas>;
 	public static function set (key:String, texture:RCTextureAtlas) :Void {
 		if (textures == null)
-			textures = new Hash<RCTextureAtlas>();
+			textures = new Map<String,RCTextureAtlas>();
 		textures.set (key, texture);
 	}
 	public static function get (key:String) :RCTextureAtlas {
@@ -22,13 +22,13 @@ class RCTextureAtlas {
 	
 	
 	private var _texture :RCImage;
-	private var _textures :Hash<FrameData>;
+	private var _textures :Map<String,FrameData>;
 	
 	/** Create a texture atlas from a RCImage by parsing the regions from a PLIST file. */
 	
     public function new (texture:RCImage, atlas:String) {
 		
-		_textures = new Hash<FrameData>();
+		_textures = new Map<String,FrameData>();
 		_texture = texture;
 		
 		if (atlas.indexOf ("{\"frames\":") == 0)

@@ -1,7 +1,7 @@
 // A Hash structure that keeps the keys arranged in an array
 // The Haxe Hash does not do this by itself
 
-class HashArray<T> extends Hash<T> {
+class OrderedMap<T> extends haxe.ds.StringMap<T> {
 	
 	public var array :Array<String>;
 	

@@ -56,7 +56,7 @@ class RCLog {
 		var newLineIn = (lastMethod == inf.methodName) ? "" : "\n---> ";
 		var newLineOut = (lastMethod == inf.methodName) ? "" : "\n\n";
 		
-		haxe.Firebug.trace ( inf.methodName + " : " + newLineIn + Std.string(v) + newLineOut, inf );
+		haxe.Log.trace ( inf.methodName + " : " + newLineIn + Std.string(v) + newLineOut, inf );
 		
 		lastMethod = inf.methodName;
 	}

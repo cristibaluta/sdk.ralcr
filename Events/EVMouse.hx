@@ -2,11 +2,9 @@
 #if (flash || (nme && (cpp || neko)))
 	import flash.events.MouseEvent;
 	import flash.display.DisplayObjectContainer;
-#end
-#if js
-	import js.Dom;
-	private typedef MouseEvent = Event;
-	private typedef DisplayObjectContainer = HtmlDom;
+#elseif js
+	import js.html.MouseEvent;
+	private typedef DisplayObjectContainer = js.html.HtmlElement;
 	typedef EVMouseRelationship = {target:DisplayObjectContainer, type:String, instance:EVMouse};
 #end
 
@@ -133,7 +131,7 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 		#if js
 			// IE is retarded and doesn't pass the event object 
 			if (e == null)
-				e = untyped js.Lib.window.event;
+				e = untyped js.Browser.window.event;
 /*			if (js.Lib.isIE)
 				untyped e.returnValue = false;
 			else

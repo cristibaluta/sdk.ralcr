@@ -13,7 +13,7 @@ import flash.events.ContextMenuEvent;
 
 class RCRightClick {
 	
-	var cm_hash :Hash<ContextMenuItem>;
+	var cm_hash :Map<String,ContextMenuItem>;
 	var cm :ContextMenu;
 	
 	
@@ -21,7 +21,7 @@ class RCRightClick {
 		
 		cm = new ContextMenu();
 		cm.hideBuiltInItems();
-		cm_hash = new Hash<ContextMenuItem>();
+		cm_hash = new Map<String,ContextMenuItem>();
 	}
 	
 	
