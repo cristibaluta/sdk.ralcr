@@ -397,8 +397,8 @@ CATShake.__super__ = CAObject;
 CATShake.prototype = $extend(CAObject.prototype,{
 	animate: function(time_diff) {
 		if(time_diff > this.nextMove) {
-			this.target.setX(this.originalX + Math.random() * this.magnitude * 2 - this.magnitude);
-			this.target.setY(this.originalY + Math.random() * this.magnitude * 2 - this.magnitude);
+			this.target.set_x(this.originalX + Math.random() * this.magnitude * 2 - this.magnitude);
+			this.target.set_y(this.originalY + Math.random() * this.magnitude * 2 - this.magnitude);
 			this.nextMove = Math.round(time_diff + 15 + Math.random() * 10);
 		}
 		if(time_diff >= this.duration) {
@@ -538,7 +538,7 @@ CATZoom.prototype = $extend(CAObject.prototype,{
 		while(_g < _g1.length) {
 			var prop = _g1[_g];
 			++_g;
-			var setter = "set" + HxOverrides.substr(prop,0,1).toUpperCase() + HxOverrides.substr(prop,1,null);
+			var setter = "set_" + prop;
 			if(setter != null) Reflect.field(this.target,setter).apply(this.target,[this.timingFunction(time_diff,Reflect.field(this.fromValues,prop),Reflect.field(this.toValues,prop) - Reflect.field(this.fromValues,prop),this.duration,null)]);
 		}
 	}
@@ -594,20 +594,20 @@ CATZoom.prototype = $extend(CAObject.prototype,{
 				if(_toRot != null) toRotation = _toRot;
 			}
 		}
-		var i_w = this.target.getWidth();
-		var i_h = this.target.getHeight();
-		var i_x = this.target.getX();
-		var i_y = this.target.getY();
+		var i_w = this.target.get_width();
+		var i_h = this.target.get_height();
+		var i_x = this.target.get_x();
+		var i_y = this.target.get_x();
 		var f_w = i_w * toScale;
 		var f_h = i_h * toScale;
 		var f_x = Math.round(i_x + (i_w - f_w) / 2);
 		var f_y = Math.round(i_y + (i_h - f_h) / 2);
-		this.target.setWidth(i_w * fromScale);
-		this.target.setHeight(i_h * fromScale);
-		this.target.setX(Math.round(i_x + (i_w - this.target.getWidth()) / 2));
-		this.target.setY(Math.round(i_y + (i_h - this.target.getHeight()) / 2));
-		this.target.setAlpha(fromAlpha);
-		this.fromValues = { x : this.target.getX(), y : this.target.getY(), width : this.target.getWidth(), height : this.target.getHeight(), alpha : fromAlpha};
+		this.target.set_width(i_w * fromScale);
+		this.target.set_height(i_h * fromScale);
+		this.target.set_x(Math.round(i_x + (i_w - this.target.getWidth()) / 2));
+		this.target.set_y(Math.round(i_y + (i_h - this.target.getHeight()) / 2));
+		this.target.set_alpha(fromAlpha);
+		this.fromValues = { x : this.target.get_x(), y : this.target.get_y(), width : this.target.get_width(), height : this.target.get_height(), alpha : fromAlpha};
 		this.toValues = { x : f_x, y : f_y, width : f_w, height : f_h, alpha : toAlpha};
 	}
 	,__class__: CATZoom
@@ -786,7 +786,7 @@ CoreAnimation.add = function(obj) {
 	obj.initTime();
 	if(CoreAnimation.ticker == null) {
 		CoreAnimation.ticker = new EVLoop({ fileName : "CoreAnimation.hx", lineNumber : 50, className : "CoreAnimation", methodName : "add"});
-		CoreAnimation.ticker.setFuncToCall(CoreAnimation.updateAnimations);
+		CoreAnimation.ticker.set_funcToCall(CoreAnimation.updateAnimations);
 	}
 }
 CoreAnimation.remove = function(obj) {
@@ -1279,7 +1279,7 @@ EVLoop.prototype = {
 	,loop: function() {
 		if(this._run != null) this._run();
 	}
-	,setFuncToCall: function(func) {
+	,set_funcToCall: function(func) {
 		this.stop();
 		this._run = func;
 		this.ticker = new haxe.Timer(Math.round(1 / EVLoop.FPS * 1000));
@@ -1290,7 +1290,7 @@ EVLoop.prototype = {
 	,_run: null
 	,ticker: null
 	,__class__: EVLoop
-	,__properties__: {set_run:"setFuncToCall"}
+	,__properties__: {set_run:"set_funcToCall"}
 }
 var EVMouse = $hxClasses["EVMouse"] = function(type,target,pos) {
 	if(target == null) throw "Can't use a null target. " + Std.string(pos);
@@ -1560,10 +1560,10 @@ Evaluate.parseInt = function(str,rect) {
 		var $r;
 		switch(str) {
 		case "stagewidth":
-			$r = RCWindow.sharedWindow().getWidth();
+			$r = RCWindow.sharedWindow().get_width();
 			break;
 		case "stageheight":
-			$r = RCWindow.sharedWindow().getHeight();
+			$r = RCWindow.sharedWindow().get_height();
 			break;
 		case "photowidth":
 			$r = rect == null?0.0:rect.size.width;
@@ -1572,7 +1572,7 @@ Evaluate.parseInt = function(str,rect) {
 			$r = rect == null?0.0:rect.size.height;
 			break;
 		case "content_max_width":
-			$r = RCWindow.sharedWindow().getWidth();
+			$r = RCWindow.sharedWindow().get_width();
 			break;
 		default:
 			$r = Std.parseInt(str);
@@ -1679,16 +1679,21 @@ Facebook.prototype = {
 		return this.resultHash[data];
 	}
 	,errorHandler: function(req,_callback) {
-		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 471, className : "Facebook", methodName : "errorHandler"});
+		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 488, className : "Facebook", methodName : "errorHandler"});
 		var parsedData = haxe.Json.parse(req.result);
 		_callback(null,parsedData);
 	}
 	,completeHandler: function(req,_callback) {
-		haxe.Log.trace(req.result,{ fileName : "Facebook.hx", lineNumber : 444, className : "Facebook", methodName : "completeHandler"});
 		var parsedData = null;
 		try {
 			parsedData = haxe.Json.parse(req.result);
-			if(parsedData.error != null) _callback(null,parsedData.error); else if(parsedData.data != null) _callback(parsedData.data,null); else _callback(parsedData,null);
+			if(parsedData.error != null) _callback(null,parsedData.error); else if(parsedData.data != null) {
+				if(this.session.uid == null) this.session.uid = parsedData.id;
+				_callback(parsedData.data,null);
+			} else {
+				if(this.session.uid == null) this.session.uid = parsedData.id;
+				_callback(parsedData,null);
+			}
 		} catch( e ) {
 			parsedData = req.result;
 			this.errorHandler(req,_callback);
@@ -1699,7 +1704,7 @@ Facebook.prototype = {
 		if(method.indexOf("/") != 0) method = "/" + method;
 		if(this.getAccessToken() != null) {
 			if(params == null) params = { };
-			if(params.access_token == null) params.access_token = this.getAccessToken();
+			params.access_token = this.getAccessToken();
 		}
 		if(this.locale != null) params.locale = this.locale;
 		var req = new RCHttp();
@@ -1717,8 +1722,8 @@ Facebook.prototype = {
 		this.requests.push(req);
 	}
 	,handleUI: function(result,method) {
-		haxe.Log.trace("handleUI " + result,{ fileName : "Facebook.hx", lineNumber : 391, className : "Facebook", methodName : "handleUI"});
-		haxe.Log.trace(method,{ fileName : "Facebook.hx", lineNumber : 391, className : "Facebook", methodName : "handleUI"});
+		haxe.Log.trace("handleUI " + result,{ fileName : "Facebook.hx", lineNumber : 405, className : "Facebook", methodName : "handleUI"});
+		haxe.Log.trace(method,{ fileName : "Facebook.hx", lineNumber : 405, className : "Facebook", methodName : "handleUI"});
 		var decodedResult = result != null?haxe.Json.parse(result):null;
 		var uiCallback = this.openUICalls.get(method);
 		if(uiCallback != null) uiCallback(decodedResult);
@@ -1733,7 +1738,6 @@ Facebook.prototype = {
 		return null;
 	}
 	,handleAuthResponseChange: function(result) {
-		haxe.Log.trace(result,{ fileName : "Facebook.hx", lineNumber : 325, className : "Facebook", methodName : "handleAuthResponseChange"});
 		var resultObj = null;
 		var success = true;
 		if(result != null) try {
@@ -1741,7 +1745,11 @@ Facebook.prototype = {
 		} catch( e ) {
 			success = false;
 		} else success = false;
-		if(success) this.authResponse = this.generateAuthResponse(resultObj);
+		if(success) {
+			this.authResponse = this.generateAuthResponse(resultObj);
+			this.session = this.generateSession(this.authResponse);
+			haxe.Log.trace(this.authResponse,{ fileName : "Facebook.hx", lineNumber : 359, className : "Facebook", methodName : "handleAuthResponseChange"});
+		}
 		if(this._initCallback != null) {
 			this._initCallback(this.session,null);
 			this._initCallback = null;
@@ -1780,6 +1788,7 @@ Facebook.prototype = {
 		}(this)), accessToken : json.access_token != null?json.access_token:json.accessToken, signedRequest : json.signedRequest};
 	}
 	,getAuthResponse: function() {
+		haxe.Log.trace("getAuthResponse: ",{ fileName : "Facebook.hx", lineNumber : 280, className : "Facebook", methodName : "getAuthResponse"});
 		return this.authResponse;
 	}
 	,logout: function(_callback) {
@@ -1788,11 +1797,19 @@ Facebook.prototype = {
 	,login: function(_callback,options) {
 		this._loginCallback = _callback;
 	}
+	,myId: function() {
+		return this.session.uid;
+	}
 	,isConnected: function() {
 		return this.getAccessToken() != null;
 	}
 	,getLoginStatus: function() {
+		haxe.Log.trace("getLoginStatus",{ fileName : "Facebook.hx", lineNumber : 150, className : "Facebook", methodName : "getLoginStatus"});
 	}
+	,launchWebView: function(url) {
+		return null;
+	}
+	,webView: null
 	,resultHash: null
 	,requests: null
 	,locale: null
@@ -1908,9 +1925,9 @@ Fugu.align = function(obj,alignment,constraint_w,constraint_h,obj_w,obj_h,margin
 	if(margin_x == null) margin_x = 0;
 	if(obj == null) return;
 	var arr = alignment.toLowerCase().split(",");
-	if(obj_w == null) obj_w = obj.getWidth();
-	if(obj_h == null) obj_h = obj.getHeight();
-	obj.setX((function($this) {
+	if(obj_w == null) obj_w = obj.get_width();
+	if(obj_h == null) obj_h = obj.get_height();
+	obj.set_x((function($this) {
 		var $r;
 		switch(arr[0]) {
 		case "l":
@@ -1927,7 +1944,7 @@ Fugu.align = function(obj,alignment,constraint_w,constraint_h,obj_w,obj_h,margin
 		}
 		return $r;
 	}(this)));
-	obj.setY((function($this) {
+	obj.set_y((function($this) {
 		var $r;
 		switch(arr[1]) {
 		case "t":
@@ -1958,7 +1975,7 @@ var RCDisplayObject = $hxClasses["RCDisplayObject"] = function() {
 RCDisplayObject.__name__ = ["RCDisplayObject"];
 RCDisplayObject.prototype = {
 	toString: function() {
-		return "[RCView bounds:" + this.getBounds().origin.x + "x" + this.getBounds().origin.y + "," + this.getBounds().size.width + "x" + this.getBounds().size.height + "]";
+		return "[RCView bounds:" + this.get_bounds().origin.x + "x" + this.get_bounds().origin.y + "," + this.get_bounds().size.width + "x" + this.get_bounds().size.height + "]";
 	}
 	,destroy: function() {
 		CoreAnimation.remove(this.caobj);
@@ -1976,120 +1993,120 @@ RCDisplayObject.prototype = {
 	}
 	,addChild: function(child) {
 	}
-	,getMouseY: function() {
+	,get_mouseY: function() {
 		return 0;
 	}
-	,getMouseX: function() {
+	,get_mouseX: function() {
 		return 0;
 	}
 	,resetScale: function() {
-		this.setWidth(this.originalSize.width);
-		this.setHeight(this.originalSize.height);
+		this.set_width(this.originalSize.width);
+		this.set_height(this.originalSize.height);
 	}
 	,scale: function(sx,sy) {
 	}
 	,scaleToFill: function(w,h) {
 		if(w / this.originalSize.width > h / this.originalSize.height) {
-			this.setWidth(w);
-			this.setHeight(w * this.originalSize.height / this.originalSize.width);
+			this.set_width(w);
+			this.set_height(w * this.originalSize.height / this.originalSize.width);
 		} else {
-			this.setHeight(h);
-			this.setWidth(h * this.originalSize.width / this.originalSize.height);
+			this.set_height(h);
+			this.set_width(h * this.originalSize.width / this.originalSize.height);
 		}
 	}
 	,scaleToFit: function(w,h) {
 		if(this.size.width / w > this.size.height / h && this.size.width > w) {
-			this.setWidth(w);
-			this.setHeight(w * this.originalSize.height / this.originalSize.width);
+			this.set_width(w);
+			this.set_height(w * this.originalSize.height / this.originalSize.width);
 		} else if(this.size.height > h) {
-			this.setHeight(h);
-			this.setWidth(h * this.originalSize.width / this.originalSize.height);
+			this.set_height(h);
+			this.set_width(h * this.originalSize.width / this.originalSize.height);
 		} else if(this.size.width > this.originalSize.width && this.size.height > this.originalSize.height) {
-			this.setWidth(this.size.width);
-			this.setHeight(this.size.height);
+			this.set_width(this.size.width);
+			this.set_height(this.size.height);
 		} else this.resetScale();
 	}
-	,setCenter: function(pos) {
+	,set_center: function(pos) {
 		this.center = pos;
-		this.setX(pos.x - this.size.width / 2 | 0);
-		this.setY(pos.y - this.size.height / 2 | 0);
+		this.set_x(pos.x - this.size.width / 2 | 0);
+		this.set_y(pos.y - this.size.height / 2 | 0);
 		return this.center;
 	}
-	,setBackgroundColor: function(color) {
+	,set_backgroundColor: function(color) {
 		return color;
 	}
-	,setClipsToBounds: function(clip) {
+	,set_clipsToBounds: function(clip) {
 		return clip;
 	}
-	,setScaleY: function(sy) {
+	,set_scaleY: function(sy) {
 		this.scaleY_ = sy;
 		this.scale(this.scaleX_,this.scaleY_);
 		return this.scaleY_;
 	}
-	,getScaleY: function() {
+	,get_scaleY: function() {
 		return this.scaleY_;
 	}
-	,setScaleX: function(sx) {
+	,set_scaleX: function(sx) {
 		this.scaleX_ = sx;
 		this.scale(this.scaleX_,this.scaleY_);
 		return this.scaleX_;
 	}
-	,getScaleX: function() {
+	,get_scaleX: function() {
 		return this.scaleX_;
 	}
-	,setBounds: function(b) {
-		this.setX(b.origin.x);
-		this.setY(b.origin.y);
-		this.setWidth(b.size.width);
-		this.setHeight(b.size.height);
+	,set_bounds: function(b) {
+		this.set_x(b.origin.x);
+		this.set_y(b.origin.y);
+		this.set_width(b.size.width);
+		this.set_height(b.size.height);
 		return b;
 	}
-	,getBounds: function() {
+	,get_bounds: function() {
 		return new RCRect(this.x_,this.y_,this.size.width,this.size.height);
 	}
-	,getRotation: function() {
+	,get_rotation: function() {
 		return this.rotation;
 	}
-	,setRotation: function(r) {
+	,set_rotation: function(r) {
 		return this.rotation = r;
 	}
-	,setContentSize: function(s) {
+	,set_contentSize: function(s) {
 		return this.contentSize = s;
 	}
-	,getContentSize: function() {
+	,get_contentSize: function() {
 		return this.size;
 	}
-	,setHeight: function(h) {
+	,set_height: function(h) {
 		return this.size.height = h;
 	}
-	,getHeight: function() {
+	,get_height: function() {
 		return this.size.height;
 	}
-	,setWidth: function(w) {
+	,set_width: function(w) {
 		return this.size.width = w;
 	}
-	,getWidth: function() {
+	,get_width: function() {
 		return this.size.width;
 	}
-	,setY: function(y) {
+	,set_y: function(y) {
 		return this.y_ = y;
 	}
-	,getY: function() {
+	,get_y: function() {
 		return this.y_;
 	}
-	,setX: function(x) {
+	,set_x: function(x) {
 		return this.x_ = x;
 	}
-	,getX: function() {
+	,get_x: function() {
 		return this.x_;
 	}
-	,setAlpha: function(a) {
+	,set_alpha: function(a) {
 		return this.alpha = a;
 	}
-	,getAlpha: function() {
+	,get_alpha: function() {
 		return this.alpha;
 	}
-	,setVisible: function(v) {
+	,set_visible: function(v) {
 		return this.visible = v;
 	}
 	,init: function() {
@@ -2124,7 +2141,7 @@ RCDisplayObject.prototype = {
 	,viewWillDisappear: null
 	,viewWillAppear: null
 	,__class__: RCDisplayObject
-	,__properties__: {set_bounds:"setBounds",get_bounds:"getBounds",set_contentSize:"setContentSize",get_contentSize:"getContentSize",set_center:"setCenter",set_clipsToBounds:"setClipsToBounds",set_backgroundColor:"setBackgroundColor",set_x:"setX",get_x:"getX",set_y:"setY",get_y:"getY",set_width:"setWidth",get_width:"getWidth",set_height:"setHeight",get_height:"getHeight",set_scaleX:"setScaleX",get_scaleX:"getScaleX",set_scaleY:"setScaleY",get_scaleY:"getScaleY",set_alpha:"setAlpha",get_alpha:"getAlpha",set_rotation:"setRotation",get_rotation:"getRotation",set_visible:"setVisible",get_mouseX:"getMouseX",get_mouseY:"getMouseY"}
+	,__properties__: {set_bounds:"set_bounds",get_bounds:"get_bounds",set_contentSize:"set_contentSize",get_contentSize:"get_contentSize",set_center:"set_center",set_clipsToBounds:"set_clipsToBounds",set_backgroundColor:"set_backgroundColor",set_x:"set_x",get_x:"get_x",set_y:"set_y",get_y:"get_y",set_width:"set_width",get_width:"get_width",set_height:"set_height",get_height:"get_height",set_scaleX:"set_scaleX",get_scaleX:"get_scaleX",set_scaleY:"set_scaleY",get_scaleY:"get_scaleY",set_alpha:"set_alpha",get_alpha:"get_alpha",set_rotation:"set_rotation",get_rotation:"get_rotation",set_visible:"set_visible",get_mouseX:"get_mouseX",get_mouseY:"get_mouseY"}
 }
 var JSView = $hxClasses["JSView"] = function(x,y,w,h) {
 	RCDisplayObject.call(this);
@@ -2138,28 +2155,28 @@ var JSView = $hxClasses["JSView"] = function(x,y,w,h) {
 	this.layer.style.margin = "0px 0px 0px 0px";
 	this.layer.style.width = "auto";
 	this.layer.style.height = "auto";
-	this.setX(x);
-	this.setY(y);
+	this.set_x(x);
+	this.set_y(y);
 };
 JSView.__name__ = ["JSView"];
 JSView.__super__ = RCDisplayObject;
 JSView.prototype = $extend(RCDisplayObject.prototype,{
-	getMouseY: function() {
+	get_mouseY: function() {
 		if(this.parent == null) return this.mouseY;
-		return this.parent.getMouseY() - this.getY();
+		return this.parent.get_mouseY() - this.get_y();
 	}
-	,getMouseX: function() {
+	,get_mouseX: function() {
 		return this.layer.clientX;
 		if(this.parent == null) return this.mouseX;
-		return this.parent.getMouseX() - this.getX();
+		return this.parent.get_mouseX() - this.get_x();
 	}
 	,stopDrag: function() {
 	}
 	,startDrag: function(lockCenter,rect) {
 	}
-	,setRotation: function(r) {
+	,set_rotation: function(r) {
 		this.layer.style[this.getTransformProperty()] = "rotate(" + r + "deg)";
-		return RCDisplayObject.prototype.setRotation.call(this,r);
+		return RCDisplayObject.prototype.set_rotation.call(this,r);
 	}
 	,getTransformProperty: function() {
 		if(this.transformProperty != null) return this.transformProperty;
@@ -2179,39 +2196,39 @@ JSView.prototype = $extend(RCDisplayObject.prototype,{
 		this.layer.style[this.getTransformProperty()] = "scale(" + sx + "," + sy + ")";
 	}
 	,transformProperty: null
-	,getContentSize: function() {
+	,get_contentSize: function() {
 		this.contentSize_.width = this.layer.scrollWidth;
 		this.contentSize_.height = this.layer.scrollHeight;
 		return this.contentSize_;
 	}
-	,setHeight: function(h) {
+	,set_height: function(h) {
 		this.layer.style.height = h + "px";
-		return RCDisplayObject.prototype.setHeight.call(this,h);
+		return RCDisplayObject.prototype.set_height.call(this,h);
 	}
-	,setWidth: function(w) {
+	,set_width: function(w) {
 		this.layer.style.width = w + "px";
-		return RCDisplayObject.prototype.setWidth.call(this,w);
+		return RCDisplayObject.prototype.set_width.call(this,w);
 	}
-	,setY: function(y) {
+	,set_y: function(y) {
 		this.layer.style.top = Std.string(y * RCDevice.currentDevice().dpiScale) + "px";
-		return RCDisplayObject.prototype.setY.call(this,y);
+		return RCDisplayObject.prototype.set_y.call(this,y);
 	}
-	,setX: function(x) {
+	,set_x: function(x) {
 		this.layer.style.left = Std.string(x * RCDevice.currentDevice().dpiScale) + "px";
-		return RCDisplayObject.prototype.setX.call(this,x);
+		return RCDisplayObject.prototype.set_x.call(this,x);
 	}
-	,setAlpha: function(a) {
+	,set_alpha: function(a) {
 		if(RCDevice.currentDevice().userAgent == RCUserAgent.MSIE) {
 			this.layer.style.msFilter = "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + Std.string(a * 100) + ")";
 			this.layer.style.filter = "alpha(opacity=" + Std.string(a * 100) + ")";
 		} else this.layer.style.opacity = Std.string(a);
-		return RCDisplayObject.prototype.setAlpha.call(this,a);
+		return RCDisplayObject.prototype.set_alpha.call(this,a);
 	}
-	,setVisible: function(v) {
+	,set_visible: function(v) {
 		this.layer.style.visibility = v?"visible":"hidden";
-		return RCDisplayObject.prototype.setVisible.call(this,v);
+		return RCDisplayObject.prototype.set_visible.call(this,v);
 	}
-	,setClipsToBounds: function(clip) {
+	,set_clipsToBounds: function(clip) {
 		if(clip) {
 			this.layer.style.overflow = "hidden";
 			this.layerScrollable = js.Lib.document.createElement("div");
@@ -2227,7 +2244,7 @@ JSView.prototype = $extend(RCDisplayObject.prototype,{
 		}
 		return clip;
 	}
-	,setBackgroundColor: function(color) {
+	,set_backgroundColor: function(color) {
 		if(color == null) {
 			this.layer.style.background = null;
 			return color;
@@ -2275,9 +2292,9 @@ GKSprite.prototype = $extend(JSView.prototype,{
 	destroy: function() {
 		JSView.prototype.destroy.call(this);
 	}
-	,setRegistrationPoint: function(point) {
-		this.layer2.setX(Math.round(-point.x));
-		this.layer2.setY(Math.round(-point.y));
+	,set_registrationPoint: function(point) {
+		this.layer2.set_x(Math.round(-point.x));
+		this.layer2.set_y(Math.round(-point.y));
 		return point;
 	}
 	,registrationPoint: null
@@ -2295,7 +2312,7 @@ GKSprite.prototype = $extend(JSView.prototype,{
 	,gravity: null
 	,mass: null
 	,__class__: GKSprite
-	,__properties__: $extend(JSView.prototype.__properties__,{set_registrationPoint:"setRegistrationPoint"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_registrationPoint:"set_registrationPoint"})
 });
 var GKCharacter = $hxClasses["GKCharacter"] = function(x,y) {
 	GKSprite.call(this,x,y);
@@ -2329,10 +2346,10 @@ GKHealth.__name__ = ["GKHealth"];
 GKHealth.prototype = {
 	destroy: function() {
 	}
-	,setHealth: function(h) {
+	,set_health: function(h) {
 		return this.health = h;
 	}
-	,getHealth: function() {
+	,get_health: function() {
 		return this.health;
 	}
 	,init: function() {
@@ -2341,7 +2358,7 @@ GKHealth.prototype = {
 	,maxHealth: null
 	,minHealth: null
 	,__class__: GKHealth
-	,__properties__: {set_health:"setHealth",get_health:"getHealth"}
+	,__properties__: {set_health:"set_health",get_health:"get_health"}
 }
 var GKMath = $hxClasses["GKMath"] = function() { }
 GKMath.__name__ = ["GKMath"];
@@ -2479,6 +2496,8 @@ RCRequest.prototype = {
 	,load: function(URL,variables,method) {
 		if(method == null) method = "POST";
 		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
+		haxe.Log.trace(Std.string(variables),{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
+		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);
@@ -2506,24 +2525,45 @@ RCRequest.prototype = {
 	,loader: null
 	,__class__: RCRequest
 }
-var GKScoreBoard = $hxClasses["GKScoreBoard"] = function(api,userId) {
+var GKScoreBoard = $hxClasses["GKScoreBoard"] = function(apiPath,userId) {
+	this.userId = userId;
+	this.apiPath = apiPath;
+	if(apiPath != "" && !StringTools.endsWith(apiPath,"/")) this.apiPath += "/";
 	RCRequest.call(this);
 };
 GKScoreBoard.__name__ = ["GKScoreBoard"];
 GKScoreBoard.__super__ = RCRequest;
 GKScoreBoard.prototype = $extend(RCRequest.prototype,{
-	writeAchievement: function(achievementId) {
+	writeAchievement: function(achievementId,value) {
+		var vars = { userId : this.userId, achievementId : achievementId, value : value};
+		this.load(this.apiPath + "gamekit/achievements/write.php",this.createVariables(vars),"POST");
 	}
 	,requestAchievements: function() {
+		var vars = { userId : this.userId};
+		this.load(this.apiPath + "gamekit/achievements/read.php",this.createVariables(vars),"GET");
 	}
 	,writeScore: function(score) {
+		var vars = { userId : this.userId, score : score};
+		this.load(this.apiPath + "gamekit/scoreboard/write.php",this.createVariables(vars),"POST");
 	}
-	,requestTopScoreForAll: function(minDate) {
+	,requestGeneralTopScore: function(minDate) {
+		var vars = { timestamp : minDate != null?minDate.getTime():new Date().getTime()};
+		this.load(this.apiPath + "gamekit/scoreboard/read.php",this.createVariables(vars),"GET");
 	}
-	,requestTopScoreForIds: function(ids,minDate) {
+	,requestFriendsTopScore: function(minDate) {
+		var vars = { userId : this.userId, includeFriends : "true", timestamp : minDate != null?minDate.getTime():new Date().getTime()};
+		this.load(this.apiPath + "gamekit/scoreboard/read.php",this.createVariables(vars),"GET");
 	}
 	,requestYourTopScore: function(minDate) {
+		var vars = { userId : this.userId, timestamp : minDate != null?minDate.getTime():new Date().getTime()};
+		this.load(this.apiPath + "gamekit/scoreboard/read.php",this.createVariables(vars),"GET");
 	}
+	,writeFriends: function(ids) {
+		var vars = { userId : this.userId, friends : ids.join(",")};
+		this.load(this.apiPath + "gamekit/friends/write.php",this.createVariables(vars),"POST");
+	}
+	,userId: null
+	,apiPath: null
 	,__class__: GKScoreBoard
 });
 var GKSound = $hxClasses["GKSound"] = function() { }
@@ -3264,8 +3304,8 @@ IntIter.prototype = {
 var RCAudioInterface = $hxClasses["RCAudioInterface"] = function() { }
 RCAudioInterface.__name__ = ["RCAudioInterface"];
 RCAudioInterface.prototype = {
-	setVolume: null
-	,getVolume: null
+	set_volume: null
+	,get_volume: null
 	,destroy: null
 	,__class__: RCAudioInterface
 }
@@ -3283,11 +3323,11 @@ JSAudio.prototype = {
 		if(this.timer != null) this.timer.stop();
 		this.timer = null;
 	}
-	,setVolume: function(volume) {
+	,set_volume: function(volume) {
 		this.volume_ = volume > 1?1:volume;
 		return this.volume_;
 	}
-	,getVolume: function() {
+	,get_volume: function() {
 		return this.volume_;
 	}
 	,loop: function() {
@@ -3348,7 +3388,7 @@ JSAudio.prototype = {
 	,sound: null
 	,URL: null
 	,__class__: JSAudio
-	,__properties__: {set_volume:"setVolume",get_volume:"getVolume"}
+	,__properties__: {set_volume:"set_volume",get_volume:"get_volume"}
 }
 var JSCanvas = $hxClasses["JSCanvas"] = function() { }
 JSCanvas.__name__ = ["JSCanvas"];
@@ -3460,8 +3500,8 @@ JSVideo.prototype = $extend(JSView.prototype,{
 	,setSize: function(w,h) {
 		this.size.width = w;
 		this.size.height = h;
-		this.background.setWidth(w);
-		this.background.setHeight(h);
+		this.background.set_width(w);
+		this.background.set_height(h);
 		var holderAspectRatio = w / h;
 		if(this.aspectRatio != null) {
 			if(this.aspectRatio < holderAspectRatio) {
@@ -3761,7 +3801,7 @@ var RCProgressIndicator = $hxClasses["RCProgressIndicator"] = function(x,y,skin)
 	this.skin = skin;
 	this.addChild(skin.normal.background);
 	this.addChild(skin.normal.otherView);
-	this.setClipsToBounds(true);
+	this.set_clipsToBounds(true);
 };
 RCProgressIndicator.__name__ = ["RCProgressIndicator"];
 RCProgressIndicator.__super__ = JSView;
@@ -3771,29 +3811,31 @@ RCProgressIndicator.prototype = $extend(JSView.prototype,{
 		JSView.prototype.destroy.call(this);
 	}
 	,updateProgressBarWithPercent: function(percent) {
-		this.skin.normal.otherView.setWidth(Zeta.lineEquationInt(0,this.size.width,percent,0,100));
+		this.skin.normal.otherView.set_width(Zeta.lineEquationInt(0,this.size.width,percent,0,100));
 	}
 	,skin: null
 	,__class__: RCProgressIndicator
 });
 var RCActivityIndicator = $hxClasses["RCActivityIndicator"] = function(x,y,stepX,skin) {
+	if(stepX == null) stepX = 0;
 	RCProgressIndicator.call(this,x,y,skin);
 	this.stepX = stepX;
 	this.speedX = 1;
-	this.enterFrame = new EVLoop({ fileName : "RCActivityIndicator.hx", lineNumber : 21, className : "RCActivityIndicator", methodName : "new"});
-	this.enterFrame.setFuncToCall($bind(this,this.loop));
+	this.enterFrame = new EVLoop({ fileName : "RCActivityIndicator.hx", lineNumber : 48, className : "RCActivityIndicator", methodName : "new"});
+	this.enterFrame.set_funcToCall($bind(this,this.loop));
 };
 RCActivityIndicator.__name__ = ["RCActivityIndicator"];
 RCActivityIndicator.__super__ = RCProgressIndicator;
 RCActivityIndicator.prototype = $extend(RCProgressIndicator.prototype,{
 	destroy: function() {
-		this.enterFrame.destroy();
+		if(this.enterFrame != null) this.enterFrame.destroy();
+		this.enterFrame = null;
 		RCProgressIndicator.prototype.destroy.call(this);
 	}
 	,loop: function() {
 		var _g = this.skin.normal.otherView;
-		_g.setX(_g.getX() - this.speedX);
-		if(Math.abs(this.skin.normal.otherView.getX()) >= Math.abs(this.stepX)) this.skin.normal.otherView.setX(0);
+		_g.set_x(_g.get_x() - this.speedX);
+		if(Math.abs(this.skin.normal.otherView.get_x()) >= Math.abs(this.stepX)) this.skin.normal.otherView.set_x(0);
 	}
 	,enterFrame: null
 	,speedX: null
@@ -3820,8 +3862,8 @@ RCAlertView.prototype = $extend(JSView.prototype,{
 	,initWithLabels: function(arr,constructButton) {
 		this.buttons = new RCGroup(0,0,10,null,constructButton);
 		this.buttons.add(arr);
-		this.buttons.setX(Math.round((this.background.getWidth() - this.buttons.getWidth()) / 2));
-		this.buttons.setY(Math.round(this.background.getHeight() - this.buttons.getHeight() - 10));
+		this.buttons.set_x(Math.round((this.background.get_width() - this.buttons.get_width()) / 2));
+		this.buttons.set_y(Math.round(this.background.get_height() - this.buttons.get_height() - 10));
 		this.addChild(this.buttons);
 	}
 	,onClick: function() {
@@ -4053,7 +4095,7 @@ RCAttach.__name__ = ["RCAttach"];
 RCAttach.__super__ = JSView;
 RCAttach.prototype = $extend(JSView.prototype,{
 	copy: function() {
-		return new RCAttach(this.getX(),this.getY(),this.id);
+		return new RCAttach(this.get_x(),this.get_y(),this.id);
 	}
 	,id: null
 	,target: null
@@ -4062,7 +4104,7 @@ RCAttach.prototype = $extend(JSView.prototype,{
 var RCControl = $hxClasses["RCControl"] = function(x,y,w,h) {
 	JSView.call(this,x,y,w,h);
 	this.configureDispatchers();
-	this.setEnabled(true);
+	this.set_enabled(true);
 };
 RCControl.__name__ = ["RCControl"];
 RCControl.__super__ = JSView;
@@ -4075,10 +4117,10 @@ RCControl.prototype = $extend(JSView.prototype,{
 		this.out.destroy({ fileName : "RCControl.hx", lineNumber : 175, className : "RCControl", methodName : "destroy"});
 		JSView.prototype.destroy.call(this);
 	}
-	,getHighlighted: function() {
+	,get_highlighted: function() {
 		return this.state_ == RCControlState.HIGHLIGHTED;
 	}
-	,setEnabled: function(c) {
+	,set_enabled: function(c) {
 		this.enabled_ = c;
 		this.click.enabled = this.enabled_;
 		this.press.enabled = this.enabled_;
@@ -4087,10 +4129,10 @@ RCControl.prototype = $extend(JSView.prototype,{
 		this.out.enabled = this.enabled_;
 		return this.enabled_;
 	}
-	,getEnabled: function() {
+	,get_enabled: function() {
 		return this.enabled_;
 	}
-	,getSelected: function() {
+	,get_selected: function() {
 		return this.state_ == RCControlState.SELECTED;
 	}
 	,setState: function(state) {
@@ -4170,17 +4212,17 @@ RCControl.prototype = $extend(JSView.prototype,{
 	,press: null
 	,click: null
 	,__class__: RCControl
-	,__properties__: $extend(JSView.prototype.__properties__,{set_enabled:"setEnabled",get_enabled:"getEnabled",get_highlighted:"getHighlighted",get_selected:"getSelected"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_enabled:"set_enabled",get_enabled:"get_enabled",get_highlighted:"get_highlighted",get_selected:"get_selected"})
 });
 var RCButton = $hxClasses["RCButton"] = function(x,y,skin) {
 	this.setup(skin);
-	RCControl.call(this,x,y,this.currentBackground.getWidth(),this.currentBackground.getHeight());
+	RCControl.call(this,x,y,this.currentBackground.get_width(),this.currentBackground.get_height());
 };
 RCButton.__name__ = ["RCButton"];
 RCButton.__super__ = RCControl;
 RCButton.prototype = $extend(RCControl.prototype,{
 	toString: function() {
-		return "[RCButton bounds:" + this.getBounds().origin.x + "x" + this.getBounds().origin.y + "," + this.getBounds().size.width + "x" + this.getBounds().size.height + "]";
+		return "[RCButton bounds:" + this.get_bounds().origin.x + "x" + this.get_bounds().origin.y + "," + this.get_bounds().size.width + "x" + this.get_bounds().size.height + "]";
 	}
 	,setBackgroundImage: function(image,state) {
 	}
@@ -4213,8 +4255,8 @@ RCButton.prototype = $extend(RCControl.prototype,{
 			if(this.currentBackground != null) this.addChild(this.currentBackground);
 			if(this.currentImage != null) this.addChild(this.currentImage);
 			if(this.skin.hit != null) this.addChild(this.skin.hit);
-			this.size.width = this.currentBackground != null?this.currentBackground.getWidth():this.currentImage.getWidth();
-			this.size.height = this.currentBackground != null?this.currentBackground.getHeight():this.currentImage.getHeight();
+			this.size.width = this.currentBackground != null?this.currentBackground.get_width():this.currentImage.get_width();
+			this.size.height = this.currentBackground != null?this.currentBackground.get_height():this.currentImage.get_height();
 			RCControl.prototype.setState.call(this,state);
 		} catch( e ) {
 			haxe.Log.trace(e,{ fileName : "RCButton.hx", lineNumber : 103, className : "RCButton", methodName : "setState"});
@@ -4222,7 +4264,7 @@ RCButton.prototype = $extend(RCControl.prototype,{
 	}
 	,setup: function(skin) {
 		this.skin = skin;
-		if(skin.hit != null) skin.hit.setAlpha(0);
+		if(skin.hit != null) skin.hit.set_alpha(0);
 		if(skin.normal.label == null) skin.normal.label = skin.normal.image;
 		if(skin.normal.label == null) skin.normal.label = skin.normal.otherView;
 		var _g = 0, _g1 = Reflect.fields(skin.normal);
@@ -4257,23 +4299,23 @@ RCButtonRadio.prototype = $extend(RCButton.prototype,{
 	,toggle: function() {
 		if(this.toggable_) this.setState(RCControlState.SELECTED);
 	}
-	,setToggable: function(v) {
+	,set_toggable: function(v) {
 		if(!v) this.setState(RCControlState.NORMAL);
 		return this.toggable_ = v;
 	}
-	,getToggable: function() {
+	,get_toggable: function() {
 		return this.toggable_;
 	}
 	,rollOutHandler: function(e) {
-		if(!this.getSelected()) this.setState(RCControlState.NORMAL);
+		if(!this.get_selected()) this.setState(RCControlState.NORMAL);
 		this.onOut();
 	}
 	,rollOverHandler: function(e) {
-		if(!this.getSelected()) this.setState(RCControlState.HIGHLIGHTED);
+		if(!this.get_selected()) this.setState(RCControlState.HIGHLIGHTED);
 		this.onOver();
 	}
 	,clickHandler: function(e) {
-		this.setState(this.getSelected()?RCControlState.NORMAL:RCControlState.SELECTED);
+		this.setState(this.get_selected()?RCControlState.NORMAL:RCControlState.SELECTED);
 		this.onClick();
 	}
 	,mouseUpHandler: function(e) {
@@ -4285,7 +4327,7 @@ RCButtonRadio.prototype = $extend(RCButton.prototype,{
 	,toggable: null
 	,toggable_: null
 	,__class__: RCButtonRadio
-	,__properties__: $extend(RCButton.prototype.__properties__,{set_toggable:"setToggable",get_toggable:"getToggable"})
+	,__properties__: $extend(RCButton.prototype.__properties__,{set_toggable:"set_toggable",get_toggable:"get_toggable"})
 });
 var RCColor = $hxClasses["RCColor"] = function(fillColor,strokeColor,a) {
 	this.fillColor = fillColor;
@@ -4417,7 +4459,7 @@ RCCustomCursor.prototype = $extend(JSView.prototype,{
 var RCDraw = $hxClasses["RCDraw"] = function(x,y,w,h,color,alpha) {
 	if(alpha == null) alpha = 1.0;
 	JSView.call(this,x,y,w,h);
-	this.setAlpha(alpha);
+	this.set_alpha(alpha);
 	this.borderThickness = 1;
 	try {
 		this.graphics = this.layer;
@@ -4430,7 +4472,7 @@ RCDraw.__name__ = ["RCDraw"];
 RCDraw.__super__ = JSView;
 RCDraw.prototype = $extend(JSView.prototype,{
 	frame: function() {
-		return new RCRect(this.getX(),this.getY(),this.size.width,this.size.height);
+		return new RCRect(this.get_x(),this.get_y(),this.size.width,this.size.height);
 	}
 	,configure: function() {
 		if(js.Boot.__instanceof(this.color,RCColor)) {
@@ -4627,13 +4669,13 @@ RCDropDown.prototype = $extend(JSView.prototype,{
 	}
 	,mouseMoveHandler: function(e) {
 		var xm1 = 10;
-		var xm2 = this.background.getHeight() - 10;
-		var xm = this.background.getMouseY();
+		var xm2 = this.background.get_height() - 10;
+		var xm = this.background.get_mouseY();
 		if(xm < xm1) xm = xm1;
 		if(xm > xm2) xm = xm2;
 		var x1 = 0;
-		var x2 = x1 - this.items.getHeight() + this.background.getHeight();
-		this.items.setY(Zeta.lineEquationInt(x1,x2,xm,xm1,xm2));
+		var x2 = x1 - this.items.get_height() + this.background.get_height();
+		this.items.set_y(Zeta.lineEquationInt(x1,x2,xm,xm1,xm2));
 	}
 	,mouseOutHandler: function(e) {
 		haxe.Log.trace("mouesout",{ fileName : "RCDropDown.hx", lineNumber : 118, className : "RCDropDown", methodName : "mouseOutHandler"});
@@ -4648,7 +4690,7 @@ RCDropDown.prototype = $extend(JSView.prototype,{
 	}
 	,openDropDown: function() {
 		this.dropDownDidOpen.dispatch(this,null,null,null,{ fileName : "RCDropDown.hx", lineNumber : 70, className : "RCDropDown", methodName : "openDropDown"});
-		if(this.items.getHeight() < this.background.getHeight()) this.background.setHeight(this.items.getHeight());
+		if(this.items.get_height() < this.background.get_height()) this.background.set_height(this.items.get_height());
 	}
 	,select: function(label) {
 		this.closeDropDown();
@@ -5054,8 +5096,8 @@ _RCGestureRecognizer.MovementDirection.up.__enum__ = _RCGestureRecognizer.Moveme
 var RCGestureRecognizer = $hxClasses["RCGestureRecognizer"] = function(target,target_click) {
 	this.target = target;
 	this.clickableTarget = target_click == null?target:target_click;
-	this.lastX = target.getMouseX();
-	this.lastY = target.getMouseY();
+	this.lastX = target.get_mouseX();
+	this.lastY = target.get_mouseY();
 	this.lastDirection = _RCGestureRecognizer.MovementDirection.right;
 	this.resume();
 };
@@ -5115,21 +5157,21 @@ RCGestureRecognizer.prototype = {
 		return false;
 	}
 	,updateDirection: function() {
-		if(this.target.getMouseX() > this.lastX + 10) {
-			this.lastX = this.target.getMouseX();
+		if(this.target.get_mouseX() > this.lastX + 10) {
+			this.lastX = this.target.get_mouseX();
 			if(this.lastDirection != _RCGestureRecognizer.MovementDirection.right) this.lastDirection = _RCGestureRecognizer.MovementDirection.right;
 			return true;
-		} else if(this.target.getMouseX() < this.lastX - 10) {
-			this.lastX = this.target.getMouseX();
+		} else if(this.target.get_mouseX() < this.lastX - 10) {
+			this.lastX = this.target.get_mouseX();
 			if(this.lastDirection != _RCGestureRecognizer.MovementDirection.left) this.lastDirection = _RCGestureRecognizer.MovementDirection.left;
 			return true;
 		}
-		if(this.target.getMouseY() > this.lastY + 10) {
-			this.lastY = this.target.getMouseY();
+		if(this.target.get_mouseY() > this.lastY + 10) {
+			this.lastY = this.target.get_mouseY();
 			if(this.lastDirection != _RCGestureRecognizer.MovementDirection.down) this.lastDirection = _RCGestureRecognizer.MovementDirection.down;
 			return true;
-		} else if(this.target.getMouseY() < this.lastY - 10) {
-			this.lastY = this.target.getMouseY();
+		} else if(this.target.get_mouseY() < this.lastY - 10) {
+			this.lastY = this.target.get_mouseY();
 			if(this.lastDirection != _RCGestureRecognizer.MovementDirection.up) this.lastDirection = _RCGestureRecognizer.MovementDirection.up;
 			return true;
 		}
@@ -5142,10 +5184,10 @@ RCGestureRecognizer.prototype = {
 		e.updateAfterEvent();
 	}
 	,mouseUpHandler: function(event) {
-		if(this.target.getMouseX() > this.lastClickedX + 10) this.clickDragRightRelease(); else if(this.target.getMouseX() < this.lastClickedX - 10) this.clickDragLeftRelease(); else this.onClick();
+		if(this.target.get_mouseX() > this.lastClickedX + 10) this.clickDragRightRelease(); else if(this.target.get_mouseX() < this.lastClickedX - 10) this.clickDragLeftRelease(); else this.onClick();
 	}
 	,mouseDownHandler: function(event) {
-		this.lastClickedX = this.target.getMouseX();
+		this.lastClickedX = this.target.get_mouseX();
 	}
 	,hold: function() {
 	}
@@ -5228,11 +5270,11 @@ RCGroup.prototype = $extend(JSView.prototype,{
 			var new_s = this.items[i];
 			var old_s = this.items[i - 1];
 			if(i != 0) {
-				if(this.gapX != null) newX = old_s.getX() + old_s.getWidth() + this.gapX;
-				if(this.gapY != null) newY = old_s.getY() + old_s.getHeight() + this.gapY;
+				if(this.gapX != null) newX = old_s.get_x() + old_s.get_width() + this.gapX;
+				if(this.gapY != null) newY = old_s.get_y() + old_s.get_height() + this.gapY;
 			}
-			new_s.setX(newX);
-			new_s.setY(newY);
+			new_s.set_x(newX);
+			new_s.set_y(newY);
 			this.size.width = newX + new_s.size.width;
 			this.size.height = newY + new_s.size.height;
 		}
@@ -5395,7 +5437,7 @@ RCImageAnimated.__super__ = JSView;
 RCImageAnimated.prototype = $extend(JSView.prototype,{
 	destroy: function() {
 		this.stop();
-		Fugu.safeDestroy(this.images,null,{ fileName : "RCImageAnimated.hx", lineNumber : 148, className : "RCImageAnimated", methodName : "destroy"});
+		Fugu.safeDestroy(this.images,null,{ fileName : "RCImageAnimated.hx", lineNumber : 152, className : "RCImageAnimated", methodName : "destroy"});
 		this.images = null;
 		JSView.prototype.destroy.call(this);
 	}
@@ -5490,21 +5532,21 @@ RCImageStretchable.prototype = $extend(JSView.prototype,{
 		this.r.destroy();
 		JSView.prototype.destroy.call(this);
 	}
-	,setWidth: function(w) {
+	,set_width: function(w) {
 		this.size.width = w;
 		if(!this.l.isLoaded || !this.m.isLoaded || !this.r.isLoaded) return w;
-		this.l.setX(0);
-		this.m.setX(Math.round(this.l.getWidth()));
-		var mw = Math.round(w - this.l.getWidth() - this.r.getWidth());
+		this.l.set_x(0);
+		this.m.set_x(Math.round(this.l.get_width()));
+		var mw = Math.round(w - this.l.get_width() - this.r.get_width());
 		if(mw < 0) mw = 0;
-		this.m.setWidth(mw);
-		var rx = Math.round(w - this.r.getWidth());
-		if(rx < this.m.getX() + mw) rx = Math.round(this.m.getX() + mw);
-		this.r.setX(rx);
+		this.m.set_width(mw);
+		var rx = Math.round(w - this.r.get_width());
+		if(rx < this.m.get_x() + mw) rx = Math.round(this.m.get_x() + mw);
+		this.r.set_x(rx);
 		return w;
 	}
 	,onCompleteHandler: function() {
-		if(this.l.isLoaded && this.m.isLoaded && this.r.isLoaded && this.size.width != 0) this.setWidth(this.size.width);
+		if(this.l.isLoaded && this.m.isLoaded && this.r.isLoaded && this.size.width != 0) this.set_width(this.size.width);
 		this.onComplete();
 	}
 	,onComplete: function() {
@@ -5844,6 +5886,49 @@ RCMath.sum = function(a) {
 	}
 	return f1;
 }
+RCMath.random = function(min,max) {
+	return Math.round(min + Math.random() * (max - min));
+}
+var RCViewController = $hxClasses["RCViewController"] = function(x,y,w,h) {
+	JSView.call(this,x,y,w,h);
+	RCNotificationCenter.addObserver("orientationWillChange",$bind(this,this.orientationWillChange));
+	RCNotificationCenter.addObserver("orientationChanged",$bind(this,this.orientationChanged));
+};
+RCViewController.__name__ = ["RCViewController"];
+RCViewController.__super__ = JSView;
+RCViewController.prototype = $extend(JSView.prototype,{
+	destroy: function() {
+		RCNotificationCenter.removeObserver("orientationWillChange",$bind(this,this.orientationWillChange));
+		RCNotificationCenter.removeObserver("orientationChanged",$bind(this,this.orientationChanged));
+		JSView.prototype.destroy.call(this);
+	}
+	,dismissModalViewController: function() {
+		RCWindow.sharedWindow().dismissModalViewController();
+	}
+	,addModalViewController: function(view) {
+		RCWindow.sharedWindow().addModalViewController(view);
+	}
+	,shouldAutorotateToInterfaceOrientation: function(toOrientation) {
+		return true;
+	}
+	,orientationChanged: function() {
+	}
+	,orientationWillChange: function() {
+	}
+	,__class__: RCViewController
+});
+var RCModalViewController = $hxClasses["RCModalViewController"] = function(x,y,w,h) {
+	RCViewController.call(this,x,y,w,h);
+};
+RCModalViewController.__name__ = ["RCModalViewController"];
+RCModalViewController.__super__ = RCViewController;
+RCModalViewController.prototype = $extend(RCViewController.prototype,{
+	modalViewWillDisappear: function() {
+	}
+	,modalViewDidAppear: function() {
+	}
+	,__class__: RCModalViewController
+});
 var RCMysql = $hxClasses["RCMysql"] = function(scriptsPath) {
 	this.scriptsPath = scriptsPath;
 	RCRequest.call(this);
@@ -5966,7 +6051,10 @@ var RCPageControl = $hxClasses["RCPageControl"] = function(x,y,w,h,skin) {
 RCPageControl.__name__ = ["RCPageControl"];
 RCPageControl.__super__ = RCControl;
 RCPageControl.prototype = $extend(RCControl.prototype,{
-	sizeForNumberOfPages: function(pageCount) {
+	destroy: function() {
+		RCControl.prototype.destroy.call(this);
+	}
+	,sizeForNumberOfPages: function(pageCount) {
 		return new RCSize(0,0);
 	}
 	,updateCurrentPageDisplay: function() {
@@ -6040,12 +6128,12 @@ RCRectangle.__name__ = ["RCRectangle"];
 RCRectangle.__interfaces__ = [RCDrawInterface];
 RCRectangle.__super__ = RCDraw;
 RCRectangle.prototype = $extend(RCDraw.prototype,{
-	setHeight: function(h) {
+	set_height: function(h) {
 		this.size.height = h;
 		this.redraw();
 		return h;
 	}
-	,setWidth: function(w) {
+	,set_width: function(w) {
 		this.size.width = w;
 		this.redraw();
 		return w;
@@ -6106,38 +6194,38 @@ RCScrollBar.prototype = $extend(RCControl.prototype,{
 		this.skin.destroy();
 		RCControl.prototype.destroy.call(this);
 	}
-	,setValue: function(v) {
+	,set_value: function(v) {
 		var x1 = 0.0, x2 = 0.0;
 		this.value_ = v;
 		switch( (this.direction_)[1] ) {
 		case 0:
-			x2 = this.size.width - this.scrollbar.getWidth();
-			this.scrollbar.setX(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
+			x2 = this.size.width - this.scrollbar.get_width();
+			this.scrollbar.set_x(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
 			break;
 		case 1:
-			x2 = this.size.height - this.scrollbar.getHeight();
-			this.scrollbar.setY(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
+			x2 = this.size.height - this.scrollbar.get_height();
+			this.scrollbar.set_y(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
 			break;
 		}
-		this.valueChanged.dispatch(this,null,null,null,{ fileName : "RCScrollBar.hx", lineNumber : 154, className : "RCScrollBar", methodName : "setValue"});
+		this.valueChanged.dispatch(this,null,null,null,{ fileName : "RCScrollBar.hx", lineNumber : 154, className : "RCScrollBar", methodName : "set_value"});
 		return this.value_;
 	}
-	,getValue: function() {
+	,get_value: function() {
 		return this.value_;
 	}
 	,mouseMoveHandler: function(e) {
 		var y0 = 0.0, y1 = 0.0, y2 = 0.0;
 		switch( (this.direction_)[1] ) {
 		case 0:
-			y2 = this.size.width - this.scrollbar.getWidth();
-			y0 = Zeta.limitsInt(this.getMouseX() - this.scrollbar.getWidth() / 2,0,y2);
+			y2 = this.size.width - this.scrollbar.get_width();
+			y0 = Zeta.limitsInt(this.get_mouseX() - this.scrollbar.get_width() / 2,0,y2);
 			break;
 		case 1:
-			y2 = this.size.height - this.scrollbar.getHeight();
-			y0 = Zeta.limitsInt(this.getMouseY() - this.scrollbar.getHeight() / 2,0,y2);
+			y2 = this.size.height - this.scrollbar.get_height();
+			y0 = Zeta.limitsInt(this.get_mouseY() - this.scrollbar.get_height() / 2,0,y2);
 			break;
 		}
-		this.setValue(Zeta.lineEquation(this.minValue_,this.maxValue_,y0,y1,y2));
+		this.set_value(Zeta.lineEquation(this.minValue_,this.maxValue_,y0,y1,y2));
 		e.updateAfterEvent();
 	}
 	,clickHandler: function(e) {
@@ -6146,12 +6234,12 @@ RCScrollBar.prototype = $extend(RCControl.prototype,{
 	}
 	,rollOutHandler: function(e) {
 		this.setState(RCControlState.NORMAL);
-		this.scrollbar.setAlpha(0.4);
+		this.scrollbar.set_alpha(0.4);
 		this.onOut();
 	}
 	,rollOverHandler: function(e) {
 		this.setState(RCControlState.HIGHLIGHTED);
-		this.scrollbar.setAlpha(1);
+		this.scrollbar.set_alpha(1);
 		this.onOver();
 	}
 	,mouseUpHandler: function(e) {
@@ -6180,13 +6268,13 @@ RCScrollBar.prototype = $extend(RCControl.prototype,{
 		RCControl.prototype.init.call(this);
 		this.direction_ = this.size.width > this.size.height?_RCScrollBar.Direction.HORIZONTAL:_RCScrollBar.Direction.VERTICAL;
 		this.background = this.skin.normal.background;
-		this.background.setWidth(this.size.width);
-		this.background.setHeight(this.size.height);
+		this.background.set_width(this.size.width);
+		this.background.set_height(this.size.height);
 		this.addChild(this.background);
 		this.scrollbar = this.skin.normal.otherView;
-		this.scrollbar.setWidth(this.direction_ == _RCScrollBar.Direction.HORIZONTAL?this.indicatorSize:this.size.width);
-		this.scrollbar.setHeight(this.direction_ == _RCScrollBar.Direction.VERTICAL?this.indicatorSize:this.size.height);
-		this.scrollbar.setAlpha(0.4);
+		this.scrollbar.set_width(this.direction_ == _RCScrollBar.Direction.HORIZONTAL?this.indicatorSize:this.size.width);
+		this.scrollbar.set_height(this.direction_ == _RCScrollBar.Direction.VERTICAL?this.indicatorSize:this.size.height);
+		this.scrollbar.set_alpha(0.4);
 		this.addChild(this.scrollbar);
 	}
 	,valueChanged: null
@@ -6203,11 +6291,11 @@ RCScrollBar.prototype = $extend(RCControl.prototype,{
 	,background: null
 	,skin: null
 	,__class__: RCScrollBar
-	,__properties__: $extend(RCControl.prototype.__properties__,{set_value:"setValue",get_value:"getValue"})
+	,__properties__: $extend(RCControl.prototype.__properties__,{set_value:"set_value",get_value:"get_value"})
 });
 var RCScrollView = $hxClasses["RCScrollView"] = function(x,y,w,h) {
 	JSView.call(this,x,y,w,h);
-	this.setClipsToBounds(true);
+	this.set_clipsToBounds(true);
 	this.setContentView(new JSView(0,0));
 };
 RCScrollView.__name__ = ["RCScrollView"];
@@ -6227,10 +6315,10 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 		if(this.vertScrollBarSync != null) this.vertScrollBarSync.resume();
 		if(this.horizScrollBarSync != null) this.horizScrollBarSync.resume();
 	}
-	,setMarginsFade: function(b) {
+	,set_marginsFade: function(b) {
 		return b;
 	}
-	,setBounce: function(b) {
+	,set_bounce: function(b) {
 		this.bounces = b;
 		return b;
 	}
@@ -6241,35 +6329,35 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 	,scrollViewDidScrollHandler: function(s) {
 		this.scrollViewDidScroll();
 	}
-	,setScrollEnabled: function(b) {
-		haxe.Log.trace("setScrollEnabled " + Std.string(b),{ fileName : "RCScrollView.hx", lineNumber : 59, className : "RCScrollView", methodName : "setScrollEnabled"});
+	,set_scrollEnabled: function(b) {
+		haxe.Log.trace("setScrollEnabled " + Std.string(b),{ fileName : "RCScrollView.hx", lineNumber : 59, className : "RCScrollView", methodName : "set_scrollEnabled"});
 		var colors = [null,null,14540253,16777215];
-		haxe.Log.trace("contentSize " + Std.string(this.contentView.getContentSize()),{ fileName : "RCScrollView.hx", lineNumber : 61, className : "RCScrollView", methodName : "setScrollEnabled"});
-		haxe.Log.trace(this.size,{ fileName : "RCScrollView.hx", lineNumber : 62, className : "RCScrollView", methodName : "setScrollEnabled"});
-		if(this.getContentSize().width > this.size.width && this.horizScrollBarSync == null && b && false) {
-			haxe.Log.trace("add horiz",{ fileName : "RCScrollView.hx", lineNumber : 66, className : "RCScrollView", methodName : "setScrollEnabled"});
-			var scroller_w = Zeta.lineEquationInt(this.size.width / 2,this.size.width,this.getContentSize().width,this.size.width * 2,this.size.width);
+		haxe.Log.trace("contentSize " + Std.string(this.contentView.get_contentSize()),{ fileName : "RCScrollView.hx", lineNumber : 61, className : "RCScrollView", methodName : "set_scrollEnabled"});
+		haxe.Log.trace(this.size,{ fileName : "RCScrollView.hx", lineNumber : 62, className : "RCScrollView", methodName : "set_scrollEnabled"});
+		if(this.get_contentSize().width > this.size.width && this.horizScrollBarSync == null && b && false) {
+			haxe.Log.trace("add horiz",{ fileName : "RCScrollView.hx", lineNumber : 66, className : "RCScrollView", methodName : "set_scrollEnabled"});
+			var scroller_w = Zeta.lineEquationInt(this.size.width / 2,this.size.width,this.get_contentSize().width,this.size.width * 2,this.size.width);
 			var skinH = new haxe.SKScrollBar(colors);
 			this.horizScrollBar = new RCScrollBar(0,this.size.height - 10,this.size.width,8,scroller_w,skinH);
 			this.horizScrollBarSync = new RCSliderSync(RCWindow.sharedWindow().target,this.contentView,this.horizScrollBar,this.size.width,"horizontal");
 			this.horizScrollBarSync.valueChanged.add($bind(this,this.scrollViewDidScrollHandler));
 			this.addChild(this.horizScrollBar);
 		} else {
-			Fugu.safeDestroy([this.horizScrollBar,this.horizScrollBarSync],null,{ fileName : "RCScrollView.hx", lineNumber : 75, className : "RCScrollView", methodName : "setScrollEnabled"});
+			Fugu.safeDestroy([this.horizScrollBar,this.horizScrollBarSync],null,{ fileName : "RCScrollView.hx", lineNumber : 75, className : "RCScrollView", methodName : "set_scrollEnabled"});
 			this.horizScrollBar = null;
 			this.horizScrollBarSync = null;
 		}
-		haxe.Log.trace("contentView.height " + this.contentView.getHeight(),{ fileName : "RCScrollView.hx", lineNumber : 79, className : "RCScrollView", methodName : "setScrollEnabled"});
-		if(this.contentView.getHeight() > this.size.height && this.vertScrollBarSync == null && b) {
-			haxe.Log.trace("add vert",{ fileName : "RCScrollView.hx", lineNumber : 84, className : "RCScrollView", methodName : "setScrollEnabled"});
-			var scroller_h = Zeta.lineEquationInt(this.size.height / 2,this.size.height,this.getContentSize().height,this.size.height * 2,this.size.height);
+		haxe.Log.trace("contentView.height " + this.contentView.get_height(),{ fileName : "RCScrollView.hx", lineNumber : 79, className : "RCScrollView", methodName : "set_scrollEnabled"});
+		if(this.contentView.get_height() > this.size.height && this.vertScrollBarSync == null && b) {
+			haxe.Log.trace("add vert",{ fileName : "RCScrollView.hx", lineNumber : 84, className : "RCScrollView", methodName : "set_scrollEnabled"});
+			var scroller_h = Zeta.lineEquationInt(this.size.height / 2,this.size.height,this.get_contentSize().height,this.size.height * 2,this.size.height);
 			var skinV = new haxe.SKScrollBar(colors);
 			this.vertScrollBar = new RCScrollBar(this.size.width - 10,0,8,this.size.height,scroller_h,skinV);
 			this.vertScrollBarSync = new RCSliderSync(RCWindow.sharedWindow().target,this.contentView,this.vertScrollBar,this.size.height,"vertical");
 			this.vertScrollBarSync.valueChanged.add($bind(this,this.scrollViewDidScrollHandler));
 			this.addChild(this.vertScrollBar);
 		} else {
-			Fugu.safeDestroy([this.vertScrollBar,this.vertScrollBarSync],null,{ fileName : "RCScrollView.hx", lineNumber : 93, className : "RCScrollView", methodName : "setScrollEnabled"});
+			Fugu.safeDestroy([this.vertScrollBar,this.vertScrollBarSync],null,{ fileName : "RCScrollView.hx", lineNumber : 93, className : "RCScrollView", methodName : "set_scrollEnabled"});
 			this.vertScrollBar = null;
 			this.vertScrollBarSync = null;
 		}
@@ -6279,8 +6367,8 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 		Fugu.safeRemove(this.contentView);
 		this.contentView = content;
 		this.addChild(this.contentView);
-		this.setContentSize(this.contentView.getContentSize());
-		this.setScrollEnabled(true);
+		this.set_contentSize(this.contentView.get_contentSize());
+		this.set_scrollEnabled(true);
 	}
 	,scrollViewDidEndScrollingAnimation: function() {
 	}
@@ -6306,7 +6394,7 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 	,horizScrollBar: null
 	,vertScrollBar: null
 	,__class__: RCScrollView
-	,__properties__: $extend(JSView.prototype.__properties__,{set_enableMarginsFade:"setMarginsFade",set_bounces:"setBounce",set_scrollEnabled:"setScrollEnabled"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_enableMarginsFade:"set_marginsFade",set_bounces:"set_bounce",set_scrollEnabled:"set_scrollEnabled"})
 });
 var RCSegmentedControl = $hxClasses["RCSegmentedControl"] = function(x,y,w,h,skin) {
 	JSView.call(this,x,y,w,h);
@@ -6336,16 +6424,16 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 		JSView.prototype.destroy.call(this);
 	}
 	,clickHandler: function(label) {
-		this.setSelectedIndex(this.items.indexForKey(label));
+		this.set_selectedIndex(this.items.indexForKey(label));
 		this.click.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 234, className : "RCSegmentedControl", methodName : "clickHandler"});
 	}
 	,disable: function(label) {
-		this.items.get(label).setEnabled(false);
-		this.items.get(label).setAlpha(0.4);
+		this.items.get(label).set_enabled(false);
+		this.items.get(label).set_alpha(0.4);
 	}
 	,enable: function(label) {
-		this.items.get(label).setEnabled(true);
-		this.items.get(label).setAlpha(1);
+		this.items.get(label).set_enabled(true);
+		this.items.get(label).set_alpha(1);
 	}
 	,exists: function(label) {
 		return this.items.exists(label);
@@ -6354,10 +6442,10 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 		return this.items.get(label);
 	}
 	,toggled: function(label) {
-		return this.items.get(label).getSelected();
+		return this.items.get(label).get_selected();
 	}
 	,unselect: function(label) {
-		this.items.get(label).setEnabled(true);
+		this.items.get(label).set_enabled(true);
 		this.items.get(label).untoggle();
 	}
 	,select: function(label,can_unselect) {
@@ -6365,7 +6453,7 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 		haxe.Log.trace("select " + label + ", " + Std.string(can_unselect),{ fileName : "RCSegmentedControl.hx", lineNumber : 173, className : "RCSegmentedControl", methodName : "select"});
 		if(this.items.exists(label)) {
 			this.items.get(label).toggle();
-			if(can_unselect) this.items.get(label).setEnabled(false); else this.items.get(label).setEnabled(true);
+			if(can_unselect) this.items.get(label).set_enabled(false); else this.items.get(label).set_enabled(true);
 		}
 		if(can_unselect) {
 			var $it0 = this.items.keys();
@@ -6392,14 +6480,14 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 		this.keepButtonsArranged();
 		this.itemRemoved.dispatch(this,null,null,null,{ fileName : "RCSegmentedControl.hx", lineNumber : 150, className : "RCSegmentedControl", methodName : "remove"});
 	}
-	,setSelectedIndex: function(i) {
-		haxe.Log.trace("setIndex " + this.selectedIndex_ + " > " + i,{ fileName : "RCSegmentedControl.hx", lineNumber : 127, className : "RCSegmentedControl", methodName : "setSelectedIndex"});
+	,set_selectedIndex: function(i) {
+		haxe.Log.trace("setIndex " + this.selectedIndex_ + " > " + i,{ fileName : "RCSegmentedControl.hx", lineNumber : 127, className : "RCSegmentedControl", methodName : "set_selectedIndex"});
 		if(this.selectedIndex_ == i) return i;
 		this.selectedIndex_ = i;
 		this.select(this.labels[i]);
 		return this.selectedIndex_;
 	}
-	,getSelectedIndex: function() {
+	,get_selectedIndex: function() {
 		return this.selectedIndex_;
 	}
 	,constructButton: function(i) {
@@ -6487,7 +6575,7 @@ RCSegmentedControl.prototype = $extend(JSView.prototype,{
 	,labels: null
 	,skin: null
 	,__class__: RCSegmentedControl
-	,__properties__: $extend(JSView.prototype.__properties__,{set_selectedIndex:"setSelectedIndex",get_selectedIndex:"getSelectedIndex"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_selectedIndex:"set_selectedIndex",get_selectedIndex:"get_selectedIndex"})
 });
 var RCSize = $hxClasses["RCSize"] = function(w,h) {
 	this.width = w == null?0:w;
@@ -6560,58 +6648,58 @@ RCSlider.prototype = $extend(RCControl.prototype,{
 		this.skin.destroy();
 		RCControl.prototype.destroy.call(this);
 	}
-	,setMaximumValueImage: function(v) {
+	,set_maximumValueImage: function(v) {
 		return v;
 	}
-	,setMinimumValueImage: function(v) {
+	,set_minimumValueImage: function(v) {
 		return v;
 	}
-	,setMaxValue: function(v) {
+	,set_maxValue: function(v) {
 		this.maxValue_ = v;
-		this.setValue(this.value_);
+		this.set_value(this.value_);
 		return v;
 	}
-	,setMinValue: function(v) {
+	,set_minValue: function(v) {
 		this.minValue_ = v;
-		this.setValue(this.value_);
+		this.set_value(this.value_);
 		return v;
 	}
-	,setValue: function(v) {
+	,set_value: function(v) {
 		this.value_ = v;
 		if(!this.init_) return v;
 		var x1 = 0.0, x2 = 0.0;
 		switch( (this.direction_)[1] ) {
 		case 0:
-			x2 = this.size.width - this.scrubber.getWidth();
-			this.scrubber.setX(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
-			this.scrubber.setY(Math.round((this.size.height - this.scrubber.getHeight()) / 2));
-			this.sliderHighlighted.setWidth(this.scrubber.getX() + this.scrubber.getWidth() / 2);
+			x2 = this.size.width - this.scrubber.get_width();
+			this.scrubber.set_x(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
+			this.scrubber.set_y(Math.round((this.size.height - this.scrubber.get_height()) / 2));
+			this.sliderHighlighted.set_width(this.scrubber.get_x() + this.scrubber.get_width() / 2);
 			break;
 		case 1:
-			x2 = this.size.height - this.scrubber.getHeight();
-			this.scrubber.setY(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
-			this.sliderHighlighted.setHeight(this.scrubber.getY() + this.scrubber.getHeight() / 2);
+			x2 = this.size.height - this.scrubber.get_height();
+			this.scrubber.set_y(Zeta.lineEquationInt(x1,x2,v,this.minValue_,this.maxValue_));
+			this.sliderHighlighted.set_height(this.scrubber.get_y() + this.scrubber.get_height() / 2);
 			break;
 		}
-		this.valueChanged.dispatch(this,null,null,null,{ fileName : "RCSlider.hx", lineNumber : 173, className : "RCSlider", methodName : "setValue"});
+		this.valueChanged.dispatch(this,null,null,null,{ fileName : "RCSlider.hx", lineNumber : 173, className : "RCSlider", methodName : "set_value"});
 		return this.value_;
 	}
-	,getValue: function() {
+	,get_value: function() {
 		return this.value_;
 	}
 	,mouseMoveHandler: function(e) {
 		var y0 = 0.0, y1 = 0.0, y2 = 0.0;
 		switch( (this.direction_)[1] ) {
 		case 0:
-			y2 = this.size.width - this.scrubber.getWidth();
-			y0 = Zeta.limitsInt(this.getMouseX() - this.scrubber.getWidth() / 2,0,y2);
+			y2 = this.size.width - this.scrubber.get_width();
+			y0 = Zeta.limitsInt(this.get_mouseX() - this.scrubber.get_width() / 2,0,y2);
 			break;
 		case 1:
-			y2 = this.size.height - this.scrubber.getHeight();
-			y0 = Zeta.limitsInt(this.getMouseY() - this.scrubber.getHeight() / 2,0,y2);
+			y2 = this.size.height - this.scrubber.get_height();
+			y0 = Zeta.limitsInt(this.get_mouseY() - this.scrubber.get_height() / 2,0,y2);
 			break;
 		}
-		this.setValue(Zeta.lineEquation(this.minValue_,this.maxValue_,y0,y1,y2));
+		this.set_value(Zeta.lineEquation(this.minValue_,this.maxValue_,y0,y1,y2));
 	}
 	,mouseUpHandler: function(e) {
 		this.moving_ = false;
@@ -6624,7 +6712,7 @@ RCSlider.prototype = $extend(RCControl.prototype,{
 		this.mouseMoveOverStage_.add($bind(this,this.mouseMoveHandler));
 		this.mouseMoveHandler(e);
 	}
-	,setEnabled: function(c) {
+	,set_enabled: function(c) {
 		return this.enabled_ = false;
 	}
 	,configureDispatchers: function() {
@@ -6636,13 +6724,13 @@ RCSlider.prototype = $extend(RCControl.prototype,{
 	,viewDidAppear_: function() {
 		this.sliderNormal = this.skin.normal.background;
 		if(this.sliderNormal == null) this.sliderNormal = new JSView(0,0);
-		this.sliderNormal.setWidth(this.size.width);
+		this.sliderNormal.set_width(this.size.width);
 		this.sliderHighlighted = this.skin.highlighted.background;
 		if(this.sliderHighlighted == null) this.sliderHighlighted = new JSView(0,0);
-		this.sliderHighlighted.setWidth(this.size.width);
+		this.sliderHighlighted.set_width(this.size.width);
 		this.scrubber = this.skin.normal.otherView;
 		if(this.scrubber == null) this.scrubber = new JSView(0,0);
-		this.scrubber.setY(Math.round((this.size.height - this.scrubber.getHeight()) / 2));
+		this.scrubber.set_y(Math.round((this.size.height - this.scrubber.get_height()) / 2));
 		this.addChild(this.sliderNormal);
 		this.addChild(this.sliderHighlighted);
 		this.addChild(this.scrubber);
@@ -6650,7 +6738,7 @@ RCSlider.prototype = $extend(RCControl.prototype,{
 		this.over.add($bind(this,this.rollOverHandler));
 		this.out.add($bind(this,this.rollOutHandler));
 		this.init_ = true;
-		this.setValue(this.value_);
+		this.set_value(this.value_);
 	}
 	,valueChanged: null
 	,maximumValueImage: null
@@ -6671,7 +6759,7 @@ RCSlider.prototype = $extend(RCControl.prototype,{
 	,value_: null
 	,init_: null
 	,__class__: RCSlider
-	,__properties__: $extend(RCControl.prototype.__properties__,{set_minValue:"setMinValue",set_maxValue:"setMaxValue",set_value:"setValue",get_value:"getValue",set_minimumValueImage:"setMinimumValueImage",set_maximumValueImage:"setMaximumValueImage"})
+	,__properties__: $extend(RCControl.prototype.__properties__,{set_minValue:"set_minValue",set_maxValue:"set_maxValue",set_value:"set_value",get_value:"get_value",set_minimumValueImage:"set_minimumValueImage",set_maximumValueImage:"set_maximumValueImage"})
 });
 var _RCSliderSync = _RCSliderSync || {}
 _RCSliderSync.Direction = $hxClasses["_RCSliderSync.Direction"] = { __ename__ : ["_RCSliderSync","Direction"], __constructs__ : ["HORIZONTAL","VERTICAL"] }
@@ -6693,63 +6781,63 @@ var RCSliderSync = $hxClasses["RCSliderSync"] = function(target,contentView,slid
 	this.contentView = contentView;
 	this.slider = slider;
 	this.direction = direction == "horizontal"?_RCSliderSync.Direction.HORIZONTAL:_RCSliderSync.Direction.VERTICAL;
-	this.setMaxValue(Math.round(valueMax));
-	this.setStartValue(Math.round(this.getContentPosition()));
-	this.setFinalValue(this.valueStart);
+	this.set_maxValue(Math.round(valueMax));
+	this.set_startValue(Math.round(this.getContentPosition()));
+	this.set_finalValue(this.valueStart);
 	this.f = 1;
 	this.valueChanged = new RCSignal();
-	this.ticker = new EVLoop({ fileName : "RCSliderSync.hx", lineNumber : 60, className : "RCSliderSync", methodName : "new"});
-	this.mouseWheel = new EVMouse("mousewheel",target,{ fileName : "RCSliderSync.hx", lineNumber : 61, className : "RCSliderSync", methodName : "new"});
+	this.ticker = new EVLoop({ fileName : "RCSliderSync.hx", lineNumber : 61, className : "RCSliderSync", methodName : "new"});
+	this.mouseWheel = new EVMouse("mousewheel",target,{ fileName : "RCSliderSync.hx", lineNumber : 62, className : "RCSliderSync", methodName : "new"});
 	this.resume();
 };
 RCSliderSync.__name__ = ["RCSliderSync"];
 RCSliderSync.prototype = {
 	destroy: function() {
 		this.hold();
-		this.valueChanged.destroy({ fileName : "RCSliderSync.hx", lineNumber : 168, className : "RCSliderSync", methodName : "destroy"});
+		this.valueChanged.destroy({ fileName : "RCSliderSync.hx", lineNumber : 169, className : "RCSliderSync", methodName : "destroy"});
 		this.ticker.destroy();
-		this.mouseWheel.destroy({ fileName : "RCSliderSync.hx", lineNumber : 170, className : "RCSliderSync", methodName : "destroy"});
+		this.mouseWheel.destroy({ fileName : "RCSliderSync.hx", lineNumber : 171, className : "RCSliderSync", methodName : "destroy"});
 	}
-	,setStartValue: function(value) {
+	,set_startValue: function(value) {
 		return this.valueStart = value;
 	}
-	,setFinalValue: function(value) {
+	,set_finalValue: function(value) {
 		return this.valueFinal = value;
 	}
-	,setMaxValue: function(value) {
+	,set_maxValue: function(value) {
 		return this.valueMax = value;
 	}
 	,getContentSize: function() {
-		return this.direction == _RCSliderSync.Direction.HORIZONTAL?this.contentView.getWidth():this.contentView.getHeight();
+		return this.direction == _RCSliderSync.Direction.HORIZONTAL?this.contentView.get_width():this.contentView.get_height();
 	}
 	,getContentPosition: function() {
-		return this.direction == _RCSliderSync.Direction.HORIZONTAL?this.contentView.getX():this.contentView.getY();
+		return this.direction == _RCSliderSync.Direction.HORIZONTAL?this.contentView.get_x():this.contentView.get_y();
 	}
 	,moveContentTo: function(next_value) {
-		if(this.direction == _RCSliderSync.Direction.HORIZONTAL) this.contentView.setX(Math.round(next_value)); else this.contentView.setY(Math.round(next_value));
+		if(this.direction == _RCSliderSync.Direction.HORIZONTAL) this.contentView.set_x(Math.round(next_value)); else this.contentView.set_y(Math.round(next_value));
 	}
 	,loop: function() {
 		var next_value = (this.valueFinal - this.getContentPosition()) / 3;
 		if(Math.abs(next_value) < 1) {
-			this.ticker.setFuncToCall(null);
+			this.ticker.set_funcToCall(null);
 			this.moveContentTo(this.valueFinal);
 		} else this.moveContentTo(this.getContentPosition() + next_value);
-		this.valueChanged.dispatch(this,null,null,null,{ fileName : "RCSliderSync.hx", lineNumber : 132, className : "RCSliderSync", methodName : "loop"});
+		this.valueChanged.dispatch(this,null,null,null,{ fileName : "RCSliderSync.hx", lineNumber : 133, className : "RCSliderSync", methodName : "loop"});
 	}
 	,startLoop: function() {
-		if(this.valueFinal > this.valueStart) this.setFinalValue(this.valueStart);
-		if(this.valueFinal < this.valueStart + this.valueMax - this.getContentSize()) this.setFinalValue(Math.round(this.valueStart + this.valueMax - this.getContentSize()));
-		this.ticker.setFuncToCall($bind(this,this.loop));
+		if(this.valueFinal > this.valueStart) this.set_finalValue(this.valueStart);
+		if(this.valueFinal < this.valueStart + this.valueMax - this.getContentSize()) this.set_finalValue(Math.round(this.valueStart + this.valueMax - this.getContentSize()));
+		this.ticker.set_funcToCall($bind(this,this.loop));
 	}
 	,sliderChangedHandler: function(e) {
-		this.setFinalValue(Zeta.lineEquationInt(this.valueStart,this.valueStart + this.valueMax - this.getContentSize(),e.getValue(),0,100));
+		this.set_finalValue(Zeta.lineEquationInt(this.valueStart,this.valueStart + this.valueMax - this.getContentSize(),e.get_value(),0,100));
 		this.startLoop();
 	}
 	,wheelHandler: function(e) {
 		var _g = this;
-		_g.setFinalValue(_g.valueFinal + e.delta);
+		_g.set_finalValue(_g.valueFinal + e.delta);
 		this.startLoop();
-		this.slider.setValue(Zeta.lineEquationInt(0,100,this.valueFinal,this.valueStart,this.valueStart + this.valueMax - this.getContentSize()));
+		this.slider.set_value(Zeta.lineEquationInt(0,100,this.valueFinal,this.valueStart,this.valueStart + this.valueMax - this.getContentSize()));
 		if(e.delta < 0) this.onScrollRight(); else this.onScrollLeft();
 	}
 	,resume: function() {
@@ -6778,7 +6866,7 @@ RCSliderSync.prototype = {
 	,contentView: null
 	,target: null
 	,__class__: RCSliderSync
-	,__properties__: {set_valueMax:"setMaxValue",set_valueStart:"setStartValue",set_valueFinal:"setFinalValue"}
+	,__properties__: {set_valueMax:"set_maxValue",set_valueStart:"set_startValue",set_valueFinal:"set_finalValue"}
 }
 var RCStats = $hxClasses["RCStats"] = function(x,y) {
 	if(y == null) y = 0;
@@ -6791,7 +6879,7 @@ var RCStats = $hxClasses["RCStats"] = function(x,y) {
 	this.addChild(this.txt);
 	this.last = new Date().getTime();
 	this.e = new EVLoop({ fileName : "RCStats.hx", lineNumber : 38, className : "RCStats", methodName : "new"});
-	this.e.setFuncToCall($bind(this,this.loop));
+	this.e.set_funcToCall($bind(this,this.loop));
 };
 RCStats.__name__ = ["RCStats"];
 RCStats.__super__ = RCRectangle;
@@ -6812,7 +6900,7 @@ RCStats.prototype = $extend(RCRectangle.prototype,{
 			this.fps = Math.round(this.ticks / this.delta * 1000);
 			this.ticks = 0;
 			this.last = this.now;
-			this.txt.setText(this.fps + " FPS,  " + this.currMemory + " Mbytes");
+			this.txt.set_text(this.fps + " FPS,  " + this.currMemory + " Mbytes");
 		}
 	}
 	,e: null
@@ -6840,7 +6928,7 @@ RCStringTools.cutString = function(str,limit) {
 	return HxOverrides.substr(str,0,limit) + fin;
 }
 RCStringTools.cutStringAtLine = function(textfield,line) {
-	return textfield.getText();
+	return textfield.get_text();
 }
 RCStringTools.stringWithFormat = function(str,arr) {
 	var str_arr = str.split("%@");
@@ -6968,30 +7056,30 @@ RCTabBar.prototype = $extend(RCGroup.prototype,{
 		var _g1 = 0, _g = this.items.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			this.items[i].setX(i * this.gapX);
-			this.items[i].setY(2);
+			this.items[i].set_x(i * this.gapX);
+			this.items[i].set_y(2);
 		}
 		this.update.dispatch(null,null,null,null,{ fileName : "RCTabBar.hx", lineNumber : 79, className : "RCTabBar", methodName : "keepItemsArranged"});
 	}
 	,disable: function(i) {
-		this.items[i].setEnabled(false);
-		this.items[i].setAlpha(0.4);
+		this.items[i].set_enabled(false);
+		this.items[i].set_alpha(0.4);
 	}
 	,enable: function(i) {
-		this.items[i].setEnabled(true);
-		this.items[i].setAlpha(1);
+		this.items[i].set_enabled(true);
+		this.items[i].set_alpha(1);
 	}
-	,setIndex: function(i) {
-		haxe.Log.trace(this.items,{ fileName : "RCTabBar.hx", lineNumber : 50, className : "RCTabBar", methodName : "setIndex"});
+	,set_index: function(i) {
+		haxe.Log.trace(this.items,{ fileName : "RCTabBar.hx", lineNumber : 50, className : "RCTabBar", methodName : "set_index"});
 		if(this.items == null) return this.selectedIndex_;
-		haxe.Log.trace("setIndex " + i,{ fileName : "RCTabBar.hx", lineNumber : 52, className : "RCTabBar", methodName : "setIndex"});
-		haxe.Log.trace(this.selectedIndex_,{ fileName : "RCTabBar.hx", lineNumber : 52, className : "RCTabBar", methodName : "setIndex"});
+		haxe.Log.trace("setIndex " + i,{ fileName : "RCTabBar.hx", lineNumber : 52, className : "RCTabBar", methodName : "set_index"});
+		haxe.Log.trace(this.selectedIndex_,{ fileName : "RCTabBar.hx", lineNumber : 52, className : "RCTabBar", methodName : "set_index"});
 		if(this.selectedIndex_ > -1) this.items[this.selectedIndex_].untoggle();
 		this.selectedIndex_ = i;
 		this.items[this.selectedIndex_].toggle();
 		return this.selectedIndex_;
 	}
-	,getIndex: function() {
+	,get_index: function() {
 		return this.selectedIndex_;
 	}
 	,clickHandler: function(s) {
@@ -7010,7 +7098,7 @@ RCTabBar.prototype = $extend(RCGroup.prototype,{
 	,selectedIndex: null
 	,selectedItem: null
 	,__class__: RCTabBar
-	,__properties__: $extend(RCGroup.prototype.__properties__,{set_selectedIndex:"setIndex",get_selectedIndex:"getIndex"})
+	,__properties__: $extend(RCGroup.prototype.__properties__,{set_selectedIndex:"set_index",get_selectedIndex:"get_index"})
 });
 var RCTabBarController = $hxClasses["RCTabBarController"] = function(x,y,w,h,constructor_) {
 	JSView.call(this,x,y,w,h);
@@ -7035,25 +7123,25 @@ RCTabBarController.prototype = $extend(JSView.prototype,{
 	,enable: function(i) {
 		this.tabBar.enable(i);
 	}
-	,setIndex: function(i) {
-		haxe.Log.trace("setIndex " + i,{ fileName : "RCTabBarController.hx", lineNumber : 84, className : "RCTabBarController", methodName : "setIndex"});
-		if(this.tabBar.getIndex() == i) return i;
-		this.tabBar.setIndex(i);
+	,set_index: function(i) {
+		haxe.Log.trace("setIndex " + i,{ fileName : "RCTabBarController.hx", lineNumber : 84, className : "RCTabBarController", methodName : "set_index"});
+		if(this.tabBar.get_index() == i) return i;
+		this.tabBar.set_index(i);
 		var view = this.getViewController(i);
 		if(view == null) try {
 			view = Type.createInstance(this.controllers[i],[]);
 			this.setViewController(i,view);
 		} catch( e ) {
-			haxe.Log.trace(e,{ fileName : "RCTabBarController.hx", lineNumber : 94, className : "RCTabBarController", methodName : "setIndex"});
+			haxe.Log.trace(e,{ fileName : "RCTabBarController.hx", lineNumber : 94, className : "RCTabBarController", methodName : "set_index"});
 			Fugu.stack();
 		}
 		Fugu.safeRemove(this.viewControllers);
 		this.placeholder.addChild(view);
-		this.didSelectViewController.dispatch(view,null,null,null,{ fileName : "RCTabBarController.hx", lineNumber : 98, className : "RCTabBarController", methodName : "setIndex"});
+		this.didSelectViewController.dispatch(view,null,null,null,{ fileName : "RCTabBarController.hx", lineNumber : 98, className : "RCTabBarController", methodName : "set_index"});
 		return i;
 	}
-	,getIndex: function() {
-		return this.tabBar.getIndex();
+	,get_index: function() {
+		return this.tabBar.get_index();
 	}
 	,didSelectItemHandler: function(item) {
 		var i = 0;
@@ -7064,7 +7152,7 @@ RCTabBarController.prototype = $extend(JSView.prototype,{
 			if(it == item) break;
 			i++;
 		}
-		this.setIndex(i);
+		this.set_index(i);
 	}
 	,constructButton: function(i) {
 		var s = new ios.SKTabBarItem(this.labels[i],this.symbols[i]);
@@ -7090,7 +7178,7 @@ RCTabBarController.prototype = $extend(JSView.prototype,{
 	,symbols: null
 	,labels: null
 	,__class__: RCTabBarController
-	,__properties__: $extend(JSView.prototype.__properties__,{set_selectedIndex:"setIndex",get_selectedIndex:"getIndex"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_selectedIndex:"set_index",get_selectedIndex:"get_index"})
 });
 var RCTabBarItem = $hxClasses["RCTabBarItem"] = function(x,y,skin) {
 	RCButtonRadio.call(this,x,y,skin);
@@ -7101,7 +7189,7 @@ RCTabBarItem.prototype = $extend(RCButtonRadio.prototype,{
 	toString: function() {
 		return "[RCTabBarItem ]";
 	}
-	,setBadgeValue: function(value) {
+	,set_badgeValue: function(value) {
 		this.badgeValue = value;
 		return value;
 	}
@@ -7111,7 +7199,7 @@ RCTabBarItem.prototype = $extend(RCButtonRadio.prototype,{
 	,_title: null
 	,badgeValue: null
 	,__class__: RCTabBarItem
-	,__properties__: $extend(RCButtonRadio.prototype.__properties__,{set_badgeValue:"setBadgeValue"})
+	,__properties__: $extend(RCButtonRadio.prototype.__properties__,{set_badgeValue:"set_badgeValue"})
 });
 var RCTableView = $hxClasses["RCTableView"] = function(x,y,w,h,cellForRowAtIndexPath,numberOfRowsInSection) {
 	JSView.call(this,x,y,w,h);
@@ -7127,11 +7215,11 @@ var RCTableView = $hxClasses["RCTableView"] = function(x,y,w,h,cellForRowAtIndex
 	this.addChild(this.backgroundView);
 	this.contentView = new JSView(1,1,w - 2,h - 2);
 	this.addChild(this.contentView);
-	this.contentView.setClipsToBounds(true);
+	this.contentView.set_clipsToBounds(true);
 	this.scrollView = new JSView(0,0);
 	this.contentView.addChild(this.scrollView);
 	this.scrollIndicator = new RCRectangle(w - 10,1,6,50,16777215,.6,6);
-	this.scrollIndicator.setAlpha(0);
+	this.scrollIndicator.set_alpha(0);
 	this.addChild(this.scrollIndicator);
 	this.cells = [];
 	this.mousePress_ = new EVMouse("mousedown",this.scrollView,{ fileName : "RCTableView.hx", lineNumber : 72, className : "RCTableView", methodName : "new"});
@@ -7155,24 +7243,24 @@ RCTableView.prototype = $extend(JSView.prototype,{
 		JSView.prototype.destroy.call(this);
 	}
 	,loop: function() {
-		this.scrollIndicator.setAlpha(1);
-		this.scrollView.setY(Math.round(this.scrollView.getY() + this.vy));
-		if(this.cells[0].getY() + this.scrollView.getY() > 1) {
+		this.scrollIndicator.set_alpha(1);
+		this.scrollView.set_y(Math.round(this.scrollView.get_y() + this.vy));
+		if(this.cells[0].get_y() + this.scrollView.get_y() > 1) {
 			if(this.cells[0].indexPath.row > 0) {
 				var cell = this.cells.pop();
 				this.cells.unshift(cell);
 				cell.indexPath.row = this.cells[1].indexPath.row - 1;
 				this.indexPath = cell.indexPath;
-				this.cells[0].setY(Math.round(this.cells[1].getY() - this.cells[0].getHeight()));
+				this.cells[0].set_y(Math.round(this.cells[1].get_y() - this.cells[0].get_height()));
 				cell = this.cellForRowAtIndexPath(cell.indexPath,cell);
 			} else if(!this.dragging) this.vy *= -0.5;
-		} else if(this.cells[0].getY() + this.scrollView.getY() < -this.cells[0].getHeight() - 1) {
+		} else if(this.cells[0].get_y() + this.scrollView.get_y() < -this.cells[0].get_height() - 1) {
 			if(this.indexPath.row < this.numberOfRowsInSection(0) - 1) {
 				var cell = this.cells.shift();
 				this.cells.push(cell);
 				cell.indexPath.row = this.cells[this.cells.length - 2].indexPath.row + 1;
 				cell = this.cellForRowAtIndexPath(cell.indexPath,cell);
-				cell.setY(Math.round(this.cells[this.cells.length - 2].getY() + this.cells[this.cells.length - 2].getHeight()));
+				cell.set_y(Math.round(this.cells[this.cells.length - 2].get_y() + this.cells[this.cells.length - 2].get_height()));
 				this.indexPath = cell.indexPath;
 				this.loop();
 			} else if(!this.dragging) this.vy *= -0.5;
@@ -7180,9 +7268,9 @@ RCTableView.prototype = $extend(JSView.prototype,{
 		this.vy *= this.inertia;
 		if(!this.dragging && Math.abs(this.vy) < 1) {
 			this.stopLoop();
-			this.scrollIndicator.setAlpha(0);
+			this.scrollIndicator.set_alpha(0);
 		}
-		this.scrollIndicator.setY(Zeta.lineEquationInt(0,this.size.height - this.scrollIndicator.getHeight(),this.indexPath.row,0,this.numberOfRowsInSection(0)));
+		this.scrollIndicator.set_y(Zeta.lineEquationInt(0,this.size.height - this.scrollIndicator.get_height(),this.indexPath.row,0,this.numberOfRowsInSection(0)));
 	}
 	,stopLoop: function() {
 		if(this.timer != null) {
@@ -7204,12 +7292,12 @@ RCTableView.prototype = $extend(JSView.prototype,{
 	}
 	,mouseMoveHandler: function(e) {
 		if(this.dragging) {
-			this.vy = this.getMouseY() - this.oldY;
-			this.oldY = this.getMouseY();
+			this.vy = this.get_mouseY() - this.oldY;
+			this.oldY = this.get_mouseY();
 			if(this.vy > this.cell_min_h) this.vy = this.cell_min_h;
 			if(this.vy < -this.cell_min_h) this.vy = -this.cell_min_h;
-			if(this.scrollView.getY() > 0) this.vy = this.vy * 0.24; else if(this.scrollView.getY() < this.size.height - this.numberOfRowsInSection(0) * this.cell_min_h) {
-				this.scrollView.setY(this.size.height - this.numberOfRowsInSection(0) * this.cell_min_h);
+			if(this.scrollView.get_y() > 0) this.vy = this.vy * 0.24; else if(this.scrollView.get_y() < this.size.height - this.numberOfRowsInSection(0) * this.cell_min_h) {
+				this.scrollView.set_y(this.size.height - this.numberOfRowsInSection(0) * this.cell_min_h);
 				this.vy = 0;
 			}
 		}
@@ -7218,8 +7306,8 @@ RCTableView.prototype = $extend(JSView.prototype,{
 		this.dragging = false;
 		this.mouseMove_.enabled = false;
 		this.mouseUp_.enabled = false;
-		haxe.Log.trace("stop scrollView " + this.scrollView.getY(),{ fileName : "RCTableView.hx", lineNumber : 131, className : "RCTableView", methodName : "stopDragCells"});
-		if(this.scrollView.getY() > 0) {
+		haxe.Log.trace("stop scrollView " + this.scrollView.get_y(),{ fileName : "RCTableView.hx", lineNumber : 131, className : "RCTableView", methodName : "stopDragCells"});
+		if(this.scrollView.get_y() > 0) {
 			this.anim = new CATween(this.scrollView,{ y : 0},0.5,0,caequations.Cubic.OUT,{ fileName : "RCTableView.hx", lineNumber : 134, className : "RCTableView", methodName : "stopDragCells"});
 			CoreAnimation.add(this.anim);
 			this.vy = 0;
@@ -7230,7 +7318,7 @@ RCTableView.prototype = $extend(JSView.prototype,{
 		this.dragging = true;
 		this.mouseMove_.enabled = true;
 		this.mouseUp_.enabled = true;
-		this.oldY = this.getMouseY();
+		this.oldY = this.get_mouseY();
 		this.vy = 0;
 		this.startLoop();
 	}
@@ -7250,11 +7338,11 @@ RCTableView.prototype = $extend(JSView.prototype,{
 		while(max_h < this.size.height && i < rows) {
 			var cell = this.cellForRowAtIndexPath(new RCIndexPath(0,i),null);
 			cell.indexPath = new RCIndexPath(0,i);
-			cell.setY(max_h);
+			cell.set_y(max_h);
 			this.cells.push(cell);
 			this.scrollView.addChild(cell);
-			max_h += cell.getHeight();
-			if(cell.getHeight() < this.cell_min_h) this.cell_min_h = cell.getHeight();
+			max_h += cell.get_height();
+			if(cell.get_height() < this.cell_min_h) this.cell_min_h = cell.get_height();
 			i++;
 		}
 		this.mousePress_.add($bind(this,this.startDragCells));
@@ -7322,7 +7410,7 @@ RCTableViewCell.prototype = $extend(RCControl.prototype,{
 		this.separatorView = new RCRectangle(0,this.size.height - 1,this.size.width,1,10066329);
 		this.addChild(this.separatorView);
 		this.titleView = new RCTextView(10,6,null,null," ",RCFont.systemFontOfSize(12));
-		this.titleView.setY(Math.round((this.size.height - this.titleView.getHeight()) / 2));
+		this.titleView.set_y(Math.round((this.size.height - this.titleView.get_height()) / 2));
 		this.addChild(this.titleView);
 	}
 	,titleView: null
@@ -7356,18 +7444,18 @@ RCTextInput.prototype = $extend(RCControl.prototype,{
 		this.editingDidEndOnExit.destroy({ fileName : "RCTextInput.hx", lineNumber : 142, className : "RCTextInput", methodName : "destroy"});
 		RCControl.prototype.destroy.call(this);
 	}
-	,setSelectable: function(t) {
+	,set_selectable: function(t) {
 		return t;
 	}
-	,setPassword: function(t) {
+	,set_password: function(t) {
 		return true;
 	}
 	,clickHandler: function(e) {
 		this.editingDidBegin.dispatch(this,null,null,null,{ fileName : "RCTextInput.hx", lineNumber : 95, className : "RCTextInput", methodName : "clickHandler"});
 		RCControl.prototype.clickHandler.call(this,e);
 	}
-	,setEnabled: function(c) {
-		RCControl.prototype.setEnabled.call(this,c);
+	,set_enabled: function(c) {
+		RCControl.prototype.set_enabled.call(this,c);
 		return c;
 	}
 	,configureDispatchers: function() {
@@ -7377,19 +7465,19 @@ RCTextInput.prototype = $extend(RCControl.prototype,{
 		this.editingDidEnd = new RCSignal();
 		this.editingDidEndOnExit = new RCSignal();
 	}
-	,setText: function(str) {
-		this.textView.setText(str);
+	,set_text: function(str) {
+		this.textView.set_text(str);
 		return str;
 	}
-	,getText: function() {
-		return this.textView.getText();
+	,get_text: function() {
+		return this.textView.get_text();
 	}
 	,textView: null
 	,text: null
 	,selectable: null
 	,password: null
 	,__class__: RCTextInput
-	,__properties__: $extend(RCControl.prototype.__properties__,{set_password:"setPassword",set_selectable:"setSelectable",set_text:"setText",get_text:"getText"})
+	,__properties__: $extend(RCControl.prototype.__properties__,{set_password:"set_password",set_selectable:"set_selectable",set_text:"set_text",get_text:"get_text"})
 });
 var RCTextRoll = $hxClasses["RCTextRoll"] = function(x,y,w,h,str,properties) {
 	JSView.call(this,x,y,w,h);
@@ -7410,22 +7498,22 @@ RCTextRoll.prototype = $extend(JSView.prototype,{
 			this.timer.stop();
 			this.timer = null;
 		}
-		this.txt1.setX(0);
-		this.txt2.setX(Math.round(this.txt1.getWidth() + 20));
+		this.txt1.set_x(0);
+		this.txt2.set_x(Math.round(this.txt1.get_width() + 20));
 	}
 	,loop: function() {
-		var _g = this.txt1, _g1 = _g.getX();
-		_g.setX(_g1 - 1);
+		var _g = this.txt1, _g1 = _g.get_x();
+		_g.set_x(_g1 - 1);
 		_g1;
-		var _g = this.txt2, _g1 = _g.getX();
-		_g.setX(_g1 - 1);
+		var _g = this.txt2, _g1 = _g.get_x();
+		_g.set_x(_g1 - 1);
 		_g1;
-		if(!this.continuous && this.txt2.getX() <= 0) {
+		if(!this.continuous && this.txt2.get_x() <= 0) {
 			this.stop();
 			this.timer = haxe.Timer.delay($bind(this,this.startRolling),3000);
 		}
-		if(this.txt1.getX() < -this.txt1.getContentSize().width) this.txt1.setX(Math.round(this.txt2.getX() + this.txt2.getContentSize().width + 20));
-		if(this.txt2.getX() < -this.txt2.getContentSize().width) this.txt2.setX(Math.round(this.txt1.getX() + this.txt1.getContentSize().width + 20));
+		if(this.txt1.get_x() < -this.txt1.get_contentSize().width) this.txt1.set_x(Math.round(this.txt2.get_x() + this.txt2.get_contentSize().width + 20));
+		if(this.txt2.get_x() < -this.txt2.get_contentSize().width) this.txt2.set_x(Math.round(this.txt1.get_x() + this.txt1.get_contentSize().width + 20));
 	}
 	,startRolling: function() {
 		this.stopRolling({ fileName : "RCTextRoll.hx", lineNumber : 81, className : "RCTextRoll", methodName : "startRolling"});
@@ -7445,19 +7533,19 @@ RCTextRoll.prototype = $extend(JSView.prototype,{
 		if(this.txt2 == null) return;
 		if(this.continuous) this.startRolling(); else this.timer = haxe.Timer.delay($bind(this,this.startRolling),3000);
 	}
-	,setText: function(str) {
+	,set_text: function(str) {
 		return str;
 	}
-	,getText: function() {
-		return this.txt1.getText();
+	,get_text: function() {
+		return this.txt1.get_text();
 	}
 	,viewDidAppear_: function() {
-		this.size.height = this.txt1.getContentSize().height;
-		if(this.txt1.getContentSize().width > this.size.width) {
+		this.size.height = this.txt1.get_contentSize().height;
+		if(this.txt1.get_contentSize().width > this.size.width) {
 			if(this.txt2 != null) return;
-			this.txt2 = new RCTextView(Math.round(this.txt1.getContentSize().width + 20),0,null,null,this.getText(),this.txt1.rcfont);
+			this.txt2 = new RCTextView(Math.round(this.txt1.get_contentSize().width + 20),0,null,null,this.get_text(),this.txt1.rcfont);
 			this.addChild(this.txt2);
-			this.setClipsToBounds(true);
+			this.set_clipsToBounds(true);
 		}
 	}
 	,text: null
@@ -7467,16 +7555,16 @@ RCTextRoll.prototype = $extend(JSView.prototype,{
 	,txt2: null
 	,txt1: null
 	,__class__: RCTextRoll
-	,__properties__: $extend(JSView.prototype.__properties__,{set_text:"setText",get_text:"getText"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_text:"set_text",get_text:"get_text"})
 });
 var RCTextView = $hxClasses["RCTextView"] = function(x,y,w,h,str,rcfont) {
 	JSView.call(this,Math.round(x),Math.round(y),w,h);
 	this.rcfont = rcfont.copy();
-	this.setWidth(this.size.width);
-	this.setHeight(this.size.height);
+	this.set_width(this.size.width);
+	this.set_height(this.size.height);
 	this.viewDidAppear.add($bind(this,this.viewDidAppear_));
 	this.init();
-	this.setText(str);
+	this.set_text(str);
 };
 RCTextView.__name__ = ["RCTextView"];
 RCTextView.__super__ = JSView;
@@ -7486,16 +7574,16 @@ RCTextView.prototype = $extend(JSView.prototype,{
 		this.rcfont = null;
 		JSView.prototype.destroy.call(this);
 	}
-	,setText: function(str) {
+	,set_text: function(str) {
 		if(this.rcfont.html) this.layer.innerHTML = str; else this.layer.innerHTML = str;
-		this.size.width = this.getContentSize().width;
+		this.size.width = this.get_contentSize().width;
 		return str;
 	}
-	,getText: function() {
+	,get_text: function() {
 		return this.layer.innerHTML;
 	}
 	,viewDidAppear_: function() {
-		this.size.width = this.getContentSize().width;
+		this.size.width = this.get_contentSize().width;
 	}
 	,redraw: function() {
 		var wrap = this.size.width != 0;
@@ -7521,7 +7609,7 @@ RCTextView.prototype = $extend(JSView.prototype,{
 			this.layer.style.width = this.size.width + "px";
 			this.layer.style.height = this.size.height + "px";
 		}
-		if(this.size.width != 0) this.setWidth(this.size.width);
+		if(this.size.width != 0) this.set_width(this.size.width);
 	}
 	,init: function() {
 		JSView.prototype.init.call(this);
@@ -7531,7 +7619,7 @@ RCTextView.prototype = $extend(JSView.prototype,{
 	,rcfont: null
 	,target: null
 	,__class__: RCTextView
-	,__properties__: $extend(JSView.prototype.__properties__,{set_text:"setText",get_text:"getText"})
+	,__properties__: $extend(JSView.prototype.__properties__,{set_text:"set_text",get_text:"get_text"})
 });
 var RCTextureAtlas = $hxClasses["RCTextureAtlas"] = function(texture,atlas) {
 	this._textures = new Hash();
@@ -7696,8 +7784,8 @@ RCToolTip.prototype = $extend(JSView.prototype,{
 	}
 	,dragHandler: function(e) {
 		if(this.target == null) return;
-		this.setX(this.target.mouseX);
-		this.setY(this.target.mouseY);
+		this.set_x(this.target.mouseX);
+		this.set_y(this.target.mouseY);
 	}
 	,stopFollow: function() {
 		this.targetMoveSignal.destroy({ fileName : "RCToolTip.hx", lineNumber : 29, className : "RCToolTip", methodName : "stopFollow"});
@@ -8013,28 +8101,36 @@ RCVector.prototype = {
 	,x: null
 	,__class__: RCVector
 }
-var RCViewController = $hxClasses["RCViewController"] = function(x,y,w,h) {
-	JSView.call(this,x,y,w,h);
-	RCNotificationCenter.addObserver("orientationWillChange",$bind(this,this.orientationWillChange));
-	RCNotificationCenter.addObserver("orientationChanged",$bind(this,this.orientationChanged));
+var RCWebView = $hxClasses["RCWebView"] = function(x,y,w,h,url) {
+	this.didFinishLoad = new RCSignal();
+	this.x = x;
+	this.y = y;
+	this.w = w;
+	this.h = h;
+	this.url = url;
 };
-RCViewController.__name__ = ["RCViewController"];
-RCViewController.__super__ = JSView;
-RCViewController.prototype = $extend(JSView.prototype,{
+RCWebView.__name__ = ["RCWebView"];
+RCWebView.prototype = {
 	destroy: function() {
-		RCNotificationCenter.removeObserver("orientationWillChange",$bind(this,this.orientationWillChange));
-		RCNotificationCenter.removeObserver("orientationChanged",$bind(this,this.orientationChanged));
-		JSView.prototype.destroy.call(this);
+		if(this.didFinishLoad != null) {
+			this.didFinishLoad.destroy({ fileName : "RCWebView.hx", lineNumber : 52, className : "RCWebView", methodName : "destroy"});
+			this.didFinishLoad = null;
+		}
 	}
-	,shouldAutorotateToInterfaceOrientation: function(toOrientation) {
-		return true;
+	,webViewDidFinishLoad: function(url) {
+		if(this.didFinishLoad != null) this.didFinishLoad.dispatch(url,null,null,null,{ fileName : "RCWebView.hx", lineNumber : 43, className : "RCWebView", methodName : "webViewDidFinishLoad"});
 	}
-	,orientationChanged: function() {
+	,init: function() {
 	}
-	,orientationWillChange: function() {
-	}
-	,__class__: RCViewController
-});
+	,url: null
+	,h: null
+	,w: null
+	,y: null
+	,x: null
+	,didFinishWithError: null
+	,didFinishLoad: null
+	,__class__: RCWebView
+}
 var RCWindow = $hxClasses["RCWindow"] = function(id) {
 	if(RCWindow.sharedWindow_ != null) {
 		var err = "RCWindow is a singletone, create and access it with RCWindow.sharedWindow(?id)";
@@ -8060,10 +8156,10 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		return "[RCWindow target=" + Std.string(this.target) + "]";
 	}
 	,getCenterY: function(h) {
-		return Math.round(this.getHeight() / 2 - h / RCDevice.currentDevice().dpiScale / 2);
+		return Math.round(this.get_height() / 2 - h / RCDevice.currentDevice().dpiScale / 2);
 	}
 	,getCenterX: function(w) {
-		return Math.round(this.getWidth() / 2 - w / RCDevice.currentDevice().dpiScale / 2);
+		return Math.round(this.get_width() / 2 - w / RCDevice.currentDevice().dpiScale / 2);
 	}
 	,destroyModalViewController: function() {
 		this.modalView.removeFromSuperview();
@@ -8072,15 +8168,20 @@ RCWindow.prototype = $extend(JSView.prototype,{
 	}
 	,dismissModalViewController: function() {
 		if(this.modalView == null) return;
-		var anim = new CATween(this.modalView,{ y : this.getHeight()},0.3,0,caequations.Cubic.IN,{ fileName : "RCWindow.hx", lineNumber : 246, className : "RCWindow", methodName : "dismissModalViewController"});
+		this.modalView.modalViewWillDisappear();
+		var anim = new CATween(this.modalView,{ y : this.get_height()},0.3,0,caequations.Cubic.IN,{ fileName : "RCWindow.hx", lineNumber : 256, className : "RCWindow", methodName : "dismissModalViewController"});
 		anim.delegate.animationDidStop = $bind(this,this.destroyModalViewController);
 		CoreAnimation.add(anim);
+	}
+	,initModalViewController: function() {
+		this.modalView.modalViewDidAppear();
 	}
 	,addModalViewController: function(view) {
 		if(this.modalView != null) return;
 		this.modalView = view;
-		this.modalView.setX(0);
-		CoreAnimation.add(new CATween(this.modalView,{ y : { fromValue : this.getHeight(), toValue : 0}},0.5,0,caequations.Cubic.IN_OUT,{ fileName : "RCWindow.hx", lineNumber : 237, className : "RCWindow", methodName : "addModalViewController"}));
+		var anim = new CATween(this.modalView,{ y : { fromValue : this.get_height(), toValue : 0}},0.5,0,caequations.Cubic.IN_OUT,{ fileName : "RCWindow.hx", lineNumber : 241, className : "RCWindow", methodName : "addModalViewController"});
+		anim.delegate.animationDidStop = $bind(this,this.initModalViewController);
+		CoreAnimation.add(anim);
 		this.addChild(this.modalView);
 	}
 	,supportsFullScreen: function() {
@@ -8120,7 +8221,7 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		}
 	}
 	,fsprefix: null
-	,setBackgroundColor: function(color) {
+	,set_backgroundColor: function(color) {
 		if(color == null) this.target.style.background = null; else {
 			var red = (color & 16711680) >> 16;
 			var green = (color & 65280) >> 8;
@@ -8145,7 +8246,7 @@ RCWindow.prototype = $extend(JSView.prototype,{
 		}
 		this.size.width = this.target.scrollWidth;
 		this.size.height = this.target.scrollHeight;
-		haxe.Log.trace(this.size,{ fileName : "RCWindow.hx", lineNumber : 124, className : "RCWindow", methodName : "setTarget"});
+		haxe.Log.trace(this.size,{ fileName : "RCWindow.hx", lineNumber : 128, className : "RCWindow", methodName : "setTarget"});
 		this.target.appendChild(this.layer);
 	}
 	,resizeHandler: function(w,h) {
@@ -10986,20 +11087,20 @@ ios.SKSegment = $hxClasses["ios.SKSegment"] = function(label,w,h,buttonPosition,
 	var sm = "Resources/ios/RCSegmentedControl/" + segmentMiddle + hd + ".png";
 	var sr = "Resources/ios/RCSegmentedControl/" + segmentRight + hd + ".png";
 	this.normal.background = new RCImageStretchable(0,0,sl,sm,sr);
-	this.normal.background.setWidth(w);
+	this.normal.background.set_width(w);
 	var slh = "Resources/ios/RCSegmentedControl/" + segmentLeftSelected + "Selected" + hd + ".png";
 	var smh = "Resources/ios/RCSegmentedControl/" + segmentMiddleSelected + "Selected" + hd + ".png";
 	var srh = "Resources/ios/RCSegmentedControl/" + segmentRightSelected + "Selected" + hd + ".png";
 	this.highlighted.background = new RCImageStretchable(0,0,slh,smh,srh);
-	this.highlighted.background.setWidth(w);
+	this.highlighted.background.set_width(w);
 	var font = RCFont.boldSystemFontOfSize(13);
 	font.align = "center";
 	font.color = 3355443;
 	this.normal.label = new RCTextView(0,0,w,null,label,font);
-	this.normal.label.setY(Math.round((h - 20) / 2));
+	this.normal.label.set_y(Math.round((h - 20) / 2));
 	font.color = 16777215;
 	this.highlighted.label = new RCTextView(0,0,w,null,label,font);
-	this.highlighted.label.setY(Math.round((h - 20) / 2));
+	this.highlighted.label.set_y(Math.round((h - 20) / 2));
 	this.hit = new RCRectangle(0,0,w,h,0);
 };
 ios.SKSegment.__name__ = ["ios","SKSegment"];
@@ -11033,15 +11134,15 @@ ios.SKTabBarItem = $hxClasses["ios.SKTabBarItem"] = function(label,linkage,color
 	RCSkin.call(this,colors);
 	this.normal.background = new JSView(0,0,80,50);
 	var sn = RCAssets.getFileWithKey(linkage);
-	sn.setX(25);
-	sn.setY(3);
+	sn.set_x(25);
+	sn.set_y(3);
 	this.normal.background.addChild(sn);
 	this.normal.label = new RCTextView(0,30,78,null,label,RCFontManager.getFont("regular",{ color : 13421772, align : "center"}));
 	this.highlighted.background = new JSView(0,0);
 	this.highlighted.background.addChild(new RCRectangle(0,0,78,45,16777215,0.2,6));
 	var sh = RCAssets.getFileWithKey(linkage + "Selected");
-	sh.setX(25);
-	sh.setY(3);
+	sh.set_x(25);
+	sh.set_y(3);
 	this.highlighted.background.addChild(sh);
 	this.highlighted.label = new RCTextView(0,30,78,null,label,RCFontManager.getFont("regular",{ color : 16777215, align : "center"}));
 	this.hit = new RCRectangle(0,0,78,45,3355443,0);
@@ -11578,9 +11679,10 @@ EVTouch.CANCEL = "touchcancel";
 EVTouch.TAP = "touchtap";
 Facebook.GRAPH_URL = "https://graph.facebook.com";
 Facebook.API_URL = "https://api.facebook.com";
-Facebook.AUTH_URL = "https://graph.facebook.com/oauth/authorize";
+Facebook.AUTH_URL_SECURE = "https://graph.facebook.com/oauth/authorize";
+Facebook.LOGIN_URL = "http://m.facebook.com/login.php";
+Facebook.LOGIN_URL_SECURE = "https://login.facebook.com/login.php";
 Facebook.AUTH_URL_CANCEL = "https://graph.facebook.com/oauth/authorize_cancel";
-Facebook.LOGIN_URL = "https://login.facebook.com/login.php";
 Facebook.LOGOUT_URL = "http://m.facebook.com/logout.php";
 Facebook.LOGIN_SUCCESS_URL = "http://www.facebook.com/connect/login_success.html";
 Facebook.LOGIN_SUCCESS_SECUREURL = "https://www.facebook.com/connect/login_success.html";

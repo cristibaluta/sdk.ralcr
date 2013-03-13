@@ -56,8 +56,8 @@ class RCCustomCursor extends RCView {
 	function moveHandler (e:EVMouse) :Void {
 		//if (!cursor.visible) cursor.visible = true;
 		#if (flash || nme || cpp || neko)
-			setX ( e.e.stageX );
-			setY ( e.e.stageY );
+			set_x ( e.e.stageX );
+			set_y ( e.e.stageY );
 			e.updateAfterEvent();
 		#end
 	}

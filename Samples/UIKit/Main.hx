@@ -149,13 +149,13 @@ class Main {
 		req.readFile("../assets/data.txt");
 		
 		trace("step11 - CATCallFunc");
-		var anim = new CATCallFunc (setAlpha_, {alpha:{fromValue:0, toValue:1}}, 2.8, 0, caequations.Cubic.IN_OUT);
+		var anim = new CATCallFunc (set_alpha_, {alpha:{fromValue:0, toValue:1}}, 2.8, 0, caequations.Cubic.IN_OUT);
 		CoreAnimation.add ( anim );
 		
 		
 		}catch(e:Dynamic){Fugu.stack(); trace(e); }
     }
-	static function setAlpha_ (a:Float){lin.alpha=a;}
+	static function set_alpha_ (a:Float){lin.alpha=a;}
 	
 	static function testJsFont () {
 		var f = new RCFont();

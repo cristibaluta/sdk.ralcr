@@ -7,7 +7,7 @@
 //
 class Test {
 	
-	public var duration (getDuration, setDuration):Float;
+	public var duration (get_duration, set_duration):Float;
 	var f :RCRectangle;
 	
 	public function new (){
@@ -16,11 +16,11 @@ class Test {
 	}
 	
 	
-	function getDuration () :Float {
+	function get_duration () :Float {
 		return duration;
 	}
 	
-	function setDuration (i:Float) :Float {
+	function set_duration (i:Float) :Float {
 		duration = i;//trace("duration: "+duration);
 		f.x = i;
 		return duration;

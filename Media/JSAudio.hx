@@ -69,7 +69,7 @@ class JSAudio implements RCAudioInterface {
 	public var time :Int;
 	public var duration :Float;
 	public var id3 :Dynamic;
-	public var volume (getVolume, setVolume) :Float;
+	public var volume (get_volume, set_volume) :Float;
 	public var repeat :Bool;
 	
 	
@@ -189,11 +189,11 @@ class JSAudio implements RCAudioInterface {
 	/**
 	 *	Control the volume
 	 */
-	public function getVolume () :Float {
+	public function get_volume () :Float {
 		return volume_;
 	}
 	
-	public function setVolume (volume:Float) :Float {
+	public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
 
 		return volume_;

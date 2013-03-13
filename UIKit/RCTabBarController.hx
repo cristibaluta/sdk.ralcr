@@ -16,7 +16,7 @@ class RCTabBarController extends RCView {
 	public var placeholder :RCView;
 	public var tabBar :RCTabBar;
 	public var viewControllers :Array<RCView>;
-	public var selectedIndex (getIndex, setIndex) :Int;
+	public var selectedIndex (get_index, set_index) :Int;
 	
 	public var didSelectViewController :RCSignal<Dynamic->Void>;
 	
@@ -69,7 +69,7 @@ class RCTabBarController extends RCView {
 			}
 			i++;
 		}
-		setIndex ( i );
+		set_index ( i );
 	}
 	
 	
@@ -77,14 +77,14 @@ class RCTabBarController extends RCView {
 	/**
 	 *  selectedIndex getter and setter
 	 **/
-	public function getIndex () :Int {
+	public function get_index () :Int {
 		return tabBar.selectedIndex;
 	}
-	public function setIndex (i:Int) :Int {
+	public function set_index (i:Int) :Int {
 		trace("setIndex "+i);
 		if (tabBar.selectedIndex == i) return i;// Can't select twice the same element
 		
-		tabBar.setIndex ( i );
+		tabBar.set_index ( i );
 		
 		var view = getViewController(i);
 		if (view == null) try{

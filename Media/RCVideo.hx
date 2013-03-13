@@ -48,7 +48,7 @@ class RCVideo extends RCView, implements RCVideoInterface {
 	public var percentPlayed :Int;
 	public var statusMessage :String;
 	public var secureToken :String;// This is sent by the server and is stored here for later access
-	public var volume (getVolume, setVolume) :Float;
+	public var volume (get_volume, set_volume) :Float;
 	
 	/**
 	 * Dispatch events
@@ -152,7 +152,7 @@ class RCVideo extends RCView, implements RCVideoInterface {
 		video.smoothing = true;
 		layer.addChild ( video );
 		
-		setVolume ( volume_ );
+		set_volume ( volume_ );
 		
 		onInit();
 	}
@@ -334,11 +334,11 @@ class RCVideo extends RCView, implements RCVideoInterface {
 	/**
 	 *	Control the volume
 	 */
-	public function getVolume () :Float {
+	public function get_volume () :Float {
 		return volume_;
 	}
 	
-	public function setVolume (volume:Float) :Float {
+	public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
 		if (ns != null)
 			ns.soundTransform = new SoundTransform ( volume_ );

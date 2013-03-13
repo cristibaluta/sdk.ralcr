@@ -54,13 +54,13 @@ class SKSegment extends RCSkin {
 		var sm = "Resources/ios/RCSegmentedControl/"+segmentMiddle+hd+".png";
 		var sr = "Resources/ios/RCSegmentedControl/"+segmentRight+hd+".png";
 		normal.background = new RCImageStretchable (0, 0, sl, sm, sr);
-		normal.background.setWidth ( w );
+		normal.background.set_width ( w );
 		
 		var slh = "Resources/ios/RCSegmentedControl/"+segmentLeftSelected+"Selected"+hd+".png";
 		var smh = "Resources/ios/RCSegmentedControl/"+segmentMiddleSelected+"Selected"+hd+".png";
 		var srh = "Resources/ios/RCSegmentedControl/"+segmentRightSelected+"Selected"+hd+".png";
 		highlighted.background = new RCImageStretchable (0, 0, slh, smh, srh);
-		highlighted.background.setWidth ( w );
+		highlighted.background.set_width ( w );
 		
 		
 		//RCFontManager.getFont ("bold", {size:25, color:0x777777, align:"center"}))

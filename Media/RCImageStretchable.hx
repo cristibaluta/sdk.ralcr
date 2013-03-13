@@ -38,7 +38,7 @@ class RCImageStretchable extends RCView {
 	
 	function onCompleteHandler () {
 		if (l.isLoaded && m.isLoaded && r.isLoaded && size.width != 0) {
-			setWidth ( size.width );
+			set_width ( size.width );
 		}
 		onComplete();
 	}
@@ -48,7 +48,7 @@ class RCImageStretchable extends RCView {
 	 *  Change the width of the image by stretching the element from the middle an reposition the last one
 	 *  @param w = the new width of the Image
 	 **/
-	override public function setWidth (w:Float) :Float {
+	override public function set_width (w:Float) :Float {
 		
 		size.width = w;
 		
@@ -71,7 +71,7 @@ class RCImageStretchable extends RCView {
 			rx = Math.round(m.x + mw);
 		r.x = rx;
 		
-		//m.setWidth (Math.round(w-l.width-r.width));trace(m.width);
+		//m.set_width (Math.round(w-l.width-r.width));trace(m.width);
 		return w;
 	}
 	

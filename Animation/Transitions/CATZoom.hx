@@ -65,10 +65,10 @@ class CATZoom extends CAObject, implements CATransitionInterface {
 		// Set the properties that are used to zoom the object: x, y, width, height, alpha
 		// >>
 		// Get the original properties of the object
-		var i_w = target.getWidth();
-		var i_h = target.getHeight();
-		var i_x = target.getX();
-		var i_y = target.getY();
+		var i_w = target.get_width();
+		var i_h = target.get_height();
+		var i_x = target.get_x();
+		var i_y = target.get_x();
 		
 		// Final values we should zoom to
 		var f_w = i_w * toScale;
@@ -77,17 +77,17 @@ class CATZoom extends CAObject, implements CATransitionInterface {
 		var f_y = Math.round (i_y + (i_h - f_h) / 2);
 		
 		// Set the object properties to their starting position
-		target.setWidth ( i_w * fromScale );
-		target.setHeight ( i_h * fromScale );
-		target.setX ( Math.round (i_x + (i_w - target.getWidth()) / 2));
-		target.setY ( Math.round (i_y + (i_h - target.getHeight())/ 2));
-		target.setAlpha ( fromAlpha );
+		target.set_width ( i_w * fromScale );
+		target.set_height ( i_h * fromScale );
+		target.set_x ( Math.round (i_x + (i_w - target.getWidth()) / 2));
+		target.set_y ( Math.round (i_y + (i_h - target.getHeight())/ 2));
+		target.set_alpha ( fromAlpha );
 		
 		// Set the starting and ending properties to the CAObject also
-		fromValues = {	x		: target.getX(),
-						y		: target.getY(),
-						width	: target.getWidth(),
-						height	: target.getHeight(),
+		fromValues = {	x		: target.get_x(),
+						y		: target.get_y(),
+						width	: target.get_width(),
+						height	: target.get_height(),
 						alpha	: fromAlpha
 					};
 		
@@ -103,7 +103,7 @@ class CATZoom extends CAObject, implements CATransitionInterface {
 		// Iterate over properties that should be tweened for this object
 		for (prop in Reflect.fields (toValues)) {
 			//Reflect.setField (target, prop, calculate (time_diff, prop));
-			var setter = "set"+prop.substr(0,1).toUpperCase()+prop.substr(1);
+			var setter = "set_"+prop;
 			if (setter != null)
 				Reflect.callMethod (target, Reflect.field(target,setter), [calculate (time_diff, prop)]);
 			

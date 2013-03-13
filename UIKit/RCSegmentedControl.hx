@@ -19,7 +19,7 @@ class RCSegmentedControl extends RCView {
 	public var click :RCSignal<RCSegmentedControl->Void>;
 	public var itemAdded :RCSignal<RCSegmentedControl->Void>;
 	public var itemRemoved :RCSignal<RCSegmentedControl->Void>;
-	public var selectedIndex (getSelectedIndex, setSelectedIndex) :Int;
+	public var selectedIndex (get_selectedIndex, set_selectedIndex) :Int;
 	
 	
 	public function new (x, y, w:Int, h:Int, ?skin:Class<RCSkin>) {
@@ -120,10 +120,10 @@ class RCSegmentedControl extends RCView {
 	}
 	
 	// Setter for selectedIndex
-	public function getSelectedIndex () :Int {
+	public function get_selectedIndex () :Int {
 		return selectedIndex_;
 	}
-	public function setSelectedIndex (i:Int) :Int {
+	public function set_selectedIndex (i:Int) :Int {
 		trace("setIndex "+selectedIndex_ +" > "+i);
 		if (selectedIndex_ == i) return i;
 			selectedIndex_ = i;
@@ -230,7 +230,7 @@ class RCSegmentedControl extends RCView {
 	
 	// Dispatch events
 	function clickHandler (label:String) :Void {
-		setSelectedIndex ( items.indexForKey( label ));
+		set_selectedIndex ( items.indexForKey( label ));
 		click.dispatch ( this );
 	}
 	

@@ -58,12 +58,12 @@ class RCRectangle extends RCDraw, implements RCDrawInterface {
 #end
 	}
 	
-	override public function setWidth (w:Float) :Float {
+	override public function set_width (w:Float) :Float {
 		size.width = w;
 		redraw();
 		return w;
 	}
-	override public function setHeight (h:Float) :Float {
+	override public function set_height (h:Float) :Float {
 		size.height = h;
 		redraw();
 		return h;

@@ -19,7 +19,7 @@ class RCTextRoll extends RCView {
 	var timerLoop :haxe.Timer;
 	
 	public var continuous :Bool;
-	public var text (getText, setText) :String;
+	public var text (get_text, set_text) :String;
 	
 	
 	public function new (x, y, w:Float, h:Null<Float>, str:String, properties:RCFont) {
@@ -48,10 +48,10 @@ class RCTextRoll extends RCView {
 		}
 	}
 	
-	public function getText() :String {
+	public function get_text() :String {
 		return txt1.text;
 	}
-	public function setText (str:String) :String {
+	public function set_text (str:String) :String {
 		return str;
 	}
 	

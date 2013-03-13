@@ -46,8 +46,8 @@ class JSView extends RCDisplayObject {
 		layer.style.width = "auto";
 		layer.style.height = "auto";
 		
-		setX ( x );
-		setY ( y );
+		set_x ( x );
+		set_y ( y );
 	}
 	
 	
@@ -88,7 +88,7 @@ class JSView extends RCDisplayObject {
 	/**
 	 *  Change the color of the background
 	 */
-	override public function setBackgroundColor (color:Null<Int>) :Null<Int> {
+	override public function set_backgroundColor (color:Null<Int>) :Null<Int> {
 		
 		if (color == null) {
 			layer.style.background = null;
@@ -105,7 +105,7 @@ class JSView extends RCDisplayObject {
 	}
 	
 	
-	override public function setClipsToBounds (clip:Bool) :Bool {
+	override public function set_clipsToBounds (clip:Bool) :Bool {
 		// When we clip we move all subviews on a different div inside the current div
 		if (clip) {
 			layer.style.overflow = "hidden";
@@ -138,11 +138,11 @@ class JSView extends RCDisplayObject {
 	
 	// Getters and setters
 	//
-	override public function setVisible (v:Bool) :Bool {
+	override public function set_visible (v:Bool) :Bool {
 		layer.style.visibility = (v ? "visible" : "hidden");
-		return super.setVisible ( v );
+		return super.set_visible ( v );
 	}
-	override public function setAlpha (a:Float) :Float {
+	override public function set_alpha (a:Float) :Float {
 		
 		if (RCDevice.currentDevice().userAgent == MSIE) {
 			untyped layer.style.msFilter = "progid:DXImageTransform.Microsoft.Alpha(Opacity="+Std.string(a*100)+")";
@@ -152,25 +152,25 @@ class JSView extends RCDisplayObject {
 		else {
 			untyped layer.style.opacity = Std.string(a);
 		}
-		return super.setAlpha ( a );
+		return super.set_alpha ( a );
 	}
-	override public function setX (x:Float) :Float {
+	override public function set_x (x:Float) :Float {
 		layer.style.left = Std.string (x * RCDevice.currentDevice().dpiScale) + "px";
-		return super.setX ( x );
+		return super.set_x ( x );
 	}
-	override public function setY (y:Float) :Float {
+	override public function set_y (y:Float) :Float {
 		layer.style.top = Std.string (y * RCDevice.currentDevice().dpiScale) + "px";
-		return super.setY ( y );
+		return super.set_y ( y );
 	}
-	override public function setWidth (w:Float) :Float {
+	override public function set_width (w:Float) :Float {
 		layer.style.width = w + "px";
-		return super.setWidth ( w );
+		return super.set_width ( w );
 	}
-	override public function setHeight (h:Float) :Float {
+	override public function set_height (h:Float) :Float {
 		layer.style.height = h + "px";
-		return super.setHeight ( h );
+		return super.set_height ( h );
 	}
-	override public function getContentSize () :RCSize {
+	override public function get_contentSize () :RCSize {
 /*		trace("offset "+new RCSize (layer.offsetWidth, layer.offsetHeight));
 		trace("scroll "+new RCSize (layer.scrollWidth, layer.scrollHeight));
 		trace("client "+new RCSize (layer.clientWidth, layer.clientHeight));*/
@@ -199,9 +199,9 @@ class JSView extends RCDisplayObject {
 	}
 	
 	
-	override public function setRotation (r:Float) :Float {
+	override public function set_rotation (r:Float) :Float {
 		untyped layer.style[getTransformProperty()] = "rotate(" + r + "deg)";
-		return super.setRotation ( r );
+		return super.set_rotation ( r );
 	}
 	
 	public function startDrag (?lockCenter:Bool, ?rect:RCRect) :Void {
@@ -211,13 +211,13 @@ class JSView extends RCDisplayObject {
 		
 	}
 	
-	override function getMouseX () :Float {
+	override function get_mouseX () :Float {
 		return untyped layer.clientX;
 		if (parent == null) return mouseX;
 		return untyped parent.mouseX - x;
 	}
 
-	override function getMouseY () :Float {
+	override function get_mouseY () :Float {
 		if (parent == null) return mouseY;
 		return untyped parent.mouseY - y;
 	}

@@ -44,12 +44,12 @@ class MotionTracker extends Point {
 	var _brightness :Float;
 	var _contrast :Float;
 	
-	public var minArea (getMinArea, setMinArea) :UInt;
-	public var input (getInput, setInput) :Video;
-	public var flipInput (getFlipInput, setFlipInput) :Bool;
-	public var blur (getBlur, setBlur) :Float;
-	public var brightness (getBrightness, setBrightness) :Float;
-	public var contrast (getContrast, setContrast) :Float;
+	public var minArea (get_minArea, set_minArea) :UInt;
+	public var input (get_input, set_input) :Video;
+	public var flipInput (get_flipInput, set_flipInput) :Bool;
+	public var blur (get_blur, set_blur) :Float;
+	public var brightness (get_brightness, set_brightness) :Float;
+	public var contrast (get_contrast, set_contrast) :Float;
 
 	/**
 	 * The MotionTracker class will track the movement within video data
@@ -68,10 +68,10 @@ class MotionTracker extends Point {
 		_cmx = new ColorMatrix();
 		_blr = new BlurFilter();
 		
-		setBlur ( DEFAULT_BLUR );
-		setMinArea ( DEFAULT_AREA );
-		setContrast ( DEFAULT_CONTRAST );
-		setBrightness ( DEFAULT_BRIGHTNESS );
+		set_blur ( DEFAULT_BLUR );
+		set_minArea ( DEFAULT_AREA );
+		set_contrast ( DEFAULT_CONTRAST );
+		set_brightness ( DEFAULT_BRIGHTNESS );
 		
 		applyColorMatrix();
 	}
@@ -113,28 +113,28 @@ class MotionTracker extends Point {
 	/**
 	 * The image the MotionTracker is working from
 	 */
-	public function getTrackingImage() :BitmapData { 
+	public function get_trackingImage() :BitmapData { 
 		return _now; 
 	}
 
 	/**
 	 * The area of the image the MotionTracker is working from
 	 */
-	public function getTrackingArea() :Rectangle { 
+	public function get_trackingArea() :Rectangle { 
 		return new Rectangle (_src.x, _src.y, _src.width, _src.height); 
 	}
 
 	/**
 	 * Whether or not movement is currently being detected
 	 */
-	public function getHasMovement() : Bool	{ 
+	public function get_hasMovement() : Bool	{ 
 		return _act; 
 	}
 	
 	/**
 	 * The area in which movement is being detected
 	 */
-	public function getMotionArea() :Rectangle { 
+	public function get_motionArea() :Rectangle { 
 		return _box; 
 	}
 	
@@ -142,11 +142,11 @@ class MotionTracker extends Point {
 	/**
 	 * The video (usualy created from a Camera) used to track motion
 	 */
-	public function getInput() :Video { 
+	public function get_input() :Video { 
 		return _src; 
 	}
 	
-	public function setInput (v:Video) :Video {
+	public function set_input (v:Video) :Video {
 		_src = v;
 		if (_now != null) { 
 			_now.dispose(); 
@@ -161,11 +161,11 @@ class MotionTracker extends Point {
 	/**
 	 * the blur being applied to the input in order to improve accuracy
 	 */
-	public function getBlur() :Float { 
+	public function get_blur() :Float { 
 		return _blr.blurX; 
 	}
 	
-	public function setBlur (n:Float) :Float { 
+	public function set_blur (n:Float) :Float { 
 		return _blr.blurX = _blr.blurY = n;
 	}
 	
@@ -173,10 +173,10 @@ class MotionTracker extends Point {
 	/**
 	 * The brightness filter being applied to the input
 	 */
-	public function getBrightness() :Float { 
+	public function get_brightness() :Float { 
 		return _brightness; 
 	}	
-	public function setBrightness (n:Float) :Float {
+	public function set_brightness (n:Float) :Float {
 		_brightness = n;
 		applyColorMatrix();
 		return n;
@@ -186,10 +186,10 @@ class MotionTracker extends Point {
 	/**
 	 * The contrast filter being applied to the input
 	 */
-	public function getContrast() :Float { 
+	public function get_contrast() :Float { 
 		return _contrast; 
 	}	
-	public function setContrast (n:Float) :Float {
+	public function set_contrast (n:Float) :Float {
 		_contrast = n;
 		applyColorMatrix();
 		return n;
@@ -199,10 +199,10 @@ class MotionTracker extends Point {
 	/**
 	 * The minimum area (percent of the input dimensions) of movement to be considered movement
 	 */
-	public function getMinArea() :UInt { 
+	public function get_minArea() :UInt { 
 		return _min; 
 	}	
-	public function setMinArea (n:UInt) :UInt {
+	public function set_minArea (n:UInt) :UInt {
 		return _min = n;
 	}
 	
@@ -210,11 +210,11 @@ class MotionTracker extends Point {
 	/**
 	 * Whether or not to flip the input for mirroring
 	 */
-	public function getFlipInput () :Bool { 
+	public function get_flipInput () :Bool { 
 		return _mtx.a < 1; 
 	}
 	
-	public function setFlipInput (b:Bool) :Bool {
+	public function set_flipInput (b:Bool) :Bool {
 		_mtx = new Matrix();
 		if (b) { 
 			_mtx.translate (-_src.width, 0); 

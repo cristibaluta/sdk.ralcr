@@ -42,7 +42,7 @@ class RCAudio implements RCAudioInterface {
 	public var time :Int;
 	public var duration :Float;
 	public var id3 :Dynamic;
-	public var volume (getVolume, setVolume) :Float;
+	public var volume (get_volume, set_volume) :Float;
 	public var repeat :Bool;
 	
 	
@@ -128,7 +128,7 @@ class RCAudio implements RCAudioInterface {
 			}
 		
 			timer.start();
-			setVolume ( _volume );
+			set_volume ( _volume );
 			
 		#end
 		
@@ -205,11 +205,11 @@ class RCAudio implements RCAudioInterface {
 	/**
 	 *	Control the volume
 	 */
-	public function getVolume () :Float {
+	public function get_volume () :Float {
 		return _volume;
 	}
 	
-	public function setVolume (volume:Float) :Float {
+	public function set_volume (volume:Float) :Float {
 		_volume = volume > 1 ? 1 : volume;
 		if (channel != null)
 			channel.soundTransform = new SoundTransform ( _volume );

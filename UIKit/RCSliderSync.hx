@@ -34,12 +34,13 @@ class RCSliderSync {
 	var ticker :EVLoop;
 	var mouseWheel :EVMouse;
 	
-	public var valueMax (default, setMaxValue) :Int;
-	public var valueStart (default, setStartValue) :Int;
-	public var valueFinal (default, setFinalValue) :Int;// the current value between start and max
+	public var valueMax (default, set_maxValue) :Int;
+	public var valueStart (default, set_startValue) :Int;
+	public var valueFinal (default, set_finalValue) :Int;// the current value between start and max
 	
 	public var valueChanged :RCSignal<RCSliderSync->Void>;
 	public var contentValueChanged :RCSignal<Void>;
+	
 	dynamic public function onScrollLeft() :Void {}
 	dynamic public function onScrollRight() :Void {}
 	
@@ -148,15 +149,15 @@ class RCSliderSync {
 	}
 	
 	
-	function setMaxValue (value:Int) :Int {
+	function set_maxValue (value:Int) :Int {
 		return valueMax = value;
 	}
 	
-	function setFinalValue (value:Int) :Int {
+	function set_finalValue (value:Int) :Int {
 		return valueFinal = value;
 	}
 	
-	function setStartValue (value:Int) :Int {
+	function set_startValue (value:Int) :Int {
 		return valueStart = value;
 	}
 	

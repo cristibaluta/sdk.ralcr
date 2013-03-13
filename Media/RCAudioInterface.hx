@@ -7,6 +7,6 @@ interface RCAudioInterface {
 	
 	public function destroy () :Void;
 	
-	public function getVolume () :Float;
-	public function setVolume (volume:Float) :Float;
+	public function get_volume () :Float;
+	public function set_volume (volume:Float) :Float;
 }

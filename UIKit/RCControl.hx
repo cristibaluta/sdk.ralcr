@@ -40,9 +40,9 @@ class RCControl extends RCView {
 	public var editingDidEndOnExit :RCSignal<RCControl->Void>;// 'return key' ending editing
 	
 	
-	public var enabled (getEnabled, setEnabled) :Bool;// default is YES. if NO, ignores mouse/touch events
-	public var highlighted (getHighlighted, null) :Bool;// default is NO.
-	public var selected (getSelected, null) :Bool;// default is NO
+	public var enabled (get_enabled, set_enabled) :Bool;// default is YES. if NO, ignores mouse/touch events
+	public var highlighted (get_highlighted, null) :Bool;// default is NO.
+	public var selected (get_selected, null) :Bool;// default is NO
 	
 	var enabled_ :Bool;
 	var state_ :RCControlState;
@@ -67,7 +67,7 @@ class RCControl extends RCView {
 			this.layer.mouseChildren = false;
 		#end
 		configureDispatchers();
-		setEnabled ( true );// This will configure the right mouse listeners
+		set_enabled ( true );// This will configure the right mouse listeners
 	}
 	
 	// In JS you must init only after you've added it as a child
@@ -130,7 +130,7 @@ class RCControl extends RCView {
 	/**
 	 * Getters and setters
 	 */
-	function getSelected () :Bool {
+	function get_selected () :Bool {
 		return state_ == SELECTED;
 	}
 	
@@ -140,10 +140,10 @@ class RCControl extends RCView {
 	 * Hand cursor is also disabled.
 	 * enabled = true - Events are dispatched again
 	 */
-	function getEnabled () :Bool {
+	function get_enabled () :Bool {
 		return enabled_;
 	}
-	function setEnabled (c:Bool) :Bool {
+	function set_enabled (c:Bool) :Bool {
 		
 		enabled_ = c;
 		
@@ -160,7 +160,7 @@ class RCControl extends RCView {
 		return enabled_;
 	}
 	//
-	function getHighlighted () :Bool {
+	function get_highlighted () :Bool {
 		return state_ == HIGHLIGHTED;
 	}
 	

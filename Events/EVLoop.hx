@@ -9,12 +9,12 @@ class EVLoop {
 	
 	var ticker :Ticker;
 	var _run :Void->Void;
-	public var run (null, setFuncToCall) :Void->Void;
+	public var run (null, set_funcToCall) :Void->Void;
 	public static var FPS :Int = 60;
 	
 	public function new (?pos:haxe.PosInfos) { }
 	
-	public function setFuncToCall (func:Void->Void) :Void->Void {
+	public function set_funcToCall (func:Void->Void) :Void->Void {
 		//trace("setFunction");
 		stop();
 		_run = func;

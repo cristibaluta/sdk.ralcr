@@ -11,7 +11,7 @@
 class RCTabBar extends RCGroup<RCTabBarItem> {
 	
 	public var selectedItem :RCTabBarItem;
-	public var selectedIndex (getIndex, setIndex) :Int;
+	public var selectedIndex (get_index, set_index) :Int;
 	public var didSelectItem :RCSignal<RCTabBarItem->Void>;// called when a new view is selected by the user (but not programatically)
 	var constructor2_ :Int->RCTabBarItem;// RCGroup already have a constructor
 	var selectedIndex_ :Int;
@@ -44,10 +44,10 @@ class RCTabBar extends RCGroup<RCTabBarItem> {
 	}
 	
 	
-	public function getIndex () :Int {
+	public function get_index () :Int {
 		return selectedIndex_;
 	}
-	public function setIndex (i:Int) :Int {trace(items);
+	public function set_index (i:Int) :Int {trace(items);
 		if (items == null) return selectedIndex_;
 		trace("setIndex "+i);trace(selectedIndex_);
 		if (selectedIndex_ > -1)

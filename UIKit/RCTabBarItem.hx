@@ -1,13 +1,13 @@
 
 class RCTabBarItem extends RCButtonRadio {
 	
-	public var badgeValue (default, setBadgeValue) :String;
+	public var badgeValue (default, set_badgeValue) :String;
 	var _title :String;
 	var _image :RCImage;
 	var _selectedImage :RCImage;
 	var _unselectedImage :RCImage;
 	
-	public function setBadgeValue (value:String) :String {
+	public function set_badgeValue (value:String) :String {
 		badgeValue = value;
 		return value;
 	}

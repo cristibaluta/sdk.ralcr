@@ -28,9 +28,9 @@
 
 class RCTextInput extends RCControl {
 	
-	public var password (null, setPassword) :Bool;
-	public var selectable (null, setSelectable) :Bool;
-	public var text (getText, setText) :String;
+	public var password (null, set_password) :Bool;
+	public var selectable (null, set_selectable) :Bool;
+	public var text (get_text, set_text) :String;
 	public var textView :RCTextView;
 	
 	public function new (x:Float, y:Float, w:Null<Float>, h:Null<Float>, str:String, rcfont:RCFont) {
@@ -55,10 +55,10 @@ class RCTextInput extends RCControl {
 			//textView.appendChild ( textView );
 		#end
 	}
-	public function getText() :String {
+	public function get_text() :String {
 		return textView.text;
 	}
-	public function setText (str:String) :String {
+	public function set_text (str:String) :String {
 		textView.text = str;
 		return str;
 	}
@@ -83,8 +83,8 @@ class RCTextInput extends RCControl {
 		
 		layer.addChild ( target );*/
 	}
-	override function setEnabled (c:Bool) :Bool {
-		super.setEnabled ( c );
+	override function set_enabled (c:Bool) :Bool {
+		super.set_enabled ( c );
 		return c;
 	}
 	
@@ -116,7 +116,7 @@ class RCTextInput extends RCControl {
 		return target.type = t;
 	}*/
 	
-	function setPassword (t:Bool) :Bool {
+	function set_password (t:Bool) :Bool {
 		#if (flash || nme)
 			return textView.target.displayAsPassword = t;
 		#elseif js
@@ -124,7 +124,7 @@ class RCTextInput extends RCControl {
 		#end
 	}
 	
-	public function setSelectable (t:Bool) :Bool {
+	public function set_selectable (t:Bool) :Bool {
 /*		if (t)
 			target.addEventListener (MouseEvent.CLICK, clickHandler);
 		else

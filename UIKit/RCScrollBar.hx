@@ -28,7 +28,7 @@ class RCScrollBar extends RCControl {
 	var mouseUpOverStage_ :EVMouse;
 	var mouseMoveOverStage_ :EVMouse;
 	
-	public var value (getValue, setValue) :Float;// default 0.0. this value will be pinned to min/max
+	public var value (get_value, set_value) :Float;// default 0.0. this value will be pinned to min/max
 	public var valueChanged :RCSignal<RCScrollBar->Void>;// sliders, etc.
 	
 	/**
@@ -58,13 +58,13 @@ class RCScrollBar extends RCControl {
 		
 		// display skin (background, symbol, hit)
 		background = skin.normal.background;
-		background.setWidth ( size.width );
-		background.setHeight ( size.height );
+		background.set_width ( size.width );
+		background.set_height ( size.height );
 		this.addChild ( background );
 		
 		scrollbar = skin.normal.otherView;
-		scrollbar.setWidth ( direction_ == HORIZONTAL ? indicatorSize : size.width );
-		scrollbar.setHeight ( direction_ == VERTICAL ? indicatorSize : size.height );
+		scrollbar.set_width ( direction_ == HORIZONTAL ? indicatorSize : size.width );
+		scrollbar.set_height ( direction_ == VERTICAL ? indicatorSize : size.height );
 		scrollbar.alpha = 0.4;
 		this.addChild ( scrollbar );
 		// end skin
@@ -126,20 +126,20 @@ class RCScrollBar extends RCControl {
 		}
 		
 		// Set the new value
-		setValue ( Zeta.lineEquation (minValue_, maxValue_,  y0, y1, y2) );
+		set_value ( Zeta.lineEquation (minValue_, maxValue_,  y0, y1, y2) );
 		
 		e.updateAfterEvent();
 	}
 	
 	
 	
-	function getValue () :Float {
+	function get_value () :Float {
 		return value_;
 	}
 	/**
 	 * Set the scrubber position based on the new value
 	 */
-	public function setValue (v:Float) :Float {
+	public function set_value (v:Float) :Float {
 		var x1=0.0, x2=0.0;
 		value_ = v;
 		switch (direction_) {

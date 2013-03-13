@@ -23,7 +23,7 @@ class RCRadioStream extends flash.display.Sprite {
 	var soundChannel : SoundChannel;
 	var _volume :Float;
 	
-	public var volume (getVolume, setVolume) :Float;
+	public var volume (get_volume, set_volume) :Float;
 	
 	dynamic public function onStart () : Void {}
 	
@@ -65,10 +65,10 @@ class RCRadioStream extends flash.display.Sprite {
 	/**
 	 *	Control the volume
 	 */
-	public function getVolume () :Float {
+	public function get_volume () :Float {
 		return _volume;
 	}
-	public function setVolume (volume:Float) :Float {
+	public function set_volume (volume:Float) :Float {
 		_volume = volume > 1 ? 1 : volume;
 		if (soundChannel != null)
 			soundChannel.soundTransform = new SoundTransform ( _volume );

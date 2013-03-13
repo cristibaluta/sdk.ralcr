@@ -64,7 +64,7 @@ class RCRtmp extends RCVideo, implements RCVideoInterface {
 		video.smoothing = true;
 		layer.addChild ( video );
 		
-		setVolume ( RCVideo.DEFAULT_VOLUME );
+		set_volume ( RCVideo.DEFAULT_VOLUME );
 		startVideo ( file );
 		onInit();
 		//this.dispatchEvent ( new VideoEvent (VideoEvent.INIT, 0.0, 0) );

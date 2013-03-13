@@ -11,7 +11,7 @@
 // Note:
 // NME crashes if you're trying to init some static variables.
 
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.display.StageAlign;
@@ -35,7 +35,7 @@ class RCWindow extends RCView {
 	}
 	
 	
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	public var target :MovieClip;
 	public var stage :Stage;
 #elseif js
@@ -62,7 +62,11 @@ class RCWindow extends RCView {
 		
 		super (0.0, 0.0, 0.0, 0.0);
 		
-		#if (flash || nme)
+		#if objc
+			
+			var screen :UIScreen = UIScreen.mainScreen();
+			
+		#elseif (flash || (nme && (cpp || neko)))
 			
 			target = flash.Lib.current;
 			stage = flash.Lib.current.stage;
@@ -96,7 +100,7 @@ class RCWindow extends RCView {
 	
 	
 	/**
-	* JS can permit to change the target of the RCWindow
+	* JS permits to change the target of the RCWindow, you can move it from div to div
 	*/
 	public function setTarget (id:String) :Void {
 		#if js
@@ -127,7 +131,7 @@ class RCWindow extends RCView {
 		#end
 	}
 	
-	override public function setBackgroundColor (color:Null<Int>) :Null<Int> {
+	override public function set_backgroundColor (color:Null<Int>) :Null<Int> {
 		#if js
 			
 			if (color == null) {
@@ -198,7 +202,7 @@ class RCWindow extends RCView {
 	}
 	public function supportsFullScreen () :Bool {
 		
-		#if flash
+		#if (flash || (objc && osx))
 			
 			return true;
 		

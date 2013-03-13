@@ -23,11 +23,11 @@ class RCScrollView extends RCView {
 	public var contentView :RCView;
 	public var dragging :Bool;
 	public var autohideSliders :Bool;
-	public var enableMarginsFade (null, setMarginsFade) :Bool;
-	public var bounces (null, setBounce) :Bool;
+	public var enableMarginsFade (null, set_marginsFade) :Bool;
+	public var bounces (null, set_bounce) :Bool;
 	public var decelerationRate :Float;
 	public var pagingEnabled :Bool;
-	public var scrollEnabled (null, setScrollEnabled) :Bool;
+	public var scrollEnabled (null, set_scrollEnabled) :Bool;
 	public var scrollIndicatorInsets :RCPoint;
 	
 	dynamic public function scrollViewDidScroll():Void{}
@@ -52,10 +52,10 @@ class RCScrollView extends RCView {
 		contentView = content;
 		addChild ( contentView );
 		contentSize = contentView.contentSize;
-		setScrollEnabled ( true );
+		set_scrollEnabled ( true );
 	}
 	
-	function setScrollEnabled (b:Bool) :Bool {
+	function set_scrollEnabled (b:Bool) :Bool {
 		trace("setScrollEnabled "+b);
 		var colors = [null, null, 0xDDDDDD, 0xFFFFFF];
 		trace("contentSize "+contentView.contentSize);
@@ -112,11 +112,11 @@ class RCScrollView extends RCView {
 		
 	}
 	
-	public function setBounce (b:Bool) :Bool {
+	public function set_bounce (b:Bool) :Bool {
 		bounces = b;
 		return b;
 	}
-	public function setMarginsFade (b:Bool) :Bool {
+	public function set_marginsFade (b:Bool) :Bool {
 		return b;
 	}
 	

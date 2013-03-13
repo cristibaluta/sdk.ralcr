@@ -30,11 +30,11 @@ class RCSlider extends RCControl {
 	var sliderHighlighted :RCView;
 	var scrubber :RCView;
 	
-	public var minValue (default, setMinValue) :Float;
-	public var maxValue (default, setMaxValue) :Float;
-	public var value (getValue, setValue) :Float;// default 0.0. this value will be pinned to min/max
-	public var minimumValueImage (default, setMinimumValueImage) :RCImage;// default is nil
-	public var maximumValueImage (default, setMaximumValueImage) :RCImage;
+	public var minValue (default, set_minValue) :Float;
+	public var maxValue (default, set_maxValue) :Float;
+	public var value (get_value, set_value) :Float;// default 0.0. this value will be pinned to min/max
+	public var minimumValueImage (default, set_minimumValueImage) :RCImage;// default is nil
+	public var maximumValueImage (default, set_maximumValueImage) :RCImage;
 	
 	public var valueChanged :RCSignal<RCSlider->Void>;// sliders, etc.
 	
@@ -63,12 +63,12 @@ class RCSlider extends RCControl {
 		sliderNormal = skin.normal.background;
 		if (sliderNormal == null)
 			sliderNormal = new RCView(0,0);
-		sliderNormal.setWidth ( size.width );
+		sliderNormal.set_width ( size.width );
 		
 		sliderHighlighted = skin.highlighted.background;
 		if (sliderHighlighted == null)
 			sliderHighlighted = new RCView(0,0);
-		sliderHighlighted.setWidth ( size.width );
+		sliderHighlighted.set_width ( size.width );
 		
 		scrubber = skin.normal.otherView;
 		if (scrubber == null)
@@ -86,7 +86,7 @@ class RCSlider extends RCControl {
 		
 		init_ = true;
 		
-		setValue ( value_ );
+		set_value ( value_ );
 	}
 	
 	override function configureDispatchers () {
@@ -95,7 +95,7 @@ class RCSlider extends RCControl {
 		mouseUpOverStage_ = new EVMouse (EVMouse.UP, RCWindow.sharedWindow().stage);
 		mouseMoveOverStage_ = new EVMouse (EVMouse.MOVE, RCWindow.sharedWindow().stage);
 	}
-	override function setEnabled (c:Bool) :Bool {
+	override function set_enabled (c:Bool) :Bool {
 		return enabled_ = false;// The slider does not listen for the events on the entire object, but for the scrubber
 	}
 	
@@ -135,7 +135,7 @@ class RCSlider extends RCControl {
 		}
 		
 		// set the new value
-		setValue ( Zeta.lineEquation (minValue_, maxValue_,  y0, y1, y2) );
+		set_value ( Zeta.lineEquation (minValue_, maxValue_,  y0, y1, y2) );
 		
 		#if flash
 			e.updateAfterEvent();
@@ -144,13 +144,13 @@ class RCSlider extends RCControl {
 	
 	
 	
-	function getValue () :Float {
+	function get_value () :Float {
 		return value_;
 	}
 	/**
 	 * Set the scrubber position based on the new value
 	 */
-	public function setValue (v:Float) :Float {
+	public function set_value (v:Float) :Float {
 		
 		value_ = v;
 		
@@ -163,30 +163,30 @@ class RCSlider extends RCControl {
 				x2 = size.width - scrubber.width;
 				scrubber.x = Zeta.lineEquationInt (x1, x2,  v, minValue_, maxValue_);
 				scrubber.y = Math.round ((size.height - scrubber.height)/2);
-				sliderHighlighted.setWidth ( scrubber.x + scrubber.width/2 );
+				sliderHighlighted.set_width ( scrubber.x + scrubber.width/2 );
 			case VERTICAL:
 				x2 = size.height - scrubber.height;
 				scrubber.y = Zeta.lineEquationInt (x1, x2,  v, minValue_, maxValue_);
-				sliderHighlighted.setHeight ( scrubber.y + scrubber.height/2 );
+				sliderHighlighted.set_height ( scrubber.y + scrubber.height/2 );
 		}
 		
 		valueChanged.dispatch ( this );
 		return value_;
 	}
-	public function setMinValue (v:Float) :Float {
+	public function set_minValue (v:Float) :Float {
 		minValue_ = v;
-		setValue ( value_ );// Refresh the slider elements position
+		set_value ( value_ );// Refresh the slider elements position
 		return v;
 	}
-	public function setMaxValue (v:Float) :Float {
+	public function set_maxValue (v:Float) :Float {
 		maxValue_ = v;
-		setValue ( value_ );
+		set_value ( value_ );
 		return v;
 	}
-	public function setMinimumValueImage (v:RCImage) :RCImage {
+	public function set_minimumValueImage (v:RCImage) :RCImage {
 		return v;
 	}
-	public function setMaximumValueImage (v:RCImage) :RCImage {
+	public function set_maximumValueImage (v:RCImage) :RCImage {
 		return v;
 	}
 	
@@ -195,14 +195,14 @@ class RCSlider extends RCControl {
 	 *	Scale the background and the symbol
 	 *	
 	 */
-/*	function setWidth (w:Int) :Int {
+/*	function set_width (w:Int) :Int {
 		if (size.width == null) return w;
 		size.width = w;
 		//TO DO
 		
 		return w;
 	}
-	function setHeight (h:Int) :Int {
+	function set_height (h:Int) :Int {
 		if (size.height == null) return h;
 		size.height = h;
 		//TO DO

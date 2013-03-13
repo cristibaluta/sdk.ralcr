@@ -8,6 +8,28 @@ typedef FacebookFriendPhoto = {
 	var is_silhouette : Bool;
 }
 
+// http://developers.facebook.com/docs/reference/login/#permissions
+enum FacebookPermissions {
+	email;
+	publish_stream;
+	publish_actions;
+	// Extended permissions
+	read_friendlists;
+	read_insights;
+	read_mailbox;
+	read_requests;
+	read_stream;
+	xmpp_login;
+	ads_management;
+	create_event;
+	manage_friendlists;
+	manage_notifications;
+	user_online_presence;
+	friends_online_presence;
+	publish_checkins;
+	publish_actions;
+	rsvp_event;
+}
 
 class FacebookTools {
 	

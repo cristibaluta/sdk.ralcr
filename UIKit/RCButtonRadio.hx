@@ -12,7 +12,7 @@ import RCControl;// Imports states
 class RCButtonRadio extends RCButton {
 	
 	var toggable_ :Bool;
-	public var toggable (getToggable, setToggable) :Bool;// Button can toggle it's state from NORMAL to SELECTED
+	public var toggable (get_toggable, set_toggable) :Bool;// Button can toggle it's state from NORMAL to SELECTED
 	
 	public function new (x, y, skin:RCSkin) {
 		super (x, y, skin);
@@ -46,10 +46,10 @@ class RCButtonRadio extends RCButton {
 	 * toggle = Change the state of the button permanently to SELECTED
 	 * untoggle = Change the state of the button to NORMAL
 	 */
-	public function getToggable () :Bool {
+	public function get_toggable () :Bool {
 		return toggable_;
 	}
-	public function setToggable (v:Bool) :Bool {
+	public function set_toggable (v:Bool) :Bool {
 		if (!v) setState ( NORMAL );
 		return toggable_ = v;
 	}

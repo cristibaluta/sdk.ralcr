@@ -1,7 +1,7 @@
 
 class RCWebView {
 	
-	// Replicate the NMEWebView events
+	// Implement the NMEWebView events
 	public var didFinishLoad :RCSignal<String->Void>;
 	public var didFinishWithError :RCSignal<String->Void>;
 	
@@ -39,12 +39,11 @@ class RCWebView {
 	}
 	
 	function webViewDidFinishLoad (url:String) :Void {
-		trace(didFinishLoad);
-		didFinishLoad.dispatch ( url );
+		if (didFinishLoad != null)
+			didFinishLoad.dispatch ( url );
 	}
     
 	public function destroy() :Void {
-		trace("destroy web view");trace(didFinishLoad);
 		#if nme
 		Fugu.safeDestroy ( webView );
 		webView = null;

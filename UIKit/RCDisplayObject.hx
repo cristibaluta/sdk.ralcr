@@ -15,23 +15,23 @@ class RCDisplayObject {
 	public var viewDidDisappear :RCSignal<Void->Void>;
 	
 	// Properties of a View
-	public var bounds (getBounds, setBounds) :RCRect; // Real size of the view
+	public var bounds (get_bounds, set_bounds) :RCRect; // Real size of the view
 	public var size :RCSize; // Visible area of the layer. Read only
-	public var contentSize (getContentSize, setContentSize) :RCSize; // Real size of the layer. Used in rcscrollview mostly
-	public var center (default, setCenter) :RCPoint; // Position this view with the center
-	public var clipsToBounds (default, setClipsToBounds) :Bool;
-	public var backgroundColor (default, setBackgroundColor) :Null<Int>;
-	public var x (getX, setX) :Float; // Animatable property
-	public var y (getY, setY) :Float; // Animatable property
-	public var width (getWidth, setWidth) :Float; // Methods to get and set the size
-	public var height (getHeight, setHeight) :Float; // Animatable property
-	public var scaleX (getScaleX, setScaleX) :Float; // Animatable property
-	public var scaleY (getScaleY, setScaleY) :Float; // Animatable property
-	public var alpha (getAlpha, setAlpha) :Float; // Animatable property
-	public var rotation (getRotation, setRotation) :Float; // Animatable property
-	public var visible (default, setVisible) :Bool;
-	public var mouseX (getMouseX, null) :Float;
-	public var mouseY (getMouseY, null) :Float;
+	public var contentSize (get_contentSize, set_contentSize) :RCSize; // Real size of the layer.
+	public var center (default, set_center) :RCPoint; // Position this view from the center
+	public var clipsToBounds (default, set_clipsToBounds) :Bool;
+	public var backgroundColor (default, set_backgroundColor) :Null<Int>;
+	public var x (get_x, set_x) :Float; // Animatable property
+	public var y (get_y, set_y) :Float; // Animatable property
+	public var width (get_width, set_width) :Float; // Methods to get and set the size
+	public var height (get_height, set_height) :Float; // Animatable property
+	public var scaleX (get_scaleX, set_scaleX) :Float; // Animatable property
+	public var scaleY (get_scaleY, set_scaleY) :Float; // Animatable property
+	public var alpha (get_alpha, set_alpha) :Float; // Animatable property
+	public var rotation (get_rotation, set_rotation) :Float; // Animatable property
+	public var visible (default, set_visible) :Bool;
+	public var mouseX (get_mouseX, null) :Float;
+	public var mouseY (get_mouseY, null) :Float;
 	public var parent :RCView;
 	
 	var x_ :Float;// Getters and setters
@@ -58,89 +58,89 @@ class RCDisplayObject {
 	
 	// Getter / Setters methods
 	//
-	public function setVisible (v:Bool) :Bool {
+	public function set_visible (v:Bool) :Bool {
 		return visible = v;// Override it
 	}
-	public function getAlpha () :Float {
+	public function get_alpha () :Float {
 		return alpha;
 	}
-	public function setAlpha (a:Float) :Float {
+	public function set_alpha (a:Float) :Float {
 		return alpha = a;// Override it
 	}
-	public function getX () :Float {
+	public function get_x () :Float {
 		return x_;
 	}
-	public function setX (x:Float) :Float {
+	public function set_x (x:Float) :Float {
 		return x_ = x;// Override it
 	}
-	public function getY () :Float {
+	public function get_y () :Float {
 		return y_;
 	}
-	public function setY (y:Float) :Float {
+	public function set_y (y:Float) :Float {
 		return y_ = y;// Override it
 	}
-	public function getWidth () :Float {
+	public function get_width () :Float {
 		return size.width;
 	}
-	public function setWidth (w:Float) :Float {
+	public function set_width (w:Float) :Float {
 		return size.width = w;// Override it
 	}
-	public function getHeight () :Float {
+	public function get_height () :Float {
 		return size.height;
 	}
-	public function setHeight (h:Float) :Float {
+	public function set_height (h:Float) :Float {
 		return size.height = h;// Override it
 	}
-	public function getContentSize () :RCSize {
+	public function get_contentSize () :RCSize {
 		return size;// Override it to return the real size of the layer
 	}
-	public function setContentSize (s:RCSize) :RCSize {
+	public function set_contentSize (s:RCSize) :RCSize {
 		return contentSize = s;// Override it to return the real size of the layer
 	}
-	public function setRotation (r:Float) :Float {
+	public function set_rotation (r:Float) :Float {
 		return rotation = r;// Override it
 	}
-	public function getRotation () :Float {
+	public function get_rotation () :Float {
 		return rotation;
 	}
-	public function getBounds () :RCRect {
+	public function get_bounds () :RCRect {
 		return new RCRect (x_, y_, size.width, size.height);
 	}
-	public function setBounds (b:RCRect) :RCRect {
-		setX ( b.origin.x );
-		setY ( b.origin.y );
-		setWidth ( b.size.width );
-		setHeight ( b.size.height );
+	public function set_bounds (b:RCRect) :RCRect {
+		set_x ( b.origin.x );
+		set_y ( b.origin.y );
+		set_width ( b.size.width );
+		set_height ( b.size.height );
 		return b;
 	}
-	public function getScaleX () :Float {
+	public function get_scaleX () :Float {
 		return scaleX_;
 	}
-	public function setScaleX (sx:Float) :Float {
+	public function set_scaleX (sx:Float) :Float {
 		scaleX_ = sx;
 		scale (scaleX_, scaleY_);
 		return scaleX_;
 	}
-	public function getScaleY () :Float {
+	public function get_scaleY () :Float {
 		return scaleY_;
 	}
-	public function setScaleY (sy:Float) :Float {
+	public function set_scaleY (sy:Float) :Float {
 		scaleY_ = sy;
 		scale (scaleX_, scaleY_);
 		return scaleY_;
 	}
 	
 	
-	public function setClipsToBounds (clip:Bool) :Bool {
+	public function set_clipsToBounds (clip:Bool) :Bool {
 		return clip;// Override it
 	}
-	public function setBackgroundColor (color:Null<Int>) :Null<Int> {
+	public function set_backgroundColor (color:Null<Int>) :Null<Int> {
 		return color;// Override it
 	}
-	public function setCenter (pos:RCPoint) :RCPoint {
+	public function set_center (pos:RCPoint) :RCPoint {
 		this.center = pos;
-		setX ( Std.int (pos.x - size.width/2) );
-		setY ( Std.int (pos.y - size.height/2) );
+		set_x ( Std.int (pos.x - size.width/2) );
+		set_y ( Std.int (pos.y - size.height/2) );
 		return this.center;
 	}
 	
@@ -153,16 +153,16 @@ class RCDisplayObject {
 	public function scaleToFit (w:Float, h:Float) :Void {
 		
 		if (size.width/w > size.height/h && size.width > w) {
-			setWidth ( w );
-			setHeight ( w * originalSize.height / originalSize.width );
+			set_width ( w );
+			set_height ( w * originalSize.height / originalSize.width );
 		}
 		else if (size.height > h) {
-			setHeight ( h );
-			setWidth ( h * originalSize.width / originalSize.height );
+			set_height ( h );
+			set_width ( h * originalSize.width / originalSize.height );
 		}
 		else if (size.width > originalSize.width && size.height > originalSize.height) {
-			setWidth ( size.width );
-			setHeight ( size.height );
+			set_width ( size.width );
+			set_height ( size.height );
 		}
 		else {
 			resetScale();
@@ -172,27 +172,27 @@ class RCDisplayObject {
 	public function scaleToFill (w:Float, h:Float) :Void {
 		
 		if (w/originalSize.width > h/originalSize.height) {
-			setWidth ( w );
-			setHeight ( w * originalSize.height / originalSize.width );
+			set_width ( w );
+			set_height ( w * originalSize.height / originalSize.width );
 		}
 		else {
-			setHeight ( h );
-			setWidth ( h * originalSize.width / originalSize.height );
+			set_height ( h );
+			set_width ( h * originalSize.width / originalSize.height );
 		}
 	}
 
 	public function scale (sx:Float, sy:Float) {}
 	
 	public function resetScale () :Void {
-		setWidth ( originalSize.width );
-		setHeight ( originalSize.height );
+		set_width ( originalSize.width );
+		set_height ( originalSize.height );
 	}
 	
 	// Get mouse position
-	function getMouseX () :Float {
+	function get_mouseX () :Float {
 		return 0;
 	}
-	function getMouseY () :Float {
+	function get_mouseY () :Float {
 		return 0;
 	}
 	

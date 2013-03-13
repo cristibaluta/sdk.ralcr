@@ -4,7 +4,7 @@
 *  The real size of the background (which is the scrollbar supraface),
 *  the otherView (which is the scrollbar position indicator),
 *  and the mouse hit area are set from the RCScrollBar
-*  through the setWidth and setHeight methods
+*  through the set_width and set_height methods
 */
 
 package haxe;

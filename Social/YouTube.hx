@@ -200,7 +200,7 @@ class YouTube extends RCVideo, implements RCVideoInterface, implements RCAudioIn
 	
 	
 	
-	override public function setVolume (volume:Float) :Float {
+	override public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
 		if (player != null)
 			player.setVolume ( volume_*100 );

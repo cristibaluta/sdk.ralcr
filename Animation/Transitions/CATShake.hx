@@ -29,8 +29,8 @@ class CATShake extends CAObject, implements CATransitionInterface {
 	override public function animate (time_diff:Float) :Void {
 		
 		if (time_diff > nextMove) {
-			target.setX ( originalX + Math.random()*magnitude*2 - magnitude );
-			target.setY ( originalY + Math.random()*magnitude*2 - magnitude );
+			target.set_x ( originalX + Math.random()*magnitude*2 - magnitude );
+			target.set_y ( originalY + Math.random()*magnitude*2 - magnitude );
 			nextMove = Math.round ( time_diff + 15 + Math.random()*10 );
 		}
 		

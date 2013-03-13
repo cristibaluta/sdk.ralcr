@@ -133,11 +133,11 @@ class GKWater extends MovieClip {
 				}
 			}
 			y = y/margin;
-			fi.setYVelocity(fi.getYVelocity()+g);
+			fi.set_yVelocity(fi.getYVelocity()+g);
 			dob.y += fi.getYVelocity();
 			if (dob.y >= y) {
 				dob.y = y;
-				fi.setYVelocity(fi.getYVelocity()*.4);
+				fi.set_yVelocity(fi.getYVelocity()*.4);
 				var k:Number = .3;
 				dob.rotation += ((ang/margin)*180/Math.PI-dob.rotation)*k;
 			}
@@ -167,7 +167,7 @@ class GKWater extends MovieClip {
 	public function addFloatingItem(dob:DisplayObject):Void {
 		var fi:IFloatable = new FloatingItem();
 		fi.setDisplayObject(dob);
-		fi.setYVelocity(0);
+		fi.set_yVelocity(0);
 		addIFloatable(fi);
 	}
 	public function addIFloatable(fi:IFloatable):Void {

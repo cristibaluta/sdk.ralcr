@@ -6,13 +6,40 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
+
+#if nme
+	
+class RCActivityIndicator {
+	
+	var activityIndicator :NMEActivityIndicator;
+	
+	/**
+	 *  For NME, stepX and skin are ignored
+	 **/
+	public function new (x, y, ?stepX:Int=0, ?skin:RCSkin) {
+		activityIndicator = new NMEActivityIndicator (x, y);
+	}
+	public function destroy() :Void {
+		activityIndicator.destroy();
+		activityIndicator = null;
+	}
+}
+	
+#else
+	
 class RCActivityIndicator extends RCProgressIndicator {
 	
 	public var stepX :Int;// The distance after the symbol position is reseted to 0
 	public var speedX :Int;
 	var enterFrame :EVLoop;
 	
-	public function new (x, y, stepX:Int, skin:RCSkin) {
+	/**
+	 *  @param x - the left corner of the activityIndicator
+	 *  @param x - the top corner of the activityIndicator
+	 *  @param stepX - the top corner of the activityIndicator
+	 *  @param skin - the skin contains the objects from which the activityIndicator will be built
+	 **/
+	public function new (x, y, ?stepX:Int=0, ?skin:RCSkin) {
 		
 		super (x, y, skin);
 		
@@ -36,3 +63,5 @@ class RCActivityIndicator extends RCProgressIndicator {
 		super.destroy();
 	}
 }
+
+#end

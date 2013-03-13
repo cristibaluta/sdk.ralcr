@@ -466,19 +466,16 @@ class Facebook {
 		var parsedData :Dynamic = null;
 		try {
 			parsedData = Json.parse ( req.result );
-
-			AppController.debugger.log("parsedData : ");
+			
 			if (parsedData.error != null) {
 				_callback (null, parsedData.error);
 			}
 			else if (parsedData.data != null) {
 				if (session.uid == null) session.uid = parsedData.id;
-				AppController.debugger.log("session.uid 1 : "+session.uid);
 				_callback (parsedData.data, null);
 			}
 			else {
 				if (session.uid == null) session.uid = parsedData.id;
-				AppController.debugger.log("session.uid 2 : "+session.uid);
 				_callback (parsedData, null);
 			}
 		}
@@ -574,7 +571,8 @@ class Facebook {
 		
 		if (rawObj && rawObj.paging && rawObj.paging.previous) {
 			req = pagingCall (rawObj.paging.previous, _callback);
-		} else if (_callback != null) {
+		}
+		else if (_callback != null) {
 			_callback (null, 'no page');
 		}
 		return req;

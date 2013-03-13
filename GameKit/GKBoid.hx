@@ -27,16 +27,16 @@ class GKBoid {
 	inline public static var ZERO = new RCVector(0, 0, 0);
 	
 	public var extra :Dynamic;// An empty Object to store any extra data
-	public var maxForce (getMaxForce, setMaxForce) :Float;
-	public var maxSpeed (getMaxSpeed, setMaxSpeed) :Float;
+	public var maxForce (get_maxForce, set_maxForce) :Float;
+	public var maxSpeed (get_maxSpeed, set_maxSpeed) :Float;
 	var _maxForce :Float;
 	var _maxSpeed :Float;
 	var _distance :Float;
 	var _drawScale :Float;
 	var _maxForceSQ :Float;
 	var _maxSpeedSQ :Float;
-	public var velocity : RCVector;// The current velocity of the GKBoid
-	public var position : RCVector;// The position of the GKBoid in 3D space
+	public var velocity :RCVector;// The current velocity of the GKBoid
+	public var position :RCVector;// The position of the GKBoid in 3D space
 	var _oldPosition : RCVector;
 	var _acceleration : RCVector;
 	var _steeringForce : RCVector;
@@ -77,11 +77,11 @@ class GKBoid {
 	 * the GKBoids steering bahaviors
 	 */
 
-	public function getMaxForce() :Float {
+	public function get_maxForce() :Float {
 		return _maxForce;
 	}
 
-	public function setMaxForce( value :Float ) :Float {
+	public function set_maxForce( value :Float ) :Float {
 		
 		if (value < 0)
 			value = 0;
@@ -96,11 +96,11 @@ class GKBoid {
 	 * The maximum speed the GKBoid can reach
 	 */
 
-	public function getMaxSpeed() :Float {
+	public function get_maxSpeed() :Float {
 		return _maxSpeed;
 	}
 
-	public function setMaxSpeed( value :Float ) :Float {
+	public function set_maxSpeed( value :Float ) :Float {
 		
 		if (value < 0)
 			value = 0;
@@ -116,11 +116,11 @@ class GKBoid {
 	/**
 	 * The DisplayObject used to render the GKBoid
 	 */
-	public function getRenderData() :flash.display.DisplayObject {
+	public function get_renderData() :flash.display.DisplayObject {
 		return _renderData;
 	}
 
-	public function setRenderData( value :flash.display.DisplayObject ) : Void {
+	public function set_renderData( value :flash.display.DisplayObject ) : Void {
 		
 		_renderData = value;
 		

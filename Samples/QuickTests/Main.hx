@@ -67,8 +67,8 @@ class Main {
 }
 
 class Obj {
-	public var x (default, setX) :Int;
-	function setX(x:Int):Int{
+	public var x (default, set_x) :Int;
+	function set_x(x:Int):Int{
 		this.x = x;trace(x);
 		return x;
 	}

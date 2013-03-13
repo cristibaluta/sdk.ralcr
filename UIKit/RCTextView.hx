@@ -29,7 +29,7 @@ class RCTextView extends RCView {
 	
 	public var target :TextField;
 	public var rcfont :RCFont;
-	public var text (getText, setText) :String;
+	public var text (get_text, set_text) :String;
 	
 	
 	public function new (x:Float, y:Float, w:Null<Float>, h:Null<Float>, str:String, rcfont:RCFont) {
@@ -38,12 +38,12 @@ class RCTextView extends RCView {
 		// This step is very important, otherwise the TextFormat will not be created
 		this.rcfont = rcfont.copy();
 #if js
-		setWidth ( size.width );
-		setHeight ( size.height );
+		set_width ( size.width );
+		set_height ( size.height );
 		viewDidAppear.add ( viewDidAppear_ );
 #end
 		init();
-		setText ( str );
+		set_text ( str );
 	}
 	override public function init () :Void {
 		
@@ -133,7 +133,7 @@ class RCTextView extends RCView {
 			layer.style.height = size.height + "px";
 		}
 		
-		if (size.width != 0) setWidth ( size.width );
+		if (size.width != 0) set_width ( size.width );
 		//layer.style.textAlign = rcfont.align;
 	}
 	function viewDidAppear_ () :Void {
@@ -142,11 +142,11 @@ class RCTextView extends RCView {
 	
 #end
 	
-	public function getText() :String {
+	public function get_text() :String {
 		return #if (flash || nme) target.text #elseif js layer.innerHTML #end;
 	}
 	
-	public function setText (str:String) :String {
+	public function set_text (str:String) :String {
 		#if (flash || nme)
 			
 			if (rcfont.html)
@@ -169,7 +169,7 @@ class RCTextView extends RCView {
 				layer.innerHTML = str;
 			}
 			size.width = contentSize.width;
-			//setWidth ( size.width );
+			//set_width ( size.width );
 		#end
 		
 		#if nme

@@ -32,7 +32,7 @@ class GKSprite extends RCView {
 	public var collisionArea :MovieClip;
 	
 	public var layer2 :RCView;
-	public var registrationPoint (default, setRegistrationPoint) :RCPoint;
+	public var registrationPoint (default, set_registrationPoint) :RCPoint;
 	
 	
 	public function new (x, y) {
@@ -41,7 +41,7 @@ class GKSprite extends RCView {
 		this.addChild ( layer2 );
 	}
 
-	public function setRegistrationPoint (point:RCPoint) :RCPoint {
+	public function set_registrationPoint (point:RCPoint) :RCPoint {
 		layer2.x = Math.round ( - point.x );
 		layer2.y = Math.round ( - point.y );
 		return point;

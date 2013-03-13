@@ -10,7 +10,7 @@
 #if (nme || js)
 	private typedef UInt = Int;
 #end
-#if (flash || nme)
+#if (flash || (nme && (cpp || neko)))
 	import flash.geom.Matrix;
 	import flash.display.LineScaleMode;
 #elseif js
@@ -30,7 +30,7 @@ class RCDraw extends RCView {
 		
 		super (x, y, w, h);
 		
-		setAlpha ( alpha );
+		set_alpha ( alpha );
 		this.borderThickness = 1;
 		
 #if js
