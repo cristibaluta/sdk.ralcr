@@ -32,7 +32,7 @@ class RCAudio implements RCAudioInterface {
 	var channel :SoundChannel;
 	var soundId :Int;//Reference for extension effect sound so we can stop it
 	var timer :Timer;
-	var _volume :Float;
+	var volume_ :Float;
 	var decodeByHardware :Bool;
 	
 	public var errorMessage :String;
@@ -64,7 +64,7 @@ class RCAudio implements RCAudioInterface {
 		this.decodeByHardware = decodeByHardware;
 		this.updateTime = DISPLAY_TIMER_UPDATE_DELAY;
 		this.repeat = false;
-		this._volume = 1;
+		this.volume_ = 1;
 	}
 	
 	public function init () :Void {
@@ -128,7 +128,7 @@ class RCAudio implements RCAudioInterface {
 			}
 		
 			timer.start();
-			set_volume ( _volume );
+			setvolume_ ( volume_ );
 			
 		#end
 		
@@ -206,14 +206,14 @@ class RCAudio implements RCAudioInterface {
 	 *	Control the volume
 	 */
 	public function get_volume () :Float {
-		return _volume;
+		return volume_;
 	}
 	
 	public function set_volume (volume:Float) :Float {
-		_volume = volume > 1 ? 1 : volume;
+		volume_ = volume > 1 ? 1 : volume;
 		if (channel != null)
-			channel.soundTransform = new SoundTransform ( _volume );
-		return _volume;
+			channel.soundTransform = new SoundTransform ( volume_ );
+		return volume_;
 	}
 	
 	
