@@ -74,18 +74,28 @@ class NMEHttps {
 			//ralcr_https_delete ( url, vars );
 		}
 		
-		checkRequestStatus();
+/*		checkRequestStatus();*/
+		haxe.Timer.delay ( checkRequestStatus, 5000);
 	}
 	function checkRequestStatus () {
-		
+		trace("check status");
 		if (requestTimer != null)
 			requestTimer.stop();
 		
 		if (ralcr_https_is_ready()) {
-			if (ralcr_https_is_successful()) didFinishLoadHandler ( ralcr_https_get_result() );
+			trace("ralcr_https_is_ready");
+			if (ralcr_https_is_successful()) {
+				trace("ralcr_https_is_successful");
+				var str :String = ralcr_https_get_result();
+				trace("ralcr_https_get_result "+str);
+				didFinishLoadHandler ( str );
+			}
 			else didFinishWithErrorHandler ( ralcr_https_get_result() );
 		}
-		else requestTimer = haxe.Timer.delay (checkRequestStatus, 100);
+		else {
+			trace("ralcr_https_is_not_ready");
+			requestTimer = haxe.Timer.delay (checkRequestStatus, 100);
+		}
 	}
 	// Delegate methods
 	//public function httpStatus(statusCode:Int):Void { trace(statusCode); }

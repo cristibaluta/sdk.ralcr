@@ -81,22 +81,6 @@ public class NMEHttps {
 		loader = new NMEHttps();
 		loader.put (url, payload);
 	}
-	// URL url = new URL("http://www.example.com/resource");
-	// HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-	// httpCon.setDoOutput(true);
-	// httpCon.setRequestMethod("PUT");
-	// OutputStreamWriter out = new OutputStreamWriter(
-	//     httpCon.getOutputStream());
-	// out.write("Resource content");
-	// out.close();
-	// 
-	// URL url = new URL("http://www.example.com/resource");
-	// HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-	// httpCon.setDoOutput(true);
-	// httpCon.setRequestProperty(
-	//     "Content-Type", "application/x-www-form-urlencoded" );
-	// httpCon.setRequestMethod("DELETE");
-	// httpCon.connect();
 	
 	static public void ralcr_https_cancel() {
     	Log.d("http", "cancel "+loader);
@@ -118,6 +102,7 @@ public class NMEHttps {
 		return loader.isSuccessful();
 	}
 	static public String ralcr_https_get_result() {
+		Log.d("nmehttps", "ralcr_https_get_result");
 		if (loader == null) return "";
 		return loader.getResult();
 	}
@@ -198,30 +183,17 @@ public class NMEHttps {
 			this.httpresult = null;
 		}
 		public boolean isReady() {
+			Log.d("HttpsBackgroundTask", "isReady?");
 			return httpresult != null;
 		}
 		public boolean isSuccessful() {
+			Log.d("HttpsBackgroundTask", "isSuccessful?");
 			return httpresult.isSuccessful();
 		}
 		public String getValue() {
+			Log.d("HttpsBackgroundTask", "getValue?");
 			return httpresult.getValue();
 		}
-		
-		// private URL stringToURL(String url){
-		// 	try {
-		// 		URL tempUrl = new URL(url);
-		// 		URI tempUri = new URI(tempUrl.getProtocol(), tempUrl.getUserInfo(), tempUrl.getHost(), 
-		// 								tempUrl.getPort(), tempUrl.getPath(), tempUrl.getQuery(), tempUrl.getRef());
-		// 		return tempUri.toURL();
-		// 	}
-		// 	catch (MalformedURLException e) {
-		// 		e.printStackTrace();
-		// 	}
-		// 	catch (URISyntaxException e) {
-		// 		e.printStackTrace();
-		// 	}
-		// 	return null;
-		// }
 		
 		@Override
 		protected HttpResult doInBackground(Void... unused) {
