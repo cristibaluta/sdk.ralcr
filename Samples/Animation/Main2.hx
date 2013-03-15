@@ -17,8 +17,8 @@ class Main2 {
 		RCWindow.sharedWindow().addChild ( bg );
 		trace (bg.layer.transform.colorTransform);
 		
-		var obj = new CATColors (bg, {color:0x000000}, 4, 0, caequations.Cubic.IN_OUT);
-		CoreAnimation.add (obj);
+		var obj = new CATColors (bg, {color:0x000000}, 4, 0, eq.Cubic.IN_OUT);
+		RCAnimation.add (obj);
 	}
 	static function fadePhoto(){
 		
@@ -34,10 +34,10 @@ class Main2 {
 		//new catransitions.Brightness().setBrightness (photo, 50);
 		
 		return;
-		var obj = new CATBrightness (photo, {brightness:{fromValue:-50, toValue:150}}, 1, 0, caequations.Cubic.OUT);
+		var obj = new CATBrightness (photo, {brightness:{fromValue:-50, toValue:150}}, 1, 0, eq.Cubic.OUT);
 			obj.autoreverses = true;
 			obj.repeatCount = 13;
-		CoreAnimation.add (obj);
+		RCAnimation.add (obj);
 		
 	}
 }

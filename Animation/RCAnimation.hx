@@ -10,12 +10,12 @@
 *  Tween engine
 */
 
-class CoreAnimation {
+class RCAnimation {
 	
 	static var latest :CAObject;
 	static var ticker :EVLoop;
 	
-	public static var defaultTimingFunction :Dynamic = caequations.Linear.NONE;
+	public static var defaultTimingFunction :Dynamic = eq.Linear.NONE;
 	public static var defaultDuration = 0.8;
 	
 	/**
@@ -126,26 +126,17 @@ class CoreAnimation {
 				
 				// DISPATCHING
 				// Dispatch the start of the animation
-				if (time_diff > 0 && !a.delegate.startPointPassed)
-					a.delegate.start();
+				if (time_diff > 0 && !a.startPointPassed)
+					a.start();
 				
 				// Dispatch the end of the animation or the repeat event
 				if (time_diff >= a.duration)
 				if (a.repeatCount > 0) {
 					a.repeat();
-					a.delegate.repeat();
 				}
 				else {
 					removeCAObject ( a );
-					a.delegate.stop();
-				}
-				
-				// Dispatch the KenBurns points
-				if (a.delegate.kenBurnsPointIn != null) {
-					if (time_diff > a.delegate.kenBurnsPointIn && !a.delegate.kenBurnsPointInPassed)
-						a.delegate.kbIn();
-					if (time_diff > a.delegate.kenBurnsPointOut && !a.delegate.kenBurnsPointOutPassed)
-						a.delegate.kbOut();
+					a.stop();
 				}
 			}
 			
@@ -155,7 +146,7 @@ class CoreAnimation {
 	}
 	
 	/**
-	 *  Returns the timestamp depending on the platform.
+	 *  Returns the timestamp.
 	 **/
 	inline public static function timestamp () :Float {
 		#if cpp
@@ -166,6 +157,8 @@ class CoreAnimation {
 			return Date.now().getTime();
 		#elseif flash
 			return flash.Lib.getTimer();
+		#elseif objc
+			return objc.Sys.time() * 1000;
 		#end
 	}
 }

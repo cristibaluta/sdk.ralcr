@@ -10,7 +10,7 @@ import flash.utils.Timer;
 
 class Main1 {
 	
-	inline static var TWEENERS = ["CoreAnimation", "HTween", "TweenerHX", "GTweenHX", "", "start", "stop", "up", "down"];
+	inline static var TWEENERS = ["RCAnimation", "HTween", "TweenerHX", "GTweenHX", "", "start", "stop", "up", "down"];
 	static var timeIn = 2.4;
 	inline static var timeOut = 4;
 	static var container :RCView;
@@ -19,7 +19,7 @@ class Main1 {
 	static var c = 20;
 	static var particlesTxt :RCTextView;
 	
-	static var tweener :String = "CoreAnimation";
+	static var tweener :String = "RCAnimation";
 	//static var tweener :String = "GTweenHX";
 	static var logo :flash.display.MovieClip;
 	static var menu :RCGroup<RCButton>;
@@ -32,7 +32,7 @@ class Main1 {
 		
 		menu = new RCGroup<RCButton>(50, 50, null, 20, constructButton);
 		menu.add ( TWEENERS );
-		//menu.select( "CoreAnimation" );
+		//menu.select( "RCAnimation" );
 		RCWindow.sharedWindow().addChild ( menu );
 		RCWindow.sharedWindow().addChild ( new RCStats (5, 5) );
 		
@@ -76,17 +76,17 @@ class Main1 {
 		var p = photo.copy();
 		container.addChild ( p );
 		
-		var obj = new CATKenBurns (p, {}, 10, 0, caequations.Linear.NONE);
+		var obj = new CATKenBurns (p, {}, 10, 0, eq.Linear.NONE);
 			obj.constraintBounds = new RCRect(0, 0, 500, 500);
-			obj.delegate.animationDidStop = destroyPhoto;
-			//obj.delegate.animationDidStart = st;
-			obj.delegate.arguments = [p];
-			//obj.delegate.kenBurnsDidFadedIn = p1;
-			obj.delegate.kenBurnsBeginsFadingOut= fadePhoto;
-		//obj.delegate.kenBurnsPointIn = 1000;
-		//obj.delegate.kenBurnsPointOut= 6000;
+			obj.animationDidStop = destroyPhoto;
+			//obj.animationDidStart = st;
+			obj.arguments = [p];
+			//obj.kenBurnsDidFadedIn = p1;
+			obj.kenBurnsBeginsFadingOut= fadePhoto;
+		//obj.kenBurnsPointIn = 1000;
+		//obj.kenBurnsPointOut= 6000;
 				
-		CoreAnimation.add ( obj );
+		RCAnimation.add ( obj );
 	}
 	static function destroyPhoto (e:flash.display.Sprite) {
 		Fugu.safeRemove ( e );
@@ -132,9 +132,9 @@ class Main1 {
 	static function t1(){
 		switch (tweener) {
 			case TWEENERS[0]:
-				var obj = new CATween (logo, {x:800, scaleX:3, scaleY:3}, timeIn, 0, caequations.Cubic.IN_OUT);
-					obj.delegate.animationDidStop = t2;
-				CoreAnimation.add ( obj );
+				var obj = new CATween (logo, {x:800, scaleX:3, scaleY:3}, timeIn, 0, eq.Cubic.IN_OUT);
+					obj.animationDidStop = t2;
+				RCAnimation.add ( obj );
 			
 			case TWEENERS[1]:
 				HTween.add (logo, timeIn, {x:800, scaleX:3, scaleY:3, onComplete:t2});
@@ -149,9 +149,9 @@ class Main1 {
 	static function t2(){
 		switch (tweener) {
 			case TWEENERS[0]:
-				var obj = new CATween (logo, {x:50, scaleX:1, scaleY:1}, timeOut, 0, caequations.Cubic.IN_OUT);
-					obj.delegate.animationDidStop = t1;
-				CoreAnimation.add ( obj );
+				var obj = new CATween (logo, {x:50, scaleX:1, scaleY:1}, timeOut, 0, eq.Cubic.IN_OUT);
+					obj.animationDidStop = t1;
+				RCAnimation.add ( obj );
 			
 			case TWEENERS[1]:
 				HTween.add (logo, timeOut, {x:50, scaleX:1, scaleY:1, onComplete:t1});
@@ -175,10 +175,10 @@ class Main1 {
 		
 		switch (tweener) {
 			case TWEENERS[0]:
-				var anim = new CATween (obj, {x:nx, y:ny, scaleX:3, scaleY:3}, timeIn, 0, caequations.Linear.NONE);
-					anim.delegate.animationDidStop = remove;
-					anim.delegate.arguments = [obj];
-				CoreAnimation.add ( anim );
+				var anim = new CATween (obj, {x:nx, y:ny, scaleX:3, scaleY:3}, timeIn, 0, eq.Linear.NONE);
+					anim.animationDidStop = remove;
+					anim.arguments = [obj];
+				RCAnimation.add ( anim );
 			
 			case TWEENERS[1]:
 				HTween.add (obj, timeIn, {x:nx, y:ny, scaleX:3, scaleY:3, onComplete:remove, onCompleteParams:[obj]});

@@ -1,8 +1,8 @@
-package caequations;
+package eq;
 
-class Bounce {
+class Sine {
 	/**
-	 * Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in: accelerating from zero velocity
+	 * Easing equation function for a sinusoidal (sin(t)) easing in: accelerating from zero velocity
 	 *
 	 * @param		t					Float		Current time (in frames or seconds)
 	 * @param		b					Float		Starting value
@@ -11,24 +11,15 @@ class Bounce {
 	 * @return							Float		The correct value
 	 */
 	inline public static function IN (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {
-		return c - OUT (d-t, 0, c, d, null) + b;
+		return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
 	}
 
 	inline public static function OUT (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {
-		if ((t/=d) < (1/2.75)) {
-			return c*(7.5625*t*t) + b;
-		} else if (t < (2/2.75)) {
-			return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
-		} else if (t < (2.5/2.75)) {
-			return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
-		} else {
-			return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
-		}
+		return c * Math.sin(t/d * (Math.PI/2)) + b;
 	}
-
+	
 	inline public static function IN_OUT (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {
-		if (t < d/2) return IN (t*2, 0, c, d, null) * .5 + b;
-		else return OUT (t*2-d, 0, c, d, null) * .5 + c*.5 + b;
+		return -c/2 * (Math.cos(Math.PI*t/d) - 1) + b;
 	}
 
 	inline public static function OUT_IN (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {

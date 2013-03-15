@@ -76,22 +76,21 @@ import RCPluginLoader;
 import RCRequest;
 
 // Core animation;
-import CoreAnimation;
+import RCAnimation;
+import RCAnimationSequence;
 import CAObject;
-import CADelegate;
-import CASequence;
-import caequations.Back;
-import caequations.Bounce;
-import caequations.Circ;
-import caequations.Cubic;
-import caequations.Elastic;
-import caequations.Expo;
-import caequations.Linear;
-import caequations.Quad;
-import caequations.Quart;
-import caequations.Quint;
-import caequations.Sine;
-// CAT = CoreAnimationTransition
+import eq.Back;
+import eq.Bounce;
+import eq.Circ;
+import eq.Cubic;
+import eq.Elastic;
+import eq.Expo;
+import eq.Linear;
+import eq.Quad;
+import eq.Quart;
+import eq.Quint;
+import eq.Sine;
+// CAT = RCAnimationTransition
 import CATween;
 import CATBrightness;
 import CATColors;

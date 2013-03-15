@@ -129,16 +129,16 @@ class RCTableView extends RCView {
 		mouseMove_.enabled = false;
 		mouseUp_.enabled = false;
 		trace("stop scrollView "+scrollView.y);
-		//CoreAnimation.remove ( anim );
+		//RCAnimation.remove ( anim );
 		if (scrollView.y > 0) {
-			anim = new CATween (scrollView, {y:0}, 0.5, 0, caequations.Cubic.OUT);
-			CoreAnimation.add ( anim );
+			anim = new CATween (scrollView, {y:0}, 0.5, 0, eq.Cubic.OUT);
+			RCAnimation.add ( anim );
 			vy = 0;
 			stopLoop();
 		}
 /*		else if (contentView.y < 260-contentView.height) {
-			anim = new CATween (contentView, {y:260-contentView.height}, 0.5, 0, caequations.Cubic.OUT);
-			CoreAnimation.add ( anim );
+			anim = new CATween (contentView, {y:260-contentView.height}, 0.5, 0, eq.Cubic.OUT);
+			RCAnimation.add ( anim );
 		}*/
 	}
 	

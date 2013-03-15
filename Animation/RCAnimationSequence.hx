@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-class CASequence {
+class RCAnimationSequence {
 	
 	var objs :Array<CAObject>;
 	
@@ -19,11 +19,11 @@ class CASequence {
 	public function start () :Void {
 		var obj = objs.shift();
 		if (objs.length > 0) {
-			var arguments :Dynamic = obj.delegate.animationDidStop;
-			obj.delegate.animationDidStop = animationDidStopHandler;
-			obj.delegate.arguments = [arguments];
+			var arguments :Dynamic = obj.animationDidStop;
+			obj.animationDidStop = animationDidStopHandler;
+			obj.arguments = [arguments];
 		}
-		CoreAnimation.add ( obj );
+		RCAnimation.add ( obj );
 	}
 	
 	function animationDidStopHandler (func:Dynamic) {

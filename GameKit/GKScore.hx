@@ -28,7 +28,7 @@ class GKScore {
 	 *  Reset score and maxScore
 	 **/
 	public function reset () :Void {
-		CoreAnimation.remove ( obj );
+		RCAnimation.remove ( obj );
 		score = 0;
 		totalScore = 0;
 		bestScore = 0;
@@ -63,21 +63,21 @@ class GKScore {
 			bestScore = score;
 		}
 		
-		CoreAnimation.remove ( obj );
-		obj = new CATCallFunc (update, {value:{fromValue:score, toValue:totalScore}}, speed, 0, caequations.Cubic.IN_OUT);
-		CoreAnimation.add ( obj );
+		RCAnimation.remove ( obj );
+		obj = new CATCallFunc (update, {value:{fromValue:score, toValue:totalScore}}, speed, 0, eq.Cubic.IN_OUT);
+		RCAnimation.add ( obj );
 		
 		return totalScore;
 	}
 	
-	// This function is updated by CoreAnimation
+	// This function is updated by RCAnimation
 	function update (v:Float) {
 		score = Math.round(v);
 		onChange();
 	}
 	
 	public function destroy () :Void {
-		CoreAnimation.remove ( obj );
+		RCAnimation.remove ( obj );
 		obj = null;
 	}
 }

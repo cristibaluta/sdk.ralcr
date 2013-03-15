@@ -79,8 +79,8 @@ class CATZoom extends CAObject implements CATransitionInterface {
 		// Set the object properties to their starting position
 		target.set_width ( i_w * fromScale );
 		target.set_height ( i_h * fromScale );
-		target.set_x ( Math.round (i_x + (i_w - target.getWidth()) / 2));
-		target.set_y ( Math.round (i_y + (i_h - target.getHeight())/ 2));
+		target.set_x ( Math.round (i_x + (i_w - target.get_width()) / 2));
+		target.set_y ( Math.round (i_y + (i_h - target.get_height())/ 2));
 		target.set_alpha ( fromAlpha );
 		
 		// Set the starting and ending properties to the CAObject also

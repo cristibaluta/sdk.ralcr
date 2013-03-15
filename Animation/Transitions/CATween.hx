@@ -15,7 +15,7 @@ class CATween extends CAObject implements CATransitionInterface {
 			if (Std.is (Reflect.field (properties, p), Int) || Std.is (Reflect.field (properties, p), Float)) {
 				
 				// We have simple properties: x=10, y=40, ...
-				var getter = "get"+p.substr(0,1).toUpperCase()+p.substr(1);
+				var getter = "get_"+p;
 				if (getter == null)
 				Reflect.setField (fromValues, p, Reflect.field (target, p));
 				else
@@ -42,7 +42,7 @@ class CATween extends CAObject implements CATransitionInterface {
 			#elseif js*/
 				
 				//var val = calculate (time_diff, prop);
-				var setter = "set"+prop.substr(0,1).toUpperCase()+prop.substr(1);
+				var setter = "set_"+prop;
 				if (setter != null)
 					//target.setter ( calculate (time_diff, prop) );
 				Reflect.callMethod (target, Reflect.field(target,setter), [calculate (time_diff, prop)]);

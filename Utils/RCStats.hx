@@ -34,7 +34,7 @@ class RCStats extends RCRectangle {
 		txt = new RCTextView (6, #if (flash || (nme && (cpp || neko))) 1 #else 3 #end, null, 20, "Calculating...", f);
 		addChild ( txt );
 		
-		last = CoreAnimation.timestamp();
+		last = RCAnimation.timestamp();
 		e = new EVLoop();
 		e.run = loop;
 		
@@ -49,7 +49,7 @@ class RCStats extends RCRectangle {
 	
 	function loop () {
 		ticks++;
-		now = CoreAnimation.timestamp();
+		now = RCAnimation.timestamp();
 		delta = now - last;
 		
 		if (delta >= 1000) {

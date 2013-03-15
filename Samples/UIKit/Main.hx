@@ -95,10 +95,10 @@ class Main {
 		
 		// Test the animation engine
 		var size = RCWindow.sharedWindow().size;trace(size);
-		var a1=new CATween (circ, {x:size.width-100, y:0}, 2, 0, caequations.Cubic.IN_OUT);
-		var a2=new CATween (circ, {x:size.width-100, y:size.height-100}, 2, 0, caequations.Cubic.IN_OUT);
-		var a3=new CATween (circ, {x:0, y:size.height-100}, 2, 0, caequations.Cubic.IN_OUT);
-		var a4=new CATween (circ, {x:0, y:0}, 2, 0, caequations.Cubic.IN_OUT);
+		var a1=new CATween (circ, {x:size.width-100, y:0}, 2, 0, eq.Cubic.IN_OUT);
+		var a2=new CATween (circ, {x:size.width-100, y:size.height-100}, 2, 0, eq.Cubic.IN_OUT);
+		var a3=new CATween (circ, {x:0, y:size.height-100}, 2, 0, eq.Cubic.IN_OUT);
+		var a4=new CATween (circ, {x:0, y:0}, 2, 0, eq.Cubic.IN_OUT);
 		var seq = new CASequence ([cast a1, cast a2, cast a3, cast a4]);
 		seq.start();
 		
@@ -149,8 +149,8 @@ class Main {
 		req.readFile("../assets/data.txt");
 		
 		trace("step11 - CATCallFunc");
-		var anim = new CATCallFunc (set_alpha_, {alpha:{fromValue:0, toValue:1}}, 2.8, 0, caequations.Cubic.IN_OUT);
-		CoreAnimation.add ( anim );
+		var anim = new CATCallFunc (set_alpha_, {alpha:{fromValue:0, toValue:1}}, 2.8, 0, eq.Cubic.IN_OUT);
+		RCAnimation.add ( anim );
 		
 		
 		}catch(e:Dynamic){Fugu.stack(); trace(e); }
@@ -200,10 +200,10 @@ class Main {
 		RCWindow.sharedWindow().addChild( scrollview );
 		scrollview.setContentView ( ph2 );
 		
-		var anim = new CATween (ph, {x:{fromValue:-ph.width, toValue:ph.width}}, 2, 0, caequations.Cubic.IN_OUT);
+		var anim = new CATween (ph, {x:{fromValue:-ph.width, toValue:ph.width}}, 2, 0, eq.Cubic.IN_OUT);
 			anim.repeatCount = 5;
 			anim.autoreverses = true;
-		CoreAnimation.add ( anim );
+		RCAnimation.add ( anim );
 	}
 	
 	

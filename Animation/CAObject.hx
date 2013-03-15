@@ -1,6 +1,6 @@
 //
 //  CAObject.hx
-//	CoreAnimation
+//	RCAnimation
 //
 //  Created by Baluta Cristian on 2009-03-22.
 //  Copyright (c) 2009-2012 http://ralcr.com. 
@@ -29,11 +29,16 @@ class CAObject {
 	public var delay :Float;// s
 	public var duration :Float;// s
 	public var repeatCount :Int;
+	public var startPointPassed :Bool;
 	public var autoreverses :Bool;
 	public var timingFunction :Dynamic;//Float -> Float -> Float -> Float -> Dynamic -> Float;
 	public var constraintBounds :RCRect;// Used by kenburns and slide
-	public var delegate :CADelegate;
 	
+	public var animationDidStart :Dynamic;
+	public var animationDidStop :Dynamic;
+	public var animationDidReversed :Dynamic;
+	public var arguments :Array<Dynamic>;// A list of objects to be passed when the animation state changes
+	public var pos :haxe.PosInfos;
 	
 	/**
 	 *	object = DisplayObject
@@ -52,37 +57,60 @@ class CAObject {
 		this.properties = properties;
 		this.repeatCount = 0;
 		this.autoreverses = false;
-		this.fromTime = CoreAnimation.timestamp();
-		this.duration = (duration == null) ? CoreAnimation.defaultDuration : ((duration <= 0) ? 0.001 : duration);
+		this.startPointPassed = false;
+		this.fromTime = RCAnimation.timestamp();
+		this.duration = (duration == null) ? RCAnimation.defaultDuration : ((duration <= 0) ? 0.001 : duration);
 		this.delay = (delay == null || delay < 0) ? 0 : delay;
 		// cpp does not work if you don't use "if else"
 		if (Eq == null)
-			this.timingFunction = CoreAnimation.defaultTimingFunction;
+			this.timingFunction = RCAnimation.defaultTimingFunction;
 		else
 			this.timingFunction = Eq;
-		this.delegate = new CADelegate();
-		this.delegate.pos = pos;
+		this.pos = pos;
 		
-		// initial and final values of the properties that should be animated
+		// initial state of the object, and the state that should be animated to
 		this.fromValues = {};
 		this.toValues = {};
 	}
 	
 	
-	public function init () :Void { throw "CAObject should be extended, use a CATransition ("+delegate.pos+")"; }
-	public function animate (time_diff:Float) :Void { throw "CAObject should be extended, use a CATransition ("+delegate.pos+")"; }
+	public function init () :Void { throw "CAObject should be extended, use a CATransition ("+pos+")"; }
+	public function animate (time_diff:Float) :Void { throw "CAObject should be extended, use a CATransition ("+pos+")"; }
 	
 	
 	/**
 	 *	Creates starting and ending points for each parameter of the object to animate.
-	 *  This is not called till is not added to CoreAnimation
+	 *  This is not called till is not added to RCAnimation
 	 */
 	public function initTime () :Void {
-		this.fromTime = CoreAnimation.timestamp();
+		this.fromTime = RCAnimation.timestamp();
 		this.duration = this.duration*1000;// Convert duration from seconds to milliseconds
 		this.delay = this.delay*1000;// Convert delay from seconds to milliseconds
 	}
 	
+	
+	public function start () :Void {
+		startPointPassed = true;
+		if (Reflect.isFunction( animationDidStart ))
+		try{ Reflect.callMethod (null, animationDidStart, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ animationDidStart/*.apply (null,*/ (arguments); }catch(e:Dynamic){trace(e);}
+	}
+	
+	public function stop () :Void {
+		// TODO: .apply is not working on Mac and ios with NME
+		if (Reflect.isFunction( animationDidStop )) {
+			try {
+				//animationDidStop/*.apply (null,*/ (arguments);
+				Reflect.callMethod (null, animationDidStop, arguments);
+			}
+			catch(e:Dynamic){
+				trace(e);
+				trace(pos.className + " -> " + pos.methodName + " -> " + pos.lineNumber);
+				var stack = haxe.CallStack.exceptionStack();
+				trace(haxe.CallStack.toString ( stack ));
+			}
+		}
+	}
 	
 	
 	/**
@@ -90,7 +118,7 @@ class CAObject {
 	 */
 	public function repeat () :Void {
 		
-		fromTime = CoreAnimation.timestamp();
+		fromTime = RCAnimation.timestamp();
 		delay = 0;
 		
 		if (autoreverses) {
@@ -100,6 +128,10 @@ class CAObject {
 		}
 		
 		repeatCount --;
+		
+		// Dispatch repeat event
+		if (Reflect.isFunction( animationDidReversed ))
+			Reflect.callMethod (null, animationDidReversed, arguments);
 	}
 	
 	

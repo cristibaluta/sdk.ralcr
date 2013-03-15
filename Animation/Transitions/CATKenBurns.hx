@@ -8,7 +8,21 @@
 
 class CATKenBurns extends CAObject implements CATransitionInterface {
 	
+	
+	public var kenBurnsDidFadedIn :Dynamic;
+	public var kenBurnsBeginsFadingOut :Dynamic;
+	public var kenBurnsArgs :Array<Dynamic>;
+	
+	public var kenBurnsPointInPassed :Bool;
+	public var kenBurnsPointOutPassed :Bool;
+	public var kenBurnsPointIn :Null<Float>;// if not inited, they'll get some default values: 1/10 from total time
+	public var kenBurnsPointOut :Null<Float>;
+	
+	
 	override public function init () :Void {
+		
+		kenBurnsPointInPassed = false;
+		kenBurnsPointOutPassed = false;
 		
 		// Use a number from 0 to 10 to decide the direction of movement
 		var random_direction_x = Std.random ( 10 );
@@ -80,10 +94,10 @@ class CATKenBurns extends CAObject implements CATransitionInterface {
 		// already inited: f_w, f_h, f_x, f_y
 		
 		// Set the fading in and fading out points
-		var p1 = delegate.kenBurnsPointIn;
-		var p2 = delegate.kenBurnsPointOut;
-		if (p1 == null) delegate.kenBurnsPointIn = duration*1000 / 5;
-		if (p2 == null) delegate.kenBurnsPointOut = duration*1000 * 4 / 5;
+		var p1 = kenBurnsPointIn;
+		var p2 = kenBurnsPointOut;
+		if (p1 == null) kenBurnsPointIn = duration*1000 / 5;
+		if (p2 == null) kenBurnsPointOut = duration*1000 * 4 / 5;
 		
 		// Set the starting and ending properties to the CAObject also
 		fromValues = {	x		: target.x,
@@ -107,26 +121,49 @@ class CATKenBurns extends CAObject implements CATransitionInterface {
 			if (prop != "alpha") {
 				Reflect.setField (target, prop, calculate (time_diff, prop));
 			
-			} else if (time_diff < delegate.kenBurnsPointIn) {
+			} else if (time_diff < kenBurnsPointIn) {
 				// Calculate the alpha separately, depending on the kenBurnsPoints
 				Reflect.setField (target, prop, calculateAlpha (time_diff, 0, 1));
 			}
-			else if (time_diff > delegate.kenBurnsPointOut) {
-				Reflect.setField (target, prop, calculateAlpha (time_diff - delegate.kenBurnsPointOut, 1, 0));
+			else if (time_diff > kenBurnsPointOut) {
+				Reflect.setField (target, prop, calculateAlpha (time_diff - kenBurnsPointOut, 1, 0));
 			}
+		}
+		
+		// Dispatch the KenBurns points
+		if (kenBurnsPointIn != null) {
+			if (time_diff > kenBurnsPointIn && !kenBurnsPointInPassed)
+				kbIn();
+			if (time_diff > kenBurnsPointOut && !kenBurnsPointOutPassed)
+				kbOut();
 		}
 	}
 	
 	public function calculateAlpha (time_diff:Float, fromAlpha:Float, toAlpha:Float) :Float {
 		
 		var duration = fromAlpha == 0
-		? delegate.kenBurnsPointIn
-		: (duration - delegate.kenBurnsPointOut);
+		? kenBurnsPointIn
+		: (duration - kenBurnsPointOut);
 		
 		return timingFunction (	time_diff,
 								fromAlpha,
 								toAlpha - fromAlpha,
 								duration, null
 								);
+	}
+	
+	
+	public function kbIn () :Void {
+		kenBurnsPointInPassed = true;
+		if (Reflect.isFunction( kenBurnsDidFadedIn ))
+			try{ Reflect.callMethod (null, kenBurnsDidFadedIn, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ kenBurnsDidFadedIn/*.apply (null,*/ (kenBurnsArgs); }catch(e:Dynamic){trace(e);}
+	}
+	
+	public function kbOut () :Void {
+		kenBurnsPointOutPassed = true;
+		if (Reflect.isFunction( kenBurnsBeginsFadingOut ))
+			try{ Reflect.callMethod (null, kenBurnsBeginsFadingOut, arguments); }catch(e:Dynamic){trace(e);}
+			//try{ kenBurnsBeginsFadingOut/*.apply (null,*/ (kenBurnsArgs); }catch(e:Dynamic){trace(e);}
 	}
 }

@@ -23,7 +23,7 @@ class CATText extends CAObject implements CATransitionInterface {
 		if (text != null) {
 			if (Std.is (text, String)) {
 				
-				fromText = target.text;
+				fromText = target.get_text();
 				toText = text;
 			}
 			else {
@@ -41,6 +41,6 @@ class CATText extends CAObject implements CATransitionInterface {
 	
 	override public function animate (time_diff:Float) :Void {
 		var nrOfLetters = Math.round (calculate (time_diff, "nrOfLetters"));
-		target.setText ( Reflect.field (toValues, "text").substr (0, nrOfLetters));
+		target.set_text ( Reflect.field (toValues, "text").substr (0, nrOfLetters));
 	}
 }

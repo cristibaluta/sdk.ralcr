@@ -1,8 +1,8 @@
-package caequations;
+package eq;
 
-class Circ {
+class Cubic {
 	/**
-	 * Easing equation function for a circular (sqrt(1-t^2)) easing in: accelerating from zero velocity
+	 * Easing equation function for a cubic (t^3) easing in: accelerating from zero velocity
 	 *
 	 * @param		t					Float		Current time (in frames or seconds)
 	 * @param		b					Float		Starting value
@@ -11,16 +11,16 @@ class Circ {
 	 * @return							Float		The correct value
 	 */
 	inline public static function IN (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {
-		return -c * (Math.sqrt(1 - (t/=d)*t) - 1) + b;
+		return c*(t/=d)*t*t + b;
 	}
 
 	inline public static function OUT (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {
-		return c * Math.sqrt(1 - (t=t/d-1)*t) + b;
+		return c*((t=t/d-1)*t*t + 1) + b;
 	}
 
 	inline public static function IN_OUT (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {
-		if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
-		return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
+		if ((t/=d/2) < 1) return c/2*t*t*t + b;
+		return c/2*((t-=2)*t*t + 2) + b;
 	}
 
 	inline public static function OUT_IN (t:Float, b:Float, c:Float, d:Float, p_params:Dynamic) : Float {

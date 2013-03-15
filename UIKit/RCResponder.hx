@@ -85,14 +85,14 @@ class RCResponder {
 	}
 	
 	public function animate (obj:CAObject) :Void {
-		CoreAnimation.add ( this.caobj = obj );
+		RCAnimation.add ( this.caobj = obj );
 	}
 	
 	/**
 	 *  Removes running animation, if any.
 	 */
 	public function destroy () :Void {
-		CoreAnimation.remove ( caobj );
+		RCAnimation.remove ( caobj );
 	}
 	
 	

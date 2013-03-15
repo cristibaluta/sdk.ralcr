@@ -1,4 +1,4 @@
-package caequations;
+package eq;
 
 class Elastic {
 	/**

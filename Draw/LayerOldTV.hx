@@ -82,9 +82,9 @@ class LayerOldTV extends Sprite {
 			this.addChild ( line.layer );
 			
 			var obj = new CATween (line.layer, {x:line.layer.x+50-Math.random()*100, alpha:0}, Math.random(), 0);
-				obj.delegate.animationDidStop = removeElement;
-				obj.delegate.arguments = [line];
-			CoreAnimation.add ( obj );
+				obj.animationDidStop = removeElement;
+				obj.arguments = [line];
+			RCAnimation.add ( obj );
 		}
 	}
 	function removeElement (e:Dynamic) {

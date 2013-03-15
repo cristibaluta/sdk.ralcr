@@ -238,9 +238,9 @@ class RCWindow extends RCView {
 			modalView = view;
 			//modalView.x = 0;//RCWindow.getCenterX ( view.width );
 		
-		var anim = new CATween (modalView, {y:{fromValue:height, toValue:0}}, 0.5, 0, caequations.Cubic.IN_OUT);
-			anim.delegate.animationDidStop = initModalViewController;
-		CoreAnimation.add ( anim );
+		var anim = new CATween (modalView, {y:{fromValue:height, toValue:0}}, 0.5, 0, eq.Cubic.IN_OUT);
+			anim.animationDidStop = initModalViewController;
+		RCAnimation.add ( anim );
 		addChild ( modalView );
 	}
 	function initModalViewController () :Void {
@@ -253,9 +253,9 @@ class RCWindow extends RCView {
 	public function dismissModalViewController () :Void {
 		if (modalView == null) return;
 			modalView.modalViewWillDisappear();
-		var anim = new CATween (modalView, {y:height}, 0.3, 0, caequations.Cubic.IN);
-			anim.delegate.animationDidStop = destroyModalViewController;
-		CoreAnimation.add ( anim );
+		var anim = new CATween (modalView, {y:height}, 0.3, 0, eq.Cubic.IN);
+			anim.animationDidStop = destroyModalViewController;
+		RCAnimation.add ( anim );
 	}
 	function destroyModalViewController () :Void {
 		modalView.removeFromSuperview();

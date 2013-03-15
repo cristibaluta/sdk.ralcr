@@ -22,22 +22,22 @@ class Main3 extends RCView {
 		txt = new RCTextView (50, 50, 500, 20, "", RCFont.systemFontOfSize(20));
 		this.addChild ( txt );
 		
-		var obj = new CATText (txt, {text:"What's this fuss about true randomness? Perhaps you have wondered...", html:false}, 2, 0, caequations.Cubic.IN_OUT);
-		CoreAnimation.add (obj);
+		var obj = new CATText (txt, {text:"What's this fuss about true randomness? Perhaps you have wondered...", html:false}, 2, 0, eq.Cubic.IN_OUT);
+		RCAnimation.add (obj);
 		
 		
 		var el = new RCEllipse (100, 180, 100, 100, 0xff3300);
 		this.addChild ( el );
 		
-		//var o2 = new CATBezier (rect, {points:[new Point(500,400), new Point(200,500), new Point(350,50)]}, 3.6, 0, caequations.Cubic.IN_OUT);
+		//var o2 = new CATBezier (rect, {points:[new Point(500,400), new Point(200,500), new Point(350,50)]}, 3.6, 0, eq.Cubic.IN_OUT);
 		
-		var o1 = new CATween (el, {x:200}, 3, 0, caequations.Cubic.IN_OUT);
+		var o1 = new CATween (el, {x:200}, 3, 0, eq.Cubic.IN_OUT);
 		trace(o1);
-		var o3 = new CATFilters (el, {blur:120, alpha:0}, .6, 0, caequations.Cubic.IN_OUT);
+		var o3 = new CATFilters (el, {blur:120, alpha:0}, .6, 0, eq.Cubic.IN_OUT);
 			o3.autoreverses = true;
 			o3.repeatCount = 20;
-		CoreAnimation.add (o3);
-		CoreAnimation.add ( o1 );
+		RCAnimation.add (o3);
+		RCAnimation.add ( o1 );
 	}
 	
 	static function fadePhoto(){
@@ -46,11 +46,11 @@ class Main3 extends RCView {
 		//new catransitions.Brightness().setBrightness (photo, 50);
 		
 		//return;
-/*		var obj = new CAObject (photo, {brightness:{fromValue:-50, toValue:150}}, 1, caequations.Cubic.OUT);
+/*		var obj = new CAObject (photo, {brightness:{fromValue:-50, toValue:150}}, 1, eq.Cubic.OUT);
 			obj.transition = new catransitions.Brightness();
 			obj.autoreverses = true;
 			obj.repeatCount = 13;
-		CoreAnimation.add (obj);*/
+		RCAnimation.add (obj);*/
 		
 	}
 }
