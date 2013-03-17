@@ -221,10 +221,10 @@ class RCVector {
 		}
 		return Math.acos ( amt );
 	}
-
 	
 	
-	public function equals (obj:RCVector) :Bool {
+	
+	inline public function equals (obj:RCVector) :Bool {
 		return x == obj.x && y == obj.y && z == obj.z;
 	}
 	public static function random (from:Float, to:Float) :Float {
@@ -249,7 +249,7 @@ class RCVector {
 			return distanceToVector( v1 );
 			return getArea( v1,v2 ) / v1.distanceToVector( v2 ) * 2;
 	}
-    public function getArea (v1:RCVector, v2:RCVector) :Float {
+    inline public function getArea (v1:RCVector, v2:RCVector) :Float {
     	return Math.abs ( 0.5 * ( v1.x * v2.y + v2.x * y + x * v1.y - v2.x * v1.y - x * v2.y - v1.x * y ));
     }
 	

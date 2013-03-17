@@ -18,16 +18,16 @@ class NMEWebView {
 		ralcr_did_finish_load_with_url = nme.JNI.createStaticMethod("NMEWebView", "ralcr_did_finish_load_with_url", "()Ljava/lang/String;");
 		ralcr_new_web_view = nme.JNI.createStaticMethod("NMEWebView", "ralcr_new_web_view", "(IIIILjava/lang/String;)Landroid/view/View;");
 		
-		nme.Lib.postUICallback ( function() { ralcr_new_web_view (x, y, w, h, url);});
+		nme.Lib.postUICallback ( function() { ralcr_new_web_view (x, y, w, h, url); });
 		
-		checkLoadingStatus();
+		haxe.Timer.delay (checkLoadingStatus, 200);
 	}
 	function checkLoadingStatus () {
 		
 		if (checkTimer != null)
 			checkTimer.stop();
 		
-		var url = ralcr_did_finish_load_with_url();
+		var url :String = ralcr_did_finish_load_with_url();
 		if (url != null) {
 			if (didFinishLoad != null) didFinishLoad.dispatch ( url );
 		}

@@ -14,30 +14,33 @@ class NMEHttps {
 	
 #if android
 	
+	static var ralcr_https_get :Dynamic;
+	static var ralcr_https_post :Dynamic;
+	static var ralcr_https_put :Dynamic;
+	static var ralcr_https_cancel :Dynamic;
+	static var ralcr_https_is_ready :Dynamic;
+	static var ralcr_https_is_successful :Dynamic;
+	static var ralcr_https_get_result :Dynamic;
+	
 	var request :Dynamic;
 	var requestTimer :haxe.Timer;
 	
 	public function new () {
-		
+		trace("new NMEHttps");
 		didFinishLoad = new RCSignal<String->Void>();
 		didFinishWithError = new RCSignal<String->Void>();
 		
-		// lazy init to avoid crash at startup
-		//native_addHeader = nme.JNI.createMemberMethod("HttpLoader", "setHeader", "(Ljava/lang/String;Ljava/lang/String;)V");
-		//native_setUserAgent = nme.JNI.createMemberMethod("HttpLoader", "setUserAgent", "(Ljava/lang/String;)V");
-			
-		ralcr_https_get = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_get", "(Ljava/lang/String;Ljava/lang/String;)V");
-		ralcr_https_post = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_post", "(Ljava/lang/String;Ljava/lang/String;)V");
-		ralcr_https_cancel = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_cancel", "()V");
-		ralcr_https_set_delegate = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_set_delegate", "(Lorg/haxe/nme/HaxeObject;)V");
-		ralcr_https_is_ready = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_is_ready", "()Z");
-		ralcr_https_is_successful = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_is_successful", "()Z");
-		ralcr_https_get_result = nme.JNI.createStaticMethod("HttpLoader", "ralcr_https_get_result", "()Ljava/lang/String;");
-		
-		ralcr_https_set_delegate ( this );
+		ralcr_https_get = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_get", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_https_post = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_post", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_https_put = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_put", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_https_cancel = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_cancel", "()V");
+		ralcr_https_is_ready = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_ready", "()Z");
+		ralcr_https_is_successful = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_successful", "()Z");
+		ralcr_https_get_result = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_get_result", "()Ljava/lang/String;");
+		trace("JNI methods found");
 	}
 	public function call (url:String, variables:Dynamic, ?method:String="GET") {
-		
+		trace("CALL "+url+" / "+method);
 		if (method == "POST") {
 			var contentType = "application/octet-stream";
 			var vars = haxe.Json.stringify ( variables );
@@ -54,11 +57,7 @@ class NMEHttps {
 			var vars = haxe.Json.stringify ( variables );
 			contentType = "application/json";
 			
-			//native_addHeader (request, "Content-Type", "application/json");
-			/*
-			var str = haxe.Utf8.encode( Std.string ( data));
-			*/
-			nme.Lib.postUICallback ( function() { ralcr_https_post (url, vars);});
+			nme.Lib.postUICallback ( function() { ralcr_https_put (url, vars);});
 		}
 		else if (method == "GET") {
 			var vars = "";
@@ -71,18 +70,28 @@ class NMEHttps {
 			//ralcr_https_delete ( url, vars );
 		}
 		
-		checkRequestStatus();
+/*		checkRequestStatus();*/
+		haxe.Timer.delay ( checkRequestStatus, 5000);
 	}
 	function checkRequestStatus () {
-		
+		trace("check status");
 		if (requestTimer != null)
 			requestTimer.stop();
 		
 		if (ralcr_https_is_ready()) {
-			if (ralcr_https_is_successful()) didFinishLoadHandler ( ralcr_https_get_result() );
+			trace("ralcr_https_is_ready");
+			if (ralcr_https_is_successful()) {
+				trace("ralcr_https_is_successful");
+				var str :String = ralcr_https_get_result();
+				trace("ralcr_https_get_result "+str);
+				didFinishLoadHandler ( str );
+			}
 			else didFinishWithErrorHandler ( ralcr_https_get_result() );
 		}
-		else requestTimer = haxe.Timer.delay (checkRequestStatus, 100);
+		else {
+			trace("ralcr_https_is_not_ready");
+			requestTimer = haxe.Timer.delay (checkRequestStatus, 100);
+		}
 	}
 	// Delegate methods
 	//public function httpStatus(statusCode:Int):Void { trace(statusCode); }
@@ -101,17 +110,6 @@ class NMEHttps {
 		didFinishWithError = null;
 	}
 	
-	static var native_new :Dynamic;
-	static var native_addHeader :Dynamic;
-	static var native_setUserAgent :Dynamic;
-	
-	static var ralcr_https_get :Dynamic;
-	static var ralcr_https_post :Dynamic;
-	static var ralcr_https_cancel :Dynamic;
-	static var ralcr_https_set_delegate :Dynamic;
-	static var ralcr_https_is_ready :Dynamic;
-	static var ralcr_https_is_successful :Dynamic;
-	static var ralcr_https_get_result :Dynamic;
     
 #elseif ios
 	

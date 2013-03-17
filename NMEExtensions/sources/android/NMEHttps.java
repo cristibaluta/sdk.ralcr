@@ -29,6 +29,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
@@ -45,10 +46,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Basic native Android extension for making HTTP GET and POST requests over http/https.
- *
- * Includes support for setting custom http headers and user agent. Also supports cancellation of active request.
- *
+ * Basic native Android extension for making HTTP GET and POST/PUT requests over http/https.
  * Currently only allows for responses and payloads of type String.
  *
  * A listener object passed from Haxe to get() or post() must implement the following callback methods.
@@ -57,49 +55,32 @@ import java.util.Map;
  * function httpData(result:String):Void;
  * function httpError(error:String):Void;
  */
-public class HttpLoader
-{
+public class NMEHttps {
+	
 	public static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Linux; U; Android 2.2; en-us;)";
-	
-	public static final String CALLBACK_ID_HTTP_STATUS = "httpStatus";
-	public static final String CALLBACK_ID_HTTP_DATA = "didFinishLoadHandler";
-	public static final String CALLBACK_ID_HTTP_ERROR = "didFinishWithErrorHandler";
 
-	static HaxeObject delegate;
-	static HttpLoader loader;
-	
-	//public AsyncTask<Void, Void, HttpResult> activeTask;
-	public HttpLoaderBackgroundTask activeTask;
+	static NMEHttps loader;
+	public HttpsBackgroundTask activeTask;
 	public Map<String, String> headers;
 	public String userAgent;
 	
 	
 	static public void ralcr_https_get (final String url, final String vars) {
 		Log.d("ralcr_https_get", "get: "+url+"?"+vars);
-		loader = new HttpLoader (url, vars, delegate);
-		//activeTask = new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, loader.headers, loader.userAgent, delegate).execute();
-		//delegate.call1(HttpLoader.CALLBACK_ID_HTTP_DATA, "[{\"name\": \"Baluta Cristian\", \"score\": \"171794\"}, {\"name\": \"Adrian Batista\", \"score\": \"123600\"}]");
+		ralcr_https_cancel();
+		loader = new NMEHttps();
+		loader.get (url, vars);
 	}
-	
 	static public void ralcr_https_post (final String url, final String payload) {
-		//activeTask = new HttpLoaderBackgroundTask (url, HttpMethod.POST, payload, loader.headers, loader.userAgent, delegate).execute();
+		ralcr_https_cancel();
+		loader = new NMEHttps();
+		loader.post (url, payload);
 	}
-	// URL url = new URL("http://www.example.com/resource");
-	// HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-	// httpCon.setDoOutput(true);
-	// httpCon.setRequestMethod("PUT");
-	// OutputStreamWriter out = new OutputStreamWriter(
-	//     httpCon.getOutputStream());
-	// out.write("Resource content");
-	// out.close();
-	// 
-	// URL url = new URL("http://www.example.com/resource");
-	// HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-	// httpCon.setDoOutput(true);
-	// httpCon.setRequestProperty(
-	//     "Content-Type", "application/x-www-form-urlencoded" );
-	// httpCon.setRequestMethod("DELETE");
-	// httpCon.connect();
+	static public void ralcr_https_put (final String url, final String payload) {
+		ralcr_https_cancel();
+		loader = new NMEHttps();
+		loader.put (url, payload);
+	}
 	
 	static public void ralcr_https_cancel() {
     	Log.d("http", "cancel "+loader);
@@ -107,43 +88,53 @@ public class HttpLoader
     		loader.destroy();
     		loader = null;
 		}
-    	Log.d("http", "cancel finished");
 	}
 	
-	public static void ralcr_https_set_delegate (final HaxeObject listener) {
-		delegate = listener;
-		Log.d("ralcr_https_set_delegate", ""+delegate);
-	}
 	// UGLY HACK TO AVOID JNI CRASHES WHEN USING call1. Call this methods from time to time to see if the request is ready
 	static public boolean ralcr_https_is_ready() {
+		Log.d("nmehttps", "ask if ready");
 		if (loader == null) return false;
 		return loader.isReady();
 	}
 	static public boolean ralcr_https_is_successful() {
+		Log.d("nmehttps", "ask if successful");
+		if (loader == null) return false;
 		return loader.isSuccessful();
 	}
 	static public String ralcr_https_get_result() {
+		Log.d("nmehttps", "ralcr_https_get_result");
+		if (loader == null) return "";
 		return loader.getResult();
 	}
 	
 	
 	
 	
-	public HttpLoader (final String url, final String vars, final HaxeObject listener) {
-		Log.d("httploader", "new HttpLoader "+url);
-		headers = new HashMap<String, String>();
+	public NMEHttps () {
+		headers = new HashMap<String,String>();
 		userAgent = DEFAULT_USER_AGENT;
-		setDefaultHeaders();
-		
-		activeTask = new HttpLoaderBackgroundTask (url+"?"+vars, HttpMethod.GET, null, headers, userAgent, listener);
+		userAgent = System.getProperty("http.agent");
+	}
+	public void get (final String url, final String vars) {
+		// setHeader("Content-Type", "application/x-www-form-urlencoded");
+		activeTask = new HttpsBackgroundTask (url+"?"+vars, HttpMethod.GET, null, headers, userAgent);
 		activeTask.execute();
 	}
-	protected void setDefaultHeaders(){
-		setHeader("Content-Type", "application/x-www-form-urlencoded");
-		setHeader("Content-Language", "en-US");
+	public void post (final String url, final String vars) {
+		setHeader("Content-Type", "application/json");
+		setHeader("Content-Length", Integer.toString(vars.length()));
+		activeTask = new HttpsBackgroundTask (url, HttpMethod.POST, vars, headers, userAgent);
+		activeTask.execute();
 	}
+	public void put (final String url, final String vars) {
+		setHeader("Content-Type", "application/json");
+		setHeader("Content-Length", Integer.toString(vars.length()));
+		activeTask = new HttpsBackgroundTask (url, HttpMethod.PUT, vars, headers, userAgent);
+		activeTask.execute();
+	}
+	
 	public void setHeader(String name, String value){
-		headers.put(name.toLowerCase(), value);
+		headers.put (name.toLowerCase(), value);
 	}
 	public void setUserAgent(String userAgent){
 		this.userAgent = userAgent;
@@ -172,66 +163,49 @@ public class HttpLoader
 	/**
 	 * Background task to execute http request and then report its outcome back to Haxe listener.
 	 */
-	private class HttpLoaderBackgroundTask extends AsyncTask<Void, Void, HttpResult>
-	{
-		private final URL url;
+	private class HttpsBackgroundTask extends AsyncTask<Void, Void, HttpResult> {
+		
+		//private final URL url;
+		private final String url_str;
 		private final HttpMethod method;
-		private final Map<String, String> headers;
 		private final String payload;
-		private final HaxeObject listener;
+		private final Map<String, String> headers;
 		private final String userAgent;
 		public HttpResult httpresult;
 		
-		public HttpLoaderBackgroundTask(String url, HttpMethod method, String payload, Map<String, String> headers, String userAgent, HaxeObject listener)
-		{
-			this.url = stringToURL(url);
+		public HttpsBackgroundTask (String url, HttpMethod method, String payload, Map<String, String> headers, String userAgent) {
+			//this.url = stringToURL(url);
+			this.url_str = url;
 			this.method = method;
+			this.payload = payload;
 			this.headers = headers;
 			this.userAgent = userAgent;
-			this.payload = payload;
-			this.listener = listener;
 			this.httpresult = null;
 		}
 		public boolean isReady() {
+			Log.d("HttpsBackgroundTask", "isReady?");
 			return httpresult != null;
 		}
 		public boolean isSuccessful() {
+			Log.d("HttpsBackgroundTask", "isSuccessful?");
 			return httpresult.isSuccessful();
 		}
 		public String getValue() {
+			Log.d("HttpsBackgroundTask", "getValue?");
 			return httpresult.getValue();
-		}
-		
-		/**
-		 * Convert url string to URL instance so query parameters are encoded correctly when dispatching a request.
-		 */
-		private URL stringToURL(String url){
-			try {
-				URL tempUrl = new URL(url);
-				URI tempUri = new URI(tempUrl.getProtocol(), tempUrl.getUserInfo(), tempUrl.getHost(), tempUrl.getPort(), tempUrl.getPath(), tempUrl.getQuery(), tempUrl.getRef());
-				return tempUri.toURL();
-			}
-			catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-			catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-			return null;
 		}
 		
 		@Override
 		protected HttpResult doInBackground(Void... unused) {
-			//Log.d("HttpLoaderBackgroundTask", "doInBackground "+url);
+			Log.d("HttpsBackgroundTask", "doInBackground "+url_str);
 			HttpResult result = null;
 			String errorMessage = null;
 			
 			try {
 				switch (method) {
-					case GET: result = httpGet();
-						break;
-					case POST: result = httpPost();
-						break;
+					case GET: result = executeRequest ( new HttpGet ( url_str)); break;
+					case POST: result = httpPost(); break;
+					case PUT: result = httpPut(); break;
 					default: throw new Exception("Unsupported http method: " + method);
 				}
 			}
@@ -249,28 +223,35 @@ public class HttpLoader
 			}
 			
 			if (errorMessage != null) {
-				result = new HttpResult(false, errorMessage, -1);
+				result = new HttpResult (false, errorMessage, -1);
 			}
 			
 			return result;
 		}
 		
-		private HttpResult httpGet() throws IOException, URISyntaxException {
-			HttpGet request = new HttpGet(url.toString());
-			return executeRequest(request);
-		}
+		// private HttpResult httpGet() throws IOException, URISyntaxException {
+		// 	HttpGet request = new HttpGet(url);
+		// 	return executeRequest(request);
+		// }
 		
 		private HttpResult httpPost() throws IOException, URISyntaxException {
-			HttpPost request = new HttpPost(url.toString());
+			HttpPost request = new HttpPost(url_str);
 			request.setEntity(new StringEntity(payload));
 			return executeRequest(request);
 		}
 		
+		private HttpResult httpPut() throws IOException, URISyntaxException {
+			HttpPut request = new HttpPut(url_str);
+			request.setEntity ( new StringEntity(payload));
+			return executeRequest(request);
+		}
+		
 		private HttpResult executeRequest(HttpUriRequest request) throws IOException {
+			
 			AndroidHttpClient client = AndroidHttpClient.newInstance(userAgent);
 			
 			for (String header : headers.keySet()) {
-				request.setHeader(header, headers.get(header));
+				request.setHeader (header, headers.get(header));
 			}
 			
 			try {
@@ -301,26 +282,14 @@ public class HttpLoader
 			else {
 				result = "";
 			}
+			Log.d ("HttpResult create", result);
 			return new HttpResult (isSuccessful, result, statusCode);
 		}
 		
 		// This method runs in the UI thread
 		@Override
 		protected void onPostExecute(final HttpResult result) {
-			Log.d("onPostExecute", result.getValue());
-			Log.d("onPostExecute", ""+listener);
-//			if (result.getStatusCode() != -1) {
-//				listener.callD1(HttpLoader.CALLBACK_ID_HTTP_STATUS, result.getStatusCode());
-//			}
-			
 			httpresult = result;
-			if (result.isSuccessful()) {
-				//listener.call1 (HttpLoader.CALLBACK_ID_HTTP_DATA, result.getValue());
-			}
-			else {
-				//listener.call1 (HttpLoader.CALLBACK_ID_HTTP_ERROR, result.getValue());
-			}
-			Log.d("onPostExecute finished", "onPostExecute finished");
 		}
 	}
 	
@@ -330,27 +299,29 @@ public class HttpLoader
 		private String value;
 		private int statusCode;
 		
-		public HttpResult(boolean isSuccessful, String value, int statusCode) {
-
-			Log.d("HttpResult", isSuccessful+" "+value+" "+statusCode);
+		public HttpResult (boolean isSuccessful, String value, int statusCode) {
 			this.isSuccessful = isSuccessful;
 			this.value = value;
 			this.statusCode = statusCode;
 		}
 		
 		public boolean isSuccessful() {
+		Log.d("HttpResult", "isSuccessful "+isSuccessful);
 			return isSuccessful;
 		}
 		public String getValue() {
+		Log.d("HttpResult", value);
 			return value;
 		}
 		public int getStatusCode() {
+		Log.d("HttpResult", ""+statusCode);
 			return statusCode;
 		}
 	}
 	
 	private enum HttpMethod {
 		GET,
-		POST
+		POST,
+		PUT
 	}
 }

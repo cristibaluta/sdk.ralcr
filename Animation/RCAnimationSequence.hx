@@ -12,10 +12,16 @@ class RCAnimationSequence {
 	var objs :Array<CAObject>;
 	
 	
+	/**
+	 *  
+	 **/
 	public function new (objs:Array<CAObject>) {
 		this.objs = objs;
 	}
 	
+	/**
+	 *  
+	 **/
 	public function start () :Void {
 		var obj = objs.shift();
 		if (objs.length > 0) {
@@ -32,7 +38,6 @@ class RCAnimationSequence {
 		if (func != null) {
 			if (Reflect.isFunction( func ))
 				Reflect.callMethod (null, func, []);
-				//try{ func/*.apply (null,*/ (/*[]*/); }catch(e:Dynamic){ trace(e); Fugu.stack(); }
 		}
 		
 		// Start the next animation

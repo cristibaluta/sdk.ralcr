@@ -32,7 +32,7 @@ class CATZoom extends CAObject implements CATransitionInterface {
 		if (zoom != null) {
 			if (Std.is (zoom, Int) || Std.is (zoom, Float)) {
 				
-				fromScale = target.scaleX;
+				fromScale = target.get_scaleX();
 				toScale = fromScale * zoom;
 			}
 			else if (Std.is (zoom, String)) {
@@ -68,7 +68,7 @@ class CATZoom extends CAObject implements CATransitionInterface {
 		var i_w = target.get_width();
 		var i_h = target.get_height();
 		var i_x = target.get_x();
-		var i_y = target.get_x();
+		var i_y = target.get_y();
 		
 		// Final values we should zoom to
 		var f_w = i_w * toScale;
