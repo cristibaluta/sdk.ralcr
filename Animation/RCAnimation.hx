@@ -149,16 +149,12 @@ class RCAnimation {
 	 *  Returns the timestamp.
 	 **/
 	inline public static function timestamp () :Float {
-		#if cpp
-			return cpp.Sys.time() * 1000;
-		#elseif neko
-			return neko.Sys.time() * 1000;
-		#elseif js
+		#if js
 			return Date.now().getTime();
 		#elseif flash
 			return flash.Lib.getTimer();
-		#elseif objc
-			return objc.Sys.time() * 1000;
+		#else
+			return Sys.time() * 1000;
 		#end
 	}
 }

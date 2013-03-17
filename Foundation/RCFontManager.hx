@@ -20,9 +20,6 @@
 #if (flash || (flash && nme))
 	import flash.system.ApplicationDomain;
 	import flash.text.StyleSheet;
-#elseif nme
-	private typedef ApplicationDomain = Dynamic;
-	private typedef StyleSheet = Dynamic;
 #end
 
 #if (flash || (nme && (cpp || neko)))
@@ -34,6 +31,10 @@
 	import js.html.Event;
 	import js.html.StyleSheet;
 	private typedef ApplicationDomain = Dynamic;
+#end
+#if nme
+	private typedef ApplicationDomain = Dynamic;
+	private typedef StyleSheet = Dynamic;
 #end
 
 

@@ -27,7 +27,6 @@ enum FacebookPermissions {
 	user_online_presence;
 	friends_online_presence;
 	publish_checkins;
-	publish_actions;
 	rsvp_event;
 }
 

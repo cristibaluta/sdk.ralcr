@@ -11,10 +11,10 @@
 	#if js
 		import js.html.Event;
 	#end
+	import haxe.Http;
 	#if (cpp || neko || objc)
 		private typedef Event = String;
 	#end
-	import haxe.Http;
 	private typedef URLLoader = Http;
 	private typedef URLRequest = Http;
 	private typedef IEventDispatcher = Http;
