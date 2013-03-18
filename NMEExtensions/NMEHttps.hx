@@ -57,10 +57,6 @@ class NMEHttps {
 			var vars = haxe.Json.stringify ( variables );
 			contentType = "application/json";
 			
-			//native_addHeader (request, "Content-Type", "application/json");
-			/*
-			var str = haxe.Utf8.encode( Std.string ( data));
-			*/
 			nme.Lib.postUICallback ( function() { ralcr_https_put (url, vars);});
 		}
 		else if (method == "GET") {
@@ -75,7 +71,7 @@ class NMEHttps {
 		}
 		
 /*		checkRequestStatus();*/
-		haxe.Timer.delay ( checkRequestStatus, 5000);
+		requestTimer = haxe.Timer.delay ( checkRequestStatus, 200);
 	}
 	function checkRequestStatus () {
 		trace("check status");

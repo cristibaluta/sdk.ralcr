@@ -4,10 +4,11 @@ class NMEAlertView {
 #if android
 	
 	var ralcr_show_alert_view :Dynamic;
+
 	public function new (title:String, message:String) {
-		if (ralcr_show_alert_view == null)
-			ralcr_show_alert_view = nme.JNI.createStaticMethod("org/haxe/nme/GameActivity", "newAlertView", "(Ljava/lang/String;Ljava/lang/String;)V");
-			ralcr_show_alert_view ( title, message );
+		
+		ralcr_show_alert_view = nme.JNI.createStaticMethod("org/haxe/nme/GameActivity", "newAlertView", "(Ljava/lang/String;Ljava/lang/String;)V");
+		nme.Lib.postUICallback ( function() { ralcr_show_alert_view ( title, message ); });
 	}
 #else
 	
