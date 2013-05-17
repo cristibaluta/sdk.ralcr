@@ -93,18 +93,17 @@ class JSAudio implements RCAudioInterface {
 		this.volume_ = 1;
 	}
 	public function init () :Void {
-/*		if(filePath && goog.isFunction(filePath.data)){
-			filePath = filePath.data();
-		}*/
-
-		this.loaded_ = false;
+		trace("init audio "+URL);
+		this.loaded_ = true;
 		this.playing_ = false;
-
+		
 		sound = js.Lib.document.createElement('audio');
-		untyped sound.preload = true;
+		untyped sound.autoplay = false;
+		untyped sound.preload = "auto";//none, metadata
 		untyped sound.loop = false;
 		untyped sound.src = URL;
 		untyped sound.load();
+		js.Lib.document.body.appendChild ( sound );
 
 		timer = new haxe.Timer ( updateTime );
 		//timer.run = loop;
@@ -114,12 +113,14 @@ class JSAudio implements RCAudioInterface {
 	 * Controls for audio
 	 */
 	public function start (?time:Null<Int>) :Void {
-		
+		trace("play audio");
 		if (sound == null) init();
 			
-		if (loaded_ && !playing_) {
-			//sound.play();
+		if (true/*loaded_ && !playing_*/) {
+			untyped sound.currentTime = 0;
+			untyped sound.play();
 			this.playing_ = true;
+			trace(untyped sound.currentTime);
 		}
 		
 		timer.run = loop;
@@ -130,13 +131,11 @@ class JSAudio implements RCAudioInterface {
 	
 	public function stop () :Void {
 		if (playing_) {
-			//this.baseElement.pause();
+			trace("stop");
+			untyped sound.pause();
 			this.playing_ = false;
 		}
 		
-/*		channel.stop();
-		channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
-		channel = null;*/
 		time = 0;
 		
 		if (timer != null)
@@ -144,7 +143,11 @@ class JSAudio implements RCAudioInterface {
 		
 		soundDidStopPlaying();
 	}
-	
+/*	var mediaElement = document.getElementById('mediaElementID');
+	mediaElement.seekable.start();  // Returns the starting time (in seconds)
+	mediaElement.seekable.end();    // Returns the ending time (in seconds)
+	mediaElement.currentTime = 122; // Seek to 122 seconds
+	mediaElement.played.end();      // Returns the number of seconds the browser has played*/
 	
 	
 /*	function completeHandler (e:Event) :Void {
@@ -195,7 +198,7 @@ class JSAudio implements RCAudioInterface {
 	
 	public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
-
+		untyped sound.volume = volume_;
 		return volume_;
 	}
 	

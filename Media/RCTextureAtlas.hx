@@ -152,10 +152,15 @@ class RCTextureAtlas {
 	
 	
     public function imageNamed (name:String, ?pos:haxe.PosInfos) :RCImage {
-		
+		// Plist contains the entire file name
+		// Xml does not include the extension of the file
+		// Check all the posibilities
 		if (!_textures.exists ( name ))
-			name = name + ".png";
-        
+			if (name.indexOf(".png") != -1)
+				name = name.split(".png")[0];
+			else
+				name = name + ".png";
+		
 		var texture_data = _textures.get ( name );
 		
         if (texture_data != null) {

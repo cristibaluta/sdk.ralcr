@@ -36,6 +36,7 @@ typedef void (*FunctionType)();
 
 // Variables are a string of this form: var1=val1&var2=val2&
 - (void) get:(NSString*)variables {
+	
 	NSString *geturl = [NSString stringWithFormat:@"%@?%@", url, variables];
 	NSURLRequest *request = [[NSURLRequest alloc]
 							 initWithURL: [NSURL URLWithString:geturl]
@@ -113,7 +114,7 @@ typedef void (*FunctionType)();
     result = [[NSString alloc] initWithData:receivedData encoding:NSASCIIStringEncoding];
 	[receivedData release];
 	receivedData = nil;
-	//NSLog(@"Https connectionDidFinishLoading %@", result);
+	NSLog(@"Https connectionDidFinishLoading %@", result);
 	httpsLoadFinished();
 }
 

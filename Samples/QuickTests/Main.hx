@@ -2,11 +2,16 @@ import flash.errors.Error;
 import flash.events.MouseEvent;
 
 class Main {
-	
+	static var req :RCHttp;
 	static function main () {
 		haxe.Firebug.redirectTraces();
 		
-		flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
+		req = new RCHttp("http://www.kinecto.ro/jagermeister-game-center/api/badge");
+		req.onComplete = completeHandler;
+		req.onError = errorHandler;
+		req.call ("", {"MY-API-KEY":"e7f018bce4d8ebf9e96b129774217376a7b67f2a", facebook_id:"100001416751627", badges:"[3,2,1,41,39,38]"} );
+		
+/*		flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
 		flash.Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 		
 		RCNotificationCenter.addObserver ("resize", resize2);
@@ -25,7 +30,13 @@ class Main {
 		
 		var o = new Obj();
 		o.x = 4;
-		trace(o.x);
+		trace(o.x);*/
+	}
+	static function completeHandler(){
+		trace(req.result);
+	}
+	static function errorHandler(){
+		trace(req.result);
 	}
 	static function resize(w, h):Void {
 		//trace("resize to "+w+"x"+h);

@@ -11,15 +11,11 @@ class RCDebugger extends RCView {
 	var txt :RCTextView;
 	
 	
-	/**
-	 *  In flash the memory reported is from all flash player instances running.
-	 *  In cpp the memory reportd is from the Haxe objects managed by the garbage collector.
-	 *  NME bitmaps are not included
-	 **/
 	public function new (x, y, w, h) {
 		
 		super (x, y, w, h);
-		return;
+		
+		addChild ( new RCRectangle(0, 0, w, h, 0xffffff, 0.6) );
 		var f = RCFont.systemFontOfSize(12);
 			f.color = 0x000000;
 		txt = new RCTextView (0, 0, w, h, "Debugger...\n", f);
@@ -27,8 +23,8 @@ class RCDebugger extends RCView {
 	}
 	
 	public function log (str:String) {
-		return;
 		txt.text = txt.text + str + "\n -> ";
+		//txt.set_text (str + "\n -> ");
 	}
 	
 	override public function destroy () {

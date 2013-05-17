@@ -195,7 +195,7 @@ class JSView extends RCDisplayObject {
 				return p;
 	        }
 	    }
-	    return "transform";
+	    return transformProperty;//"transform";
 	}
 	
 	

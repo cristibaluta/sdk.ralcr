@@ -33,8 +33,9 @@ class RCControl extends RCView {
 	public var release :EVMouse;
 	public var over :EVMouse;
 	public var out :EVMouse;
-
-	public var editingDidBegin :RCSignal<RCControl->Void>;// RCTextInput
+	
+	// RCTextInput stuffs
+	public var editingDidBegin :RCSignal<RCControl->Void>;
 	public var editingChanged :RCSignal<RCControl->Void>;
 	public var editingDidEnd :RCSignal<RCControl->Void>;
 	public var editingDidEndOnExit :RCSignal<RCControl->Void>;// 'return key' ending editing

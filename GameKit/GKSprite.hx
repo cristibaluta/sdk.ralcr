@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || nme || cpp)
+#if (flash || (nme && (ios || android || mac)))
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 #elseif js

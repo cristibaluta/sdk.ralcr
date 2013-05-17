@@ -69,7 +69,7 @@ class FacebookTools {
      * @param type The size of image to display from Facebook
      * (square, small, or large).
      *
-     * @see http://developers.facebook.com/docs/api#pictures
+     * @see http://developers.facebook.com/docs/reference/api/using-pictures/
      *
      */
     public function buildImageURLWithId (id:String, ?type:String) :String {

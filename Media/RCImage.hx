@@ -47,27 +47,22 @@ class RCImage extends RCView {
 	dynamic public function onError () :Void {}
 	
 	// Some convenient methods to create an image
-	//
+	
 	/**
-	 *  Create an instance of the rcimage with the path to the photo
-	 *  Or id of the photo for NME
-	 *  Asyncronous operation
+	 *  Static way of creating a RCImage at positin 0x0
+	 *  Takes the url(WEB) or the id of the photo(NME)
+	 *  Asynchronous operation
 	 **/
 	public static function imageNamed (name:String) :RCImage {
 		return new RCImage (0,0,name);
 	}
 	/**
-	 *  NME method to load an image. Syncronous operation.
+	 *  NME method to load an image. Synchronous operation.
 	 **/
 	public static function imageWithContentsOfFile (path:String) :RCImage {
 		return new RCImage (0,0,path);
 	}
-	/**
-	 *  Create a non-distorted stretchable image
-	 **/
-	public static function resizableImageWithCapInsets (path:String, capWidth:Int) :RCImage {
-		return new RCImage (0,0,path);
-	}
+	
 	
 #if (flash || nme)
 	/**
@@ -87,7 +82,7 @@ class RCImage extends RCView {
 		var im = new RCImage (0,0,null);// Create a blank image
 			im.bitmapData = bitmapBata.clone();// Set the BitmapData
 			im.completeHandler(null);// Display the image in it's container
-		return im;// Returns it
+		return im;
 	}
 #end
 	
@@ -107,19 +102,26 @@ class RCImage extends RCView {
 		var matrix = new Matrix();
 			matrix.tx = - source_rect.origin.x + draw_at.origin.x;
 			matrix.ty = - source_rect.origin.y + draw_at.origin.y;
-			bitmapData.draw ( image.bitmapData, matrix, null, null, new Rectangle(draw_at.origin.x, draw_at.origin.y, draw_at.size.width, draw_at.size.height) );
+		var rect = new Rectangle (draw_at.origin.x, draw_at.origin.y, draw_at.size.width, draw_at.size.height);
+			bitmapData.draw ( image.bitmapData, matrix, null, null, rect );
 		var bitmap = new Bitmap (bitmapData, PixelSnapping.AUTO, true);
 		
 		var im = new RCImage (0, 0, null);
-			im.bitmapData = bitmapData;
+			im.bitmapData = bitmapData;// Set directly the bitmap data
 			im.layer.addChild ( bitmap );
-			im.size.width = bitmap.width;// Update the size of the image
-			im.size.height = bitmap.height;
+			im.set_width ( bitmap.width );// Update the size of the image
+			im.set_height ( bitmap.height );
 		return im;
 		
 #elseif js
-	
-		return null;
+		
+		var im = image.copy();
+			im.set_width ( draw_at.size.width );
+			im.set_height ( draw_at.size.height );
+			im.layer.style.overflow = "hidden";
+			im.loader.style.left = "-" + source_rect.origin.x + "px";
+			im.loader.style.top = "-" + source_rect.origin.y + "px";
+		return im;
 #end
 	}
 	
@@ -212,6 +214,7 @@ class RCImage extends RCView {
 			size.width = loader.width;
 			size.height = loader.height;
 			layer.appendChild ( loader );
+			loader.style.position = "absolute";
 		#end
 		
 		originalSize = size.copy();

@@ -99,7 +99,7 @@ class RCAudio implements RCAudioInterface {
 	 */
 	public function start (?time:Null<Int>) :Void {
 		
-		#if (nme && (ios || android))
+		#if (nme && (ios || android || mac))
 			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.playBackgroundMusic (URL, repeat);
@@ -128,7 +128,7 @@ class RCAudio implements RCAudioInterface {
 			}
 		
 			timer.start();
-			setvolume_ ( volume_ );
+			set_volume ( volume_ );
 			
 		#end
 		
@@ -137,7 +137,7 @@ class RCAudio implements RCAudioInterface {
 	
 	public function stop () :Void {
 		
-		#if (nme && (ios || android))
+		#if (nme && (ios || android || mac))
 			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.stopBackgroundMusic();

@@ -89,16 +89,34 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 				}
 			}
 			//targets.add ({target:target, type:type, instance:this});
-			switch (type) {
-				case UP:			layer.onmouseup = mouseHandler;
-				case DOWN:			layer.onmousedown = mouseHandler;
-				case OVER:			layer.onmouseover = mouseHandler;
-				case OUT:			layer.onmouseout = mouseHandler;
-				case MOVE:			layer.onmousemove = mouseHandler;
-				case CLICK:			layer.onclick = mouseHandler;
-				case DOUBLE_CLICK:	layer.ondblclick = mouseHandler;
-				case WHEEL:			addWheelListener();
-				default: trace("The mouse event you're trying to add does not exist. "+pos);
+			// If the device supports touch, add touch events
+			var touch_support = false;//untyped {'ontouchstart' in document.documentElement;}
+			if (touch_support) {
+				
+				switch (type) {
+					case UP:			untyped layer.touchend = mouseHandler;
+					case DOWN:			untyped layer.touchstart = mouseHandler;
+					case OVER:			layer.onmouseover = mouseHandler;
+					case OUT:			layer.onmouseout = mouseHandler;
+					case MOVE:			untyped layer.touchmove = mouseHandler;
+					case CLICK:			layer.onclick = mouseHandler;
+					case DOUBLE_CLICK:	layer.ondblclick = mouseHandler;
+					case WHEEL:			addWheelListener();
+					default: trace("The mouse event you're trying to add does not exist. "+pos);
+				}
+			}
+			else {
+				switch (type) {
+					case UP:			layer.onmouseup = mouseHandler;
+					case DOWN:			layer.onmousedown = mouseHandler;
+					case OVER:			layer.onmouseover = mouseHandler;
+					case OUT:			layer.onmouseout = mouseHandler;
+					case MOVE:			layer.onmousemove = mouseHandler;
+					case CLICK:			layer.onclick = mouseHandler;
+					case DOUBLE_CLICK:	layer.ondblclick = mouseHandler;
+					case WHEEL:			addWheelListener();
+					default: trace("The mouse event you're trying to add does not exist. "+pos);
+				}
 			}
 		#end
 	}

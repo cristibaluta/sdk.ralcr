@@ -12,7 +12,7 @@
 // radius = radius of wedge. If [optional] yRadius is defined, then radius is the x radius.
 // yRadius = [optional] y radius for wedge.
 // 
-#if flash
+#if (flash || (nme && (cpp || neko)))
 class RCWedge extends RCDraw, implements RCDrawInterface {
 	
 	public var arc :Int;

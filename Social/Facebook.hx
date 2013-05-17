@@ -180,7 +180,7 @@ class Facebook {
 		var bundle_id = options.bundle_identifier;
 		var data = {
 			client_id : applicationId,
-			redirect_uri : LOGIN_SUCCESS_URL,
+			redirect_uri : LOGIN_SUCCESS_SECUREURL,
 			display : "touch",
 			type : "user_agent",
 			scope : options.scope
@@ -194,6 +194,7 @@ class Facebook {
 			"&scope="+data.scope+
 			"&response_type=token";
 		
+		trace("AUTH_URL_SECURE + params "+AUTH_URL_SECURE + params);
 		webView = launchWebView ( AUTH_URL_SECURE + params );
 		if (webView == null) {
 			trace("err: Facebook login was interrupted to avoid crashes. You must override the launchWebView facebook method and return a RCWebView");
@@ -214,7 +215,7 @@ class Facebook {
 	function webViewDidFinishLoad (url:String) :Void {
 		trace("webViewDidFinishLoad: "+url);
 		if (url.indexOf(LOGIN_URL) == 0) {
-			trace("Redirecting login to nonsecure page");
+			trace("Webview is redirected to nonsecure login page");
 		}
 		else if (url.indexOf(LOGIN_FAIL_URL) == 0 || url.indexOf(LOGIN_FAIL_SECUREURL) == 0) {
 			webView.destroy();
@@ -226,8 +227,10 @@ class Facebook {
 			webView.destroy();
 			webView = null;
 			
-			var url_to_split = url.indexOf(LOGIN_SUCCESS_URL) == 0 ? LOGIN_SUCCESS_URL : LOGIN_SUCCESS_SECUREURL;
+			var url_to_split = StringTools.startsWith (url, LOGIN_SUCCESS_URL) ? LOGIN_SUCCESS_URL : LOGIN_SUCCESS_SECUREURL;
 			var comps :Array<String> = url.split(url_to_split+"#").pop().split("&");
+			trace("url after split");
+			trace(comps);
 			
 			var access_token = "";
 			var expires_in = "";
