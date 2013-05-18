@@ -2541,10 +2541,7 @@ RCRequest.prototype = {
 		dispatcher.onStatus = $bind(this,this.httpStatusHandler);
 	}
 	,load: function(URL,variables,method) {
-		if(method == null) method = "POST";
-		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(Std.string(variables),{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
+		if(method == null) method = "GET";
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);
@@ -3391,21 +3388,19 @@ JSAudio.prototype = {
 		this.soundDidStopPlaying();
 	}
 	,start: function(time) {
-		haxe.Log.trace("play audio",{ fileName : "JSAudio.hx", lineNumber : 115, className : "JSAudio", methodName : "start"});
 		if(this.sound == null) this.init();
-		if(this.loaded_ && !this.playing_) {
-			this.sound.play();
-			this.playing_ = true;
-		}
+		this.sound.currentTime = 0;
+		this.sound.play();
+		this.playing_ = true;
 		this.timer.run = $bind(this,this.loop);
 		this.soundDidStartPlaying();
 	}
 	,init: function() {
-		haxe.Log.trace("init audio " + this.URL,{ fileName : "JSAudio.hx", lineNumber : 96, className : "JSAudio", methodName : "init"});
-		this.loaded_ = false;
+		this.loaded_ = true;
 		this.playing_ = false;
 		this.sound = js.Lib.document.createElement("audio");
-		this.sound.preload = true;
+		this.sound.autoplay = false;
+		this.sound.preload = "auto";
 		this.sound.loop = false;
 		this.sound.src = this.URL;
 		this.sound.load();

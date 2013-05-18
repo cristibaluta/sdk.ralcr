@@ -66,8 +66,8 @@ class RCRequest {
 	 *	@param varaibles - An object containing the variables to send along the request
 	 *	@param method - GET/POST. By default is POST
 	 */
-	public function load (URL:String, ?variables:URLVariables, ?method:String="POST") :Void {
-		trace(URL);trace(Std.string(variables));trace(method);
+	public function load (URL:String, ?variables:URLVariables, ?method:String="GET") :Void {
+		//trace(URL);trace(Std.string(variables));trace(method);
 		
 		#if (nme && (ios || android))
 			
@@ -85,6 +85,7 @@ class RCRequest {
 			for (key in Reflect.fields(variables)) {
 				loader.setParameter (key, Reflect.field (variables, key));
 			}
+			//loader.setHeader ("Content-Type", "text/plist");
 			addListeners ( loader );
 			loader.request ( method == "POST" ? true : false );
 			

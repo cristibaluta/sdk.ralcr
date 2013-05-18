@@ -1,42 +1,3 @@
-
-/**
- * Handle loading the audio file. Event handlers seem to fail
- * on lot of browsers.
- * @private
- */
-/*lime.audio.Audio.prototype.loadHandler_ = function() {
-    if (this.baseElement.readyState > 2) {
-        this.loaded_ = true;
-        clearTimeout(this.loadInterval);
-    }
-    if (this.baseElement.error)clearTimeout(this.loadInterval);
-
-    if (lime.userAgent.IOS && this.baseElement.readyState == 0) {
-        //ios hack do not work any more after 4.2.1 updates
-        // no good solutions that i know
-        this.loaded_ = true;
-        clearTimeout(this.loadInterval);
-        // this means that ios audio anly works if called from user action
-    }
-};*/
-
-/**
- * Returns true if audio file has been loaded
- * @return {boolean} Audio has been loaded.
- */
-/*lime.audio.Audio.prototype.isLoaded = function() {
-    return this.loaded_;
-};*/
-
-/**
- * Returns true if audio file is playing
- * @return {boolean} Audio is playing.
- */
-/*lime.audio.Audio.prototype.isPlaying = function() {
-    return this.playing_;
-};*/
-
-
 //
 //  JSAudio
 //
@@ -93,7 +54,7 @@ class JSAudio implements RCAudioInterface {
 		this.volume_ = 1;
 	}
 	public function init () :Void {
-		trace("init audio "+URL);
+		
 		this.loaded_ = true;
 		this.playing_ = false;
 		
@@ -113,14 +74,13 @@ class JSAudio implements RCAudioInterface {
 	 * Controls for audio
 	 */
 	public function start (?time:Null<Int>) :Void {
-		trace("play audio");
+		
 		if (sound == null) init();
 			
 		if (true/*loaded_ && !playing_*/) {
 			untyped sound.currentTime = 0;
 			untyped sound.play();
 			this.playing_ = true;
-			trace(untyped sound.currentTime);
 		}
 		
 		timer.run = loop;
@@ -131,7 +91,6 @@ class JSAudio implements RCAudioInterface {
 	
 	public function stop () :Void {
 		if (playing_) {
-			trace("stop");
 			untyped sound.pause();
 			this.playing_ = false;
 		}
