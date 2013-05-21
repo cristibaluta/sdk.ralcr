@@ -90,18 +90,17 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 			}
 			//targets.add ({target:target, type:type, instance:this});
 			// If the device supports touch, add touch events
-			var touch_support = false;//untyped {'ontouchstart' in document.documentElement;}
-			if (touch_support) {
-				
+			if (isTouchDevice()) {
+				//untyped __js__("this.layer.onclick = void(0)");
 				switch (type) {
-					case UP:			untyped layer.touchend = mouseHandler;
-					case DOWN:			untyped layer.touchstart = mouseHandler;
-					case OVER:			layer.onmouseover = mouseHandler;
-					case OUT:			layer.onmouseout = mouseHandler;
-					case MOVE:			untyped layer.touchmove = mouseHandler;
+					case UP:			untyped layer.ontouchend = mouseHandler;
+					case DOWN:			untyped layer.ontouchstart = mouseHandler;
+					//case OVER:			layer.onmouseover = mouseHandler;
+					case OUT:			untyped layer.ontouchcancel = mouseHandler;
+					case MOVE:			untyped layer.ontouchmove = mouseHandler;
 					case CLICK:			layer.onclick = mouseHandler;
-					case DOUBLE_CLICK:	layer.ondblclick = mouseHandler;
-					case WHEEL:			addWheelListener();
+					//case DOUBLE_CLICK:	layer.ondblclick = mouseHandler;
+					//case WHEEL:			addWheelListener();
 					default: trace("The mouse event you're trying to add does not exist. "+pos);
 				}
 			}
@@ -134,15 +133,30 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 				case WHEEL:			layer.removeEventListener (MouseEvent.MOUSE_WHEEL, mouseHandler);
 			}
 		#elseif js
-			switch (type) {
-				case UP:			layer.onmouseup = null;
-				case DOWN:			layer.onmousedown = null;
-				case OVER:			layer.onmouseover = null;
-				case OUT:			layer.onmouseout = null;
-				case MOVE:			layer.onmousemove = null;
-				case CLICK:			layer.onclick = null;
-				case DOUBLE_CLICK:	layer.ondblclick = null;
-				case WHEEL:			removeWheelListener();
+			
+			if (isTouchDevice()) {
+				switch (type) {
+					case UP:			untyped layer.ontouchend = null;
+					case DOWN:			untyped layer.ontouchstart = null;
+					//case OVER:			layer.onmouseover = mouseHandler;
+					case OUT:			untyped layer.ontouchcancel = null;
+					case MOVE:			untyped layer.ontouchmove = null;
+					case CLICK:			layer.onclick = null;
+					//case DOUBLE_CLICK:	layer.ondblclick = mouseHandler;
+					//case WHEEL:			addWheelListener();
+				}
+			}
+			else {
+				switch (type) {
+					case UP:			layer.onmouseup = null;
+					case DOWN:			layer.onmousedown = null;
+					case OVER:			layer.onmouseover = null;
+					case OUT:			layer.onmouseout = null;
+					case MOVE:			layer.onmousemove = null;
+					case CLICK:			layer.onclick = null;
+					case DOUBLE_CLICK:	layer.ondblclick = null;
+					case WHEEL:			removeWheelListener();
+				}
 			}
 		#end
 	}
@@ -159,6 +173,7 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 		#end
 		this.e = e;
 		dispatch ( this );
+		//untyped e.preventDefault();
 	}
 	
 	public function updateAfterEvent () :Void {
@@ -217,6 +232,12 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 		this.e = e;
 		dispatch ( this );
     }
+	
+	function isTouchDevice() :Bool {
+		untyped __js__("return !!('ontouchstart' in window) // works on most browsers 
+	      || !!('onmsgesturechange' in window); // works on ie10");
+	  return false;
+	}
 	
 #end
 	

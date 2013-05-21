@@ -79,7 +79,6 @@ class RCControl extends RCView {
 	function configureDispatchers () {
 		
 		click = new EVMouse (EVMouse.CLICK, this);
-		//click = new EVTouch (EVTouch.DOWN, this);
 		press = new EVMouse (EVMouse.DOWN, this);
 		release = new EVMouse (EVMouse.UP, this);
 		over = new EVMouse (EVMouse.OVER, this);

@@ -1327,12 +1327,17 @@ EVMouse.__super__ = RCSignal;
 EVMouse.prototype = $extend(RCSignal.prototype,{
 	destroy: function(pos) {
 		this.removeEventListener();
-		RCSignal.prototype.destroy.call(this,{ fileName : "EVMouse.hx", lineNumber : 226, className : "EVMouse", methodName : "destroy"});
+		RCSignal.prototype.destroy.call(this,{ fileName : "EVMouse.hx", lineNumber : 247, className : "EVMouse", methodName : "destroy"});
+	}
+	,isTouchDevice: function() {
+		return !!('ontouchstart' in window) // works on most browsers 
+	      || !!('onmsgesturechange' in window); // works on ie10;
+		return false;
 	}
 	,MouseScroll: function(e) {
 		if(Reflect.field(e,"wheelDelta") != null) this.delta = e.wheelDelta; else if(Reflect.field(e,"detail") != null) this.delta = -Math.round(e.detail * 5);
 		this.e = e;
-		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 218, className : "EVMouse", methodName : "MouseScroll"});
+		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 233, className : "EVMouse", methodName : "MouseScroll"});
 	}
 	,mouseScrollHandler: null
 	,removeWheelListener: function() {
@@ -1353,10 +1358,26 @@ EVMouse.prototype = $extend(RCSignal.prototype,{
 	,mouseHandler: function(e) {
 		if(e == null) e = js.Lib.window.event;
 		this.e = e;
-		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 161, className : "EVMouse", methodName : "mouseHandler"});
+		this.dispatch(this,null,null,null,{ fileName : "EVMouse.hx", lineNumber : 175, className : "EVMouse", methodName : "mouseHandler"});
 	}
 	,removeEventListener: function() {
-		switch(this.type) {
+		if(this.isTouchDevice()) switch(this.type) {
+		case "mouseup":
+			this.layer.ontouchend = null;
+			break;
+		case "mousedown":
+			this.layer.ontouchstart = null;
+			break;
+		case "mouseout":
+			this.layer.ontouchcancel = null;
+			break;
+		case "mousemove":
+			this.layer.ontouchmove = null;
+			break;
+		case "mouseclick":
+			this.layer.onclick = null;
+			break;
+		} else switch(this.type) {
 		case "mouseup":
 			this.layer.onmouseup = null;
 			break;
@@ -1392,34 +1413,24 @@ EVMouse.prototype = $extend(RCSignal.prototype,{
 				return;
 			}
 		}
-		var touch_support = false;
-		if(touch_support) switch(this.type) {
+		if(this.isTouchDevice()) switch(this.type) {
 		case "mouseup":
-			this.layer.touchend = $bind(this,this.mouseHandler);
+			this.layer.ontouchend = $bind(this,this.mouseHandler);
 			break;
 		case "mousedown":
-			this.layer.touchstart = $bind(this,this.mouseHandler);
-			break;
-		case "mouseover":
-			this.layer.onmouseover = $bind(this,this.mouseHandler);
+			this.layer.ontouchstart = $bind(this,this.mouseHandler);
 			break;
 		case "mouseout":
-			this.layer.onmouseout = $bind(this,this.mouseHandler);
+			this.layer.ontouchcancel = $bind(this,this.mouseHandler);
 			break;
 		case "mousemove":
-			this.layer.touchmove = $bind(this,this.mouseHandler);
+			this.layer.ontouchmove = $bind(this,this.mouseHandler);
 			break;
 		case "mouseclick":
 			this.layer.onclick = $bind(this,this.mouseHandler);
 			break;
-		case "mousedoubleclick":
-			this.layer.ondblclick = $bind(this,this.mouseHandler);
-			break;
-		case "mousewheel":
-			this.addWheelListener();
-			break;
 		default:
-			haxe.Log.trace("The mouse event you're trying to add does not exist. " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 105, className : "EVMouse", methodName : "addEventListener"});
+			haxe.Log.trace("The mouse event you're trying to add does not exist. " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 104, className : "EVMouse", methodName : "addEventListener"});
 		} else switch(this.type) {
 		case "mouseup":
 			this.layer.onmouseup = $bind(this,this.mouseHandler);
@@ -1446,7 +1457,7 @@ EVMouse.prototype = $extend(RCSignal.prototype,{
 			this.addWheelListener();
 			break;
 		default:
-			haxe.Log.trace("The mouse event you're trying to add does not exist. " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 118, className : "EVMouse", methodName : "addEventListener"});
+			haxe.Log.trace("The mouse event you're trying to add does not exist. " + Std.string(pos),{ fileName : "EVMouse.hx", lineNumber : 117, className : "EVMouse", methodName : "addEventListener"});
 		}
 	}
 	,targets: null
@@ -3369,7 +3380,7 @@ JSAudio.prototype = {
 	}
 	,set_volume: function(volume) {
 		this.volume_ = volume > 1?1:volume;
-		this.sound.volume = this.volume_;
+		if(this.sound != null) this.sound.volume = this.volume_;
 		return this.volume_;
 	}
 	,get_volume: function() {
@@ -3378,8 +3389,15 @@ JSAudio.prototype = {
 	,loop: function() {
 		this.onPlayingProgress();
 	}
+	,id3Handler: function() {
+		this.medatadaReady = true;
+		this.onID3();
+	}
+	,completeHandler: function(e) {
+		this.onLoadComplete();
+	}
 	,stop: function() {
-		if(this.playing_) {
+		if(this.playing_ && this.sound != null) {
 			this.sound.pause();
 			this.playing_ = false;
 		}
@@ -3389,10 +3407,15 @@ JSAudio.prototype = {
 	}
 	,start: function(time) {
 		if(this.sound == null) this.init();
-		this.sound.currentTime = 0;
-		this.sound.play();
-		this.playing_ = true;
-		this.timer.run = $bind(this,this.loop);
+		if(this.sound != null) {
+			try {
+				this.sound.currentTime = 0;
+			} catch( e ) {
+				haxe.Log.trace(e,{ fileName : "JSAudio.hx", lineNumber : 89, className : "JSAudio", methodName : "start"});
+			}
+			this.sound.play();
+			this.playing_ = true;
+		}
 		this.soundDidStartPlaying();
 	}
 	,init: function() {
@@ -3432,6 +3455,7 @@ JSAudio.prototype = {
 	,percentPlayed: null
 	,percentLoaded: null
 	,errorMessage: null
+	,medatadaReady: null
 	,playing_: null
 	,loaded_: null
 	,volume_: null
@@ -4162,11 +4186,11 @@ RCControl.__name__ = ["RCControl"];
 RCControl.__super__ = JSView;
 RCControl.prototype = $extend(JSView.prototype,{
 	destroy: function() {
-		this.click.destroy({ fileName : "RCControl.hx", lineNumber : 172, className : "RCControl", methodName : "destroy"});
-		this.press.destroy({ fileName : "RCControl.hx", lineNumber : 173, className : "RCControl", methodName : "destroy"});
-		this.release.destroy({ fileName : "RCControl.hx", lineNumber : 174, className : "RCControl", methodName : "destroy"});
-		this.over.destroy({ fileName : "RCControl.hx", lineNumber : 175, className : "RCControl", methodName : "destroy"});
-		this.out.destroy({ fileName : "RCControl.hx", lineNumber : 176, className : "RCControl", methodName : "destroy"});
+		this.click.destroy({ fileName : "RCControl.hx", lineNumber : 171, className : "RCControl", methodName : "destroy"});
+		this.press.destroy({ fileName : "RCControl.hx", lineNumber : 172, className : "RCControl", methodName : "destroy"});
+		this.release.destroy({ fileName : "RCControl.hx", lineNumber : 173, className : "RCControl", methodName : "destroy"});
+		this.over.destroy({ fileName : "RCControl.hx", lineNumber : 174, className : "RCControl", methodName : "destroy"});
+		this.out.destroy({ fileName : "RCControl.hx", lineNumber : 175, className : "RCControl", methodName : "destroy"});
 		JSView.prototype.destroy.call(this);
 	}
 	,get_highlighted: function() {
@@ -4226,15 +4250,15 @@ RCControl.prototype = $extend(JSView.prototype,{
 	}
 	,configureDispatchers: function() {
 		this.click = new EVMouse("mouseclick",this,{ fileName : "RCControl.hx", lineNumber : 81, className : "RCControl", methodName : "configureDispatchers"});
-		this.press = new EVMouse("mousedown",this,{ fileName : "RCControl.hx", lineNumber : 83, className : "RCControl", methodName : "configureDispatchers"});
-		this.release = new EVMouse("mouseup",this,{ fileName : "RCControl.hx", lineNumber : 84, className : "RCControl", methodName : "configureDispatchers"});
-		this.over = new EVMouse("mouseover",this,{ fileName : "RCControl.hx", lineNumber : 85, className : "RCControl", methodName : "configureDispatchers"});
-		this.out = new EVMouse("mouseout",this,{ fileName : "RCControl.hx", lineNumber : 86, className : "RCControl", methodName : "configureDispatchers"});
-		this.click.addFirst($bind(this,this.clickHandler),{ fileName : "RCControl.hx", lineNumber : 88, className : "RCControl", methodName : "configureDispatchers"});
-		this.press.addFirst($bind(this,this.mouseDownHandler),{ fileName : "RCControl.hx", lineNumber : 89, className : "RCControl", methodName : "configureDispatchers"});
-		this.release.addFirst($bind(this,this.mouseUpHandler),{ fileName : "RCControl.hx", lineNumber : 90, className : "RCControl", methodName : "configureDispatchers"});
-		this.over.addFirst($bind(this,this.rollOverHandler),{ fileName : "RCControl.hx", lineNumber : 91, className : "RCControl", methodName : "configureDispatchers"});
-		this.out.addFirst($bind(this,this.rollOutHandler),{ fileName : "RCControl.hx", lineNumber : 92, className : "RCControl", methodName : "configureDispatchers"});
+		this.press = new EVMouse("mousedown",this,{ fileName : "RCControl.hx", lineNumber : 82, className : "RCControl", methodName : "configureDispatchers"});
+		this.release = new EVMouse("mouseup",this,{ fileName : "RCControl.hx", lineNumber : 83, className : "RCControl", methodName : "configureDispatchers"});
+		this.over = new EVMouse("mouseover",this,{ fileName : "RCControl.hx", lineNumber : 84, className : "RCControl", methodName : "configureDispatchers"});
+		this.out = new EVMouse("mouseout",this,{ fileName : "RCControl.hx", lineNumber : 85, className : "RCControl", methodName : "configureDispatchers"});
+		this.click.addFirst($bind(this,this.clickHandler),{ fileName : "RCControl.hx", lineNumber : 87, className : "RCControl", methodName : "configureDispatchers"});
+		this.press.addFirst($bind(this,this.mouseDownHandler),{ fileName : "RCControl.hx", lineNumber : 88, className : "RCControl", methodName : "configureDispatchers"});
+		this.release.addFirst($bind(this,this.mouseUpHandler),{ fileName : "RCControl.hx", lineNumber : 89, className : "RCControl", methodName : "configureDispatchers"});
+		this.over.addFirst($bind(this,this.rollOverHandler),{ fileName : "RCControl.hx", lineNumber : 90, className : "RCControl", methodName : "configureDispatchers"});
+		this.out.addFirst($bind(this,this.rollOutHandler),{ fileName : "RCControl.hx", lineNumber : 91, className : "RCControl", methodName : "configureDispatchers"});
 	}
 	,init: function() {
 		if(this.state_ == null) this.setState(RCControlState.NORMAL);

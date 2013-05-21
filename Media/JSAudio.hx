@@ -10,18 +10,24 @@ import js.Lib;
 import js.Dom;
 import haxe.Timer;
 
+#if js
+/*extern class Audio extends HtmlDom, implements Dynamic {
+	public function new (url:String) :Void;
+}*/
+#end
 
 class JSAudio implements RCAudioInterface {
 	
 	public static var DISPLAY_TIMER_UPDATE_DELAY :Int = 1000;
 	
 	var URL :String;
-	var sound :HtmlDom;
+	var sound :Dynamic;//HtmlDom;
 	var channel :HtmlDom;
 	var timer :Timer;
 	var volume_ :Float;
 	var loaded_ :Bool;
 	var playing_ :Bool;
+	var medatadaReady :Bool;
 	
 	public var errorMessage :String;
 	public var percentLoaded :Int;
@@ -54,13 +60,16 @@ class JSAudio implements RCAudioInterface {
 		this.volume_ = 1;
 	}
 	public function init () :Void {
-		
 		this.loaded_ = true;
 		this.playing_ = false;
 		
 		sound = js.Lib.document.createElement('audio');
+		//untyped __js__ ("sound = new Audio ( this.URL );");
+/*		untyped sound.onloadedmetadata = id3Handler;
+		untyped sound.onloadstart = function(){trace("onloadstart");};
+		untyped sound.onplay = function(){trace("onplay");};*/
 		untyped sound.autoplay = false;
-		untyped sound.preload = "auto";//none, metadata
+		untyped sound.preload = "auto";//"auto";//none, metadata
 		untyped sound.loop = false;
 		untyped sound.src = URL;
 		untyped sound.load();
@@ -76,21 +85,20 @@ class JSAudio implements RCAudioInterface {
 	public function start (?time:Null<Int>) :Void {
 		
 		if (sound == null) init();
-			
-		if (true/*loaded_ && !playing_*/) {
-			untyped sound.currentTime = 0;
+		if (sound != null /*loaded_ && !playing_*/ /*&& medatadaReady*/) {
+			try { untyped sound.currentTime = 0; }catch(e:Dynamic){trace(e);}
 			untyped sound.play();
 			this.playing_ = true;
 		}
 		
-		timer.run = loop;
+		//timer.run = loop;
 		//setVolume ( volume_ );
 		
 		soundDidStartPlaying();
 	}
 	
 	public function stop () :Void {
-		if (playing_) {
+		if (playing_ && sound != null) {
 			untyped sound.pause();
 			this.playing_ = false;
 		}
@@ -109,14 +117,14 @@ class JSAudio implements RCAudioInterface {
 	mediaElement.played.end();      // Returns the number of seconds the browser has played*/
 	
 	
-/*	function completeHandler (e:Event) :Void {
+	function completeHandler (e:Event) :Void {
 		onLoadComplete();
 	}
-	function id3Handler (e:Event) :Void {
-		id3 = e.currentTarget.id3;
+	function id3Handler () :Void {
+		medatadaReady = true;
 		onID3();
 	}
-	function ioErrorHandler (e:Event) :Void {
+/*	function ioErrorHandler (e:Event) :Void {
 		errorMessage = e.toString();
 		onError();
 	}
@@ -157,7 +165,7 @@ class JSAudio implements RCAudioInterface {
 	
 	public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
-		untyped sound.volume = volume_;
+		if (sound != null) untyped sound.volume = volume_;
 		return volume_;
 	}
 	
