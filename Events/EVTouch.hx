@@ -3,8 +3,8 @@
 	import flash.events.TouchEvent;
 	import flash.display.DisplayObjectContainer;
 #elseif js
-	private typedef TouchEvent = js.html.Event;
-	private typedef DisplayObjectContainer = js.html.HtmlElement;
+	private typedef TouchEvent = js.html.TouchEvent;
+	private typedef DisplayObjectContainer = js.html.DivElement;
 	typedef EVTouchRelationship = {target:DisplayObjectContainer, type:String, instance:EVTouch};
 #else
 	private typedef TouchEvent = Dynamic;

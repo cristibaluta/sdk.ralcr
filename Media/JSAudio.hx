@@ -7,22 +7,18 @@
 //
 
 import js.Lib;
-import js.Dom;
+import js.html.Event;
+import js.html.Audio;
+import js.html.audio.AudioBuffer;
 import haxe.Timer;
-
-#if js
-/*extern class Audio extends HtmlDom, implements Dynamic {
-	public function new (url:String) :Void;
-}*/
-#end
 
 class JSAudio implements RCAudioInterface {
 	
 	public static var DISPLAY_TIMER_UPDATE_DELAY :Int = 1000;
 	
 	var URL :String;
-	var sound :Dynamic;//HtmlDom;
-	var channel :HtmlDom;
+	var sound :Audio;
+	var channel :AudioBuffer;
 	var timer :Timer;
 	var volume_ :Float;
 	var loaded_ :Bool;
@@ -63,17 +59,17 @@ class JSAudio implements RCAudioInterface {
 		this.loaded_ = true;
 		this.playing_ = false;
 		
-		sound = js.Lib.document.createElement('audio');
+		sound = new Audio();
 		//untyped __js__ ("sound = new Audio ( this.URL );");
 /*		untyped sound.onloadedmetadata = id3Handler;
 		untyped sound.onloadstart = function(){trace("onloadstart");};
 		untyped sound.onplay = function(){trace("onplay");};*/
-		untyped sound.autoplay = false;
-		untyped sound.preload = "auto";//"auto";//none, metadata
-		untyped sound.loop = false;
-		untyped sound.src = URL;
-		untyped sound.load();
-		js.Lib.document.body.appendChild ( sound );
+		sound.autoplay = false;
+		sound.preload = "auto";//"auto";//none, metadata
+		sound.loop = false;
+		sound.src = URL;
+		sound.load();
+		js.Browser.document.body.appendChild ( sound );
 
 		timer = new haxe.Timer ( updateTime );
 		//timer.run = loop;

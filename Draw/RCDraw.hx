@@ -55,7 +55,7 @@ class RCDraw extends RCView {
 	public function configure () :Void {
 		
 		if (Std.is (color, RCColor)) {
-			
+			#if !js
 			if (color.fillColor != null)
 				graphics.beginFill (color.fillColor, color.alpha);
 			
@@ -75,6 +75,7 @@ class RCDraw extends RCView {
 										joints,
 										miterLimit);
 			}
+			#end
 		}
 		
 #if (flash || (nme && (cpp || neko)))

@@ -56,7 +56,7 @@ class GKSprite extends RCView {
 		super.destroy();
 	}
 }
-class TileGroup extends TileBase
+/*class TileGroup extends TileBase
 {
 	
 	#if flash
@@ -203,4 +203,4 @@ class TileGroup extends TileBase
 			}
 		return xmax - xmin;
 	}
-}
+}*/

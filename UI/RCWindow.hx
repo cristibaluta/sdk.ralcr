@@ -20,9 +20,10 @@
 #elseif objc
 	import objc.ios.ui.UIView;
 #elseif js
+	import js.html.Element;
 	import js.html.DivElement;
 #end
-	import RCDevice;// RCUserAgent
+	import RCDevice;// imports RCUserAgent
 
 
 class RCWindow extends RCView {
@@ -39,8 +40,8 @@ class RCWindow extends RCView {
 	public var target :MovieClip;
 	public var stage :Stage;
 #elseif js
-	public var target :DivElement;
-	public var stage :DivElement;
+	public var target :Element;
+	public var stage :Element;
 #end
 
 	public var SCREEN_W :Float;
@@ -81,7 +82,7 @@ class RCWindow extends RCView {
 			
 		#elseif js
 			
-			stage = js.Browser.document.documentElement;
+			stage = js.Browser.document.body;
 			setTarget ( id );
 			
 			SCREEN_W = js.Browser.window.screen.width;

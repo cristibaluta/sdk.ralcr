@@ -4,9 +4,8 @@
 	import flash.display.DisplayObjectContainer;
 #end
 #if js
-	import js.Dom;
-	private typedef MouseEvent = Event;
-	private typedef DisplayObjectContainer = HtmlDom;
+	private typedef MouseEvent = js.html.Event;
+	private typedef DisplayObjectContainer = js.html.DivElement;
 	typedef EVMouseRelationship = {target:DisplayObjectContainer, type:String, instance:EVMouse};
 #end
 
@@ -218,7 +217,7 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 	}
 	
 	var mouseScrollHandler :Dynamic;// Haxe bug, need to store here the reference
-    function MouseScroll (e) {
+    function MouseScroll (e:Dynamic) {
 		
 		if (Reflect.field(e, 'wheelDelta') != null) {
 			delta = e.wheelDelta;

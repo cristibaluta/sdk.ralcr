@@ -6,6 +6,9 @@
 //  Copyright (c) 2010-2012 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
+#if (nme && (cpp || neko))
+import native.events.Event;
+#end
 
 class RCAppDelegate extends RCView {
 	
@@ -23,13 +26,16 @@ class RCAppDelegate extends RCView {
 		
 		#if (nme && (cpp || neko))
 			RCWindow.sharedWindow().stage.onQuit = applicationWillTerminate;
+			RCWindow.sharedWindow().stage.addEventListener (Event.ACTIVATE, applicationDidBecomeActiveHandler);
+			RCWindow.sharedWindow().stage.addEventListener (Event.DEACTIVATE, applicationWillResignActiveHandler);
 		#end
 	}
 	
 	// Override this methods
 	public function applicationDidFinishLaunching () :Void {}
 	public function applicationDidBecomeActive () :Void {}
-	public function applicationWillEnterForeground () :Void {}
+	public function applicationWillResignActive () :Void {}
+	//public function applicationWillEnterForeground () :Void {}
 	public function applicationWillTerminate () :Void {
 		trace("applicationWillTerminate");
 		#if (nme && (cpp || neko))
@@ -38,4 +44,8 @@ class RCAppDelegate extends RCView {
 	}
 	public function resize (w:Float, h:Float) :Void {}
 	public function fullscreen (b:Bool) :Void {}
+#if (nme && (cpp || neko))
+	public function applicationDidBecomeActiveHandler (e:Event) :Void { applicationDidBecomeActive(); }
+	public function applicationWillResignActiveHandler (e:Event) :Void { applicationWillResignActive(); }
+#end
 }

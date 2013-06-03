@@ -116,12 +116,10 @@ class JSVideo extends RCView implements RCVideoInterface {
 		
 		// Create the video tag element
 		video = js.Browser.document.createVideoElement();
-        video.setAttribute("preload", "auto");
-		video.autoplay = "autoplay";
-		video.controls = null;//"controls";
-		video.src = this.videoURL;
         layer.appendChild ( video );
-		
+        video.preload = "auto";// "metadata", "none"
+		video.autoplay = true;
+		video.controls = true;
         video.addEventListener("error", errorHandler, false);
         video.addEventListener("loadedmetadata", onMetaData, false);
         video.addEventListener("playing", videoDidStartHandler, false);
@@ -130,6 +128,7 @@ class JSVideo extends RCView implements RCVideoInterface {
         video.addEventListener("canplay", onBufferFullHandler, false);
         video.addEventListener("canplaythrough", onBufferFullHandler, false);
         video.addEventListener("waiting", onBufferEmptyHandler, false);
+		video.src = this.videoURL;
 	}
 	
 	/**
@@ -139,8 +138,8 @@ class JSVideo extends RCView implements RCVideoInterface {
 	 *  Firefox : ogv
 	 **/
 	public function addAlternativeURL (url:String) :Void {
-		
-		if (video.canPlayType("video/"+url.split(".").pop()))
+		// Returns the empty string (a negative response), "maybe", or "probably" based on how confident the user agent is that it can play media resources of the given type.
+		if (video.canPlayType("video/"+url.split(".").pop()) != "")
 			video.src = url;
 	}
 	
@@ -155,8 +154,8 @@ class JSVideo extends RCView implements RCVideoInterface {
 	
     function errorHandler (e:EventListener) :Void {
 		
-        statusMessage = e.target.error.code;
-		trace(statusMessage +" : "+ videoURL);
+        //statusMessage = e.target.error.code;
+		//trace(statusMessage +" : "+ videoURL);
 
         onError();
     }
@@ -232,12 +231,12 @@ class JSVideo extends RCView implements RCVideoInterface {
 		timer.run = loop;
 	}
 	
-	function videoDidFinishPlayingHandler () :Void {
+	function videoDidFinishPlayingHandler (e:EventListener) :Void {
 		trace("videoDidFinishPlaying");
 		videoDidFinishPlaying();
 		timer.stop();
 	}
-	function videoDidStartHandler (e:Event) :Void {
+	function videoDidStartHandler (e:EventListener) :Void {
 		trace("videoDidStart");
 		videoDidStart();
 		timer.run = loop;
@@ -318,7 +317,7 @@ class JSVideo extends RCView implements RCVideoInterface {
 	
 	public function set_volume (volume:Float) :Float {
 		volume_ = volume > 1 ? 1 : volume;
-		video.volume = Std.string ( Math.round (volume_ * 10) / 10);
+		video.volume = Math.round (volume_ * 10) / 10;
 		return volume_;
 	}
 	
@@ -350,8 +349,8 @@ class JSVideo extends RCView implements RCVideoInterface {
 		}
 		
 		// Center the video object in the provided width and height
-		video.style.x = Math.round ((w - video.width) / 2);
-		video.style.y = Math.round ((h - video.height) / 2);
+		video.style.left = Math.round ((w - video.width) / 2) + "px";
+		video.style.top = Math.round ((h - video.height) / 2) + "px";
 	}
 	
 	

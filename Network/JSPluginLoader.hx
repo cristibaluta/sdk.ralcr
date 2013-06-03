@@ -1,4 +1,6 @@
 import js.html.Event;
+import js.html.HTMLCollection;
+import js.html.NodeList;
 
 class JSPluginLoader {
 	
@@ -71,14 +73,14 @@ class JSPluginLoader {
 		trace(element);
 		var attr = (filename.indexOf(".js") != -1)? "src" : (filename.indexOf(".css") != -1) ? "href" : "none";
 		trace(attr);
-		var collection :HtmlCollection<HtmlDom> = js.Browser.document.getElementsByTagName( element );
+		//var collection :HTMLCollection = js.Browser.document.getElementsByTagName( element );
+		var collection :NodeList = js.Browser.document.getElementsByTagName( element );
 		trace(collection);
 		for (i in 0...collection.length) {
-			trace(collection[i]);
-			trace(collection[i].getAttribute(attr));
-			trace(collection[i].getAttribute(attr));
-			if (collection[i].getAttribute(attr) != null && collection[i].getAttribute(attr).indexOf(filename) != -1)
-				return true;
+			trace(collection.item(i));
+			trace(collection.item(i).nodeName );
+/*			if (collection[i].getAttribute(attr) != null && collection[i].getAttribute(attr).indexOf(filename) != -1)
+				return true;*/
 		}
 		return false;
 	}

@@ -10,7 +10,7 @@
 #if (flash || (nme && (cpp || neko)))
 	import flash.display.DisplayObjectContainer;
 #elseif js
-	private typedef DisplayObjectContainer = js.html.DivElement;
+	private typedef DisplayObjectContainer = js.html.Element;
 #end
 
 private enum Direction {

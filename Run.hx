@@ -2,6 +2,7 @@ using StringTools;
 
 import sys.FileSystem;
 import sys.io.File;
+import haxe.io.Path;
 
 class Run {
 	
@@ -14,7 +15,7 @@ class Run {
 		var args = Sys.args();
 		
 		if (args.length > 0) {
-			var last:String = (new neko.io.Path(args.pop())).toString();
+			var last:String = ( new Path ( args.pop())).toString();
 			var slash = last.substr(-1);
 			if (slash=="/"|| slash=="\\") 
 			    me = last.substr(0,last.length-1);

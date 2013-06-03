@@ -43,12 +43,12 @@ class RCRectangle extends RCDraw implements RCDrawInterface {
 		layer.style.margin = "0px 0px 0px 0px";
 		layer.style.width = size.width * dpi + "px";
 		layer.style.height = size.height * dpi + "px";
-		layer.style.backgroundColor = fillColorStyle;
+		layer.style.backgroundColor = fillColorStyle + "";
 		
 		if (strokeColorStyle != null) {
 			layer.style.borderStyle = "solid";
 			layer.style.borderWidth = borderThickness + "px";
-			layer.style.borderColor = strokeColorStyle;
+			layer.style.borderColor = strokeColorStyle + "";
 		}
 		if (roundness != null) {
 			untyped layer.style.MozBorderRadius = roundness * dpi / 2 + "px";
