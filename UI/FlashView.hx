@@ -27,7 +27,7 @@ class FlashView extends RCDisplayObject {
 		layer = new Sprite();
 		graphics = layer.graphics;
 		size = new RCSize (w, h);
-		contentSize_ = size.copy();
+		contentSize_ = new RCSize (w, h);
 		
 		set_x ( x );
 		set_y ( y );
@@ -137,21 +137,28 @@ class FlashView extends RCDisplayObject {
 	
 	
 	override public function addChild (child:RCView) :Void {
-		if (child == null) return;
-		child.viewWillAppear.dispatch();
-		child.parent = this;
-		layer.addChild ( child.layer );
-		child.viewDidAppear.dispatch();
+		if (child != null) {
+			child.viewWillAppear.dispatch();
+			child.parent = this;
+			layer.addChild ( child.layer );
+			child.viewDidAppear.dispatch();
+		}
 	}
 	override public function addChildAt (child:RCView, index:Int) :Void {
-		layer.addChildAt (child.layer, index);
+		if (child == null) {
+			child.viewWillAppear.dispatch();
+			child.parent = this;
+			layer.addChildAt (child.layer, index);
+			child.viewDidAppear.dispatch();
+		}
 	}
 	override public function removeChild (child:RCView) :Void {
-		if (child == null) return;
-		child.viewWillDisappear.dispatch();
-		layer.removeChild ( child.layer );
-		child.parent = null;
-		child.viewDidDisappear.dispatch();
+		if (child == null) {
+			child.viewWillDisappear.dispatch();
+			layer.removeChild ( child.layer );
+			child.parent = null;
+			child.viewDidDisappear.dispatch();
+		}
 	}
 	@:keep public function removeFromSuperview () :Void {
 		var parent = null;

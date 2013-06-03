@@ -18,7 +18,7 @@ typedef RCView = JSView;
 
 #elseif objc
 
-typedef RCView = OBJCView;
+typedef RCView = ObjcView;
 
 #end
 

@@ -15,18 +15,18 @@ class CATween extends CAObject implements CATransitionInterface {
 			if (Std.is (Reflect.field (properties, p), Int) || Std.is (Reflect.field (properties, p), Float)) {
 				
 				// We have simple properties: x=10, y=40, ...
-				var getter = "get_"+p;
+				var getter = "get_" + p;
 				if (getter == null)
-				Reflect.setField (fromValues, p, Reflect.field (target, p));
+					Reflect.setField (fromValues, p, Reflect.field (target, p));
 				else
-				Reflect.setField (fromValues, p, Reflect.callMethod (target, Reflect.field(target,getter), []));
+					Reflect.setField (fromValues, p, Reflect.callMethod (target, Reflect.field(target,getter), []));
 				Reflect.setField (toValues, p, Reflect.field (properties, p));
 			}
 			else try {
 				// Prevents on adding to the object unknown properties
-				// We have composed properties: x={fromValue:0, toValue:10}, ....
+				// We have initial and final values: x={fromValue:0, toValue:10}, ....
 				Reflect.setField (fromValues, p, Reflect.field (Reflect.field (properties, p), "fromValue"));
-				Reflect.setField (target, p, Reflect.field (fromValues, p));
+				Reflect.setProperty (target, p, Reflect.field (fromValues, p));
 				Reflect.setField (toValues, p, Reflect.field (Reflect.field (properties, p), "toValue"));
 			}
 			catch (e:Dynamic) { trace(e); }
@@ -35,19 +35,16 @@ class CATween extends CAObject implements CATransitionInterface {
 	
 	override public function animate (time_diff:Float) :Void {
 		// Iterate over properties that should be tweened for this object
-		for (prop in Reflect.fields (toValues))
-			try {
-/*			#if (flash || (nme && (cpp || neko)))
-				Reflect.setField (target, prop, calculate (time_diff, prop));
-			#elseif js*/
-				
-				//var val = calculate (time_diff, prop);
-				var setter = "set_"+prop;
-				if (setter != null)
-					//target.setter ( calculate (time_diff, prop) );
+		for (prop in Reflect.fields (toValues)) {
+			var setter = "set_" + prop;
+			if (setter != null) try {
+#if (flash || (nme && (cpp || neko)))
+				untyped target[setter]( calculate (time_diff, prop));
+#else
 				Reflect.callMethod (target, Reflect.field(target,setter), [calculate (time_diff, prop)]);
-			//#end
+#end
 			}
 			catch (e:Dynamic) { trace(e); }
+		}
 	}
 }

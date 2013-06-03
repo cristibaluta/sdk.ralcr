@@ -45,7 +45,7 @@ class RCTabBarController extends RCView {
 		this.symbols = symbols;
 		this.controllers = controllers;
 		
-		tabBar = new RCTabBar (0, size_.height-50, size_.width, 50, constructor_);
+		tabBar = new RCTabBar (0, size.height-50, size.width, 50, constructor_);
 		this.addChild ( tabBar );
 		tabBar.add ( labels );
 		tabBar.didSelectItem.add ( didSelectItemHandler );

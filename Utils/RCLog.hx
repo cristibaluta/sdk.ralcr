@@ -29,7 +29,7 @@ class RCLog {
 	 *  Chose the classes you want to see the traces from
 	 *  @param arr is an array of strings that represent the class names. 
 	 *  Call this method as many times as you like.
-	 *  If you don't specify any all traces are sent to the output
+	 *  If you don't specify any, all traces are sent to the console
 	 **/
 	public static function allowClasses (arr:Array<String>) {
 		ALLOW_TRACES_FROM = ALLOW_TRACES_FROM.concat( arr );
@@ -53,10 +53,16 @@ class RCLog {
 	
 	private static function _trace (v : Dynamic, ?inf : haxe.PosInfos) :Void
 	{
-		var newLineIn = (lastMethod == inf.methodName) ? "" : "\n---> ";
-		var newLineOut = (lastMethod == inf.methodName) ? "" : "\n\n";
+		var line1 = (lastMethod == inf.methodName) ? "" : "\n";
+		var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
 		
-		haxe.Log.trace ( inf.methodName + " : " + newLineIn + Std.string(v) + newLineOut, inf );
+		#if flash
+		if ((lastMethod != inf.methodName))
+		flash.external.ExternalInterface.call ("console.log", fileInfo);
+		flash.external.ExternalInterface.call ("console.log", inf.lineNumber + " :  " + Std.string(v));
+		#elseif js
+		//untyped js.Boot.__trace ( inf.methodName + " : " + newLineIn + Std.string(v) + newLineOut, inf );
+		#end
 		
 		lastMethod = inf.methodName;
 	}

@@ -38,8 +38,8 @@ class RCTextView extends RCView {
 		// This step is very important, otherwise the TextFormat will not be created
 		this.rcfont = rcfont.copy();
 #if js
-		set_width ( size_.width );
-		set_height ( size_.height );
+		set_width ( size.width );
+		set_height ( size.height );
 		viewDidAppear.add ( viewDidAppear_ );
 #end
 		init();
@@ -81,13 +81,13 @@ class RCTextView extends RCView {
 			target.autoSize = flash.text.TextFieldAutoSize.LEFT;
 		#end
 		
-		target.wordWrap = (size_.width == 0) ? false : true;
-		target.multiline = (size_.height == 0) ? false : true;
+		target.wordWrap = (size.width == 0) ? false : true;
+		target.multiline = (size.height == 0) ? false : true;
 		target.selectable = rcfont.selectable;
 		target.border = false;
 		
-		if (size_.width != 0)	target.width = size_.width * RCDevice.currentDevice().dpiScale;
-		if (size_.height != 0)	target.height = size_.height * RCDevice.currentDevice().dpiScale;
+		if (size.width != 0)	target.width = size.width * RCDevice.currentDevice().dpiScale;
+		if (size.height != 0)	target.height = size.height * RCDevice.currentDevice().dpiScale;
 		
 		var format = rcfont.get_format();
 		format.align = switch (rcfont.align) {
@@ -105,8 +105,8 @@ class RCTextView extends RCView {
 	
 	public function redraw () :Void {
 		
-		var wrap = size_.width != 0;
-		var multiline = size_.height != 0;
+		var wrap = size.width != 0;
+		var multiline = size.height != 0;
 		
 		layer.style.whiteSpace = (wrap ? "normal" : "nowrap");
 		layer.style.wordWrap = (wrap ? "break-word" : "normal");
@@ -125,7 +125,7 @@ class RCTextView extends RCView {
 		layer.style.color = RCColor.HEXtoString ( rcfont.color );
 		untyped layer.style.contentEditable = "true";
 		if (rcfont.autoSize) {
-			layer.style.width = multiline ? size_.width + "px" : "auto";
+			layer.style.width = multiline ? size.width + "px" : "auto";
 			layer.style.height = "auto";
 		}
 		else {
@@ -133,11 +133,11 @@ class RCTextView extends RCView {
 			layer.style.height = size.height + "px";
 		}
 		
-		if (size_.width != 0) set_width ( size_.width );
+		if (size.width != 0) set_width ( size.width );
 		//layer.style.textAlign = rcfont.align;
 	}
 	function viewDidAppear_ () :Void {
-		size_.width = contentSize_.width;
+		size.width = contentSize_.width;
 	}
 	
 #end
@@ -169,17 +169,17 @@ class RCTextView extends RCView {
 				content = content.split("~~~TAB~~~").join("<span style='letter-spacing:1.3em'>&nbsp;</span>");*/
 				layer.innerHTML = str;
 			}
-			size_.width = contentSize_.width;
+			size.width = contentSize_.width;
 			//set_width ( size.width );
 		#end
 		
 		#if nme
 			// Align the text by doing some math for NME 
 			// because align is not supported in combination with autoSize
-			if (size_.width != 0)
+			if (size.width != 0)
 				target.x = switch (rcfont.align) {
-					case "center": Math.round ((size_.width - target.width) / 2);
-					case "right": Math.round (size_.width - target.width);
+					case "center": Math.round ((size.width - target.width) / 2);
+					case "right": Math.round (size.width - target.width);
 					default: 0;
 				}; 
 		#end

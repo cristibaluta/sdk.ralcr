@@ -60,15 +60,15 @@ class RCScrollView extends RCView {
 		trace("setScrollEnabled "+b);
 		var colors = [null, null, 0xDDDDDD, 0xFFFFFF];
 		trace("contentSize "+contentView.contentSize);
-		trace(size_);
+		trace(size);
 		
 		// Add or remove the horizontal scrollbar
-		if (contentSize_.width > size_.width && horizScrollBarSync == null && b && false) {
+		if (contentSize_.width > size.width && horizScrollBarSync == null && b && false) {
 			trace("add horiz");
-			var scroller_w = Zeta.lineEquationInt (size_.width/2, size_.width, contentSize_.width, size_.width*2, size_.width);
+			var scroller_w = Zeta.lineEquationInt (size.width/2, size.width, contentSize_.width, size.width*2, size.width);
 			var skinH = new haxe.SKScrollBar ( colors );
-			horizScrollBar = new RCScrollBar (0, size_.height - 10, size_.width, 8, scroller_w, skinH);
-			horizScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, horizScrollBar, size_.width, "horizontal");
+			horizScrollBar = new RCScrollBar (0, size.height - 10, size.width, 8, scroller_w, skinH);
+			horizScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, horizScrollBar, size.width, "horizontal");
 			horizScrollBarSync.valueChanged.add ( scrollViewDidScrollHandler );
 			addChild ( horizScrollBar );
 		}
@@ -81,12 +81,12 @@ class RCScrollView extends RCView {
 		
 		
 		// Add or remove the vertical scrollbar
-		if (contentView.height > size_.height && vertScrollBarSync == null && b) {
+		if (contentView.height > size.height && vertScrollBarSync == null && b) {
 			trace("add vert");
-			var scroller_h = Zeta.lineEquationInt (size_.height/2, size_.height, contentSize_.height, size_.height*2, size_.height);
+			var scroller_h = Zeta.lineEquationInt (size.height/2, size.height, contentSize_.height, size.height*2, size.height);
 			var skinV = new haxe.SKScrollBar ( colors );
-			vertScrollBar = new RCScrollBar (size_.width - 10, 0, 8, size_.height, scroller_h, skinV);
-			vertScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, vertScrollBar, size_.height, "vertical");
+			vertScrollBar = new RCScrollBar (size.width - 10, 0, 8, size.height, scroller_h, skinV);
+			vertScrollBarSync = new RCSliderSync (RCWindow.sharedWindow().target, contentView, vertScrollBar, size.height, "vertical");
 			vertScrollBarSync.valueChanged.add ( scrollViewDidScrollHandler );
 			addChild ( vertScrollBar );
 		}

@@ -327,8 +327,8 @@ class JSVideo extends RCView implements RCVideoInterface {
 	 */
 	public function setSize (w, h) :Void {
 		
-		size_.width = w;
-		size_.height = h;
+		size.width = w;
+		size.height = h;
 		background.width = w;
 		background.height = h;
 		

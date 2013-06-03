@@ -631,11 +631,11 @@ CATween.prototype = $extend(CAObject.prototype,{
 		while(_g < _g1.length) {
 			var prop = _g1[_g];
 			++_g;
-			try {
-				var setter = "set_" + prop;
-				if(setter != null) Reflect.field(this.target,setter).apply(this.target,[this.timingFunction(time_diff,Reflect.field(this.fromValues,prop),Reflect.field(this.toValues,prop) - Reflect.field(this.fromValues,prop),this.duration,null)]);
+			var setter = "set_" + prop;
+			if(setter != null) try {
+				Reflect.field(this.target,setter).apply(this.target,[this.timingFunction(time_diff,Reflect.field(this.fromValues,prop),Reflect.field(this.toValues,prop) - Reflect.field(this.fromValues,prop),this.duration,null)]);
 			} catch( e ) {
-				haxe.Log.trace(e,{ fileName : "CATween.hx", lineNumber : 51, className : "CATween", methodName : "animate"});
+				haxe.Log.trace(e,{ fileName : "CATween.hx", lineNumber : 47, className : "CATween", methodName : "animate"});
 			}
 		}
 	}
@@ -650,7 +650,7 @@ CATween.prototype = $extend(CAObject.prototype,{
 				this.toValues[p] = Reflect.field(this.properties,p);
 			} else try {
 				this.fromValues[p] = Reflect.field(Reflect.field(this.properties,p),"fromValue");
-				this.target[p] = Reflect.field(this.fromValues,p);
+				Reflect.setProperty(this.target,p,Reflect.field(this.fromValues,p));
 				this.toValues[p] = Reflect.field(Reflect.field(this.properties,p),"toValue");
 			} catch( e ) {
 				haxe.Log.trace(e,{ fileName : "CATween.hx", lineNumber : 32, className : "CATween", methodName : "init"});
@@ -2120,19 +2120,19 @@ RCDisplayObject.prototype = {
 		return this.contentSize_ = s;
 	}
 	,get_contentSize: function() {
-		return this.size_;
+		return this.size;
 	}
 	,set_height: function(h) {
-		return this.size_.height = h;
+		return this.size.height = h;
 	}
 	,get_height: function() {
-		return this.size_.height;
+		return this.size.height;
 	}
 	,set_width: function(w) {
-		return this.size_.width = w;
+		return this.size.width = w;
 	}
 	,get_width: function() {
-		return this.size_.width;
+		return this.size.width;
 	}
 	,set_y: function(y) {
 		return this.y_ = y;
@@ -2160,7 +2160,6 @@ RCDisplayObject.prototype = {
 	,caobj: null
 	,originalSize: null
 	,contentSize_: null
-	,size_: null
 	,rotation_: null
 	,scaleY_: null
 	,scaleX_: null
@@ -3445,8 +3444,8 @@ JSVideo.prototype = $extend(JSView.prototype,{
 		JSView.prototype.destroy.call(this);
 	}
 	,setSize: function(w,h) {
-		this.size_.width = w;
-		this.size_.height = h;
+		this.size.width = w;
+		this.size.height = h;
 		this.background.set_width(w);
 		this.background.set_height(h);
 		var holderAspectRatio = w / h;
@@ -6078,6 +6077,7 @@ var RCLog = function() { }
 $hxClasses["RCLog"] = RCLog;
 RCLog.__name__ = ["RCLog"];
 RCLog.redirectTraces = function() {
+	haxe.Log.trace = RCLog.trace;
 }
 RCLog.allowClasses = function(arr) {
 	RCLog.ALLOW_TRACES_FROM = RCLog.ALLOW_TRACES_FROM.concat(arr);
@@ -6094,9 +6094,8 @@ RCLog.trace = function(v,inf) {
 	}
 }
 RCLog._trace = function(v,inf) {
-	var newLineIn = RCLog.lastMethod == inf.methodName?"":"\n---> ";
-	var newLineOut = RCLog.lastMethod == inf.methodName?"":"\n\n";
-	haxe.Log.trace(inf.methodName + " : " + newLineIn + Std.string(v) + newLineOut,inf);
+	var line1 = RCLog.lastMethod == inf.methodName?"":"\n";
+	var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
 	RCLog.lastMethod = inf.methodName;
 }
 var RCMail = function(apiPath) {
@@ -6617,13 +6616,13 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 		haxe.Log.trace("setScrollEnabled " + Std.string(b),{ fileName : "RCScrollView.hx", lineNumber : 60, className : "RCScrollView", methodName : "set_scrollEnabled"});
 		var colors = [null,null,14540253,16777215];
 		haxe.Log.trace("contentSize " + Std.string(this.contentView.get_contentSize()),{ fileName : "RCScrollView.hx", lineNumber : 62, className : "RCScrollView", methodName : "set_scrollEnabled"});
-		haxe.Log.trace(this.size_,{ fileName : "RCScrollView.hx", lineNumber : 63, className : "RCScrollView", methodName : "set_scrollEnabled"});
-		if(this.contentSize_.width > this.size_.width && this.horizScrollBarSync == null && b && false) {
+		haxe.Log.trace(this.size,{ fileName : "RCScrollView.hx", lineNumber : 63, className : "RCScrollView", methodName : "set_scrollEnabled"});
+		if(this.contentSize_.width > this.size.width && this.horizScrollBarSync == null && b && false) {
 			haxe.Log.trace("add horiz",{ fileName : "RCScrollView.hx", lineNumber : 67, className : "RCScrollView", methodName : "set_scrollEnabled"});
-			var scroller_w = Zeta.lineEquationInt(this.size_.width / 2,this.size_.width,this.contentSize_.width,this.size_.width * 2,this.size_.width);
+			var scroller_w = Zeta.lineEquationInt(this.size.width / 2,this.size.width,this.contentSize_.width,this.size.width * 2,this.size.width);
 			var skinH = new haxe.SKScrollBar(colors);
-			this.horizScrollBar = new RCScrollBar(0,this.size_.height - 10,this.size_.width,8,scroller_w,skinH);
-			this.horizScrollBarSync = new RCSliderSync(RCWindow.sharedWindow().target,this.contentView,this.horizScrollBar,this.size_.width,"horizontal");
+			this.horizScrollBar = new RCScrollBar(0,this.size.height - 10,this.size.width,8,scroller_w,skinH);
+			this.horizScrollBarSync = new RCSliderSync(RCWindow.sharedWindow().target,this.contentView,this.horizScrollBar,this.size.width,"horizontal");
 			this.horizScrollBarSync.valueChanged.add($bind(this,this.scrollViewDidScrollHandler));
 			this.addChild(this.horizScrollBar);
 		} else {
@@ -6632,12 +6631,12 @@ RCScrollView.prototype = $extend(JSView.prototype,{
 			this.horizScrollBarSync = null;
 		}
 		haxe.Log.trace("contentView.height " + this.contentView.get_height(),{ fileName : "RCScrollView.hx", lineNumber : 80, className : "RCScrollView", methodName : "set_scrollEnabled"});
-		if(this.contentView.get_height() > this.size_.height && this.vertScrollBarSync == null && b) {
+		if(this.contentView.get_height() > this.size.height && this.vertScrollBarSync == null && b) {
 			haxe.Log.trace("add vert",{ fileName : "RCScrollView.hx", lineNumber : 85, className : "RCScrollView", methodName : "set_scrollEnabled"});
-			var scroller_h = Zeta.lineEquationInt(this.size_.height / 2,this.size_.height,this.contentSize_.height,this.size_.height * 2,this.size_.height);
+			var scroller_h = Zeta.lineEquationInt(this.size.height / 2,this.size.height,this.contentSize_.height,this.size.height * 2,this.size.height);
 			var skinV = new haxe.SKScrollBar(colors);
-			this.vertScrollBar = new RCScrollBar(this.size_.width - 10,0,8,this.size_.height,scroller_h,skinV);
-			this.vertScrollBarSync = new RCSliderSync(RCWindow.sharedWindow().target,this.contentView,this.vertScrollBar,this.size_.height,"vertical");
+			this.vertScrollBar = new RCScrollBar(this.size.width - 10,0,8,this.size.height,scroller_h,skinV);
+			this.vertScrollBarSync = new RCSliderSync(RCWindow.sharedWindow().target,this.contentView,this.vertScrollBar,this.size.height,"vertical");
 			this.vertScrollBarSync.valueChanged.add($bind(this,this.scrollViewDidScrollHandler));
 			this.addChild(this.vertScrollBar);
 		} else {
@@ -7450,7 +7449,7 @@ RCTabBarController.prototype = $extend(JSView.prototype,{
 		this.labels = labels;
 		this.symbols = symbols;
 		this.controllers = controllers;
-		this.tabBar = new RCTabBar(0,this.size_.height - 50,this.size_.width,50,this.constructor_);
+		this.tabBar = new RCTabBar(0,this.size.height - 50,this.size.width,50,this.constructor_);
 		this.addChild(this.tabBar);
 		this.tabBar.add(labels);
 		this.tabBar.didSelectItem.add($bind(this,this.didSelectItemHandler));
@@ -7850,8 +7849,8 @@ RCTextRoll.prototype = $extend(JSView.prototype,{
 var RCTextView = function(x,y,w,h,str,rcfont) {
 	JSView.call(this,Math.round(x),Math.round(y),w,h);
 	this.rcfont = rcfont.copy();
-	this.set_width(this.size_.width);
-	this.set_height(this.size_.height);
+	this.set_width(this.size.width);
+	this.set_height(this.size.height);
 	this.viewDidAppear.add($bind(this,this.viewDidAppear_));
 	this.init();
 	this.set_text(str);
@@ -7867,18 +7866,18 @@ RCTextView.prototype = $extend(JSView.prototype,{
 	}
 	,set_text: function(str) {
 		if(this.rcfont.html) this.layer.innerHTML = str; else this.layer.innerHTML = str;
-		this.size_.width = this.contentSize_.width;
+		this.size.width = this.contentSize_.width;
 		return str;
 	}
 	,get_text: function() {
 		return this.layer.innerHTML;
 	}
 	,viewDidAppear_: function() {
-		this.size_.width = this.contentSize_.width;
+		this.size.width = this.contentSize_.width;
 	}
 	,redraw: function() {
-		var wrap = this.size_.width != 0;
-		var multiline = this.size_.height != 0;
+		var wrap = this.size.width != 0;
+		var multiline = this.size.height != 0;
 		this.layer.style.whiteSpace = wrap?"normal":"nowrap";
 		this.layer.style.wordWrap = wrap?"break-word":"normal";
 		var style = this.rcfont.selectable?"text":"none";
@@ -7894,13 +7893,13 @@ RCTextView.prototype = $extend(JSView.prototype,{
 		this.layer.style.color = RCColor.HEXtoString(this.rcfont.color);
 		this.layer.style.contentEditable = "true";
 		if(this.rcfont.autoSize) {
-			this.layer.style.width = multiline?this.size_.width + "px":"auto";
+			this.layer.style.width = multiline?this.size.width + "px":"auto";
 			this.layer.style.height = "auto";
 		} else {
 			this.layer.style.width = this.size.width + "px";
 			this.layer.style.height = this.size.height + "px";
 		}
-		if(this.size_.width != 0) this.set_width(this.size_.width);
+		if(this.size.width != 0) this.set_width(this.size.width);
 	}
 	,init: function() {
 		JSView.prototype.init.call(this);

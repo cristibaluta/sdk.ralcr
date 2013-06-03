@@ -17,7 +17,7 @@ import objc.graphics.CGGeometry;
 import objc.graphics.CGAffineTransform;
 
 
-class OBJCView extends RCDisplayObject {
+class ObjcView extends RCDisplayObject {
 
 	public var layer :Sprite; // In flash the layer is a Sprite
 	public var graphics :Graphics;
