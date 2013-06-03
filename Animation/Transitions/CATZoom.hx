@@ -7,12 +7,22 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
+enum CATZoomType {
+	
+	CATZoomInIn;
+	CATZoomOutIn;
+	CATZoomInOut;
+	CATZoomOutOut;
+	CATSpinIn;
+	CATSpinOut;
+}
+
 class CATZoom extends CAObject implements CATransitionInterface {
 	
 	/**
 	 *  Predefined zoom types that you can use: {zoom:zoomType}
 	 *  zoominin - 
-	 *  zoomoutin - From a big scale to normal scale
+	 *  zoomoutin - From scale 1.3 to scale 1
 	 *  zoominout - 
 	 *  zoomoutout - 
 	 *  spinin - 

@@ -69,6 +69,16 @@ class RCDevice {
 			#end
 		#end
 	}
+	
+	public function isTouch() :Bool {
+		#if js
+		untyped __js__("return !!('ontouchstart' in window) // works on most browsers 
+	      || !!('onmsgesturechange' in window); // works on ie10");
+		#elseif objc
+			return true;
+		#end
+		return false;
+	}
 
 #if js
 	

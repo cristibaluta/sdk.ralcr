@@ -69,9 +69,7 @@ class NMEHttps {
 		else if (method == "DELETE") {
 			//ralcr_https_delete ( url, vars );
 		}
-		
-/*		checkRequestStatus();*/
-		haxe.Timer.delay ( checkRequestStatus, 5000);
+		requestTimer = haxe.Timer.delay ( checkRequestStatus, 200);
 	}
 	function checkRequestStatus () {
 		trace("check status");

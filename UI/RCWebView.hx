@@ -5,7 +5,9 @@ class RCWebView {
 	public var didFinishLoad :RCSignal<String->Void>;
 	public var didFinishWithError :RCSignal<String->Void>;
 	
-	#if nme
+	#if objc
+	var webView :ios.ui.UIWebView;
+	#elseif nme
 	var webView :NMEWebView;
 	#end
 	var x :Float;

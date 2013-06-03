@@ -11,6 +11,9 @@ class NMEWebView {
 	var ralcr_destroy_web_view :Dynamic;
 	var ralcr_did_finish_load_with_url :Dynamic;
 	
+	/**
+	 *  Creates a native WebView with a native frame of x,y,w,h and starts loading the page at url
+	 **/
 	public function new (x:Float, y:Float, w:Float, h:Float, url:String) {
 		
 		didFinishLoad = new RCSignal<String->Void>();
@@ -20,7 +23,7 @@ class NMEWebView {
 		
 		nme.Lib.postUICallback ( function() { ralcr_new_web_view (x, y, w, h, url); });
 		
-		haxe.Timer.delay (checkLoadingStatus, 200);
+		checkTimer = haxe.Timer.delay (checkLoadingStatus, 500);
 	}
 	function checkLoadingStatus () {
 		
@@ -44,6 +47,9 @@ class NMEWebView {
 	
 #else
 	
+	/**
+	 *  Creates a native WebView with a native frame of x,y,w,h and starts loading the page at url
+	 **/
 	public function new (x:Float, y:Float, w:Float, h:Float, url:String) {
 		
 		didFinishLoad = new RCSignal<String->Void>();

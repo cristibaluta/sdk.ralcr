@@ -74,13 +74,13 @@ class CAObject {
 	}
 	
 	
-	public function init () :Void { throw "CAObject should be extended, use a CATransition ("+pos+")"; }
-	public function animate (time_diff:Float) :Void { throw "CAObject should be extended, use a CATransition ("+pos+")"; }
+	public function init () :Void { throw "CAObject can't be used directly, use a CATransition ("+pos+")"; }
+	public function animate (time_diff:Float) :Void { throw "CAObject can't be used directly, use a CATransition ("+pos+")"; }
 	
 	
 	/**
 	 *	Creates starting and ending points for each parameter of the object to animate.
-	 *  This is not called till is not added to RCAnimation
+	 *  This is called by the engine when is added to the RCAnimation
 	 */
 	public function initTime () :Void {
 		this.fromTime = RCAnimation.timestamp();
