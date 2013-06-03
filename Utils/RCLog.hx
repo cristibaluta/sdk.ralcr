@@ -57,11 +57,13 @@ class RCLog {
 		var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
 		
 		#if flash
-		if ((lastMethod != inf.methodName))
-		flash.external.ExternalInterface.call ("console.log", fileInfo);
-		flash.external.ExternalInterface.call ("console.log", inf.lineNumber + " :  " + Std.string(v));
+			if ((lastMethod != inf.methodName))
+			flash.external.ExternalInterface.call ("console.log", fileInfo);
+			flash.external.ExternalInterface.call ("console.log", inf.lineNumber + " :  " + Std.string(v));
 		#elseif js
-		//untyped js.Boot.__trace ( inf.methodName + " : " + newLineIn + Std.string(v) + newLineOut, inf );
+			if ((lastMethod != inf.methodName))
+			untyped console.log (fileInfo);
+			untyped console.log (inf.lineNumber + " :  " + Std.string(v));
 		#end
 		
 		lastMethod = inf.methodName;
