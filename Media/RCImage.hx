@@ -31,6 +31,10 @@ import RCDevice;
 	typedef BitmapData = Dynamic;
 	typedef ErrorEvent = Event;
 	typedef IOErrorEvent = Event;
+#elseif objc
+	import ios.ui.UIImage;
+	import ios.ui.UIImageView;
+	typedef Loader = UIImage;
 #end
 
 

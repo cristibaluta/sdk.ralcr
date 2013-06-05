@@ -23,6 +23,12 @@ class RCLog {
 		#if !nme
 			haxe.Log.trace = RCLog.trace;
 		#end
+
+		#if js
+			// IE Console fix, for the unfortunate situation when you want to debug in IE < 9
+			untyped __js__("if (!window.console) window.console = {};
+			if (!window.console.log) window.console.log = function () { };");
+		#end
 	}
 	
 	/**
@@ -37,10 +43,6 @@ class RCLog {
 	
 	public static function trace (v : Dynamic, ?inf : haxe.PosInfos) : Void
 	{
-		#if js
-			// IE < 9 does not support console.log
-			if (RCDevice.currentDevice().userAgent == MSIE) return;
-		#end
 		if ( ALLOW_TRACES_FROM.length == 0 ) {
 			_trace ( v, inf );
 		}

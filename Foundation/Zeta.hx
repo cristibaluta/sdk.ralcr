@@ -40,6 +40,7 @@ class Zeta {
 					case ANYWHERE:
 						if (a1.toLowerCase().indexOf (a2.toLowerCase()) != -1) return true;
 					case END:
+					trace(a2);
 						if (a1.toLowerCase().substr (a1.length - a2.length) == a2.toLowerCase()) return true;
 					case FIT:
 						if (a1 == a2) return true;

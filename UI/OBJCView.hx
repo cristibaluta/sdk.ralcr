@@ -19,15 +19,17 @@ import objc.graphics.CGAffineTransform;
 
 class ObjcView extends RCDisplayObject {
 
-	public var layer :Sprite; // In flash the layer is a Sprite
+	public var layer :Sprite;
 	public var graphics :Graphics;
-	
+	var rect :CGRect;
 	
 	public function new (x, y, ?w, ?h) {
 		
 		super();
 		
 		layer = new Sprite();
+		rect = new CGRect (x, y, w, h);
+		layer.frame = rect;
 		graphics = layer.graphics;
 		size = new RCSize (w, h);
 		contentSize_ = size.copy();
@@ -63,59 +65,57 @@ class ObjcView extends RCDisplayObject {
 	
 	// Position and size
 	override public function set_x (x:Float) :Float {
-		var rect:CGRect = layer.frame;
 		rect.origin.x = x;
 		layer.frame = rect;
 		return super.set_x ( x );
 	}
 	override public function set_y (y:Float) :Float {
-		var rect:CGRect = layer.frame;
 		rect.origin.y = y;
 		layer.frame = rect;
 		return super.set_y ( y );
 	}
 	override public function set_width (w:Float) :Float {
-		layer.width = w * RCDevice.currentDevice().dpiScale;
+		rect.size.width = w;
+		layer.frame = rect;
 		return super.set_width ( w );
 	}
 	override public function set_height (h:Float) :Float {
-		layer.height = h * RCDevice.currentDevice().dpiScale;
+		rect.size.height = h;
+		layer.frame = rect;
 		return super.set_height ( h );
 	}
 	override public function get_contentSize () :RCSize {
-		return new RCSize (layer.width, layer.height);
+		return new RCSize (rect.size.width, rect.size.height);
 	}
 	override public function set_rotation (r:Float) :Float {
-		layer.rotation = r;
+		//layer.rotation = r;
 		return super.set_rotation ( r );
 	}
 	override public function scale (sx:Float, sy:Float) :Void {
-		untyped layer.scaleX = sx;
-		untyped layer.scaleY = sy;
+		
 	}
 	
 	override public function set_visible (v:Bool) :Bool {
-		layer.visible = v;
+		layer.hidden = !v;
 		return super.set_visible ( v );
 	}
 	override public function set_alpha (a:Float) :Float {
 		layer.alpha = a;
-		return super.setAlpha ( a );
+		return super.set_alpha ( a );
 	}
 	
 	override function get_mouseX () :Float {
-		return layer.mouseX / RCDevice.currentDevice().dpiScale;
+		return 0;
 	}
 	override function get_mouseY () :Float {
-		return layer.mouseY / RCDevice.currentDevice().dpiScale;
+		return 0;
 	}
 	
 	
 	override public function hitTest (otherObject:RCView) :Bool {
-		//return layer.hitTestPoint (otherObject.layer.x, otherObject.layer.y);
-		//trace(x_+"x"+y_+", "+layer.width+"x"+layer.height+", "+otherObject.layer.x+"x"+otherObject.layer.y);
-		if (otherObject.layer.x >= x_ && otherObject.layer.y >= y_) {
-			if (otherObject.layer.x <= x_ + layer.width && otherObject.layer.y <= y_ + layer.height) {
+		
+		if (otherObject.layer.frame.origin.x >= x_ && otherObject.layer.frame.origin.y >= y_) {
+			if (otherObject.layer.frame.origin.x <= x_ + rect.size.width && otherObject.layer.frame.origin.y <= y_ + rect.size.height) {
 				return true;
 			}
 		}

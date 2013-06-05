@@ -14,7 +14,7 @@ import js.html.webgl.RenderingContext;
 import RCDevice;
 
 
-class JSView extends RCDisplayObject {
+@:expose class JSView extends RCDisplayObject {
 	
 	public var layer :DivElement;
 	public var layerScrollable :DivElement;// Clips to bounds will move all the subviews in this layer

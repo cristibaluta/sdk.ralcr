@@ -2197,6 +2197,7 @@ var JSView = function(x,y,w,h) {
 	this.set_y(y);
 };
 $hxClasses["JSView"] = JSView;
+$hxExpose(JSView, "JSView");
 JSView.__name__ = ["JSView"];
 JSView.__super__ = RCDisplayObject;
 JSView.prototype = $extend(RCDisplayObject.prototype,{
@@ -2822,7 +2823,6 @@ haxe.Timer.stamp = function() {
 }
 haxe.Timer.prototype = {
 	run: function() {
-		haxe.Log.trace("run",{ fileName : "Timer.hx", lineNumber : 112, className : "haxe.Timer", methodName : "run"});
 	}
 	,stop: function() {
 		if(this.id == null) return;
@@ -6078,12 +6078,13 @@ $hxClasses["RCLog"] = RCLog;
 RCLog.__name__ = ["RCLog"];
 RCLog.redirectTraces = function() {
 	haxe.Log.trace = RCLog.trace;
+	if (!window.console) window.console = {};
+			if (!window.console.log) window.console.log = function () { };;
 }
 RCLog.allowClasses = function(arr) {
 	RCLog.ALLOW_TRACES_FROM = RCLog.ALLOW_TRACES_FROM.concat(arr);
 }
 RCLog.trace = function(v,inf) {
-	if(RCDevice.currentDevice().userAgent == RCUserAgent.MSIE) return;
 	if(RCLog.ALLOW_TRACES_FROM.length == 0) RCLog._trace(v,inf); else {
 		var _g = 0, _g1 = RCLog.ALLOW_TRACES_FROM;
 		while(_g < _g1.length) {
@@ -6096,6 +6097,8 @@ RCLog.trace = function(v,inf) {
 RCLog._trace = function(v,inf) {
 	var line1 = RCLog.lastMethod == inf.methodName?"":"\n";
 	var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
+	if(RCLog.lastMethod != inf.methodName) console.log(fileInfo);
+	console.log(inf.lineNumber + " :  " + Std.string(v));
 	RCLog.lastMethod = inf.methodName;
 }
 var RCMail = function(apiPath) {
@@ -9464,6 +9467,7 @@ Zeta.isIn = function(search_this,in_this,pos) {
 				if(a1.toLowerCase().indexOf(a2.toLowerCase()) != -1) return true;
 				break;
 			case "end":
+				haxe.Log.trace(a2,{ fileName : "Zeta.hx", lineNumber : 43, className : "Zeta", methodName : "isIn"});
 				if(a1.toLowerCase().substr(a1.length - a2.length) == a2.toLowerCase()) return true;
 				break;
 			case "fit":
@@ -9473,7 +9477,7 @@ Zeta.isIn = function(search_this,in_this,pos) {
 				if(a1.toLowerCase() == a2.toLowerCase()) return true;
 				break;
 			default:
-				haxe.Log.trace("Position in string not implemented",{ fileName : "Zeta.hx", lineNumber : 49, className : "Zeta", methodName : "isIn"});
+				haxe.Log.trace("Position in string not implemented",{ fileName : "Zeta.hx", lineNumber : 50, className : "Zeta", methodName : "isIn"});
 				return false;
 			}
 		}
@@ -11151,15 +11155,15 @@ haxe.ds.BalancedTree.prototype = {
 	}
 	,keysLoop: function(node,acc) {
 		if(node != null) {
-			acc.push(node.key);
 			this.keysLoop(node.left,acc);
+			acc.push(node.key);
 			this.keysLoop(node.right,acc);
 		}
 	}
 	,iteratorLoop: function(node,acc) {
 		if(node != null) {
-			acc.push(node.value);
 			this.iteratorLoop(node.left,acc);
+			acc.push(node.value);
 			this.iteratorLoop(node.right,acc);
 		}
 	}
@@ -11193,17 +11197,17 @@ haxe.ds.BalancedTree.prototype = {
 		this.iteratorLoop(this.root,ret);
 		return HxOverrides.iter(ret);
 	}
-	,exists: function(k) {
+	,exists: function(key) {
 		var node = this.root;
 		while(node != null) {
-			var c = this.compare(k,node.key);
+			var c = this.compare(key,node.key);
 			if(c == 0) return true; else if(c < 0) node = node.left; else node = node.right;
 		}
 		return false;
 	}
-	,remove: function(k) {
+	,remove: function(key) {
 		try {
-			this.root = this.removeLoop(k,this.root);
+			this.root = this.removeLoop(key,this.root);
 			return true;
 		} catch( e ) {
 			if( js.Boot.__instanceof(e,String) ) {
@@ -11211,17 +11215,17 @@ haxe.ds.BalancedTree.prototype = {
 			} else throw(e);
 		}
 	}
-	,get: function(k) {
+	,get: function(key) {
 		var node = this.root;
 		while(node != null) {
-			var c = this.compare(k,node.key);
+			var c = this.compare(key,node.key);
 			if(c == 0) return node.value;
 			if(c < 0) node = node.left; else node = node.right;
 		}
 		return null;
 	}
-	,set: function(k,v) {
-		this.root = this.setLoop(k,v,this.root);
+	,set: function(key,value) {
+		this.root = this.setLoop(key,value,this.root);
 	}
 	,root: null
 	,__class__: haxe.ds.BalancedTree
@@ -12621,4 +12625,14 @@ js.Browser.location = typeof window != "undefined" ? window.location : null;
 js.Browser.navigator = typeof window != "undefined" ? window.navigator : null;
 pathfinding.GKGraph.nextIndex = 0;
 Main.main();
+function $hxExpose(src, path) {
+	var o = typeof window != "undefined" ? window : exports;
+	var parts = path.split(".");
+	for(var ii = 0; ii < parts.length-1; ++ii) {
+		var p = parts[ii];
+		if(typeof o[p] == "undefined") o[p] = {};
+		o = o[p];
+	}
+	o[parts[parts.length-1]] = src;
+}
 })();

@@ -246,4 +246,27 @@ class EVMouse extends RCSignal<EVMouse->Void> {
 		super.destroy();
 	}
 	
+	
+	/* Helper method to add an event listener to an element. */
+/*	function addEvent (elem, type, eventHandle) {
+		if (elem == null || elem == undefined) return;
+		if ( elem.addEventListener ) {
+			elem.addEventListener( type, eventHandle, false );
+		} else if ( elem.attachEvent ) {
+			elem.attachEvent( "on" + type, eventHandle );
+		} else {
+			elem["on"+type]=eventHandle;
+		}
+	}*/
+	/* Helper method to remove an event listener to an element. */	
+/*	function removeEvent (elem, type, eventHandle) {
+		if (elem == null || elem == undefined) return;
+		if ( elem.removeEventListener ) {
+			elem.removeEventListener( type, eventHandle );
+		} else if ( elem.detachEvent ) { 
+			elem.detachEvent( "on" + type, eventHandle );
+		} else {
+			elem["on"+type]=null;
+		}
+	}*/
 }
