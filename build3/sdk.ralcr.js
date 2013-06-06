@@ -2110,11 +2110,11 @@ RCDisplayObject.prototype = {
 	,get_bounds: function() {
 		return new RCRect(this.x_,this.y_,this.size.width,this.size.height);
 	}
-	,get_rotation: function() {
-		return this.rotation_;
-	}
 	,set_rotation: function(r) {
 		return this.rotation_ = r;
+	}
+	,get_rotation: function() {
+		return this.rotation_;
 	}
 	,set_contentSize: function(s) {
 		return this.contentSize_ = s;
@@ -2197,7 +2197,6 @@ var JSView = function(x,y,w,h) {
 	this.set_y(y);
 };
 $hxClasses["JSView"] = JSView;
-$hxExpose(JSView, "JSView");
 JSView.__name__ = ["JSView"];
 JSView.__super__ = RCDisplayObject;
 JSView.prototype = $extend(RCDisplayObject.prototype,{
@@ -2543,9 +2542,6 @@ RCRequest.prototype = {
 	}
 	,load: function(URL,variables,method) {
 		if(method == null) method = "GET";
-		haxe.Log.trace(URL,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(Std.string(variables),{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
-		haxe.Log.trace(method,{ fileName : "RCRequest.hx", lineNumber : 70, className : "RCRequest", methodName : "load"});
 		this.loader = new haxe.Http(URL);
 		this.loader.async = true;
 		var _g = 0, _g1 = Reflect.fields(variables);
@@ -3130,11 +3126,10 @@ HXAddressManager.onChangeHandler = function(pathNames) {
 }
 HXAddressManager.call = function(key) {
 	if(key == null) key = "";
-	haxe.Log.trace("call: " + key,{ fileName : "HXAddressManager.hx", lineNumber : 53, className : "HXAddressManager", methodName : "call"});
 	if(HXAddressManager._pages.exists(key)) try {
 		(HXAddressManager._pages.get(key))();
 	} catch( e ) {
-		haxe.Log.trace("[HXAddressManager error on executing page key: {" + key + "}], {" + Std.string(e) + "}",{ fileName : "HXAddressManager.hx", lineNumber : 60, className : "HXAddressManager", methodName : "call"});
+		haxe.Log.trace("[HXAddressManager error on executing page key: {" + key + "}], {" + Std.string(e) + "}",{ fileName : "HXAddressManager.hx", lineNumber : 59, className : "HXAddressManager", methodName : "call"});
 	}
 }
 HXAddressManager.formatTitle = function(title) {
@@ -3338,7 +3333,7 @@ JSAudio.prototype = {
 	,__properties__: {set_volume:"set_volume",get_volume:"get_volume"}
 }
 var JSPluginLoader = function(path) {
-	haxe.Log.trace("load new Plugin " + path,{ fileName : "JSPluginLoader.hx", lineNumber : 16, className : "JSPluginLoader", methodName : "new"});
+	haxe.Log.trace("load new Plugin " + path,{ fileName : "JSPluginLoader.hx", lineNumber : 21, className : "JSPluginLoader", methodName : "new"});
 	var fileref = null;
 	if(path.indexOf(".js") != -1) {
 		fileref = js.Browser.document.createElement("script");
@@ -3358,17 +3353,17 @@ var JSPluginLoader = function(path) {
 $hxClasses["JSPluginLoader"] = JSPluginLoader;
 JSPluginLoader.__name__ = ["JSPluginLoader"];
 JSPluginLoader.exists = function(filename) {
+	haxe.Log.trace("exists " + filename,{ fileName : "JSPluginLoader.hx", lineNumber : 77, className : "JSPluginLoader", methodName : "exists"});
 	var element = filename.indexOf(".js") != -1?"script":filename.indexOf(".css") != -1?"link":"none";
-	haxe.Log.trace(element,{ fileName : "JSPluginLoader.hx", lineNumber : 73, className : "JSPluginLoader", methodName : "exists"});
 	var attr = filename.indexOf(".js") != -1?"src":filename.indexOf(".css") != -1?"href":"none";
-	haxe.Log.trace(attr,{ fileName : "JSPluginLoader.hx", lineNumber : 75, className : "JSPluginLoader", methodName : "exists"});
 	var collection = js.Browser.document.getElementsByTagName(element);
-	haxe.Log.trace(collection,{ fileName : "JSPluginLoader.hx", lineNumber : 78, className : "JSPluginLoader", methodName : "exists"});
 	var _g1 = 0, _g = collection.length;
 	while(_g1 < _g) {
 		var i = _g1++;
-		haxe.Log.trace(collection.item(i),{ fileName : "JSPluginLoader.hx", lineNumber : 80, className : "JSPluginLoader", methodName : "exists"});
-		haxe.Log.trace(collection.item(i).nodeName,{ fileName : "JSPluginLoader.hx", lineNumber : 81, className : "JSPluginLoader", methodName : "exists"});
+		var e = collection.item(i);
+		haxe.Log.trace(e.src,{ fileName : "JSPluginLoader.hx", lineNumber : 84, className : "JSPluginLoader", methodName : "exists"});
+		haxe.Log.trace(e.getAttribute(attr),{ fileName : "JSPluginLoader.hx", lineNumber : 85, className : "JSPluginLoader", methodName : "exists"});
+		if(e.getAttribute(attr) != null && e.getAttribute(attr).indexOf(filename) != -1) return true;
 	}
 	return false;
 }
@@ -3379,7 +3374,7 @@ JSPluginLoader.prototype = {
 		return true;
 	}
 	,completeHandler: function(e) {
-		haxe.Log.trace("plugin loaded asyncronously",{ fileName : "JSPluginLoader.hx", lineNumber : 39, className : "JSPluginLoader", methodName : "completeHandler"});
+		haxe.Log.trace("plugin loaded asyncronously",{ fileName : "JSPluginLoader.hx", lineNumber : 44, className : "JSPluginLoader", methodName : "completeHandler"});
 		this.onComplete();
 	}
 	,onError: function() {
@@ -6094,10 +6089,23 @@ RCLog.trace = function(v,inf) {
 		}
 	}
 }
-RCLog._trace = function(v,inf) {
+RCLog.error = function(v,inf) {
+	if(RCLog.ALLOW_TRACES_FROM.length == 0) RCLog._trace(v,inf,"error"); else {
+		var _g = 0, _g1 = RCLog.ALLOW_TRACES_FROM;
+		while(_g < _g1.length) {
+			var c = _g1[_g];
+			++_g;
+			if(c == inf.className.split(".").pop()) RCLog._trace(v,inf,"error");
+		}
+	}
+}
+RCLog._trace = function(v,inf,type) {
+	if(type == null) type = "log";
 	var line1 = RCLog.lastMethod == inf.methodName?"":"\n";
 	var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
-	if(RCLog.lastMethod != inf.methodName) console.log(fileInfo);
+	if(RCLog.lastMethod != inf.methodName) {
+		if(type == "log") console.log(fileInfo); else if(type == "error") console.error(fileInfo);
+	}
 	console.log(inf.lineNumber + " :  " + Std.string(v));
 	RCLog.lastMethod = inf.methodName;
 }
@@ -9467,7 +9475,6 @@ Zeta.isIn = function(search_this,in_this,pos) {
 				if(a1.toLowerCase().indexOf(a2.toLowerCase()) != -1) return true;
 				break;
 			case "end":
-				haxe.Log.trace(a2,{ fileName : "Zeta.hx", lineNumber : 43, className : "Zeta", methodName : "isIn"});
 				if(a1.toLowerCase().substr(a1.length - a2.length) == a2.toLowerCase()) return true;
 				break;
 			case "fit":
@@ -9477,7 +9484,7 @@ Zeta.isIn = function(search_this,in_this,pos) {
 				if(a1.toLowerCase() == a2.toLowerCase()) return true;
 				break;
 			default:
-				haxe.Log.trace("Position in string not implemented",{ fileName : "Zeta.hx", lineNumber : 50, className : "Zeta", methodName : "isIn"});
+				haxe.Log.trace("Position in string not implemented",{ fileName : "Zeta.hx", lineNumber : 49, className : "Zeta", methodName : "isIn"});
 				return false;
 			}
 		}
@@ -12625,14 +12632,4 @@ js.Browser.location = typeof window != "undefined" ? window.location : null;
 js.Browser.navigator = typeof window != "undefined" ? window.navigator : null;
 pathfinding.GKGraph.nextIndex = 0;
 Main.main();
-function $hxExpose(src, path) {
-	var o = typeof window != "undefined" ? window : exports;
-	var parts = path.split(".");
-	for(var ii = 0; ii < parts.length-1; ++ii) {
-		var p = parts[ii];
-		if(typeof o[p] == "undefined") o[p] = {};
-		o = o[p];
-	}
-	o[parts[parts.length-1]] = src;
-}
 })();

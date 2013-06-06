@@ -50,7 +50,6 @@ class HXAddressManager {
     }
 	
 	static function call (key:String="") :Void {
-        trace("call: "+key);
 		if (_pages.exists (key)) {
 			// Try executing the function asociated with this page
 			try {

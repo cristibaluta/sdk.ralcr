@@ -41,7 +41,7 @@ class RCLog {
 		ALLOW_TRACES_FROM = ALLOW_TRACES_FROM.concat( arr );
 	}
 	
-	public static function trace (v : Dynamic, ?inf : haxe.PosInfos) : Void
+	public static function trace (v:Dynamic, ?inf:haxe.PosInfos) :Void
 	{
 		if ( ALLOW_TRACES_FROM.length == 0 ) {
 			_trace ( v, inf );
@@ -52,20 +52,32 @@ class RCLog {
 			}
 		}
 	}
+	public static function error (v:Dynamic, ?inf:haxe.PosInfos) :Void {
+		
+		if ( ALLOW_TRACES_FROM.length == 0 ) {
+			_trace ( v, inf, "error" );
+		}
+		else for (c in ALLOW_TRACES_FROM) {
+			if (c == inf.className.split(".").pop()) {
+				_trace ( v, inf, "error" );
+			}
+		}
+	}
 	
-	private static function _trace (v : Dynamic, ?inf : haxe.PosInfos) :Void
+	private static function _trace (v:Dynamic, ?inf:haxe.PosInfos, type:String="log") :Void
 	{
 		var line1 = (lastMethod == inf.methodName) ? "" : "\n";
 		var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
 		
 		#if flash
 			if ((lastMethod != inf.methodName))
-			flash.external.ExternalInterface.call ("console.log", fileInfo);
+			flash.external.ExternalInterface.call ("console."+type, fileInfo);
 			flash.external.ExternalInterface.call ("console.log", inf.lineNumber + " :  " + Std.string(v));
 		#elseif js
-			if ((lastMethod != inf.methodName))
-			untyped console.log (fileInfo);
-			untyped console.log (inf.lineNumber + " :  " + Std.string(v));
+			if ((lastMethod != inf.methodName)) untyped console.log (fileInfo);
+			
+			if (type=="log") untyped console.log (inf.lineNumber + " :  " + Std.string(v));
+			else if (type=="error") untyped console.error (inf.lineNumber + " :  " + Std.string(v));
 		#end
 		
 		lastMethod = inf.methodName;

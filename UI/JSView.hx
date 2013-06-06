@@ -14,15 +14,15 @@ import js.html.webgl.RenderingContext;
 import RCDevice;
 
 
-@:expose class JSView extends RCDisplayObject {
+@:keep class JSView extends RCDisplayObject {
 	
-	public var layer :DivElement;
+	@:keep public var layer :DivElement;
 	public var layerScrollable :DivElement;// Clips to bounds will move all the subviews in this layer
 	public var graphics :CanvasRenderingContext2D;
 	public var gl :RenderingContext;
 	
 	
-	@:keep public function new (x, y, ?w, ?h) {
+	public function new (x, y, ?w, ?h) {
 		
 		super();
 		

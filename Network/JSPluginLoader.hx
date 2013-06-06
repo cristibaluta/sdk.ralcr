@@ -1,6 +1,7 @@
 import js.html.Event;
 import js.html.HTMLCollection;
 import js.html.NodeList;
+import js.html.Element;
 
 class JSPluginLoader {
 	
@@ -11,17 +12,21 @@ class JSPluginLoader {
 	dynamic public function onError() :Void {}
 	
 	
+	/**
+	 *  Loads into the DOM the file at path @path
+	 *  Can load javascript files or css files
+	 **/
 	public function new (path:String)
 	{
 		trace("load new Plugin "+path);
-		var fileref = null;
+		var fileref :Element = null;
 		
-		if (path.indexOf(".js") != -1) { //if filename is a external JavaScript file
+		if (path.indexOf(".js") != -1) {
 			fileref = js.Browser.document.createElement('script');
 			fileref.setAttribute("type","text/javascript");
 			fileref.setAttribute("src", path);
 		}
-		else if (path.indexOf(".css") != -1) { //if filename is an external CSS file
+		else if (path.indexOf(".css") != -1) {
 			fileref = js.Browser.document.createElement("link");
 			fileref.setAttribute("rel", "stylesheet");
 			fileref.setAttribute("type", "text/css");
@@ -60,28 +65,31 @@ class JSPluginLoader {
 	}
 	
 	public function destroy () :Void {
-		
+		// Nothing to destroy, for compatibility reason
 	}
 	
 	
 	/**
-	 *  Check if a class name exists in the current application domain, meaning the current swf or the loaded swf's.
+	 *  Checks if a class name exists in the Dom
 	 **/
 	public static function exists (filename:String) :Bool
 	{
+		trace("exists "+filename);
 		var element = (filename.indexOf(".js") != -1) ? "script" : (filename.indexOf(".css") != -1) ? "link" : "none";
-		trace(element);
 		var attr = (filename.indexOf(".js") != -1)? "src" : (filename.indexOf(".css") != -1) ? "href" : "none";
-		trace(attr);
-		//var collection :HTMLCollection = js.Browser.document.getElementsByTagName( element );
 		var collection :NodeList = js.Browser.document.getElementsByTagName( element );
-		trace(collection);
+		
 		for (i in 0...collection.length) {
-			trace(collection.item(i));
-			trace(collection.item(i).nodeName );
-/*			if (collection[i].getAttribute(attr) != null && collection[i].getAttribute(attr).indexOf(filename) != -1)
-				return true;*/
+			var e :HTMLScriptElement = untyped collection.item(i);// Node
+			trace(e.src);
+			trace(e.getAttribute(attr));
+			if (e.getAttribute(attr) != null && 
+				e.getAttribute(attr).indexOf(filename) != -1)
+				return true;
 		}
 		return false;
 	}
+}
+extern class HTMLScriptElement extends js.html.HtmlElement {
+	public var src :String;
 }

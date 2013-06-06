@@ -7,7 +7,7 @@
 //
 
 
-class RCDisplayObject {
+@:keep class RCDisplayObject {
 	
 	public var viewWillAppear :RCSignal<Void->Void>;
 	public var viewWillDisappear :RCSignal<Void->Void>;
@@ -63,19 +63,19 @@ class RCDisplayObject {
 	public function set_visible (v:Bool) :Bool {
 		return visible = v;// Override it
 	}
-	public function get_alpha () :Float {
+	@:keep public function get_alpha () :Float {
 		return alpha_;
 	}
 	public function set_alpha (a:Float) :Float {
 		return alpha_ = a;// Override it
 	}
-	public function get_x () :Float {
+	@:keep public function get_x () :Float {
 		return x_;
 	}
 	public function set_x (x:Float) :Float {
 		return x_ = x;// Override it
 	}
-	public function get_y () :Float {
+	@:keep public function get_y () :Float {
 		return y_;
 	}
 	public function set_y (y:Float) :Float {
@@ -87,25 +87,25 @@ class RCDisplayObject {
 	public function set_width (w:Float) :Float {
 		return size.width = w;// Override it
 	}
-	public function get_height () :Float {
+	@:keep public function get_height () :Float {
 		return size.height;
 	}
 	public function set_height (h:Float) :Float {
 		return size.height = h;// Override it
 	}
-	public function get_contentSize () :RCSize {
+	@:keep public function get_contentSize () :RCSize {
 		return size;// Override it to return the real size of the layer
 	}
 	public function set_contentSize (s:RCSize) :RCSize {
 		return contentSize_ = s;// Override it to return the real size of the layer
 	}
+	@:keep public function get_rotation () :Float {
+		return rotation_;
+	}
 	public function set_rotation (r:Float) :Float {
 		return rotation_ = r;// Override it
 	}
-	public function get_rotation () :Float {
-		return rotation_;
-	}
-	public function get_bounds () :RCRect {
+	@:keep public function get_bounds () :RCRect {
 		return new RCRect (x_, y_, size.width, size.height);
 	}
 	public function set_bounds (b:RCRect) :RCRect {
@@ -115,7 +115,7 @@ class RCDisplayObject {
 		set_height ( b.size.height );
 		return b;
 	}
-	public function get_scaleX () :Float {
+	@:keep public function get_scaleX () :Float {
 		return scaleX_;
 	}
 	public function set_scaleX (sx:Float) :Float {
@@ -123,7 +123,7 @@ class RCDisplayObject {
 		scale (scaleX_, scaleY_);
 		return scaleX_;
 	}
-	public function get_scaleY () :Float {
+	@:keep public function get_scaleY () :Float {
 		return scaleY_;
 	}
 	public function set_scaleY (sy:Float) :Float {
@@ -191,10 +191,10 @@ class RCDisplayObject {
 	}
 	
 	// Get mouse position
-	function get_mouseX () :Float {
+	@:keep function get_mouseX () :Float {
 		return 0;
 	}
-	function get_mouseY () :Float {
+	@:keep function get_mouseY () :Float {
 		return 0;
 	}
 	

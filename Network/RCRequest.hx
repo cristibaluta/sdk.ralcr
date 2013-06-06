@@ -67,7 +67,7 @@ class RCRequest {
 	 *	@param method - GET/POST. By default is POST
 	 */
 	public function load (URL:String, ?variables:URLVariables, ?method:String="GET") :Void {
-		trace(URL);trace(Std.string(variables));trace(method);
+		//trace(URL);trace(Std.string(variables));trace(method);
 		
 		#if (nme && (ios || android))
 			
