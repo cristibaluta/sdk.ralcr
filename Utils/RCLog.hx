@@ -7,8 +7,6 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-import RCDevice;
-
 /**
  *  RCLog redirects traces to the firebug console as haxe.Firebug does.
  *  The advantage is that you can chose from which classes to see the traces
@@ -41,8 +39,8 @@ class RCLog {
 		ALLOW_TRACES_FROM = ALLOW_TRACES_FROM.concat( arr );
 	}
 	
-	public static function trace (v:Dynamic, ?inf:haxe.PosInfos) :Void
-	{
+	public static function trace (v:Dynamic, ?inf:haxe.PosInfos) :Void {
+		
 		if ( ALLOW_TRACES_FROM.length == 0 ) {
 			_trace ( v, inf );
 		}
@@ -52,6 +50,10 @@ class RCLog {
 			}
 		}
 	}
+	
+	/**
+	 *  Calling this directly will print in red color
+	 **/
 	public static function error (v:Dynamic, ?inf:haxe.PosInfos) :Void {
 		
 		if ( ALLOW_TRACES_FROM.length == 0 ) {
@@ -64,8 +66,8 @@ class RCLog {
 		}
 	}
 	
-	private static function _trace (v:Dynamic, ?inf:haxe.PosInfos, type:String="log") :Void
-	{
+	static function _trace (v:Dynamic, ?inf:haxe.PosInfos, type:String="log") :Void {
+		
 		var line1 = (lastMethod == inf.methodName) ? "" : "\n";
 		var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
 		

@@ -6103,10 +6103,8 @@ RCLog._trace = function(v,inf,type) {
 	if(type == null) type = "log";
 	var line1 = RCLog.lastMethod == inf.methodName?"":"\n";
 	var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
-	if(RCLog.lastMethod != inf.methodName) {
-		if(type == "log") console.log(fileInfo); else if(type == "error") console.error(fileInfo);
-	}
-	console.log(inf.lineNumber + " :  " + Std.string(v));
+	if(RCLog.lastMethod != inf.methodName) console.log(fileInfo);
+	if(type == "log") console.log(inf.lineNumber + " :  " + Std.string(v)); else if(type == "error") console.error(inf.lineNumber + " :  " + Std.string(v));
 	RCLog.lastMethod = inf.methodName;
 }
 var RCMail = function(apiPath) {
