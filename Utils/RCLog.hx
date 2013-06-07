@@ -15,11 +15,12 @@ class RCLog {
 	
 	public static var ALLOW_TRACES_FROM = [];
 	static var lastMethod = "";
+	static var type = "log";
 	
 	
 	public static function redirectTraces () {
 		#if !nme
-			haxe.Log.trace = RCLog.trace;
+			haxe.Log.trace = RCLog.log;
 		#end
 
 		#if js
@@ -39,47 +40,57 @@ class RCLog {
 		ALLOW_TRACES_FROM = ALLOW_TRACES_FROM.concat( arr );
 	}
 	
-	public static function trace (v:Dynamic, ?inf:haxe.PosInfos) :Void {
+	/**
+	 *  Logging through this method will ignore the traces that come from non-allowed classes
+	 **/
+	public static function log (v:Dynamic, ?inf:haxe.PosInfos) :Void {
 		
 		if ( ALLOW_TRACES_FROM.length == 0 ) {
-			_trace ( v, inf );
+			print ( v, inf );
 		}
 		else for (c in ALLOW_TRACES_FROM) {
 			if (c == inf.className.split(".").pop()) {
-				_trace ( v, inf );
+				print ( v, inf );
 			}
 		}
 	}
 	
 	/**
-	 *  Calling this directly will print in red color
+	 *  Logging through this method will print in red color
 	 **/
 	public static function error (v:Dynamic, ?inf:haxe.PosInfos) :Void {
 		
-		if ( ALLOW_TRACES_FROM.length == 0 ) {
-			_trace ( v, inf, "error" );
-		}
-		else for (c in ALLOW_TRACES_FROM) {
-			if (c == inf.className.split(".").pop()) {
-				_trace ( v, inf, "error" );
-			}
-		}
+		type = "error";
+		log ( v, inf );
+		type = "log";
 	}
 	
-	static function _trace (v:Dynamic, ?inf:haxe.PosInfos, type:String="log") :Void {
+	/**
+	 *  Logging through this method will print a yellow warn triangle in front of the trace
+	 **/
+	public static function warn (v:Dynamic, ?inf:haxe.PosInfos) :Void {
+		
+		type = "warn";
+		log ( v, inf );
+		type = "log";
+	}
+	
+	
+	static function print (v:Dynamic, ?inf:haxe.PosInfos) :Void {
 		
 		var line1 = (lastMethod == inf.methodName) ? "" : "\n";
-		var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
+		var fileInfo = line1 + inf.fileName + " : function " + inf.methodName + "()";
 		
 		#if flash
 			if ((lastMethod != inf.methodName))
 			flash.external.ExternalInterface.call ("console."+type, fileInfo);
-			flash.external.ExternalInterface.call ("console.log", inf.lineNumber + " :  " + Std.string(v));
+			flash.external.ExternalInterface.call ("console."+type, inf.lineNumber + " :  " + Std.string(v));
 		#elseif js
 			if ((lastMethod != inf.methodName)) untyped console.log (fileInfo);
 			
-			if (type=="log") untyped console.log (inf.lineNumber + " :  " + Std.string(v));
-			else if (type=="error") untyped console.error (inf.lineNumber + " :  " + Std.string(v));
+			if (type=="log") untyped console.log (":::: " + inf.lineNumber + " : " + Std.string(v));
+			else if (type=="error") untyped console.error (":::: " + inf.lineNumber + " : " + Std.string(v));
+			else if (type=="warn") untyped console.warn (":::: " + inf.lineNumber + " : " + Std.string(v));
 		#end
 		
 		lastMethod = inf.methodName;

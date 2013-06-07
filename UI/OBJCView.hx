@@ -88,7 +88,7 @@ class ObjcView extends RCDisplayObject {
 		return new RCSize (rect.size.width, rect.size.height);
 	}
 	override public function set_rotation (r:Float) :Float {
-		//layer.rotation = r;
+		layer.transform = untyped CGAffineTransformMakeRotation(DegreesToRadians(r));
 		return super.set_rotation ( r );
 	}
 	override public function scale (sx:Float, sy:Float) :Void {

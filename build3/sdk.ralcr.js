@@ -6072,39 +6072,38 @@ var RCLog = function() { }
 $hxClasses["RCLog"] = RCLog;
 RCLog.__name__ = ["RCLog"];
 RCLog.redirectTraces = function() {
-	haxe.Log.trace = RCLog.trace;
+	haxe.Log.trace = RCLog.log;
 	if (!window.console) window.console = {};
 			if (!window.console.log) window.console.log = function () { };;
 }
 RCLog.allowClasses = function(arr) {
 	RCLog.ALLOW_TRACES_FROM = RCLog.ALLOW_TRACES_FROM.concat(arr);
 }
-RCLog.trace = function(v,inf) {
-	if(RCLog.ALLOW_TRACES_FROM.length == 0) RCLog._trace(v,inf); else {
+RCLog.log = function(v,inf) {
+	if(RCLog.ALLOW_TRACES_FROM.length == 0) RCLog.print(v,inf); else {
 		var _g = 0, _g1 = RCLog.ALLOW_TRACES_FROM;
 		while(_g < _g1.length) {
 			var c = _g1[_g];
 			++_g;
-			if(c == inf.className.split(".").pop()) RCLog._trace(v,inf);
+			if(c == inf.className.split(".").pop()) RCLog.print(v,inf);
 		}
 	}
 }
 RCLog.error = function(v,inf) {
-	if(RCLog.ALLOW_TRACES_FROM.length == 0) RCLog._trace(v,inf,"error"); else {
-		var _g = 0, _g1 = RCLog.ALLOW_TRACES_FROM;
-		while(_g < _g1.length) {
-			var c = _g1[_g];
-			++_g;
-			if(c == inf.className.split(".").pop()) RCLog._trace(v,inf,"error");
-		}
-	}
+	RCLog.type = "error";
+	RCLog.log(v,inf);
+	RCLog.type = "log";
 }
-RCLog._trace = function(v,inf,type) {
-	if(type == null) type = "log";
+RCLog.warn = function(v,inf) {
+	RCLog.type = "warn";
+	RCLog.log(v,inf);
+	RCLog.type = "log";
+}
+RCLog.print = function(v,inf) {
 	var line1 = RCLog.lastMethod == inf.methodName?"":"\n";
-	var fileInfo = line1 + inf.fileName + " : " + inf.methodName;
+	var fileInfo = line1 + inf.fileName + " : function " + inf.methodName + "()";
 	if(RCLog.lastMethod != inf.methodName) console.log(fileInfo);
-	if(type == "log") console.log(inf.lineNumber + " :  " + Std.string(v)); else if(type == "error") console.error(inf.lineNumber + " :  " + Std.string(v));
+	if(RCLog.type == "log") console.log(":::: " + inf.lineNumber + " : " + Std.string(v)); else if(RCLog.type == "error") console.error(":::: " + inf.lineNumber + " : " + Std.string(v)); else if(RCLog.type == "warn") console.warn(":::: " + inf.lineNumber + " : " + Std.string(v));
 	RCLog.lastMethod = inf.methodName;
 }
 var RCMail = function(apiPath) {
@@ -12597,6 +12596,7 @@ Keyboard.SPACE = 32;
 Keyboard.ESCAPE = 27;
 RCLog.ALLOW_TRACES_FROM = [];
 RCLog.lastMethod = "";
+RCLog.type = "log";
 RCStringTools.DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz";
 RCTextRoll.GAP = 20;
 TEA.DELTA = -1640531527;
