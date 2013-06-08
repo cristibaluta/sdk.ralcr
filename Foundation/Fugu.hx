@@ -69,7 +69,7 @@ class Fugu {
 									blur:Null<Float>,
 									strength:Float=0.6)
 	{
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			var filters :Array<flash.filters.BitmapFilter> = [];
 			var filter = new flash.filters.GlowFilter (color, alpha, blur, blur, strength, 3, false, false);
 			filters.push ( filter );
@@ -82,7 +82,7 @@ class Fugu {
 	 * Changes the color of the targeted object
 	 */
 	public static function color (target:RCView, color:Int) :Void {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 		var red   = color >> 16 & 0xFF;
 		var green = color >> 8 & 0xFF;
 		var blue  = color & 0xFF;
@@ -91,7 +91,7 @@ class Fugu {
 	}
 	
 	public static function resetColor (target:RCView) :Void {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 		target.layer.transform.colorTransform = new flash.geom.ColorTransform (1,	1,	1,	1, 0,	0,	0,	0);
 		#end
 	}

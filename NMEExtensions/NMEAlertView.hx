@@ -1,4 +1,4 @@
-#if nme
+#if openfl
 class NMEAlertView {
 	
 #if android
@@ -7,7 +7,7 @@ class NMEAlertView {
 
 	public function new (title:String, message:String) {
 		
-		ralcr_show_alert_view = nme.JNI.createStaticMethod("org/haxe/nme/GameActivity", "newAlertView", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_show_alert_view = openfl.utils.JNI.createStaticMethod("org/haxe/nme/GameActivity", "newAlertView", "(Ljava/lang/String;Ljava/lang/String;)V");
 		nme.Lib.postUICallback ( function() { ralcr_show_alert_view ( title, message ); });
 	}
 #else
@@ -24,7 +24,7 @@ class NMEAlertView {
 		ralcr_show_alert_view (alertTitle, alertMSG);
 	}
     
-	static var ralcr_show_alert_view = nme.Loader.load("ralcr_show_alert_view", 2);
+	static var ralcr_show_alert_view = cpp.Lib.load("ralcr_show_alert_view", 2);
 #end
 }
 #end

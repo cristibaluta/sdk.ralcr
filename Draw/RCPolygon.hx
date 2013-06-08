@@ -19,7 +19,7 @@ class RCPolygon extends RCDraw implements RCDrawInterface {
 	}
 	
 	public function redraw () {
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		layer.graphics.clear();
 		this.configure();
 		

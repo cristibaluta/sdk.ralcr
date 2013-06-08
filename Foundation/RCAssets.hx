@@ -13,7 +13,7 @@
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 #end
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -128,7 +128,7 @@ class RCAssets {
 	function loadText (key:String, URL:String) :Void {
 		//trace("load text "+key+", "+URL);
 		var data = new RCHttp();
-#if nme
+#if openfl
 			// Search for the asset in NME library first
 			data.result = nme.Assets.getText ( URL );
 #end
@@ -242,7 +242,7 @@ class RCAssets {
 			return swfList.get( key );// Returns RCSwf
 		}
 		
-#if (flash || (nme && flash))
+#if (flash || (openfl && flash))
 		// Last chance, search for assets in each of the loaded swf libs, might be there
 		else {
 			var classInstance :Dynamic = createInstance ( key );// Can be Sprite or MovieClip
@@ -266,7 +266,7 @@ class RCAssets {
 		return null;
 	}
 	
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	/**
 	 *  Create an instance from an asset found in an external swf
 	 *  For NME the swf was converted to classes already by the compiler

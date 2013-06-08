@@ -1,10 +1,10 @@
-#if nme
+#if openfl
 class NMEGameCenter {
 	
 #if android
 	
 	public function new (title:String, msg:String) {
-		var _showAlert_func = nme.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
+		var _showAlert_func = openfl.utils.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
 		_showAlert_func ( [title, msg] );
 	}
     
@@ -23,7 +23,7 @@ class NMEGameCenter {
 		system_ui_show_alert (alertTitle, alertMSG);
 	}
     
-	static var system_ui_show_alert = nme.Loader.load("system_ui_show_alert", 2);
+	static var system_ui_show_alert = cpp.Lib.load("system_ui_show_alert", 2);
 #end
 }
 #end

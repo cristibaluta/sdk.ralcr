@@ -1,6 +1,6 @@
 // Attach something from the assets library
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.display.MovieClip;
 #elseif js
 	//import js.Dom;
@@ -22,14 +22,14 @@ class RCAttach extends RCView {
 		
 		try {
 		
-		#if nme
+		#if openfl
 			target = new MovieClip();
-			target.addChild ( new nme.display.Bitmap (nme.Assets.getBitmapData ( id ), nme.display.PixelSnapping.AUTO, true));
+			target.addChild ( new nme.display.Bitmap (openfl.Assets.getBitmapData ( id ), nme.display.PixelSnapping.AUTO, true));
 			layer.addChild ( target );
 		#elseif (flash && !nme)
 			target = flash.Lib.attach ( id );
 			layer.addChild ( target );
-		#elseif (nme || js)
+		#elseif (openfl || js)
 			target = RCAssets.getFileWithKey( id );
 		#end
 		

@@ -1,4 +1,4 @@
-#if nme
+#if openfl
 class NMEActivityIndicator {
 	
 #if android
@@ -19,8 +19,8 @@ class NMEActivityIndicator {
 		ralcr_destroy_activity_indicator();
 	}
     
-	static var ralcr_new_activity_indicator = nme.Loader.load("ralcr_new_activity_indicator", 4);
-	static var ralcr_destroy_activity_indicator = nme.Loader.load("ralcr_destroy_activity_indicator", 0);
+	static var ralcr_new_activity_indicator = cpp.Lib.load("ralcr_new_activity_indicator", "ralcr_new_activity_indicator", 4);
+	static var ralcr_destroy_activity_indicator = cpp.Lib.load("ralcr_destroy_activity_indicator", "ralcr_destroy_activity_indicator", 0);
 #end
 }
 #end

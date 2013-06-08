@@ -26,7 +26,7 @@ class RCDashedLine extends RCDraw implements RCDrawInterface {
 	
 	public function redraw () :Void {
 		
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		
 		layer.graphics.clear();
 		this.configure();
@@ -48,7 +48,7 @@ class RCDashedLine extends RCDraw implements RCDrawInterface {
 			var W = size.width > size.height ? dashWidth : size.width;
 			var H = size.width < size.height ? dashWidth : size.height;
 			
-			#if (flash || (nme && (cpp || neko)))
+			#if (flash || (openfl && (cpp || neko)))
 				
 				layer.graphics.drawRect (X, Y, W, H);
 				

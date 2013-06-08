@@ -7,7 +7,7 @@
 //
 
 
-#if nme
+#if openfl
 	
 class RCActivityIndicator {
 	

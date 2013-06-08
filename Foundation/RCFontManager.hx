@@ -22,7 +22,7 @@
 	import flash.text.StyleSheet;
 #end
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.events.Event;
 	import flash.text.Font;
 	import flash.text.TextFormat;
@@ -32,7 +32,7 @@
 	import js.html.StyleSheet;
 	private typedef ApplicationDomain = Dynamic;
 #end
-#if nme
+#if openfl
 	private typedef ApplicationDomain = Dynamic;
 	private typedef StyleSheet = Dynamic;
 #end

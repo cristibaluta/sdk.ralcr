@@ -15,7 +15,7 @@ class RCEllipse extends RCDraw implements RCDrawInterface {
 	
 	public function redraw() :Void {
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		layer.graphics.clear();
 		this.configure();
 		

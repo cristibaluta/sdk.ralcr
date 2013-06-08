@@ -11,7 +11,7 @@
 // Note:
 // NME crashes if you're trying to init some static variables.
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.display.StageAlign;
@@ -36,7 +36,7 @@ class RCWindow extends RCView {
 	}
 	
 	
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	public var target :MovieClip;
 	public var stage :Stage;
 #elseif js
@@ -67,7 +67,7 @@ class RCWindow extends RCView {
 			
 			var screen :UIScreen = UIScreen.mainScreen();
 			
-		#elseif (flash || (nme && (cpp || neko)))
+		#elseif (flash || (openfl && (cpp || neko)))
 			
 			target = flash.Lib.current;
 			stage = flash.Lib.current.stage;

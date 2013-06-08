@@ -25,7 +25,7 @@ import mloader.Loader;
 import mloader.HttpLoader;
 import msignal.Signal;
 
-#if (nme && android)
+#if (openfl && android)
 class NativeHttpLoader<T> extends HttpLoader<T>
 {
 	var handle:Dynamic;
@@ -37,12 +37,12 @@ class NativeHttpLoader<T> extends HttpLoader<T>
 		// lazy init to avoid crash at startup
 		if (native_new == null)
 		{
-			native_new = nme.JNI.createStaticMethod("mloader/nme/extension/android/HttpLoader", "<init>", "(Ljava/lang/String;)V");
-			native_addHeader = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "addHeader", "(Ljava/lang/String;Ljava/lang/String;)V");
-			native_setUserAgent = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "setUserAgent", "(Ljava/lang/String;)V");
-			native_get = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "get", "(Lorg/haxe/nme/HaxeObject;)V");
-			native_post = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "post", "(Ljava/lang/String;Lorg/haxe/nme/HaxeObject;)V");
-			native_cancel = nme.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "cancel", "()V");
+			native_new = openfl.utils.JNI.createStaticMethod("mloader/nme/extension/android/HttpLoader", "<init>", "(Ljava/lang/String;)V");
+			native_addHeader = openfl.utils.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "addHeader", "(Ljava/lang/String;Ljava/lang/String;)V");
+			native_setUserAgent = openfl.utils.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "setUserAgent", "(Ljava/lang/String;)V");
+			native_get = openfl.utils.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "get", "(Lorg/haxe/nme/HaxeObject;)V");
+			native_post = openfl.utils.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "post", "(Ljava/lang/String;Lorg/haxe/nme/HaxeObject;)V");
+			native_cancel = openfl.utils.JNI.createMemberMethod("mloader/nme/extension/android/HttpLoader", "cancel", "()V");
 		}
         handle = native_new(haxe.Utf8.encode(url));
 	}

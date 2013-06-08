@@ -38,8 +38,10 @@ class CATween extends CAObject implements CATransitionInterface {
 		for (prop in Reflect.fields (toValues)) {
 			var setter = "set_" + prop;
 			if (setter != null) try {
-#if (flash || (nme && (cpp || neko)))
+#if flash
 				untyped target[setter]( calculate (time_diff, prop));
+#elseif (openfl && (cpp || neko))
+				Reflect.callMethod (target, Reflect.field(target,setter), [calculate (time_diff, prop)]);
 #else
 				Reflect.callMethod (target, Reflect.field(target,setter), [calculate (time_diff, prop)]);
 #end

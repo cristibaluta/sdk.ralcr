@@ -73,7 +73,7 @@ class RCImageAnimated extends RCView {
 	
 	public function gotoAndStop (f:Int) :Void {
 		//trace("gotoAndStop "+currentFrame+", "+f);
-#if nme2
+#if openfl2
 		//layer.bitmapData = images[f-1].bitmapData;
 #else
 		if (f == 0 || f > images.length) {

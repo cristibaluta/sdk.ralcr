@@ -20,7 +20,7 @@ class RCLine extends RCDraw implements RCDrawInterface {
 	}
 	
 	public function redraw () :Void {
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		layer.graphics.clear();
 		layer.graphics.lineStyle (lineWeight, color.fillColor);
 		layer.graphics.moveTo (0, 0);

@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
@@ -54,7 +54,7 @@ class RCTextView extends RCView {
 		redraw();
 	}
 	
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	
 	public function redraw () :Void {
 		
@@ -177,12 +177,12 @@ class RCTextView extends RCView {
 #end
 	
 	public function get_text() :String {
-		return #if (flash || (nme && (cpp || neko))) target.text #elseif js layer.innerHTML #end;
+		return #if (flash || (openfl && (cpp || neko))) target.text #elseif js layer.innerHTML #end;
 	}
 	
 	public function set_text (str:String) :String {
 		
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			
 			if (rcfont.html)
 				target.htmlText = str;
@@ -207,7 +207,7 @@ class RCTextView extends RCView {
 			//set_width ( size.width );
 		#end
 		
-		#if nme
+		#if openfl
 			// Align the text by doing some math for NME 
 			// because align is not supported in combination with autoSize
 			if (size.width != 0)
@@ -222,7 +222,7 @@ class RCTextView extends RCView {
 	}
 	
 	override public function destroy () :Void {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			layer.removeChild ( target );
 		#end
 		target = null;

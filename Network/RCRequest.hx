@@ -44,7 +44,7 @@ class RCRequest {
 	public var result :String; // Returned data or error message
 	public var status :Int; //
 	public var percentLoaded :Int;
-	#if (nme && (ios || android))
+	#if (openfl && (ios || android))
 		var nme_req :NMEHttps;
 	#end
 	
@@ -69,7 +69,7 @@ class RCRequest {
 	public function load (URL:String, ?variables:URLVariables, ?method:String="GET") :Void {
 		//trace(URL);trace(Std.string(variables));trace(method);
 		
-		#if (nme && (ios || android))
+		#if (openfl && (ios || android))
 			
 			nme_req = new NMEHttps();
 			nme_req.didFinishLoad.add( completeHandler );
@@ -201,7 +201,7 @@ class RCRequest {
 	*  
 	*/
 	function createRequest (URL:String, variables:URLVariables, method:String) :URLRequest {
-		#if nme
+		#if openfl
 			if (method=="GET") URL += "?";
 			for (f in Reflect.fields (variables))
 				URL += f + "=" + Reflect.field (variables, f) + "&";
@@ -239,7 +239,7 @@ class RCRequest {
 		removeListeners ( loader );
 		//try { loader.close(); } catch (e:Dynamic) { }
 		loader = null;
-		#if (nme && (ios || android))
+		#if (openfl && (ios || android))
 			if (nme_req != null) nme_req.destroy(); nme_req = null;
 		#end
 	}

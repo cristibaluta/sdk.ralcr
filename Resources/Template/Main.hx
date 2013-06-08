@@ -12,7 +12,7 @@ class Main {
 		
 		RCWindow.sharedWindow().addChild ( view = new AppController() );
 		
-		#if nme
+		#if openfl
 			var fps = new nme.display.FPS();
 			RCWindow.sharedWindow().target.addChild ( fps );
 		#else

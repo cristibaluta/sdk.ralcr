@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 #elseif js
@@ -52,7 +52,7 @@ class RCKeyboardController {
 			case Keyboard.SPACE :	onSpace();
 			case Keyboard.ESCAPE :	onEsc();
 		}
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		e.updateAfterEvent();
 #end
 
@@ -69,7 +69,7 @@ class RCKeyboardController {
 	 * Add or remove the keyboard listener
 	 */
 	public function resume () :Void {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			flash.Lib.current.stage.addEventListener (KeyboardEvent.KEY_DOWN, keyDownHandler);
 			flash.Lib.current.stage.addEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		#elseif js
@@ -79,7 +79,7 @@ class RCKeyboardController {
 	}
 	
 	public function hold () :Void {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			flash.Lib.current.stage.removeEventListener (KeyboardEvent.KEY_DOWN, keyDownHandler);
 			flash.Lib.current.stage.removeEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		#elseif js

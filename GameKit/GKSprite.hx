@@ -35,7 +35,7 @@ class GKSprite extends RCView {
 	public var registrationPoint (default, set_registrationPoint) :RCPoint;
 	
 	// GLES
-#if (nme && (ios || android))
+#if (openfl && (ios || android))
 	public var children :Array<GKSprite>;
 #end
 	

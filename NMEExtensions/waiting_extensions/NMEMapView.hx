@@ -1,4 +1,4 @@
-#if nme
+#if openfl
 class NMEWebView {
 	
 	public var didFinishLoad :RCSignal<String->Void>;
@@ -6,7 +6,7 @@ class NMEWebView {
 #if android
 	
 	public function new (x, y, w, h, url:String) {
-		var _showAlert_func = nme.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
+		var _showAlert_func = openfl.utils.JNI.createStaticMethod("org.haxe.nme.GameActivity", "showDialog", "(Ljava/lang/String;Ljava/lang/String;)V", true);
 		_showAlert_func ( [title, msg] );
 	}
 	public function destroy() :Void {
@@ -28,8 +28,8 @@ class NMEWebView {
 		destroy_web_view();
 	}
     
-	static var new_web_view = nme.Loader.load("new_web_view", 5);
-	static var destroy_web_view = nme.Loader.load("destroy_web_view", 0);
+	static var new_web_view = cpp.Lib.load("new_web_view", 5);
+	static var destroy_web_view = cpp.Lib.load("destroy_web_view", 0);
 #end
 }
 #end

@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
@@ -170,7 +170,7 @@ class RCFont {
 		rightMargin = 0;
 		letterSpacing = 0;
 		
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	#if flash
 		antiAliasType = AntiAliasType.ADVANCED;// ADVANCED-normal fonts(<40px), NORMAL-pixel fonts
 		style = new StyleSheet();
@@ -230,7 +230,7 @@ class RCFont {
 		format.font = font;
 		format.italic = italic;
 		format.indent = indent;
-		format.kerning = kerning;
+		//format.kerning = kerning;
 		format.leading = leading * RCDevice.currentDevice().dpiScale;
 		format.leftMargin = leftMargin * RCDevice.currentDevice().dpiScale;
 		format.letterSpacing = letterSpacing;

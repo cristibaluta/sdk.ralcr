@@ -1,4 +1,4 @@
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.events.Event;
 #elseif js
 	import js.html.Event;
@@ -10,7 +10,7 @@ class EVResize extends RCSignal<Int->Int->Void> {
 		
 		super();
 		
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			flash.Lib.current.stage.addEventListener (Event.RESIZE, resizeHandler);
 		#elseif js
 			js.Browser.window.onresize = resizeHandler;
@@ -19,7 +19,7 @@ class EVResize extends RCSignal<Int->Int->Void> {
 	
 	function resizeHandler (e:Event) {
 		
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			var w = flash.Lib.current.stage.stageWidth;
 			var h = flash.Lib.current.stage.stageHeight;
 		#elseif js
@@ -35,7 +35,7 @@ class EVResize extends RCSignal<Int->Int->Void> {
 	}
 	
 	override public function destroy (?pos:haxe.PosInfos) :Void {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			flash.Lib.current.stage.removeEventListener (Event.RESIZE, resizeHandler);
 		#elseif js
 			js.Browser.window.onresize = null;

@@ -5,7 +5,7 @@
 //  Copyright (c) 2010 ralcr.com. 
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 import flash.geom.Matrix;
 import flash.display.LineScaleMode;
 import flash.display.GradientType;
@@ -40,7 +40,7 @@ typedef GradientType = Dynamic;
 		this.gradientColors = colors;
 		this.gradientAlphas = alphas == null ? [1.0, 1.0] : alphas;
 		this.gradientRatios = [0, 255];
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		this.spreadMethod = SpreadMethod.PAD;// REPEAT, REFLECT, PAD
 		this.interpolationMethod = InterpolationMethod.RGB;// RGB, LINEAR_RGB
 		this.gradientType = linear ? GradientType.LINEAR : GradientType.RADIAL;

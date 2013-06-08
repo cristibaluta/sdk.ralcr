@@ -16,7 +16,7 @@ enum RCControlState {
 
 class RCControl extends RCView {
 
-#if nme
+#if openfl
 	// TODO
 	public var touchDown :RCSignal<RCControl->Void>;// on all touch downs
 	public var touchDownRepeat :RCSignal<RCControl->Void>;// on multiple touchdowns (tap count > 1)
@@ -63,7 +63,7 @@ class RCControl extends RCView {
 		
 		super (x, y, w, h);
 		
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			this.layer.mouseChildren = false;
 		#end
 		configureDispatchers();
@@ -152,7 +152,7 @@ class RCControl extends RCView {
 		release.enabled = enabled_;
 		over.enabled = enabled_;
 		out.enabled = enabled_;
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			layer.useHandCursor = enabled_;
 			layer.buttonMode = enabled_;
 		#end

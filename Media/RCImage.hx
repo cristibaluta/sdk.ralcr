@@ -141,7 +141,7 @@ class RCImage extends RCView {
 		
 		super (x, y);
 		
-		#if (nme || flash)
+		#if (openfl || flash)
 			loader = new Loader();
 		#elseif js
 			loader = cast js.Browser.document.createImageElement();
@@ -164,7 +164,7 @@ class RCImage extends RCView {
 		percentLoaded = 0;
 		if (URL == null) return;
 		
-		#if nme
+		#if openfl
 			// Nme has the assets already embeded
 			bitmapData = nme.Assets.getBitmapData ( URL );
 			haxe.Timer.delay (function() { (bitmapData != null) ? completeHandler(null) : errorHandler(null); }, 10);

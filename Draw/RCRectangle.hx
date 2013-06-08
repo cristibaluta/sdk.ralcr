@@ -24,7 +24,7 @@ class RCRectangle extends RCDraw implements RCDrawInterface {
 		
 		var dpi :Float = RCDevice.currentDevice().dpiScale;
 		
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 		
 		layer.graphics.clear();
 		configure();

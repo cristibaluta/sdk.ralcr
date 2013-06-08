@@ -37,7 +37,7 @@ class CATile extends CAObject implements CATransitionInterface {
 		// Iterate over properties that should be tweened for this object
 		for (prop in Reflect.fields (toValues))
 			try {
-/*			#if (flash || (nme && (cpp || neko)))
+/*			#if (flash || (openfl && (cpp || neko)))
 				Reflect.setField (target, prop, calculate (time_diff, prop));
 			#elseif js*/
 			if (prop=="x"||prop=="y"||prop=="alpha") {

@@ -31,14 +31,14 @@ class RCStats extends RCRectangle {
 		
 		var f = RCFont.systemFontOfSize(12);
 			f.color = 0x000000;
-		txt = new RCTextView (6, #if (flash || (nme && (cpp || neko))) 1 #else 3 #end, null, 20, "Calculating...", f);
+		txt = new RCTextView (6, #if (flash || (openfl && (cpp || neko))) 1 #else 3 #end, null, 20, "Calculating...", f);
 		addChild ( txt );
 		
 		last = RCAnimation.timestamp();
 		e = new EVLoop();
 		e.run = loop;
 		
-		#if nme
+		#if openfl
 			addChild ( new RCRectangle (155, 1, 60, 16, 0xFFFFFF, 0.8, 16) );
 			var fps = new nme.display.FPS();
 				fps.x = 162;

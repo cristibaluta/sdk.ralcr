@@ -8,7 +8,7 @@ class RegisterFonts {
 		
 		try {
 		
-		#if nme
+		#if openfl
 			//var fnt1 = nme.Assets.getFont ("assets/HeadlinerNo.45.otf");
 		#else
 			//var fnt1 = new fonts.Headliner();

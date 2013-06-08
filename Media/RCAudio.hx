@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 
 import flash.events.Event;
 import flash.events.ProgressEvent;
@@ -71,7 +71,7 @@ class RCAudio implements RCAudioInterface {
 		
 		if (sound != null) return;
 		
-		#if nme
+		#if openfl
 			#if (ios || android)
 				if (decodeByHardware)
 				NMESimpleAudioEngine.preloadBackgroundMusic ( URL );
@@ -87,7 +87,7 @@ class RCAudio implements RCAudioInterface {
 			sound.addEventListener (ErrorEvent.ERROR, errorHandler);
 			sound.addEventListener (IOErrorEvent.IO_ERROR, ioErrorHandler);
 			sound.addEventListener (ProgressEvent.PROGRESS, progressHandler);
-			sound.load ( new URLRequest ( URL ) #if nme , null, decodeByHardware #end );
+			sound.load ( new URLRequest ( URL ) #if openfl , null, decodeByHardware #end );
 		#end
 		
 		timer = new Timer ( updateTime );
@@ -99,7 +99,7 @@ class RCAudio implements RCAudioInterface {
 	 */
 	public function start (?time:Null<Int>) :Void {
 		
-		#if (nme && (ios || android))
+		#if (openfl && (ios || android))
 			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.playBackgroundMusic (URL, repeat);
@@ -137,7 +137,7 @@ class RCAudio implements RCAudioInterface {
 	
 	public function stop () :Void {
 		
-		#if (nme && (ios || android))
+		#if (openfl && (ios || android))
 			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.stopBackgroundMusic();
@@ -222,7 +222,7 @@ class RCAudio implements RCAudioInterface {
 	 */
 	public function destroy () :Void {
 		
-		#if (nme && (ios || android))
+		#if (openfl && (ios || android))
 			
 			if (decodeByHardware)
 			NMESimpleAudioEngine.stopBackgroundMusic();

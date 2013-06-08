@@ -6,7 +6,8 @@
 *  Although is called Https you can make Http calls as well
 */
 
-#if nme
+#if openfl
+
 class NMEHttps {
 	
 	public var didFinishLoad :RCSignal<String->Void>;
@@ -30,13 +31,13 @@ class NMEHttps {
 		didFinishLoad = new RCSignal<String->Void>();
 		didFinishWithError = new RCSignal<String->Void>();
 		
-		ralcr_https_get = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_get", "(Ljava/lang/String;Ljava/lang/String;)V");
-		ralcr_https_post = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_post", "(Ljava/lang/String;Ljava/lang/String;)V");
-		ralcr_https_put = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_put", "(Ljava/lang/String;Ljava/lang/String;)V");
-		ralcr_https_cancel = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_cancel", "()V");
-		ralcr_https_is_ready = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_ready", "()Z");
-		ralcr_https_is_successful = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_successful", "()Z");
-		ralcr_https_get_result = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_get_result", "()Ljava/lang/String;");
+		ralcr_https_get = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_get", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_https_post = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_post", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_https_put = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_put", "(Ljava/lang/String;Ljava/lang/String;)V");
+		ralcr_https_cancel = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_cancel", "()V");
+		ralcr_https_is_ready = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_ready", "()Z");
+		ralcr_https_is_successful = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_successful", "()Z");
+		ralcr_https_get_result = openfl.utils.JNI.createStaticMethod("NMEHttps", "ralcr_https_get_result", "()Ljava/lang/String;");
 		trace("JNI methods found");
 	}
 	public function call (url:String, variables:Dynamic, ?method:String="GET") {
@@ -147,12 +148,13 @@ class NMEHttps {
 		didFinishWithError = null;
 	}
     
-	static var ralcr_https_post = nme.Loader.load("ralcr_https_post", 2);
-	static var ralcr_https_put = nme.Loader.load("ralcr_https_put", 2);
-	static var ralcr_https_get = nme.Loader.load("ralcr_https_get", 2);
-	static var ralcr_https_cancel = nme.Loader.load("ralcr_https_cancel", 0);
-	static var ralcr_https_set_did_finish_load_handle = nme.Loader.load("ralcr_https_set_did_finish_load_handle", 1);
-	static var ralcr_https_set_did_finish_with_error_handle = nme.Loader.load("ralcr_https_set_did_finish_with_error_handle", 1);
+	static var ralcr_https_post = cpp.Lib.load("ralcr_https_post", "ralcr_https_post", 2);
+	static var ralcr_https_put = cpp.Lib.load("ralcr_https_put", "ralcr_https_put", 2);
+	static var ralcr_https_get = cpp.Lib.load("ralcr_https_get", "ralcr_https_get", 2);
+	static var ralcr_https_cancel = cpp.Lib.load("ralcr_https_cancel", "ralcr_https_cancel", 0);
+	static var ralcr_https_set_did_finish_load_handle = cpp.Lib.load("ralcr_https_set_did_finish_load_handle", "ralcr_https_set_did_finish_load_handle", 1);
+	static var ralcr_https_set_did_finish_with_error_handle = cpp.Lib.load("ralcr_https_set_did_finish_with_error_handle", "ralcr_https_set_did_finish_with_error_handle", 1);
+
 #end
 	
 	

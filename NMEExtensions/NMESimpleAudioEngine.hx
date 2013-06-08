@@ -1,4 +1,4 @@
-#if nme
+#if openfl
 class NMESimpleAudioEngine {
 	// JNI signatures: http://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/types.html
 	// I = int
@@ -7,17 +7,17 @@ class NMESimpleAudioEngine {
 	public static function configure_jni(){
 		#if android
 		if (ralcr_preload_background_music == null) {
-			ralcr_preload_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadSound", "(Ljava/lang/String;)V");
-			ralcr_play_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "playSound", "(Ljava/lang/String;Z)V");
-			ralcr_stop_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
-			ralcr_pause_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
-			ralcr_resume_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()V");
-			ralcr_rewind_background_music = nme.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()V");
-			ralcr_is_background_music_playing = nme.JNI.createStaticMethod("SimpleAudioEngine", "isBackgroundMusicPlaying", "()Z");
-			ralcr_play_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "playEffect", "(Ljava/lang/String;Z)I");
-			ralcr_stop_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "stopEffect", "(I)V");
-			ralcr_preload_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");
-			ralcr_unload_effect = nme.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");
+			ralcr_preload_background_music = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "preloadSound", "(Ljava/lang/String;)V");
+			ralcr_play_background_music = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "playSound", "(Ljava/lang/String;Z)V");
+			ralcr_stop_background_music = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
+			ralcr_pause_background_music = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "pauseSound", "()V");
+			ralcr_resume_background_music = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()V");
+			ralcr_rewind_background_music = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "resumeSound", "()V");
+			ralcr_is_background_music_playing = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "isBackgroundMusicPlaying", "()Z");
+			ralcr_play_effect = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "playEffect", "(Ljava/lang/String;Z)I");
+			ralcr_stop_effect = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "stopEffect", "(I)V");
+			ralcr_preload_effect = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");
+			ralcr_unload_effect = openfl.utils.JNI.createStaticMethod("SimpleAudioEngine", "preloadEffect", "(Ljava/lang/String;)V");
 		}
 		#end
 	}
@@ -71,17 +71,17 @@ class NMESimpleAudioEngine {
 	}
     
 #if ios
-	static var ralcr_preload_background_music = nme.Loader.load("ralcr_preload_background_music", 1);
-	static var ralcr_play_background_music = nme.Loader.load("ralcr_play_background_music", 2);
-	static var ralcr_stop_background_music = nme.Loader.load("ralcr_stop_background_music", 0);
-	static var ralcr_pause_background_music = nme.Loader.load("ralcr_pause_background_music", 0);
-	static var ralcr_resume_background_music = nme.Loader.load("ralcr_resume_background_music", 0);
-	static var ralcr_rewind_background_music = nme.Loader.load("ralcr_rewind_background_music", 0);
-	static var ralcr_is_background_music_playing = nme.Loader.load("ralcr_is_background_music_playing", 0);
-	static var ralcr_play_effect = nme.Loader.load("ralcr_play_effect", 2);
-	static var ralcr_stop_effect = nme.Loader.load("ralcr_stop_effect", 1);
-	static var ralcr_preload_effect = nme.Loader.load("ralcr_preload_effect", 1);
-	static var ralcr_unload_effect = nme.Loader.load("ralcr_unload_effect", 1);
+	static var ralcr_preload_background_music = cpp.Lib.load("ralcr_preload_background_music", "ralcr_preload_background_music", 1);
+	static var ralcr_play_background_music = cpp.Lib.load("ralcr_play_background_music", "ralcr_play_background_music", 2);
+	static var ralcr_stop_background_music = cpp.Lib.load("ralcr_stop_background_music", "ralcr_stop_background_music", 0);
+	static var ralcr_pause_background_music = cpp.Lib.load("ralcr_pause_background_music", "ralcr_pause_background_music", 0);
+	static var ralcr_resume_background_music = cpp.Lib.load("ralcr_resume_background_music", "ralcr_resume_background_music", 0);
+	static var ralcr_rewind_background_music = cpp.Lib.load("ralcr_rewind_background_music", "ralcr_rewind_background_music", 0);
+	static var ralcr_is_background_music_playing = cpp.Lib.load("ralcr_is_background_music_playing", "ralcr_is_background_music_playing", 0);
+	static var ralcr_play_effect = cpp.Lib.load("ralcr_play_effect", "ralcr_play_effect", 2);
+	static var ralcr_stop_effect = cpp.Lib.load("ralcr_stop_effect", "ralcr_stop_effect", 1);
+	static var ralcr_preload_effect = cpp.Lib.load("ralcr_preload_effect", "ralcr_preload_effect", 1);
+	static var ralcr_unload_effect = cpp.Lib.load("ralcr_unload_effect", "ralcr_unload_effect", 1);
 #elseif android
 	static var ralcr_preload_background_music :Dynamic;
 	static var ralcr_play_background_music :Dynamic;

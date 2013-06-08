@@ -110,7 +110,7 @@ class Facebook {
         	options.appId = applicationId;
 			options.oauth = true;
 		
-#if nme
+#if openfl
 		
 		//verifyAccessToken();
 	
@@ -148,7 +148,7 @@ class Facebook {
     */
     public function getLoginStatus () :Void {
 		trace("getLoginStatus");
-#if nme
+#if openfl
 		
 #elseif flash
 		ExternalInterface.call('FBAS.getLoginStatus');
@@ -175,7 +175,7 @@ class Facebook {
 		
 		_loginCallback = _callback;
 		
-#if nme
+#if openfl
 		
 		var bundle_id = options.bundle_identifier;
 		var data = {
@@ -208,7 +208,7 @@ class Facebook {
 #end
     }
 	
-#if nme
+#if openfl
 	// https://www.facebook.com/connect/login_success.html#access_token=AAADjPeJ0smYBACHWx0XcB4e2vgebexaAuSxvZCeMKYNa9cZBAmPrWzf72UxSC8ekBaW8mZAKWqeVQluAgoNFSRrZBn7gSaJUjMc6ROZB7vgZDZD&expires_in=5182363&code=AQAoNRwzYf801txpLLv-5rkJDB3aTyeHDjH5S5TCStB4NVvCOiAOHepZ3RvDWCXAPaRaLYyASwETMKFDE7I7Ykro3AAZvW5KcgD54Sjld_ELDfg447uWPNrt3DkX3CHZ34XKpaAAYNv4l9duGRXTCwzqsPH1FBF1D1bVnvrZ2aH0V3Cqs0x_VK1AIBwuCIM3yC4_2XziN8T0_IHkbNfi4JIl
 
 	function webViewDidFinishLoad (url:String) :Void {
@@ -255,7 +255,7 @@ class Facebook {
 		
 		_logoutCallback = _callback;
 		
-#if nme
+#if openfl
 		
 /*		var data = {
 			confirm : 1,
@@ -278,7 +278,7 @@ class Facebook {
 	
 	function getAuthResponse () :FacebookAuthResponse {
 		trace("getAuthResponse: ");
-#if nme
+#if openfl
 		
 		
 		
@@ -394,7 +394,7 @@ class Facebook {
 	  
 		if (display != null)
 			data.display = display;
-#if nme
+#if openfl
 #elseif flash
 		ExternalInterface.call ('FBAS.ui', Json.stringify(data));
 #elseif js

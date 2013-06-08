@@ -7,7 +7,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.geom.Matrix;
 	import flash.display.LineScaleMode;
 #elseif js
@@ -15,7 +15,7 @@
 	typedef Matrix = Dynamic;
 	private class LineScaleMode { static public var NONE = null; }
 #end
-#if (nme || js)
+#if (openfl || js)
 	private typedef UInt = Int;
 #end
 
@@ -78,7 +78,7 @@ class RCDraw extends RCView {
 			#end
 		}
 		
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	
 		else if (Std.is (color, RCGradient)) {
 			

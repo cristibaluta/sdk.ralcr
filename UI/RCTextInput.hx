@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
@@ -116,7 +116,7 @@ class RCTextInput extends RCControl {
 	}*/
 	
 	function set_password (t:Bool) :Bool {
-		#if (flash || (nme && (cpp || neko)))
+		#if (flash || (openfl && (cpp || neko)))
 			return textView.target.displayAsPassword = t;
 		#elseif js
 			return true;

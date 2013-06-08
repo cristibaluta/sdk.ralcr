@@ -6,7 +6,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash || (nme && (cpp || neko)))
+#if (flash || (openfl && (cpp || neko)))
 	import flash.events.Event;
 	import flash.display.Loader;
 	import flash.net.URLRequest;
@@ -37,7 +37,7 @@ class RCSwf extends RCImage {
 		isLoaded = false;
 		percentLoaded = 0;
 		
-		#if (flash || (nme && flash))
+		#if (flash || (openfl && flash))
 			if (newDomain)
 				loader.load ( new URLRequest ( URL ), new LoaderContext (true, new ApplicationDomain()) );
 			else

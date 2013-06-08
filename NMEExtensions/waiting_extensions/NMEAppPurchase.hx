@@ -1,4 +1,4 @@
-#if nme
+#if openfl
 
 class NMEAppPurchase extends NXObject{
 	
@@ -29,9 +29,9 @@ class NMEAppPurchase extends NXObject{
 		instance = null;
 	}
 	
-	static var system_in_app_purchase_init = nme.Loader.load("system_in_app_purchase_init",0);
-	static var system_in_app_purchase_purchase = nme.Loader.load("system_in_app_purchase_purchase",1);
-	static var system_in_app_purchase_can_purchase = nme.Loader.load("system_in_app_purchase_can_purchase",0);
-	static var system_in_app_purchase_release = nme.Loader.load("system_in_app_purchase_release",0);
+	static var system_in_app_purchase_init = cpp.Lib.load("system_in_app_purchase_init",0);
+	static var system_in_app_purchase_purchase = cpp.Lib.load("system_in_app_purchase_purchase",1);
+	static var system_in_app_purchase_can_purchase = cpp.Lib.load("system_in_app_purchase_can_purchase",0);
+	static var system_in_app_purchase_release = cpp.Lib.load("system_in_app_purchase_release",0);
 }
 #end

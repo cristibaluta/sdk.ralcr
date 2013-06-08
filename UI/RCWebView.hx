@@ -34,7 +34,7 @@ class RCWebView {
 	 *  call this method in order to instantiate the WebView itself
 	 **/
 	public function init () {
-		#if nme
+		#if openfl
 		webView = new NMEWebView (x, y, w, h, url);
 		webView.didFinishLoad.add ( webViewDidFinishLoad );
 		#end
@@ -46,7 +46,7 @@ class RCWebView {
 	}
     
 	public function destroy() :Void {
-		#if nme
+		#if openfl
 		Fugu.safeDestroy ( webView );
 		webView = null;
 		#end
