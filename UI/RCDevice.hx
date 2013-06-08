@@ -50,7 +50,8 @@ class RCDevice {
 	//public var model :String;// e.g. @"iPhone", @"iPod touch"
 	//public var systemName :String;// e.g. @"iOS"
 	//public var systemVersion :String;// e.g. @"5.0"
-	public var orientation :RCDeviceOrientation;
+	public var language (get, null) :String;
+	public var orientation (get, null) :RCDeviceOrientation;
 	public var type :RCDeviceType;
 	//public var uniqueIdentifier :String;// a string unique to each device based on various hardware info.
 	public var dpiScale :Float;
@@ -58,8 +59,17 @@ class RCDevice {
 	
 	
 	public function new () {
+		
 		#if (cpp || neko)
 			dpiScale = flash.Lib.current.stage.dpiScale;
+			#if iphone
+				type = IPhone;
+			#elseif android
+				type = Android;
+			#end
+		#elseif objc
+			dpiScale = 1;
+			type = #if ios IPhone #elseif osx Mac #end;
 		#else
 			dpiScale = 1;
 			#if js
@@ -78,6 +88,19 @@ class RCDevice {
 			return true;
 		#end
 		return false;
+	}
+	
+	public function get_language () :String {
+		#if (flash || nme)
+			return flash.system.Capabilities.language;
+		#elseif js
+			return js.Browser.window.navigator.language.substr(0, 2).toLowerCase();
+		#elseif objc
+			return NSLocale.preferredLanguages[0];
+		#end
+	}
+	public function get_orientation () :RCDeviceOrientation {
+		return UIDeviceOrientationPortrait;
 	}
 
 #if js

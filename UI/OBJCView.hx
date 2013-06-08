@@ -92,7 +92,7 @@ class ObjcView extends RCDisplayObject {
 		return super.set_rotation ( r );
 	}
 	override public function scale (sx:Float, sy:Float) :Void {
-		
+		layer.transform = untyped CGAffineTransformMakeScale(sx, sy);
 	}
 	
 	override public function set_visible (v:Bool) :Bool {
@@ -126,7 +126,6 @@ class ObjcView extends RCDisplayObject {
 	 *  This method is usually overriten by the super class.
 	 */
 	override public function destroy () :Void {
-		layer.graphics.clear();
 		super.destroy();
 	}
 	
@@ -149,10 +148,6 @@ class ObjcView extends RCDisplayObject {
 		child.viewDidDisappear.dispatch();
 	}
 	public function removeFromSuperview () :Void {
-		var parent = null;
-		try{parent = layer.parent; } catch (e:Dynamic) { null; }
-		if (parent != null)
-		if (parent.contains ( layer ))
-			parent.removeChild ( layer );
+		layer.removeFromSuperview();
 	}
 }

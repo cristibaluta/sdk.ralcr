@@ -22,6 +22,9 @@
 	import RCView;
 	private typedef MouseEvent = js.html.Event;
 	private typedef TextField = RCView;
+#elseif objc
+	import ios.ui.UITextView;
+	private typedef TextField = UITextView;
 #end
 
 
@@ -29,7 +32,7 @@ class RCTextView extends RCView {
 	
 	public var target :TextField;
 	public var rcfont :RCFont;
-	public var text (get_text, set_text) :String;
+	public var text (get, set) :String;
 	
 	
 	public function new (x:Float, y:Float, w:Null<Float>, h:Null<Float>, str:String, rcfont:RCFont) {
@@ -138,6 +141,37 @@ class RCTextView extends RCView {
 	}
 	function viewDidAppear_ () :Void {
 		size.width = contentSize_.width;
+	}
+	
+#elseif objc
+	
+	public function redraw () :Void {
+		
+		// Remove the previous textfield
+		if (target != null)
+		if (this.layer.contains ( target ))
+			this.layer.removeChild ( target );
+		
+		// Create a new textfield
+		target = new TextField();
+		target.frame = new CGRect (0, 0, size.width, size.height);
+		target.font = UIFont.systemFontOfSize ( rcfont.size );
+		target.textColor = rcfont.color;
+		target.textAlignment = switch (rcfont.align) {
+			case "center": NSTextAlignmentCenter;
+			case "right": NSTextAlignmentRight;
+			default : NSTextAlignmentLeft;
+		};
+		target.wordWrap = (size.width == 0) ? false : true;
+		target.multiline = (size.height == 0) ? false : true;
+		target.selectable = rcfont.selectable;
+		target.border = false;
+		
+		if (size.width != 0)	target.width = size.width * RCDevice.currentDevice().dpiScale;
+		if (size.height != 0)	target.height = size.height * RCDevice.currentDevice().dpiScale;
+		
+		
+		layer.addSubview ( target );
 	}
 	
 #end

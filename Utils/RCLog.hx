@@ -84,7 +84,7 @@ class RCLog {
 		#if flash
 			if ((lastMethod != inf.methodName))
 			flash.external.ExternalInterface.call ("console."+type, fileInfo);
-			flash.external.ExternalInterface.call ("console."+type, inf.lineNumber + " :  " + Std.string(v));
+			flash.external.ExternalInterface.call ("console."+type, ":::: " + inf.lineNumber + " :  " + Std.string(v));
 		#elseif js
 			if ((lastMethod != inf.methodName)) untyped console.log (fileInfo);
 			
