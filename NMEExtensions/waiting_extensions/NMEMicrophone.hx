@@ -28,8 +28,8 @@ class NMEMicrophone {
 		hide_web_view();
 	}
     
-	static var show_web_view = cpp.Lib.load("show_web_view", 5);
-	static var hide_web_view = cpp.Lib.load("hide_web_view", 0);
+	static var show_web_view = flash.Lib.load("nme", "show_web_view", 5);
+	static var hide_web_view = flash.Lib.load("nme", "hide_web_view", 0);
 #end
 }
 #end

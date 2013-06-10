@@ -9,7 +9,7 @@
 //	This software is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 //
 
-#if (flash && nme)
+#if (flash && openfl)
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 #end

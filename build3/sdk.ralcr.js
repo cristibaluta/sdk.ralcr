@@ -635,7 +635,7 @@ CATween.prototype = $extend(CAObject.prototype,{
 			if(setter != null) try {
 				Reflect.field(this.target,setter).apply(this.target,[this.timingFunction(time_diff,Reflect.field(this.fromValues,prop),Reflect.field(this.toValues,prop) - Reflect.field(this.fromValues,prop),this.duration,null)]);
 			} catch( e ) {
-				haxe.Log.trace(e,{ fileName : "CATween.hx", lineNumber : 47, className : "CATween", methodName : "animate"});
+				haxe.Log.trace(e,{ fileName : "CATween.hx", lineNumber : 49, className : "CATween", methodName : "animate"});
 			}
 		}
 	}
@@ -2623,6 +2623,7 @@ GKSound.init = function() {
 	}
 }
 GKSound.preloadBackgroundMusic = function(id,url) {
+	haxe.Log.trace(id + ", " + url,{ fileName : "GKSound.hx", lineNumber : 28, className : "GKSound", methodName : "preloadBackgroundMusic"});
 	var snd = new JSAudio(url);
 	snd.init();
 	GKSound.sounds.set(id,snd);
@@ -4857,6 +4858,12 @@ RCDevice.prototype = {
 		if(agent.indexOf("presto") > -1) return RCUserAgent.PRESTO;
 		return RCUserAgent.OTHER;
 	}
+	,get_orientation: function() {
+		return RCDeviceOrientation.UIDeviceOrientationPortrait;
+	}
+	,get_language: function() {
+		return HxOverrides.substr(js.Browser.window.navigator.language,0,2).toLowerCase();
+	}
 	,isTouch: function() {
 		return !!('ontouchstart' in window) // works on most browsers 
 	      || !!('onmsgesturechange' in window); // works on ie10;
@@ -4866,7 +4873,9 @@ RCDevice.prototype = {
 	,dpiScale: null
 	,type: null
 	,orientation: null
+	,language: null
 	,__class__: RCDevice
+	,__properties__: {get_language:"get_language",get_orientation:"get_orientation"}
 }
 var _RCDraw = {}
 _RCDraw.LineScaleMode = function() { }
@@ -5191,7 +5200,6 @@ RCFont.prototype = {
 		this.format.font = this.font;
 		this.format.italic = this.italic;
 		this.format.indent = this.indent;
-		this.format.kerning = this.kerning;
 		this.format.leading = this.leading * RCDevice.currentDevice().dpiScale;
 		this.format.leftMargin = this.leftMargin * RCDevice.currentDevice().dpiScale;
 		this.format.letterSpacing = this.letterSpacing;

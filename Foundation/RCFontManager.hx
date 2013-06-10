@@ -17,7 +17,7 @@
 
 */
 
-#if (flash || (flash && nme))
+#if (flash || (flash && openfl))
 	import flash.system.ApplicationDomain;
 	import flash.text.StyleSheet;
 #end
@@ -163,7 +163,7 @@ class RCFontManager {
 		fontsSwfList.push ( e );
 	}
 	function setCSSFile (css:String) {
-		#if (flash || (flash && nme))
+		#if (flash || (flash && openfl))
 			var cssStyleSheet = new StyleSheet();
 				cssStyleSheet.parseCSS ( css );
 			hash_style.set ("css", cssStyleSheet);
@@ -175,7 +175,7 @@ class RCFontManager {
 	// 1. a:link should be a_link
 	// 2. .heading should be .... (not implemented yet)
 	function createStyle (properties:Dynamic, ?exceptions:Dynamic) :StyleSheet {
-		#if (flash || (flash && nme))
+		#if (flash || (flash && openfl))
 			// Create new styleSheet 
 			var style = new StyleSheet();
 		

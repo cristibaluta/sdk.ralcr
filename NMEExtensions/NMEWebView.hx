@@ -66,9 +66,9 @@ class NMEWebView {
 		ralcr_destroy_web_view();
 	}
     
-	static var ralcr_new_web_view = cpp.Lib.load("ralcr_new_web_view", "ralcr_new_web_view", 5);
-	static var ralcr_destroy_web_view = cpp.Lib.load("ralcr_destroy_web_view", "ralcr_destroy_web_view", 0);
-	static var ralcr_set_did_finish_load_handle = cpp.Lib.load("ralcr_set_did_finish_load_handle", "ralcr_set_did_finish_load_handle", 1);
+	static var ralcr_new_web_view = flash.Lib.load("nme", "ralcr_new_web_view", 5);
+	static var ralcr_destroy_web_view = flash.Lib.load("nme", "ralcr_destroy_web_view", 0);
+	static var ralcr_set_did_finish_load_handle = flash.Lib.load("nme", "ralcr_set_did_finish_load_handle", 1);
 #end
 }
 #end

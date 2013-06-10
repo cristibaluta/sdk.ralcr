@@ -148,12 +148,12 @@ class NMEHttps {
 		didFinishWithError = null;
 	}
     
-	static var ralcr_https_post = cpp.Lib.load("ralcr_https_post", "ralcr_https_post", 2);
-	static var ralcr_https_put = cpp.Lib.load("ralcr_https_put", "ralcr_https_put", 2);
-	static var ralcr_https_get = cpp.Lib.load("ralcr_https_get", "ralcr_https_get", 2);
-	static var ralcr_https_cancel = cpp.Lib.load("ralcr_https_cancel", "ralcr_https_cancel", 0);
-	static var ralcr_https_set_did_finish_load_handle = cpp.Lib.load("ralcr_https_set_did_finish_load_handle", "ralcr_https_set_did_finish_load_handle", 1);
-	static var ralcr_https_set_did_finish_with_error_handle = cpp.Lib.load("ralcr_https_set_did_finish_with_error_handle", "ralcr_https_set_did_finish_with_error_handle", 1);
+	static var ralcr_https_post = flash.Lib.load("nme", "ralcr_https_post", 2);
+	static var ralcr_https_put = flash.Lib.load("nme", "ralcr_https_put", 2);
+	static var ralcr_https_get = flash.Lib.load("nme", "ralcr_https_get", 2);
+	static var ralcr_https_cancel = flash.Lib.load("nne", "ralcr_https_cancel", 0);
+	static var ralcr_https_set_did_finish_load_handle = flash.Lib.load("nme", "ralcr_https_set_did_finish_load_handle", 1);
+	static var ralcr_https_set_did_finish_with_error_handle = flash.Lib.load("nme", "ralcr_https_set_did_finish_with_error_handle", 1);
 
 #end
 	

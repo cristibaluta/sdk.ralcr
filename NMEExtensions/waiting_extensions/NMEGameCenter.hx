@@ -23,7 +23,7 @@ class NMEGameCenter {
 		system_ui_show_alert (alertTitle, alertMSG);
 	}
     
-	static var system_ui_show_alert = cpp.Lib.load("system_ui_show_alert", 2);
+	static var system_ui_show_alert = flash.Lib.load("nme", "system_ui_show_alert", 2);
 #end
 }
 #end

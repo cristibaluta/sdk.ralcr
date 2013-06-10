@@ -24,7 +24,7 @@ class NMEAlertView {
 		ralcr_show_alert_view (alertTitle, alertMSG);
 	}
     
-	static var ralcr_show_alert_view = cpp.Lib.load("ralcr_show_alert_view", 2);
+	static var ralcr_show_alert_view = flash.Lib.load("nme", "ralcr_show_alert_view", 2);
 #end
 }
 #end

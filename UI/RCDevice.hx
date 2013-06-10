@@ -91,7 +91,7 @@ class RCDevice {
 	}
 	
 	public function get_language () :String {
-		#if (flash || nme)
+		#if (flash || openfl)
 			return flash.system.Capabilities.language;
 		#elseif js
 			return js.Browser.window.navigator.language.substr(0, 2).toLowerCase();

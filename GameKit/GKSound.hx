@@ -25,6 +25,7 @@ class GKSound {
 	 *  hardware decoder. It is good performance for long sounds
 	 **/
 	public static function preloadBackgroundMusic (id:String, url:String) :Void {
+		trace(id+", "+url);
 		var snd = new RCAudio (url #if openfl , true #end);
 			snd.init();
 		sounds.set (id, snd);

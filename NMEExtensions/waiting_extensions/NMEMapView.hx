@@ -28,8 +28,8 @@ class NMEWebView {
 		destroy_web_view();
 	}
     
-	static var new_web_view = cpp.Lib.load("new_web_view", 5);
-	static var destroy_web_view = cpp.Lib.load("destroy_web_view", 0);
+	static var new_web_view = flash.Lib.load("nme", "new_web_view", 5);
+	static var destroy_web_view = flash.Lib.load("nme", "destroy_web_view", 0);
 #end
 }
 #end

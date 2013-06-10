@@ -71,17 +71,17 @@ class NMESimpleAudioEngine {
 	}
     
 #if ios
-	static var ralcr_preload_background_music = cpp.Lib.load("ralcr_preload_background_music", "ralcr_preload_background_music", 1);
-	static var ralcr_play_background_music = cpp.Lib.load("ralcr_play_background_music", "ralcr_play_background_music", 2);
-	static var ralcr_stop_background_music = cpp.Lib.load("ralcr_stop_background_music", "ralcr_stop_background_music", 0);
-	static var ralcr_pause_background_music = cpp.Lib.load("ralcr_pause_background_music", "ralcr_pause_background_music", 0);
-	static var ralcr_resume_background_music = cpp.Lib.load("ralcr_resume_background_music", "ralcr_resume_background_music", 0);
-	static var ralcr_rewind_background_music = cpp.Lib.load("ralcr_rewind_background_music", "ralcr_rewind_background_music", 0);
-	static var ralcr_is_background_music_playing = cpp.Lib.load("ralcr_is_background_music_playing", "ralcr_is_background_music_playing", 0);
-	static var ralcr_play_effect = cpp.Lib.load("ralcr_play_effect", "ralcr_play_effect", 2);
-	static var ralcr_stop_effect = cpp.Lib.load("ralcr_stop_effect", "ralcr_stop_effect", 1);
-	static var ralcr_preload_effect = cpp.Lib.load("ralcr_preload_effect", "ralcr_preload_effect", 1);
-	static var ralcr_unload_effect = cpp.Lib.load("ralcr_unload_effect", "ralcr_unload_effect", 1);
+	static var ralcr_preload_background_music = flash.Lib.load("nme", "ralcr_preload_background_music", 1);
+	static var ralcr_play_background_music = flash.Lib.load("nme", "ralcr_play_background_music", 2);
+	static var ralcr_stop_background_music = flash.Lib.load("nme", "ralcr_stop_background_music", 0);
+	static var ralcr_pause_background_music = flash.Lib.load("nme", "ralcr_pause_background_music", 0);
+	static var ralcr_resume_background_music = flash.Lib.load("nme", "ralcr_resume_background_music", 0);
+	static var ralcr_rewind_background_music = flash.Lib.load("nme", "ralcr_rewind_background_music", 0);
+	static var ralcr_is_background_music_playing = flash.Lib.load("nme", "ralcr_is_background_music_playing", 0);
+	static var ralcr_play_effect = flash.Lib.load("nme", "ralcr_play_effect", 2);
+	static var ralcr_stop_effect = flash.Lib.load("nme", "ralcr_stop_effect", 1);
+	static var ralcr_preload_effect = flash.Lib.load("nme", "ralcr_preload_effect", 1);
+	static var ralcr_unload_effect = flash.Lib.load("nme", "ralcr_unload_effect", 1);
 #elseif android
 	static var ralcr_preload_background_music :Dynamic;
 	static var ralcr_play_background_music :Dynamic;

@@ -8,7 +8,7 @@
 //
 
 import RCDevice;
-#if (flash || nme)
+#if (flash || openfl)
 	import flash.display.Loader;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -69,7 +69,7 @@ class RCImage extends RCView {
 	}
 	
 	
-#if (flash || nme)
+#if (flash || openfl)
 	/**
 	 *  Create an image from the ByteArray. Sync operation
 	 **/
@@ -100,7 +100,7 @@ class RCImage extends RCView {
 	*/
 	public static function imageWithRegionOfImage (image:RCImage, size:RCSize, source_rect:RCRect, draw_at:RCRect) :RCImage {
 		
-#if (flash || nme)
+#if (flash || openfl)
 		
 		var color = #if neko {rgb:0x000000, a:0} #else 0x000000ff #end ;
 		var bitmapData = new BitmapData (Math.round(size.width), Math.round(size.height), true, color);
@@ -182,7 +182,7 @@ class RCImage extends RCView {
 	 */
 	public function completeHandler (e:Event) :Void {
 		
-		#if (flash || nme)
+		#if (flash || openfl)
 			if (bitmapData != null) {
 				// We already have the bitmapData at this point
 				var bitmap = new Bitmap (bitmapData, PixelSnapping.AUTO, true);
@@ -236,7 +236,7 @@ class RCImage extends RCView {
 	}
 	
 	
-#if (flash || nme)
+#if (flash || openfl)
 	
 	function progressHandler (e:ProgressEvent) :Void {
 		percentLoaded = Math.round (e.target.bytesLoaded * 100 / e.target.bytesTotal);
@@ -259,7 +259,7 @@ class RCImage extends RCView {
 	 *  In JS it loads again the image, hopefully from cache.
 	 */
 	public function copy () :RCImage {
-		#if (flash || nme)
+		#if (flash || openfl)
 			return imageWithBitmapData ( bitmapData );
 		#elseif js
 			return new RCImage (0, 0, loader.src);
@@ -267,7 +267,7 @@ class RCImage extends RCView {
 	}
 	
 	function addListeners () :Void {
-		#if (flash || nme)
+		#if (flash || openfl)
 			loader.contentLoaderInfo.addEventListener (Event.COMPLETE, completeHandler);
 			loader.contentLoaderInfo.addEventListener (ProgressEvent.PROGRESS, progressHandler);
 			loader.contentLoaderInfo.addEventListener (ErrorEvent.ERROR, errorHandler);
@@ -279,7 +279,7 @@ class RCImage extends RCView {
 	}
 	
 	function removeListeners () :Void {
-		#if (flash || nme)
+		#if (flash || openfl)
 			loader.contentLoaderInfo.removeEventListener (Event.COMPLETE, completeHandler);
 			loader.contentLoaderInfo.removeEventListener (ProgressEvent.PROGRESS, progressHandler);
 			loader.contentLoaderInfo.removeEventListener (ErrorEvent.ERROR, errorHandler);
@@ -294,7 +294,7 @@ class RCImage extends RCView {
 	// Clan mess
 	override public function destroy() :Void {
 		removeListeners();
-		#if (flash || nme)
+		#if (flash || openfl)
 			//loader.close();
 			loader.unload();
 			if (bitmapData != null)
