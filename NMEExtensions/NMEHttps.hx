@@ -40,7 +40,8 @@ class NMEHttps {
 		trace("JNI methods found");
 	}
 	public function call (url:String, variables:Dynamic, ?method:String="GET") {
-		trace("CALL "+url+" / "+method);
+		trace("call: "+url);
+		trace("vars: "+variables);
 		if (method == "POST") {
 			var contentType = "application/octet-stream";
 			var vars = haxe.Json.stringify ( variables );

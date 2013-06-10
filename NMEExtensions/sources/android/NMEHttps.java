@@ -33,6 +33,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
+import org.apache.http.protocol.HTTP;
 import org.haxe.nme.HaxeObject;
 import org.haxe.nme.GameActivity;
 
@@ -72,6 +73,7 @@ public class NMEHttps {
 		loader.get (url, vars);
 	}
 	static public void ralcr_https_post (final String url, final String payload) {
+		Log.d("ralcr_https_post", "post: "+url+"?"+payload);
 		ralcr_https_cancel();
 		loader = new NMEHttps();
 		loader.post (url, payload);
@@ -229,6 +231,7 @@ public class NMEHttps {
 			return result;
 		}
 		
+		
 		// private HttpResult httpGet() throws IOException, URISyntaxException {
 		// 	HttpGet request = new HttpGet(url);
 		// 	return executeRequest(request);
@@ -236,13 +239,15 @@ public class NMEHttps {
 		
 		private HttpResult httpPost() throws IOException, URISyntaxException {
 			HttpPost request = new HttpPost(url_str);
-			request.setEntity(new StringEntity(payload));
+			request.setHeader("Content-Type", "application/json");
+			StringEntity se = new StringEntity (payload, HTTP.UTF_8);
+			request.setEntity(se);
 			return executeRequest(request);
 		}
 		
 		private HttpResult httpPut() throws IOException, URISyntaxException {
 			HttpPut request = new HttpPut(url_str);
-			request.setEntity ( new StringEntity(payload));
+			request.setEntity ( new StringEntity (payload, HTTP.UTF_8));
 			return executeRequest(request);
 		}
 		
