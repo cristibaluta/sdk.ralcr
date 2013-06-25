@@ -34,6 +34,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.haxe.nme.HaxeObject;
 import org.haxe.nme.GameActivity;
 
@@ -123,13 +124,13 @@ public class NMEHttps {
 		activeTask.execute();
 	}
 	public void post (final String url, final String vars) {
-		setHeader("Content-Type", "application/json");
+		setHeader("Content-Type", "application/x-www-form-urlencoded");
 		setHeader("Content-Length", Integer.toString(vars.length()));
 		activeTask = new HttpsBackgroundTask (url, HttpMethod.POST, vars, headers, userAgent);
 		activeTask.execute();
 	}
 	public void put (final String url, final String vars) {
-		setHeader("Content-Type", "application/json");
+		setHeader("Content-Type", "application/x-www-form-urlencoded");
 		setHeader("Content-Length", Integer.toString(vars.length()));
 		activeTask = new HttpsBackgroundTask (url, HttpMethod.PUT, vars, headers, userAgent);
 		activeTask.execute();
@@ -170,19 +171,22 @@ public class NMEHttps {
 		//private final URL url;
 		private final String url_str;
 		private final HttpMethod method;
-		private final String payload;
+		private final String vars;
 		private final Map<String, String> headers;
 		private final String userAgent;
 		public HttpResult httpresult;
 		
-		public HttpsBackgroundTask (String url, HttpMethod method, String payload, Map<String, String> headers, String userAgent) {
+		public HttpsBackgroundTask (String url, HttpMethod method, String vars, Map<String, String> headers, String userAgent) {
 			//this.url = stringToURL(url);
 			this.url_str = url;
 			this.method = method;
-			this.payload = payload;
+			this.vars = vars;
 			this.headers = headers;
 			this.userAgent = userAgent;
 			this.httpresult = null;
+			
+			Log.d("HttpsBackgroundTask", url);
+			//Log.d("HttpsBackgroundTask", vars);
 		}
 		public boolean isReady() {
 			Log.d("HttpsBackgroundTask", "isReady?");
@@ -205,7 +209,7 @@ public class NMEHttps {
 			
 			try {
 				switch (method) {
-					case GET: result = executeRequest ( new HttpGet ( url_str)); break;
+					case GET: result = httpGet(); break;
 					case POST: result = httpPost(); break;
 					case PUT: result = httpPut(); break;
 					default: throw new Exception("Unsupported http method: " + method);
@@ -215,6 +219,7 @@ public class NMEHttps {
 				errorMessage = e.toString();
 			}
 			catch (ClientProtocolException e) {
+				Log.d("ClientProtocolException", "ClientProtocolException "+e);
 				errorMessage = e.toString();
 			}
 			catch (IOException e) {
@@ -232,40 +237,50 @@ public class NMEHttps {
 		}
 		
 		
-		// private HttpResult httpGet() throws IOException, URISyntaxException {
-		// 	HttpGet request = new HttpGet(url);
-		// 	return executeRequest(request);
-		// }
+		private HttpResult httpGet() throws IOException, URISyntaxException {
+			HttpGet request = new HttpGet(url_str);
+			return executeRequest(request);
+		}
 		
 		private HttpResult httpPost() throws IOException, URISyntaxException {
 			HttpPost request = new HttpPost(url_str);
-			request.setHeader("Content-Type", "application/json");
-			StringEntity se = new StringEntity (payload, HTTP.UTF_8);
-			request.setEntity(se);
+			StringEntity entity = new StringEntity(vars, HTTP.UTF_8);
+			entity.setContentType("application/x-www-form-urlencoded");
+			request.setEntity ( entity );
 			return executeRequest(request);
 		}
 		
 		private HttpResult httpPut() throws IOException, URISyntaxException {
 			HttpPut request = new HttpPut(url_str);
-			request.setEntity ( new StringEntity (payload, HTTP.UTF_8));
+			request.setEntity ( new StringEntity (vars, HTTP.UTF_8));
 			return executeRequest(request);
 		}
 		
 		private HttpResult executeRequest(HttpUriRequest request) throws IOException {
 			
+			// this is giving me org.apache.http.client.ClientProtocolException
+			// so that's why is commented
+			//for (String header : headers.keySet()) {
+			//	request.setHeader (header, headers.get(header));
+			//}
+			
 			AndroidHttpClient client = AndroidHttpClient.newInstance(userAgent);
 			
-			for (String header : headers.keySet()) {
-				request.setHeader (header, headers.get(header));
-			}
+			BasicResponseHandler responseHandler = new BasicResponseHandler();//Here is the change
+			String responseBody = client.execute(request, responseHandler);
+			System.out.println(responseBody);
+			client.close();
+			Log.d ("HttpResult create in executeRequest: ", responseBody);
+			return new HttpResult (true, responseBody, 200);
 			
-			try {
-				HttpResponse httpResponse = client.execute(request);
-				return createHttpResult(httpResponse);
-			}
-			finally {
-				client.close();
-			}
+			// 
+			// try {
+			// 	HttpResponse httpResponse = client.execute(request);
+			// 	return createHttpResult(httpResponse);
+			// }
+			// finally {
+			// 	client.close();
+			// }
 		}
 		
 		private HttpResult createHttpResult(HttpResponse response) {

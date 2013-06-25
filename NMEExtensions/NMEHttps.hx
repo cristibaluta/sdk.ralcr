@@ -37,41 +37,24 @@ class NMEHttps {
 		ralcr_https_is_ready = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_ready", "()Z");
 		ralcr_https_is_successful = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_is_successful", "()Z");
 		ralcr_https_get_result = nme.JNI.createStaticMethod("NMEHttps", "ralcr_https_get_result", "()Ljava/lang/String;");
-		trace("JNI methods found");
 	}
 	public function call (url:String, variables:Dynamic, ?method:String="GET") {
-		trace("call: "+url);
-		trace("vars: "+variables);
-		if (method == "POST") {
-			var contentType = "application/octet-stream";
-			var vars = haxe.Json.stringify ( variables );
-			contentType = "application/json";
-			
-			//native_addHeader (request, "Content-Type", "application/json");
-			/*
-			var str = haxe.Utf8.encode( Std.string ( data));
-			*/
-			nme.Lib.postUICallback ( function() { ralcr_https_post (url, vars);});
-		}
-		else if (method == "PUT") {
-			var contentType = "application/octet-stream";
-			var vars = haxe.Json.stringify ( variables );
-			contentType = "application/json";
-			
-			nme.Lib.postUICallback ( function() { ralcr_https_put (url, vars);});
-		}
-		else if (method == "GET") {
-			var vars = "";
-			for (f in Reflect.fields (variables))
-				vars += f + "=" + Reflect.field (variables, f) + "&";
-			
-			nme.Lib.postUICallback ( function() { ralcr_https_get (url, vars);});
-		}
-		else if (method == "DELETE") {
-			//ralcr_https_delete ( url, vars );
+		
+		var vars = "";
+		for (f in Reflect.fields (variables))
+			vars += f + "=" + Reflect.field (variables, f) + "&";
+		
+		trace("call: "+url+" method "+method);
+		trace("vars: "+vars);
+		
+		switch (method) {
+			case "POST" : nme.Lib.postUICallback ( function() { ralcr_https_post (url, vars);});
+			case "PUT" : nme.Lib.postUICallback ( function() { ralcr_https_put (url, vars);});
+			case "GET" : nme.Lib.postUICallback ( function() { ralcr_https_get (url, vars);});
+/*			case "DELETE" : ralcr_https_delete ( url, vars );*/
+			default : trace("Unknown method "+method);
 		}
 		
-/*		checkRequestStatus();*/
 		requestTimer = haxe.Timer.delay ( checkRequestStatus, 200);
 	}
 	function checkRequestStatus () {
@@ -160,7 +143,7 @@ class NMEHttps {
 	
 	
 	public function didFinishLoadHandler (e:String) {
-		trace("didFinishLoadHandler "+e);
+		trace("didFinishLoadHandler ");
 		if (didFinishLoad != null) didFinishLoad.dispatch ( e );
 	}
 	public function didFinishWithErrorHandler (e:String) {

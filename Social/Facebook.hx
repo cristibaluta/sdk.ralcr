@@ -14,6 +14,7 @@ typedef FacebookSession = {
 	var user :Dynamic;
 	var sessionKey :String;
 	var expireDate :Date;
+	var expireTimestamp :Float;
 	var accessToken :String;
 	var secret :String;
 	var sig :String;
@@ -81,15 +82,15 @@ class Facebook {
 		if (_instance == null) throw ("Call Facebook.init before obtaining the instance");
 		return _instance;
 	}
-    public static function init (applicationId:String, _callback:FacebookSession->Dynamic->Void, ?options:Dynamic) :Facebook {
+    public static function init (applicationId:String, _callback:FacebookSession->Dynamic->Void, ?options:Dynamic, ?session:FacebookSession) :Facebook {
     	if (_instance == null)
-			_instance = new Facebook (applicationId, _callback, options);
+			_instance = new Facebook (applicationId, _callback, options, session);
 		return _instance;
     }
 	
 	
 	
-    public function new (applicationId:String, _callback:FacebookSession->Dynamic->Void, options:Dynamic) {
+    public function new (applicationId:String, _callback:FacebookSession->Dynamic->Void, options:Dynamic, session:FacebookSession) {
 		
 		if (_instance != null) {
 			throw ( 'Facebook is a singleton and cannot be instantiated.' );
@@ -99,8 +100,7 @@ class Facebook {
 		requests = new Array<RCHttp>();
 
         _initCallback = _callback;
-		var accessToken = RCUserDefaults.stringForKey ( "SocialFacebookAccessToken" );
-		this.session = generateSession ( {access_token : accessToken} );
+		this.session = session;trace(this.session);
 		this.applicationId = applicationId;
 		this.oauth2 = true;
 
@@ -125,19 +125,19 @@ class Facebook {
 #elseif js
 #end
 		
-		if (accessToken != null) {
+/*		if (accessToken != null) {
 			authResponse = {
 				uid : null,
 				expireDate : null,
 				accessToken : accessToken,
 				signedRequest : null
 			}
-		}
+		}*/
 		if (options.status != false) {
 			getLoginStatus();
 		}
 		else if (_initCallback != null) {
-			_initCallback (session, null);
+			_initCallback (this.session, null);
 			_initCallback = null;
 		}
 	}
@@ -159,6 +159,7 @@ class Facebook {
 		return getAccessToken() != null;
 	}
 	public function myId () :String {
+		if (session == null) return null;
 		return session.uid;
 	}
 
@@ -325,6 +326,7 @@ class Facebook {
 			user : null,
 			sessionKey : json.session_key,
 			expireDate : expireDate,
+			expireTimestamp : expireTimestamp,
 			accessToken : json.access_token,
 			secret : json.secret,
  			sig : json.sig,
@@ -388,8 +390,8 @@ class Facebook {
     /**
      * Shows a Facebook sharing dialog.
      */
-	 public function ui (method:String, data:Dynamic, ?_callback:Dynamic, ?display:String) {
-		 
+	public function ui (method:String, data:Dynamic, ?_callback:Dynamic, ?display:String) {
+		
 		data.method = method;
 
 /*	  if (_callback != null)

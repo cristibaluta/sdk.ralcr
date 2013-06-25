@@ -35,7 +35,7 @@ class RCHttp extends RCRequest {
 	 *	Require the apiPath
 	 */
 	public function readDirectory (directoryName:String) :Void {
-		
+		trace("read dir "+directoryName);
 		var variables = createVariables ( { path : directoryName } );
 		load ( apiPath + "filesystem/readDirectory.php", variables );
 	}
