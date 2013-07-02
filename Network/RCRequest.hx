@@ -16,7 +16,7 @@
 	#end
 	import haxe.Http;
 	private typedef URLLoader = Http;
-	private typedef URLRequest = Http;
+	private typedef URLRequest = #if nme nme.net.URLRequest #else Http #end;
 	private typedef IEventDispatcher = Http;
 	private typedef ProgressEvent = Dynamic;
 	private typedef SecurityErrorEvent = String;
@@ -206,7 +206,12 @@ class RCRequest {
 			for (f in Reflect.fields (variables))
 				URL += f + "=" + Reflect.field (variables, f) + "&";
 		#end
-		#if flash
+		#if nme
+			var request = new nme.net.URLRequest ( URL );
+				request.data = variables;
+				request.method = method == "POST" ? nme.net.URLRequestMethod.POST : nme.net.URLRequestMethod.GET;
+			return request;
+		#elseif flash
 			var request = new URLRequest ( URL );
 				request.data = variables;
 				request.method = method == "POST" ? URLRequestMethod.POST : URLRequestMethod.GET;

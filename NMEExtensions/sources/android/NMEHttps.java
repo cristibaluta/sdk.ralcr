@@ -185,7 +185,7 @@ public class NMEHttps {
 			this.userAgent = userAgent;
 			this.httpresult = null;
 			
-			Log.d("HttpsBackgroundTask", url);
+			//Log.d("HttpsBackgroundTask", url);
 			//Log.d("HttpsBackgroundTask", vars);
 		}
 		public boolean isReady() {
