@@ -79,6 +79,28 @@ class Fugu {
 	
 	
 	/**
+	 * Draws a glow on a target object
+	 */
+	public static function shadow (	target:RCView,
+									color:Null<Int>,
+									alpha:Null<Float>,
+									blur:Null<Float>,
+									strength:Float=0.6,
+									distance:Float=2,
+									angle:Float=45)
+	{
+		#if (flash || (openfl && (cpp || neko)))
+			var filters :Array<flash.filters.BitmapFilter> = [];
+			var filter = new flash.filters.DropShadowFilter (distance, angle, color, alpha, blur, blur, strength, 3, false, false, false);
+			filters.push ( filter );
+			target.layer.filters = blur==null ? null : filters;
+		#elseif js
+			
+		#end
+	}
+	
+	
+	/**
 	 * Changes the color of the targeted object
 	 */
 	public static function color (target:RCView, color:Int) :Void {
