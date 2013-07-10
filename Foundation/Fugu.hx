@@ -74,6 +74,8 @@ class Fugu {
 			var filter = new flash.filters.GlowFilter (color, alpha, blur, blur, strength, 3, false, false);
 			filters.push ( filter );
 			target.layer.filters = blur==null ? null : filters;
+		#elseif js
+			shadow (target, color, alpha, blur, strength);
 		#end
 	}
 	
@@ -95,7 +97,15 @@ class Fugu {
 			filters.push ( filter );
 			target.layer.filters = blur==null ? null : filters;
 		#elseif js
-			
+			if (Std.is(target, RCTextView)) {
+				untyped target.layer.style.textShadow = distance+"px "+distance+"px "+blur+"pt "+RCColor.HEXtoString(color);
+			}
+			else {
+				// Moz, Opera(inconsistent)
+				untyped target.layer.style.boxShadow = distance+"px "+distance+"px "+blur+"px "+blur+"px "+RCColor.HEXtoString(color);
+				// Safari, Chrome
+				untyped target.layer.style.WebkitBoxShadow = distance+"px "+distance+"px "+blur+"px "+blur+"px "+RCColor.HEXtoString(color);
+			}
 		#end
 	}
 	
@@ -146,6 +156,18 @@ class Fugu {
 		target.layer.filters = [new flash.filters.ColorMatrixFilter ( matrix )];
 		#end
 	}
+	
+	
+	public static function supportedProp (arr:Array<String>) :String {
+/*		var root = document.documentElement;
+			for (prop in arr) {
+				if (prop in root.style){
+				return prop;
+			}
+		}*/
+		return null;
+	}
+
 	
 	
 	/**

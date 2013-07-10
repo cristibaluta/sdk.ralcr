@@ -19,6 +19,19 @@ class RCStringTools {
 	}
 	
 	
+	
+	/**
+	 * Add commas
+	 */
+	public static function addComma (nr:Int) :String {
+		var s = Std.string(nr);
+		var arr = s.split("");
+		if (arr.length > 3)
+			arr.insert( arr.length-3, ",");
+		return arr.join("");
+	}
+	
+	
 	/**
 	 * Returns the minutes and seconds with leading zeros
 	 * for example: 70 returns 01:10
