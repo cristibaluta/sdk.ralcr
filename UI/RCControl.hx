@@ -110,7 +110,7 @@ class RCControl extends RCView {
 		setState ( NORMAL );
 		onOut();
 	}
-	function clickHandler (e:EVMouse) :Void {
+	function clickHandler (e:EVMouse) :Void {trace("click ghandler");
 		setState ( SELECTED );
 		onClick();
 	}

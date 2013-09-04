@@ -1920,7 +1920,7 @@ Fugu.shadow = function(target,color,alpha,blur,strength,distance,angle) {
 	if(angle == null) angle = 45;
 	if(distance == null) distance = 2;
 	if(strength == null) strength = 0.6;
-	if(js.Boot.__instanceof(target,RCTextView)) target.layer.style.textShadow = distance + "px " + distance + "px " + blur + "pt " + RCColor.HEXtoString(color); else {
+	if(js.Boot.__instanceof(target,RCTextView)) target.layer.style.textShadow = distance * 1.5 + "px " + distance * 1.5 + "px " + blur / 2 + "pt " + RCColor.HEXtoString(color); else {
 		target.layer.style.boxShadow = distance + "px " + distance + "px " + blur + "px " + blur + "px " + RCColor.HEXtoString(color);
 		target.layer.style.WebkitBoxShadow = distance + "px " + distance + "px " + blur + "px " + blur + "px " + RCColor.HEXtoString(color);
 	}
@@ -2172,6 +2172,10 @@ var JSView = function(x,y,w,h) {
 	this.layer.style.margin = "0px 0px 0px 0px";
 	this.layer.style.width = "auto";
 	this.layer.style.height = "auto";
+	this.layer.style.webkitUserSelect = "none";
+	this.layer.style.mozUserSelect = "none";
+	this.layer.style.khtmlUserSelect = "none";
+	this.layer.style.oUserSelect = "none";
 	this.set_x(x);
 	this.set_y(y);
 };
@@ -2184,7 +2188,8 @@ JSView.prototype = $extend(RCDisplayObject.prototype,{
 		return this.parent.get_mouseY() - this.get_y();
 	}
 	,get_mouseX: function() {
-		return this.layer.clientX;
+		haxe.Log.trace(this.layer,{ fileName : "JSView.hx", lineNumber : 219, className : "JSView", methodName : "get_mouseX"});
+		haxe.Log.trace(this.layer.clientX,{ fileName : "JSView.hx", lineNumber : 219, className : "JSView", methodName : "get_mouseX"});
 		if(this.parent == null) return this.mouseX;
 		return this.parent.get_mouseX() - this.get_x();
 	}
@@ -2279,20 +2284,20 @@ JSView.prototype = $extend(RCDisplayObject.prototype,{
 	}
 	,removeChild: function(child) {
 		if(child == null) return;
-		child.viewWillDisappear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 75, className : "JSView", methodName : "removeChild"});
+		child.viewWillDisappear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 79, className : "JSView", methodName : "removeChild"});
 		child.parent = null;
 		this.layer.removeChild(child.layer);
-		child.viewDidDisappear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 78, className : "JSView", methodName : "removeChild"});
+		child.viewDidDisappear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 82, className : "JSView", methodName : "removeChild"});
 	}
 	,addChildAt: function(child,index) {
 		if(this.layer.childNodes[index] != null) this.layer.insertBefore(child.layer,this.layer.childNodes[index]); else this.layer.appendChild(child.layer);
 	}
 	,addChild: function(child) {
 		if(child == null) return;
-		child.viewWillAppear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 58, className : "JSView", methodName : "addChild"});
+		child.viewWillAppear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 62, className : "JSView", methodName : "addChild"});
 		child.parent = this;
 		this.layer.appendChild(child.layer);
-		child.viewDidAppear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 61, className : "JSView", methodName : "addChild"});
+		child.viewDidAppear.dispatch(null,null,null,null,{ fileName : "JSView.hx", lineNumber : 65, className : "JSView", methodName : "addChild"});
 	}
 	,gl: null
 	,graphics: null
@@ -4353,6 +4358,7 @@ RCControl.prototype = $extend(JSView.prototype,{
 		}
 	}
 	,clickHandler: function(e) {
+		haxe.Log.trace("click ghandler",{ fileName : "RCControl.hx", lineNumber : 113, className : "RCControl", methodName : "clickHandler"});
 		this.setState(RCControlState.SELECTED);
 		this.onClick();
 	}
@@ -5636,6 +5642,9 @@ RCImage.prototype = $extend(JSView.prototype,{
 		this.size.height = this.loader.height;
 		this.layer.appendChild(this.loader);
 		this.loader.style.position = "absolute";
+		this.loader.onmousedown = function(event) {
+			if($bind(event,event.preventDefault)) event.preventDefault();
+		};
 		this.originalSize = this.size.copy();
 		this.isLoaded = true;
 		if(RCDevice.currentDevice().userAgent == RCUserAgent.MSIE) {
@@ -5908,7 +5917,7 @@ RCKeyboardController.prototype = {
 	}
 	,keyDownHandler: function(e) {
 		this.keyCode = e.keyCode;
-		haxe.Log.trace(this.keyCode,{ fileName : "RCKeyboardController.hx", lineNumber : 42, className : "RCKeyboardController", methodName : "keyDownHandler"});
+		haxe.Log.trace(this.keyCode,{ fileName : "RCKeyboardController.hx", lineNumber : 43, className : "RCKeyboardController", methodName : "keyDownHandler"});
 		this["char"] = "";
 		this.onKeyDown();
 		switch(e.keyCode) {
@@ -7763,8 +7772,8 @@ RCTableViewInterface.prototype = {
 	,__class__: RCTableViewInterface
 }
 var RCTextInput = function(x,y,w,h,str,rcfont) {
-	RCControl.call(this,w,y,w,h);
-	this.textView = new RCTextView(x,y,w,h,str,rcfont);
+	RCControl.call(this,x,y,w,h);
+	this.textView = new RCTextView(0,0,w,h,str,rcfont);
 	this.addChild(this.textView);
 	this.textView.target.layer.contentEditable = "true";
 };

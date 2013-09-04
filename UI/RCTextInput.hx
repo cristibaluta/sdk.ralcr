@@ -34,13 +34,13 @@ class RCTextInput extends RCControl {
 	
 	public function new (x:Float, y:Float, w:Null<Float>, h:Null<Float>, str:String, rcfont:RCFont) {
 		
-		super (w, y, w, h);
+		super (x, y, w, h);
 		
-		textView = new RCTextView (x, y, w, h, str, rcfont);
+		textView = new RCTextView (0, 0, w, h, str, rcfont);
 		addChild ( textView );
 		
 		#if flash
-			textView.target.type = flash.text.TextFieldType.INPUT;
+			textView.target.type = TextFieldType.INPUT;
 /*			textView.target.type = TextFieldType.INPUT;
 			textView.target.autoSize = TextFieldAutoSize.NONE;
 			textView.target.antiAliasType = rcfont.antiAliasType;

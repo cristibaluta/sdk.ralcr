@@ -25,6 +25,18 @@ class RCLine extends RCDraw implements RCDrawInterface {
 		layer.graphics.lineStyle (lineWeight, color.fillColor);
 		layer.graphics.moveTo (0, 0);
 		layer.graphics.lineTo (size.width, size.height);
+#elseif canvas
+	//http://www.html5canvastutorials.com/tutorials/html5-canvas-line-caps/
+	var canvas = document.getElementById('myCanvas');
+	      var context = canvas.getContext('2d');
+
+	      context.beginPath();
+	      context.moveTo(100, 150);
+	      context.lineTo(450, 50);
+      		context.lineWidth = 15;
+      context.strokeStyle = '#ff0000';
+      context.lineCap = 'round';
+	      context.stroke();
 #elseif js
 		layer.innerHTML = "";
 		drawLine (0, 0, Math.round(size.width), Math.round(size.height));

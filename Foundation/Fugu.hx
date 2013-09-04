@@ -98,7 +98,7 @@ class Fugu {
 			target.layer.filters = blur==null ? null : filters;
 		#elseif js
 			if (Std.is(target, RCTextView)) {
-				untyped target.layer.style.textShadow = distance+"px "+distance+"px "+blur+"pt "+RCColor.HEXtoString(color);
+				untyped target.layer.style.textShadow = (distance*1.5)+"px "+(distance*1.5)+"px "+(blur/2)+"pt "+RCColor.HEXtoString(color);
 			}
 			else {
 				// Moz, Opera(inconsistent)

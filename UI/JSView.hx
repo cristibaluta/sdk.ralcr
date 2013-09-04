@@ -45,6 +45,10 @@ import RCDevice;
 		layer.style.margin = "0px 0px 0px 0px";
 		layer.style.width = "auto";
 		layer.style.height = "auto";
+		untyped layer.style.webkitUserSelect = "none";
+		untyped layer.style.mozUserSelect = "none";
+		untyped layer.style.khtmlUserSelect = "none";
+		untyped layer.style.oUserSelect = "none";
 		
 		set_x ( x );
 		set_y ( y );
@@ -212,7 +216,8 @@ import RCDevice;
 	}
 	
 	override function get_mouseX () :Float {
-		return untyped layer.clientX;
+		trace(layer);trace(untyped layer.clientX);
+		//return untyped layer.clientX;
 		if (parent == null) return mouseX;
 		return untyped parent.mouseX - x;
 	}

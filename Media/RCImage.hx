@@ -118,6 +118,27 @@ class RCImage extends RCView {
 			im.set_height ( bitmap.height );
 		return im;
 		
+#elseif canvas
+	
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var imageObj = new Image();
+
+    imageObj.onload = function() {
+      // draw cropped image
+      var sourceX = 150;
+      var sourceY = 0;
+      var sourceWidth = 150;
+      var sourceHeight = 150;
+      var destWidth = sourceWidth;
+      var destHeight = sourceHeight;
+      var destX = canvas.width / 2 - destWidth / 2;
+      var destY = canvas.height / 2 - destHeight / 2;
+
+      context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+    };
+    imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+	
 #elseif js
 		
 		var im = image.copy();
@@ -170,6 +191,19 @@ class RCImage extends RCView {
 			haxe.Timer.delay (function() { (bitmapData != null) ? completeHandler(null) : errorHandler(null); }, 10);
 		#elseif flash
 			loader.load ( new URLRequest ( URL ), new LoaderContext ( true ) );
+		#elseif canvas
+	        var canvas = document.getElementById('myCanvas');
+	        var context = canvas.getContext('2d');
+	        var imageObj = new Image();
+
+	        imageObj.onload = function() {
+	          context.drawImage(imageObj, 69, 50);
+	        };
+			imageObj.onload = function() {
+			        context.drawImage(imageObj, x, y, width, height);
+			      };
+	        imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+			
 		#elseif js
 			untyped loader.draggable = false;
 			loader.src = URL;
@@ -220,6 +254,7 @@ class RCImage extends RCView {
 			size.height = loader.height;
 			layer.appendChild ( loader );
 			loader.style.position = "absolute";
+			untyped loader.onmousedown = function(event:Event){ if (event.preventDefault) event.preventDefault(); }
 		#end
 		
 		originalSize = size.copy();

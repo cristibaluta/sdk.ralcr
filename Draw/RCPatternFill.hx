@@ -26,7 +26,9 @@ class RCPatternFill extends RCDraw implements RCDrawInterface {
 	}
 	
 	public function redraw() :Void {
-		
+
+#if flash
+			
 		var bitmapData = new BitmapData (Math.round (pattern.width), Math.round (pattern.height));
 			bitmapData.draw ( pattern );
 			
@@ -34,5 +36,21 @@ class RCPatternFill extends RCDraw implements RCDrawInterface {
 		layer.graphics.beginBitmapFill (bitmapData, new Matrix(), true, true);
 		layer.graphics.drawRect (0, 0, size.width, size.height);
 		layer.graphics.endFill();
+		
+#elseif canvas
+	
+		var canvas = document.getElementById('myCanvas');
+		      var context = canvas.getContext('2d');
+
+		      var imageObj = new Image();
+		      imageObj.onload = function() {
+		        var pattern = context.createPattern(imageObj, 'repeat');
+
+		        context.rect(0, 0, canvas.width, canvas.height);
+		        context.fillStyle = pattern;
+		        context.fill();
+		      };
+		      imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/wood-pattern.png';
+#end
 	}
 }

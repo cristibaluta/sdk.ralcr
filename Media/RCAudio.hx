@@ -120,10 +120,13 @@ class RCAudio implements RCAudioInterface {
 			// or if the sound is repeating
 			// We need to be ble to stop it, so we create the channel
 			if (decodeByHardware || repeat) {
+				trace("play with reference");
 				channel = sound.play ( time == null ? 0 : Math.round (time * 1000), repeat ? 10000 : 0 );
 				channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
 			}
 			else {
+				// TODO: keep  reference of the sound into an array
+				// Otherwise when you play an effect multiple times it will stop the previous one
 				sound.play ( time == null ? 0 : Math.round (time * 1000) );
 			}
 		
@@ -145,10 +148,9 @@ class RCAudio implements RCAudioInterface {
 			NMESimpleAudioEngine.stopEffect ( soundId );
 			
 		#else
-			
 			if (channel != null) {
 				channel.stop();
-				channel.addEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
+				channel.removeEventListener (Event.SOUND_COMPLETE, soundCompleteHandler);
 				channel = null;
 			}
 			

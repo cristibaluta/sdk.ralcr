@@ -171,6 +171,7 @@ class RCAssets {
 	*/
 	function errorHandler (key:String, obj:Dynamic) :Void {
 		trace("Error loading URL for key: '"+key+"' with object: "+obj);
+		errorMessage = key;
 		max --;
 		onError();
 		if (nr >= max)

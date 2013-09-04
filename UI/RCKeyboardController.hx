@@ -26,6 +26,7 @@ class RCKeyboardController {
 	dynamic public function onEnter () :Void {}
 	dynamic public function onSpace () :Void {}
 	dynamic public function onEsc () :Void {}
+	
 	dynamic public function onKeyUp () :Void {}
 	dynamic public function onKeyDown () :Void {}
 	
