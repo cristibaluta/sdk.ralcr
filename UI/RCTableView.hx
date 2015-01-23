@@ -107,8 +107,7 @@ class RCTableView extends RCView {
 		}
 	}
 	
-	
-	public function scrollToRowAtIndexPath (indexPath:RCIndexPath, cellPosition:Int=0) :Void {
+	public function scrollToRowAtIndexPath (indexPath:RCIndexPath, cellPosition:Int=0) {
 	
 	}
 	
@@ -160,8 +159,6 @@ class RCTableView extends RCView {
 		//e.updateAfterEvent();
 	}
 	
-	
-	
 	public function mouseWheel (delta:Int) {
 		vy = delta;
 		if (vy > cell_min_h)
@@ -170,18 +167,21 @@ class RCTableView extends RCView {
 			vy = -cell_min_h;
 		startLoop();
 	}
+	
 	function startLoop () {
 		if (timer == null) {
 			timer = new haxe.Timer(10);
 			timer.run = loop;
 		}
 	}
+	
 	function stopLoop () {
 		if (timer != null) {
 			timer.stop();
 			timer = null;
 		}
 	}
+	
 	function loop () {
 		//trace("loop "+vy);
 		scrollIndicator.alpha = 1;
@@ -230,12 +230,11 @@ class RCTableView extends RCView {
 		scrollIndicator.y = Zeta.lineEquationInt (0, size.height-scrollIndicator.height, indexPath.row, 0, numberOfRowsInSection(0));
 	}
 	
-	
-	
 /*	public function resize (w, h) :Void {
 		size.width = w;
 		size.height = h;
 	}*/
+	
 	override public function destroy () {
 		stopLoop();
 		Fugu.safeDestroy ( cells );

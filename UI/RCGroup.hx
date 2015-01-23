@@ -125,8 +125,7 @@ class RCGroup<T:RCView> extends RCView {
 	}*/
 	
 	
-	override public function destroy() :Void
-	{
+	override public function destroy() :Void {
 		Fugu.safeDestroy ( items );
 		items = null;
 		super.destroy();

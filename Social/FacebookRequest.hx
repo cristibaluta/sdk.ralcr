@@ -229,7 +229,7 @@ class FacebookRequest {
 			
 		dispatchComplete();
 	}
-		
+	
 	function extractFileData (values:Dynamic) :Dynamic {
 		
 		if (values == null) return null;

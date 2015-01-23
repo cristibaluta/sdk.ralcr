@@ -19,7 +19,7 @@ class RCLocalization {
 		if (inited) return;
 		
 		hash = new Map<String,String>();
-		list = new RCLocalizationProxy ( hash.get );
+		list = new RCLocalizationProxy ( function(k) return hash.get(k) );
 		inited = true;
 	}
 	

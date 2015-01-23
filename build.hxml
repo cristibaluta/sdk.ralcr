@@ -1,4 +1,4 @@
 
-#-cmd /usr/lib/haxe/haxe build2.hxml
--cmd /Users/Cristi/Documents/haxecompiler/haxe/haxe build3.hxml
+-cmd haxe build3.hxml
+#-cmd /Users/Cristi/Documents/haxecompiler/haxe/haxe build3.hxml
 	

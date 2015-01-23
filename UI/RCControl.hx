@@ -37,12 +37,12 @@ class RCControl extends RCView {
 	public var editingDidBegin :RCSignal<RCControl->Void>;// RCTextInput
 	public var editingChanged :RCSignal<RCControl->Void>;
 	public var editingDidEnd :RCSignal<RCControl->Void>;
-	public var editingDidEndOnExit :RCSignal<RCControl->Void>;// 'return key' ending editing
+	public var editingDidEndOnEnter :RCSignal<RCControl->Void>;// 'return key' ending editing
 	
 	
-	public var enabled (get_enabled, set_enabled) :Bool;// default is YES. if NO, ignores mouse/touch events
-	public var highlighted (get_highlighted, null) :Bool;// default is NO.
-	public var selected (get_selected, null) :Bool;// default is NO
+	public var enabled (get, set) :Bool;// default is YES. if NO, ignores mouse/touch events
+	public var highlighted (get, null) :Bool;// default is NO.
+	public var selected (get, null) :Bool;// default is NO
 	
 	var enabled_ :Bool;
 	var state_ :RCControlState;
@@ -91,6 +91,7 @@ class RCControl extends RCView {
 		out.addFirst ( rollOutHandler );
 	}
 	
+	
 	/**
 	* Mouse Handlers
 	*/
@@ -98,22 +99,27 @@ class RCControl extends RCView {
 		setState ( SELECTED );
 		onPress();
 	}
+	
 	function mouseUpHandler (e:EVMouse) :Void {
 		setState ( HIGHLIGHTED );
 		onRelease();
 	}
+	
 	function rollOverHandler (e:EVMouse) :Void {
 		setState ( HIGHLIGHTED );
 		onOver();
 	}
+	
 	function rollOutHandler (e:EVMouse) :Void {
 		setState ( NORMAL );
 		onOut();
 	}
+	
 	function clickHandler (e:EVMouse) :Void {trace("click ghandler");
 		setState ( SELECTED );
 		onClick();
 	}
+	
 	public function setState (state:RCControlState) {
 		state_ = state;//trace("current state is "+state_);
 #if js
@@ -134,6 +140,7 @@ class RCControl extends RCView {
 		return state_ == SELECTED;
 	}
 	
+	
 	/**
 	 * enabled = false - If the button is not enabled, you are no longer able to click it,
 	 * onClick, onPress, onRelease will not by dispactched.
@@ -143,6 +150,7 @@ class RCControl extends RCView {
 	function get_enabled () :Bool {
 		return enabled_;
 	}
+	
 	function set_enabled (c:Bool) :Bool {
 		
 		enabled_ = c;
@@ -159,13 +167,13 @@ class RCControl extends RCView {
 		
 		return enabled_;
 	}
-	//
+	
+	
 	function get_highlighted () :Bool {
 		return state_ == HIGHLIGHTED;
 	}
 	
 	
-	// Clean mess
 	override public function destroy () :Void {
 		//
 		click.destroy();

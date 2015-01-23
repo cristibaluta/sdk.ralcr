@@ -12,7 +12,6 @@ class SKSimpleButtonWithSprite extends RCSkin {
 		
 		super ( colors );
 		
-		// Attach from library the object with linkage "linkage"
 		normal.label = view;
 		
 		// Creates a transparent background for mouse hit area

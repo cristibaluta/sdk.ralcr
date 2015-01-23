@@ -14,19 +14,19 @@ class RCSegmentedControl extends RCView {
 	var labels :Array<String>;
 	var items :OrderedMap<RCButtonRadio>;
 	var segmentsWidth :Array<Int>;
-	var selectedIndex_ :Int;
+	var _selectedIndex :Int;
 	
 	public var click :RCSignal<RCSegmentedControl->Void>;
 	public var itemAdded :RCSignal<RCSegmentedControl->Void>;
 	public var itemRemoved :RCSignal<RCSegmentedControl->Void>;
-	public var selectedIndex (get_selectedIndex, set_selectedIndex) :Int;
+	public var selectedIndex (get, set) :Int;
 	
 	
 	public function new (x, y, w:Int, h:Int, ?skin:Class<RCSkin>) {
 		
 		super (x, y, w, h);
 		
-		selectedIndex_ = -1;// Init this with -1
+		_selectedIndex = -1;// Init this with -1
 		items = new OrderedMap<RCButtonRadio>();
 		click = new RCSignal<RCSegmentedControl->Void>();
 		itemAdded = new RCSignal<RCSegmentedControl->Void>();
@@ -102,6 +102,7 @@ class RCSegmentedControl extends RCView {
 		}
 		*/
 	}
+	
 	function constructButton (i:Int) :RCButtonRadio {
 		
 /*		var last :Int = labels.length - 1;
@@ -126,18 +127,20 @@ class RCSegmentedControl extends RCView {
 	
 	// Setter for selectedIndex
 	public function get_selectedIndex () :Int {
-		return selectedIndex_;
+		return _selectedIndex;
 	}
+	
 	public function set_selectedIndex (i:Int) :Int {
-		trace("setIndex "+selectedIndex_ +" > "+i);
-		if (selectedIndex_ == i) return i;
-			selectedIndex_ = i;
+		trace("setIndex "+_selectedIndex +" > "+i);
+		if (_selectedIndex == i) return i;
+			_selectedIndex = i;
 			
 		select ( labels[i] );// Select the label at index i
 		
-		return selectedIndex_;
+		return _selectedIndex;
 	}
-
+	
+	
 	/**
 	 *	Remove button with label
 	 */
@@ -203,6 +206,7 @@ class RCSegmentedControl extends RCView {
 		return items.get( label ).selected;
 	}
 	
+	
 	/**
 	 *	Returns a reference to a specified button.
 	 *	Usefull if you want to change it's properties
@@ -210,6 +214,7 @@ class RCSegmentedControl extends RCView {
 	public function get (label:String) :RCButtonRadio {
 		return items.get( label );
 	}
+	
 	
 	/**
 	 *	Checks if a specified label exists already
@@ -227,6 +232,7 @@ class RCSegmentedControl extends RCView {
 		items.get( label ).enabled = true;
 		items.get( label ).alpha = 1;
 	}
+	
 	public function disable (label:String) :Void {
 		items.get( label ).enabled = false;
 		items.get( label ).alpha = 0.4;

@@ -33,6 +33,7 @@ class RCTextView extends RCView {
 	public var target :TextField;
 	public var rcfont :RCFont;
 	public var text (get, set) :String;
+	public var editable (null, set) :Bool;
 	
 	
 	public function new (x:Float, y:Float, w:Null<Float>, h:Null<Float>, str:String, rcfont:RCFont) {
@@ -48,6 +49,7 @@ class RCTextView extends RCView {
 		init();
 		set_text ( str );
 	}
+	
 	override public function init () :Void {
 		
 		super.init();
@@ -108,37 +110,52 @@ class RCTextView extends RCView {
 	
 	public function redraw () :Void {
 		
+		var div;
+		
 		var wrap = size.width != 0;
 		var multiline = size.height != 0;
 		
-		layer.style.whiteSpace = (wrap ? "normal" : "nowrap");
-		layer.style.wordWrap = (wrap ? "break-word" : "normal");
-		
-		var style = (rcfont.selectable ? "text" : "none");
-		untyped layer.style.WebkitUserSelect = style;
-		untyped layer.style.MozUserSelect = style;
-		
-		layer.style.lineHeight = (rcfont.leading + rcfont.size) + "px";
-		layer.style.fontFamily = rcfont.font;
-		layer.style.fontSize = rcfont.size + "px";
-		layer.style.fontWeight = (rcfont.bold ? "bold" : "normal");
-		layer.style.fontStyle = (rcfont.italic ? "italic" : "normal");
-		layer.style.letterSpacing = rcfont.letterSpacing + "px";
-		layer.style.textAlign = rcfont.align;// "center", "left", "right"
-		layer.style.color = RCColor.HEXtoString ( rcfont.color );
-		untyped layer.style.contentEditable = "true";
-		if (rcfont.autoSize) {
-			layer.style.width = multiline ? size.width + "px" : "auto";
-			layer.style.height = "auto";
+		if (editable) {
+			div = js.Browser.document.createElement("textarea");
+	/*        untyped div.type = "text";*/
+			untyped div.readonly = "true";
+	        untyped div.name = "member";
+			untyped div.value = "abc";
+	        layer.appendChild ( div );
 		}
 		else {
-			layer.style.width = size.width + "px";
-			layer.style.height = size.height + "px";
+			div = layer;
+		}
+		
+		div.style.whiteSpace = (wrap ? "normal" : "nowrap");
+		div.style.wordWrap = (wrap ? "break-word" : "normal");
+		
+		var style = (rcfont.selectable ? "text" : "none");
+		untyped div.style.WebkitUserSelect = style;
+		untyped div.style.MozUserSelect = style;
+		
+		div.style.lineHeight = (rcfont.leading + rcfont.size) + "px";
+		div.style.fontFamily = rcfont.font;
+		div.style.fontSize = rcfont.size + "px";
+		div.style.fontWeight = (rcfont.bold ? "bold" : "normal");
+		div.style.fontStyle = (rcfont.italic ? "italic" : "normal");
+		div.style.letterSpacing = rcfont.letterSpacing + "px";
+		div.style.textAlign = rcfont.align;// "center", "left", "right"
+		div.style.color = RCColor.HEXtoString ( rcfont.color );
+		
+		if (rcfont.autoSize) {
+			div.style.width = multiline ? size.width + "px" : "auto";
+			div.style.height = "auto";
+		}
+		else {
+			div.style.width = size.width + "px";
+			div.style.height = size.height + "px";
 		}
 		
 		if (size.width != 0) set_width ( size.width );
 		//layer.style.textAlign = rcfont.align;
 	}
+	
 	function viewDidAppear_ () :Void {
 		size.width = contentSize_.width;
 	}
@@ -191,7 +208,10 @@ class RCTextView extends RCView {
 			
 		#elseif js
 			
-			if (rcfont.html) {
+			if (editable) {
+				
+			}
+			else if (rcfont.html) {
 				layer.innerHTML = str;
 			}
 			else {
@@ -221,7 +241,30 @@ class RCTextView extends RCView {
 		return str;
 	}
 	
-	override public function destroy () :Void {
+	public function set_editable (e:Bool) :Bool {
+		trace('set editable $e');
+		editable = e;
+		
+		#if (flash || (openfl && (cpp || neko)))
+			
+			target.type = TextFieldType.INPUT;
+/*			textView.target.type = TextFieldType.INPUT;
+			textView.target.autoSize = TextFieldAutoSize.NONE;
+			textView.target.antiAliasType = rcfont.antiAliasType;
+			textView.target.sharpness = rcfont.sharpness;
+			textView.target.wordWrap = (size.width == null) ? false : true;
+			textView.target.multiline = (size.height == 0) ? false : true;
+			textView.target.selectable = true;*/
+			
+		#elseif js
+			
+			redraw();
+			
+		#end
+		return e;
+	}
+	
+	override public function destroy () {
 		#if (flash || (openfl && (cpp || neko)))
 			layer.removeChild ( target );
 		#end

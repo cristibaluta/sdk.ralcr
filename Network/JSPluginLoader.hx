@@ -90,6 +90,7 @@ class JSPluginLoader {
 		return false;
 	}
 }
+
 extern class HTMLScriptElement extends js.html.HtmlElement {
 	public var src :String;
 }

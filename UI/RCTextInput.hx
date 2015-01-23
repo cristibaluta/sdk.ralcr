@@ -27,9 +27,9 @@
 
 class RCTextInput extends RCControl {
 	
-	public var password (null, set_password) :Bool;
-	public var selectable (null, set_selectable) :Bool;
-	public var text (get_text, set_text) :String;
+	public var password (null, set) :Bool;
+	public var selectable (null, set) :Bool;
+	public var text (get, set) :String;
 	public var textView :RCTextView;
 	
 	public function new (x:Float, y:Float, w:Null<Float>, h:Null<Float>, str:String, rcfont:RCFont) {
@@ -37,26 +37,14 @@ class RCTextInput extends RCControl {
 		super (x, y, w, h);
 		
 		textView = new RCTextView (0, 0, w, h, str, rcfont);
+		textView.editable = true;
 		addChild ( textView );
-		
-		#if flash
-			textView.target.type = TextFieldType.INPUT;
-/*			textView.target.type = TextFieldType.INPUT;
-			textView.target.autoSize = TextFieldAutoSize.NONE;
-			textView.target.antiAliasType = rcfont.antiAliasType;
-			textView.target.sharpness = rcfont.sharpness;
-			textView.target.wordWrap = (size.width == null) ? false : true;
-			textView.target.multiline = (size.height == 0) ? false : true;
-			textView.target.selectable = true;*/
-		#elseif js
-			untyped textView.target.layer.contentEditable = "true";
-			//textView.layer = js.Browser.document.createElement("textarea");
-			//textView.appendChild ( textView );
-		#end
 	}
+	
 	public function get_text() :String {
 		return textView.text;
 	}
+	
 	public function set_text (str:String) :String {
 		textView.text = str;
 		return str;
@@ -68,7 +56,7 @@ class RCTextInput extends RCControl {
 		editingDidBegin = new RCSignal<RCControl->Void>();
 		editingChanged = new RCSignal<RCControl->Void>();
 		editingDidEnd = new RCSignal<RCControl->Void>();
-		editingDidEndOnExit = new RCSignal<RCControl->Void>();// 'return key' ending editing
+		editingDidEndOnEnter = new RCSignal<RCControl->Void>();
 		
 		//target.addEventListener (KeyboardEvent.KEY_UP, keyUpHandler);
 		//target.addEventListener (MouseEvent.CLICK, clickHandler);
@@ -82,6 +70,7 @@ class RCTextInput extends RCControl {
 		
 		layer.addChild ( target );*/
 	}
+	
 	override function set_enabled (c:Bool) :Bool {
 		super.set_enabled ( c );
 		return c;
@@ -138,7 +127,7 @@ class RCTextInput extends RCControl {
 		editingDidBegin.destroy();
 		editingChanged.destroy();
 		editingDidEnd.destroy();
-		editingDidEndOnExit.destroy();
+		editingDidEndOnEnter.destroy();
 		
 		super.destroy();
 	}
